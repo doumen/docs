@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	template="/templates/_panel-titulo.xhtml">
+
+	<ui:param name="tituloPainel" value="Gráfico - Interação X Assinantes" />
+	<ui:param name="help" value="Gráfico - Interação X Assinantes" />
+	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="bean" value="#{graficoDoctosAssinanteAdmMB}" />
+
+	<ui:define name="conteudoPainel">
+		<h:form id="form">
+			<p:dataList value="#{bean.graficoDoctosAssinanteAdm}" id="dataList"
+				paginatorPosition="bottom" var="graficoDoctosAssinanteAdm"
+				paginator="true" rows="1" styleClass="dataListGrafico">
+				<f:facet name="header">
+				          			<div id="block_container">
+				<div id="icones-zoom">
+					<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+						style="background-image: url('resources/images/zoommais.png') !important;">
+						<f:ajax listener="#{relatorioDataTableMB.aumentaZoom}"
+							render="#{dataList}" execute="@form" />
+					</h:commandButton>
+					<p:selectOneMenu id="somZoom" rendered="true"
+						value="#{relatorioDataTableMB.zoom}">
+						<f:selectItem itemLabel=" " itemValue="" />
+						<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+						<p:ajax update="#{dataList}"
+							listener="#{relatorioDataTableMB.zoomSelectOneMenu}"></p:ajax>
+					</p:selectOneMenu>
+					<h:commandButton id="cbZoomMenos" styleClass="botoes"
+						style="background-image: url('resources/images/zoommenos.png') !important;">
+						<f:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+							render="#{dataList}" execute="@form" />
+					</h:commandButton>
+				</div>
+				<div id="icones-exportar">
+					<h:commandButton id="cbImprimir" styleClass="botoes"
+						style="background-image: url('resources/images/imprimir.gif') !important;">
+						<p:printer target="#{dataList}" />
+					</h:commandButton>
+					<h:commandButton id="cbExcel" styleClass="botoes"
+						style="background-image: url('resources/images/excel.gif') !important;">
+						<p:dataExporter type="xls" target="#{dataList}"
+							fileName="dataTable" />
+					</h:commandButton>
+					<h:commandButton id="cbPdf" styleClass="botoes"
+						style="background-image: url('resources/images/pdf.gif') !important;">
+						<p:dataExporter type="pdf" target="#{dataList}"
+							fileName="dataTable" />
+					</h:commandButton>
+				</div>
+			</div>
+            		Gráfico - Manipulação Doctos X Assinantes
+        		</f:facet>
+				<p:panel styleClass="panelGrafico">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Assinante" for="intAssinante" styleClass="labelAss" />
+						<p:inputText id="intAssinante"
+							value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}" styleClass="textAss" />
+						<p:outputLabel value="Contabilidade" for="intContabilidade" styleClass="labelCont" />
+						<p:inputText id="intContabilidade"
+							value="#{graficoDoctosAssinanteAdm.contabilidade.razaoSocial}" styleClass="textCont" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:panelGrid columns="1" styleClass="graficoPie">
+							<p:chart type="pie"
+								model="#{graficoDoctosAssinanteAdm.pieChartModel}"
+								style="width:500px;height:400px" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" styleClass="graficoLine">
+							<p:chart type="line"
+								model="#{graficoDoctosAssinanteAdm.lineChartModel}"
+								style="width:500px;height:400px" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Plano Contratado" for="intPlanoContratado" styleClass="labelPlano" />
+						<p:inputText id="intPlanoContratado"
+							value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}" styleClass="textPlano" />
+						<p:outputLabel value="Consumo Restante" for="intConsumoRestante" styleClass="labelConsumo"/>
+						<p:inputText id="intConsumoRestante"
+							value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}" styleClass="textConsumo" />
+					</h:panelGrid>
+				</p:panel>
+			</p:dataList>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,23 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:menu>
+		<p:submenu label="Cadastro">
+			<p:menuitem value="Assinante" action="cadastro-assinante-ass?faces-redirect=true"></p:menuitem>
+		</p:submenu>
+		<p:submenu label="Processos">
+			<p:menuitem value="NF-e" action="consulta-nfe-ass?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="CT-e" action="consulta-cte-ass?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Sped Fiscal" action="consulta-speed-fiscal-ass?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Sped Contribuições" action="consulta-speed-contribuicoes-ass?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Sped Social" action="consulta-speed-social-ass?faces-redirect=true"></p:menuitem>			
+		</p:submenu>
+		<p:submenu label="Gerencial">
+			<p:menuitem value="Produtos" action="consulta-produtos-ass?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Faturas" action="consulta-faturas-ass?faces-redirect=true"></p:menuitem>
+		</p:submenu>
+	</p:menu>
+</ui:fragment>

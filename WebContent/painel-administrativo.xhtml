@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/_painel.xhtml">
+
+	<ui:param name="tituloPainel" value="Painel Administrativo" />
+	<ui:param name="modulo" value="administrativo" />
+	
+	<ui:define name="menu">
+		<ui:include src="/painel-administrativo/_menu.xhtml" />
+	</ui:define>
+
+	<ui:define name="infoMenu">
+		<ui:include src="/painel-administrativo/_textAnalise.xhtml" />
+	</ui:define>
+	<ui:define name="grafico1">
+		<ui:include
+			src="/painel-administrativo/_charCliContVsCliContDireta.xhtml" />
+	</ui:define>
+	<ui:define name="grafico2">
+		<ui:include src="/painel-administrativo/_chartFatUlt30Dias.xhtml" />
+	</ui:define>
+	<ui:define name="grafico3">
+		<ui:include src="/painel-administrativo/_chartAssUlt30Dias.xhtml" />
+	</ui:define>
+	<ui:define name="grafico4">
+		<ui:include src="/painel-administrativo/_chartCancelUlt30Dias.xhtml" />
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,17 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid columns="2">
+		<p:outputLabel value="Cód.Cont." for="intCodCont" />
+		<p:inputText id="intCodCont" value="#{assinantesManagedBean.codCont}" />
+		<p:outputLabel value="CNPJ" for="intContCnpj" />
+		<p:inputText id="intContCnpj"
+			value="#{assinantesManagedBean.contCnpj}" />
+		<p:outputLabel value="Razão Social" for="intContRazaoSocial" />
+		<p:inputText id="intContRazaoSocial"
+			value="#{assinantesManagedBean.contRazaoSocial}" />
+	</h:panelGrid>
+</ui:fragment>

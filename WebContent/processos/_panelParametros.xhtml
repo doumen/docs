@@ -1,0 +1,42 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid columns="2">
+		<p:outputLabel value="Certificado Digital A1" for="fluCertDigital" />
+		<p:inplace
+			label="Escolha aqui o Arquivo Referente ao Certificado Digital A1">
+			<p:fileUpload id="fluCertDigital" mode="simple"
+				value="#{assinantesManagedBean.file}" />
+		</p:inplace>
+		<p:selectBooleanCheckbox id="ckbNotificar"
+			value="#{assinantesManagedBean.notificarCert}" />
+		<p:outputLabel
+			value="Notificar por e-mail quando o Certificado estiver próximo de expirar?"
+			for="ckbNotificar" />
+		<p:outputLabel value="E-mail Master" for="intEmailMaster" />
+		<p:inplace
+			label="Digite aqui o endereço de e-mail do responsável pelo Serviço no Assinante">
+			<p:inputText id="intEmailMaster"
+				value="#{assinantesManagedBean.emailMaster}" />
+		</p:inplace>
+	</h:panelGrid>
+	<h:panelGrid columns="1">
+		<p:outputLabel
+			value="Todas as atualizações, revisões, melhorias e notificações técnicas serão enviadas para este e-mail." />
+	</h:panelGrid>
+	<h:panelGrid columns="2">
+		<p:outputLabel value="E-mail Financeiro" for="intEmailFinanceiro" />
+		<p:inplace
+			label="Digite aqui o endereço de e-mail do Assinante responsável pelo Financeiro/Contas a Pagar">
+			<p:inputText id="intEmailFinanceiro"
+				value="#{assinantesManagedBean.emailFinanceiro}" />
+		</p:inplace>
+	</h:panelGrid>
+	<h:panelGrid columns="1">
+		<p:outputLabel
+			value="Este endereço de e-mail receberá os Boletos e Notas Fiscais Referente a Assinatura Mensal" />
+	</h:panelGrid>
+</ui:fragment>

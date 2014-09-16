@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/_headerFooter.xhtml">
+	<ui:define name="corpo">
+		<h:form id="form">
+			<p:panel id="panelContabilidade" header="Contabilidade">
+				<h:panelGrid>			
+					<h:panelGrid columns="8" style="float:right;">
+						<h:commandLink id="cbImprimir">
+							<p:graphicImage name="/images/imprimir.gif" width="16" height="16" />
+							<p:dataExporter type="pdf" target="dtbContabilidades" fileName="Contabilidade" />
+						</h:commandLink>					
+						<p:tooltip for="cbImprimir" value="Imprimir" />
+						<p:dataTable id="dtbContabilidades" var="contabilidade" 
+							value="#{masterContabilidadeManagedBean.contabilidades}"
+							selection="#{masterContabilidadeManagedBean.selectedContabilidades}"
+							rowKey="#{contabilidade.cnpj}">
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="CNPJ" sortBy="#{contabilidade.cnpj}"
+						filterBy="#{contabilidade.cnpj}" filterMatchMode="contains"
+						filterValue="#{contabilidade.cnpj}">
+						<h:outputText value="#{contabilidade.cnpj}" />
+					</p:column>
+					<p:column headerText="Razão Social"
+						sortBy="#{contabilidade.razaoSocial}"
+						filterBy="#{contabilidade.razaoSocial}" filterMatchMode="contains"
+						filterValue="#{contabilidade.razaoSocial}">
+						<h:outputText value="#{contabilidade.razaoSocial}" />
+					</p:column>
+				</p:dataTable>
+											
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+	
+</html>

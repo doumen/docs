@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	template="/templates/_panel-titulo.xhtml">
+
+	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="help" value="Relatório - Consumo por Assinante" />
+	<ui:param name="tituloPainel" value="Relatório - Consumo por Assinante" />
+
+	<ui:define name="conteudoPainel">
+		<golive:datatable-relatorios id="dataTable"
+			value="#{relatorioConsumoAssinanteAdmMB.assinantes}"
+			paginatorPosition="bottom" rows="10" var="list"
+			onSort="#{relatorioConsumoAssinanteAdmMB.onSort}"
+			sortBy="#{list.contabilidade.cnpj}" rowKey="#{list.id}"
+			rendered="true">
+
+			<p:column headerText="Cod. Ass" sortBy="#{list.id}" id="codAss">
+				<h:outputText value="#{list.id}" />
+			</p:column>
+			<p:column headerText="CNPJ" sortBy="#{list.cnpj}" id="cnpjAss">
+				<h:outputText value="#{list.cnpj}" />
+			</p:column>
+			<p:column headerText="Assinante" sortBy="#{list.nomeFantasia}"
+				id="ass">
+				<h:outputText value="#{list.nomeFantasia}" />
+			</p:column>
+			<p:column headerText="Cod.plano" sortBy="#{list.plano.id}"
+				id="codPlan">
+				<h:outputText value="#{list.plano.id}" />
+			</p:column>
+			<p:column headerText="Plano" sortBy="#{list.plano.descricao}"
+				id="nomPlan">
+				<h:outputText value="#{list.plano.descricao}" />
+			</p:column>
+			<p:column headerText="Faixa Início" id="faixaIni"
+				sortBy="#{list.plano.faixaInicial}">
+				<h:outputText value="#{list.plano.faixaInicial}" />
+			</p:column>
+			<p:column headerText="Faixa Fim" id="faixaFim"
+				sortBy="#{list.plano.faixaFinal}">
+				<h:outputText value="#{list.plano.faixaFinal}" />
+			</p:column>
+			<p:column headerText="Valor Mensal" id="valMen"
+				sortBy="#{list.plano.valorMensal}">
+				<h:outputText value="#{list.plano.valorMensal}">
+					<f:convertNumber currencySymbol="R$" type="currency" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="CNPJ" sortBy="#{list.contabilidade.cnpj}"
+				id="cnpjCon">
+				<h:outputText value="#{list.contabilidade.cnpj}" />
+			</p:column>
+			<p:column headerText="Contabilidade"
+				sortBy="#{list.contabilidade.nomeFantasia}" id="con">
+				<h:outputText value="#{list.contabilidade.nomeFantasia}" />
+			</p:column>
+			<p:column headerText="%Com" sortBy="#{list.contabilidade.comissao}"
+				id="comissao">
+				<h:outputText value="#{list.contabilidade.comissao}">
+					<f:convertNumber type="percent" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Comissão Mensal" id="comMen"
+				sortBy="#{list.comissaoMensal}">
+				<h:outputText value="#{list.comissaoMensal}">
+					<f:convertNumber currencySymbol="R$" type="currency" />
+				</h:outputText>
+			</p:column>
+			<p:summaryRow
+				listener="#{relatorioConsumoAssinanteAdmMB.calculateTotal}">
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioConsumoAssinanteAdmMB.totalValorMensal}">
+						<f:convertNumber currencySymbol="R$" type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioConsumoAssinanteAdmMB.comissaoMedia}">
+						<f:convertNumber type="percent" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioConsumoAssinanteAdmMB.totalComissaoMensal}">
+						<f:convertNumber currencySymbol="R$" type="currency" />
+					</h:outputText>
+				</p:column>
+			</p:summaryRow>
+		</golive:datatable-relatorios>
+	</ui:define>
+</ui:composition>

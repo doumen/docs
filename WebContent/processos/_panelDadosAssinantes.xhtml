@@ -1,0 +1,52 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:fieldset id="fdsDadosAssinantes" legend="Dados Assinantes">
+		<h:panelGrid columns="4">
+			<p:outputLabel value="CNPJ " for="intCnpj" />
+			<p:inputText id="intCnpj" value="#{assinantesManagedBean.cnpj}" />
+			<p:outputLabel value="Inscr.Estadual " for="intInscEst" />
+			<p:inputText id="intInscEst"
+				value="#{assinantesManagedBean.inscEstadual}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Razão Social " for="intRazaoSocial" />
+			<p:inputText id="intRazaoSocial"
+				value="#{assinantesManagedBean.razaoSocial}" />
+		</h:panelGrid>
+		<h:panelGrid columns="4">
+			<p:outputLabel value="Endereço " for="intEndereco" />
+			<p:inputText id="intEndereco"
+				value="#{assinantesManagedBean.endereco}" />
+			<p:outputLabel value="Nº " for="intNumero" />
+			<p:inputText id="intNumero" value="#{assinantesManagedBean.numero}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Complemento " for="intComplemento" />
+			<p:inputText id="intComplemento"
+				value="#{assinantesManagedBean.complemento}" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Bairro " for="intBairro" />
+			<p:inputText id="intBairro" value="#{assinantesManagedBean.bairro}" />
+		</h:panelGrid>
+		<h:panelGrid columns="4">
+			<p:outputLabel value="Município " for="somMunicipio" />
+			<p:selectOneMenu id="somMunicipio"
+				value="#{assinantesManagedBean.municipio}">
+				<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+			</p:selectOneMenu>
+			<p:outputLabel value="UF " for="somUf" />
+			<p:selectOneMenu id="somUf" value="#{assinantesManagedBean.uf}">
+				<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="CEP " for="intCep" />
+			<p:inputText id="intCep" value="#{assinantesManagedBean.cep}" />
+		</h:panelGrid>
+	</p:fieldset>
+</ui:fragment>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/_configuracoes.xhtml">
+	<ui:param name="tituloPainel"
+		value="SPED Social - Configurações" />
+
+	<ui:define name="download">
+		<ui:param name="checkXml" value="false" />
+		<ui:param name="textXml" value="false" />
+
+		<ui:param name="checkPdf" value="false" />
+		<ui:param name="textPdf" value="false" />
+
+		<ui:param name="checkTxt" value="true" />
+		<ui:param name="textTxt" value="true" />
+		<ui:include src="/configuracoes/_panelDownload.xhtml" />
+	</ui:define>
+
+	<ui:define name="receberPorEmail">
+		<ui:param name="tituloPanelReceberPorEmail" value="Receber por E-mail" />
+		<ui:include src="/configuracoes/_panelReceberPorEmail.xhtml" />
+	</ui:define>
+	<ui:define name="enviarPorEmail">
+		<ui:param name="checkEnviarXml" value="false" />
+		<ui:param name="textEnviarXml" value="false" />
+
+		<ui:param name="checkEnviarPdf" value="false" />
+		<ui:param name="textEnviarPdf" value="false" />
+
+		<ui:param name="checkEnviarTxt" value="true" />
+		<ui:param name="textEnviarTxt" value="true" />
+
+		<ui:include src="/configuracoes/_panelEnviarPorEmail.xhtml" />
+	</ui:define>
+	<ui:define name="aplicativos">
+		<ui:param name="tituloPanelAplicativos"
+			value="Aplicativo para Upload SPEDs (txt)" />
+		<ui:include src="/configuracoes/_panelAplicativos.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

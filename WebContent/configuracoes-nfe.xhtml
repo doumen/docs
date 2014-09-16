@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/_configuracoes.xhtml">
+	<ui:param name="tituloPainel" value="XML NFe - Configurações" />
+
+	<ui:define name="download">
+		<ui:param name="checkXml" value="true" />
+		<ui:param name="textXml" value="true" />
+
+		<ui:param name="checkPdf" value="true" />
+		<ui:param name="textPdf" value="true" />
+
+		<ui:param name="checkTxt" value="false" />
+		<ui:param name="textTxt" value="false" />
+		<ui:include src="/configuracoes/_panelDownload.xhtml" />
+	</ui:define>
+
+	<ui:define name="receberPorEmail">
+		<ui:param name="tituloPanelReceberPorEmail"
+			value="Receber NFe XML - Por E-mail" />
+		<ui:include src="/configuracoes/_panelReceberPorEmail.xhtml" />
+	</ui:define>
+	<ui:define name="enviarPorEmail">
+		<ui:param name="checkEnviarXml" value="true" />
+		<ui:param name="textEnviarXml" value="true" />
+
+		<ui:param name="checkEnviarPdf" value="true" />
+		<ui:param name="textEnviarPdf" value="true" />
+
+		<ui:param name="checkEnviarTxt" value="false" />
+		<ui:param name="textEnviarTxt" value="false" />
+
+		<ui:include src="/configuracoes/_panelEnviarPorEmail.xhtml" />
+	</ui:define>
+	<ui:define name="aplicativos">
+		<ui:param name="tituloPanelAplicativos"
+			value="Aplicativo para Upload NFe XML" />
+		<ui:include src="/configuracoes/_panelAplicativos.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,19 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+	<url-mapping id="loginAssinante">
+		<pattern value="/" />
+		<view-id value="/login-assinante.xhtml" />
+	</url-mapping>
+	<url-mapping id="loginContabilidade">
+		<pattern value="/contabilidade" />
+		<view-id value="/login-contabilidade.xhtml" />
+	</url-mapping>
+	<url-mapping id="loginAdministrativo">
+		<pattern value="/administrativo" />
+		<view-id value="/login-administrativo.xhtml" />
+	</url-mapping>
+
+</pretty-config>

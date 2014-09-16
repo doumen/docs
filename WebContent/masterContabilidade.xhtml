@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="contabilidade.css" />
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:panel id="panelContabilidade" header="Contabilidade">
+			<f:facet name="actions">
+				<h:commandLink
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText styleClass="ui-icon ui-icon-help" />
+				</h:commandLink>
+			</f:facet>
+
+			<h:panelGrid>
+
+				<h:panelGrid columns="8" style="float:right;">
+
+					<p:commandButton id="cbIncluir" value=""
+						style="background-image: url('resources/images/incluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;"
+						onclick="PF('dlgIncluir').show();" />
+					<p:tooltip for="cbIncluir" value="Incluir" />
+
+					<p:commandButton id="cbAlterar"
+						style="background-image: url('resources/images/alterar.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;"
+						onclick="PF('dlgAlterar').show();" value="" />
+					<p:tooltip for="cbAlterar" value="Alterar" />
+
+					<p:commandButton id="cmbExcluir" value=""
+						process="dtbContabilidades"
+						update=":form:dlgExcluir,:form:dlgExcluirConfirm"
+						oncomplete="PF('dlgExcluir').show()"
+						style="background-image: url('resources/images/excluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+					<p:tooltip for="cmbExcluir" value="Excluir" />
+
+					<h:commandLink id="cbImprimir">
+						<p:graphicImage name="/images/imprimir.gif" width="16" height="16" />
+						<p:dataExporter type="pdf" target="dtbContabilidades"
+							fileName="Contabilidade" />
+					</h:commandLink>
+					<p:tooltip for="cbImprimir" value="Imprimir" />
+
+				</h:panelGrid>
+
+				<p:confirmDialog message="Você deseja excluir as Contabilidades: "
+					header="Atenção!" severity="alert" widgetVar="dlgExcluir"
+					dynamic="true" id="dlgExcluir">
+					<ui:repeat var="c"
+						value="#{masterContabilidadeManagedBean.selectedContabilidades}">
+						<p:outputLabel value="#{c.razaoSocial}" />
+						<br />
+					</ui:repeat>
+					<p:commandButton value="Não" onclick="PF('dlgExcluir').hide();" />
+					<p:commandButton value="Sim"
+						onclick="PF('dlgExcluirConf').show(); PF('dlgExcluir').hide(); return false; " />
+
+				</p:confirmDialog>
+
+				<p:confirmDialog id="dlgExcluirConfirm"
+					message="Você tem certeza que deseja excluir as Contabilidades: "
+					header="Atenção! Exclusão Contabilidade!" severity="alert"
+					widgetVar="dlgExcluirConf">
+					<ui:repeat var="c"
+						value="#{masterContabilidadeManagedBean.selectedContabilidades}">
+						<p:outputLabel value="#{c.razaoSocial}" />
+						<br />
+					</ui:repeat>
+
+					<p:commandButton value="Não" onclick="PF('dlgExcluirConf').hide();" />
+					<p:commandButton value="Sim"
+						action="#{masterContabilidadeManagedBean.removeContabilidade}"
+						update="@all" onclick="PF('dlgExcluirConf').hide()" />
+				</p:confirmDialog>
+
+				<p:dialog header="Incluir" widgetVar="dlgIncluir" modal="true">
+					<p:commandButton value="Saida" onclick="dlgIncluir.hide();"
+						style="float: center;" />
+				</p:dialog>
+
+				<p:dialog header="Alterar" widgetVar="dlgAlterar" modal="true">
+				</p:dialog>
+
+				<p:dialog header="Excluir" widgetVar="dlgExcluirExcluir"
+					modal="true">
+					<p:commandButton value="Excluir"
+						onclick="dlgExcluirExcluir.hide();"
+						action="#{masterContabilidadeManagedBean.removeContabilidade}"
+						update="@all" />
+				</p:dialog>
+
+				<p:dataTable id="dtbContabilidades" var="contabilidade"
+					value="#{masterContabilidadeManagedBean.contabilidades}"
+					selection="#{masterContabilidadeManagedBean.selectedContabilidades}"
+					rowKey="#{contabilidade.cnpj}">
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="CNPJ" sortBy="#{contabilidade.cnpj}"
+						filterBy="#{contabilidade.cnpj}" filterMatchMode="contains"
+						filterValue="#{contabilidade.cnpj}">
+						<h:outputText value="#{contabilidade.cnpj}" />
+					</p:column>
+					<p:column headerText="Razão Social"
+						sortBy="#{contabilidade.razaoSocial}"
+						filterBy="#{contabilidade.razaoSocial}" filterMatchMode="contains"
+						filterValue="#{contabilidade.razaoSocial}">
+						<h:outputText value="#{contabilidade.razaoSocial}" />
+					</p:column>
+				</p:dataTable>
+			</h:panelGrid>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

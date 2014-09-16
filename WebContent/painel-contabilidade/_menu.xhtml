@@ -1,0 +1,25 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:menu>
+		<p:submenu label="Processos">
+			<p:menuitem value="Cadastro da Contabilidade" action="cadastro-contabilidade-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Assinantes da Contabilidade" action="consulta-assinantes-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="UpLoad NFe" action="upload-nfe-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="UpLoad CTe" action="upload-cte-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="UpLoad SPED's" action="upload-speds-con?faces-redirect=true"></p:menuitem>
+		</p:submenu>
+		<p:submenu label="Relatórios">
+			<p:menuitem value="Assinantes X Planos" action="relatorio-assinantes-planos-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Participação em Assinaturas X Assinantes" action="relatorio-assinaturas-assinantes-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Nº Doctos Armazenados X Assinante" action="relatorio-doctos-assinante-con?faces-redirect=true"></p:menuitem>
+		</p:submenu>
+		<p:submenu label="Gráficos">
+			<p:menuitem value="Interação X Assinante" action="grafico-interacao-assinante-con?faces-redirect=true"></p:menuitem>
+			<p:menuitem value="Manipulação Doctos X Assinantes" action="grafico-doctos-assinantes-con?faces-redirect=true"></p:menuitem>
+		</p:submenu>
+	</p:menu>
+</ui:fragment>

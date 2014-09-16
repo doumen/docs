@@ -1,0 +1,32 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:menu styleClass="painel">
+		<p:submenu label="Processos" styleClass="iconesMenu"
+			style="background-image: url('resources/images/processo.png') !important;">
+			<p:menuitem value="Assinantes"
+				action="consulta-assinantes-adm?faces-redirect=true" />
+			<p:menuitem value="Contabilidade"
+				action="consulta-contabilidades-adm?faces-redirect=true" />
+			<p:menuitem value="Planos"
+				action="consulta-planos-adm?faces-redirect=true" />
+		</p:submenu>
+		<p:submenu label="Relatórios" styleClass="iconesMenu"
+			style="background-image: url('resources/images/relatorio.gif') !important;">
+			<p:menuitem value="Consumo por Assinante"
+				action="relatorio-consumo-assinante-adm?faces-redirect=true" />
+			<p:menuitem value="Contratação X Consumo"
+				action="relatorio-contratacao-consumo-adm?faces-redirect=true" />
+		</p:submenu>
+		<p:submenu label="Gráficos" styleClass="iconesMenu"
+			style="background-image: url('resources/images/grafico.gif') !important;">
+			<p:menuitem value="Interação X Assinante"
+				action="grafico-interacao-assinante-adm?faces-redirect=true" />
+			<p:menuitem value="Manipulação Doctos X Assinantes"
+				action="grafico-doctos-assinante-adm?faces-redirect=true" />
+		</p:submenu>
+	</p:menu>
+</ui:fragment>

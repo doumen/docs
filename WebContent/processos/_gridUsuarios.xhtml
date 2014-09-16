@@ -1,0 +1,43 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:fieldset id="fdsUsuarios" legend="Usuários">
+		<h:panelGrid columns="1">
+			<h:panelGrid columns="8">
+				<p:outputLabel value="Usuário" for="intUsuario" />
+				<p:inputText id="intUsuario"
+					value="#{assinantesManagedBean.usuario}" />
+				<p:outputLabel value="Senha" for="pwdUsuario" />
+				<p:password id="pwdUsuario" value="#{assinantesManagedBean.senha}" />
+
+				<h:panelGrid columns="2" rendered="#{checkBoxUsuario}">
+					<p:selectBooleanCheckbox id="sbcPermAreaContabilidade" />
+					<p:outputLabel for="sbcPermAreaContabilidade"
+						value="Perm. Área Contabilidade?" />
+					<p:selectBooleanCheckbox id="sbcPermAreaAssinante" />
+					<p:outputLabel for="sbcPermAreaAssinante"
+						value="Perm. Área Assinante?" />
+				</h:panelGrid>
+				
+				<p:commandButton id="cbIncluir" value=""
+					style="background-image: url('resources/images/incluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+				<p:tooltip for="cbIncluir" value="Incluir" />
+				<p:commandButton id="cmbExcluir" value=""
+					style="background-image: url('resources/images/minus.png') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+				<p:tooltip for="cmbExcluir" value="Excluir" />
+			</h:panelGrid>
+
+			<p:dataTable id="dtbUsuarios">
+				<p:column headerText="ID">
+					<h:outputText value="" />
+				</p:column>
+				<p:column headerText="Usuário">
+					<h:outputText value="" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</p:fieldset>
+</ui:fragment>

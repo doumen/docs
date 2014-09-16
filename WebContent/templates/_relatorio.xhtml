@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	template="/templates/_headerFooter.xhtml">
+
+	<ui:define name="corpo">
+		<h:form id="formPainel">
+			<h:outputStylesheet value="panelTitulo"/>
+			<p:panel header="#{tituloPainel}" styleClass="panelTitulo">
+				<f:facet name="actions">
+					<h:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-help" />
+					</h:commandLink>
+				</f:facet>
+				
+				<golive:datatable-relatorios id="dataTable"
+					value="#{relatorioConsumoAssinanteAdmMB.assinantes}"
+					paginatorPosition="bottom" rows="10" var="list"
+					onSort="#{relatorioConsumoAssinanteAdmMB.onSort}"
+					sortBy="#{list.contabilidade.cnpj}" rowKey="#{list.id}"
+					rendered="true">
+
+					<ui:insert name="columnsReport" />
+
+				</golive:datatable-relatorios>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

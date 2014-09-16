@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:fieldset id="fdsCadastrarContabilidade"
+			legend="Cadastrar minha Contabilidade">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="CNPJ" for="intCnpj" />
+				<p:inputText id="intCnpj"
+					value="#{cadastrarContabilidadeManagedBean.cnpj}" />
+				<p:outputLabel value="Nome Fantasia" for="intNomeFantasia" />
+				<p:inputText id="intNomeFantasia"
+					value="#{cadastrarContabilidadeManagedBean.nomeFantasia}" />
+				<p:outputLabel value="Razão Social" for="intRazaoSocial" />
+				<p:inputText id="intRazaoSocial"
+					value="#{cadastrarContabilidadeManagedBean.razaoSocial}" />
+				<p:outputLabel value="E-mail" for="intEmail" />
+				<p:inputText id="intEmail"
+					value="#{cadastrarContabilidadeManagedBean.email}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<p:commandButton id="cbCadastrar" value="Cadastrar"
+					action="#{cadastrarContabilidadeManagedBean.cadastrar}" />
+				<p:commandButton id="cbCancelar" value="Cancelar"
+					action="#{cadastrarContabilidadeManagedBean.cancelar()}" />
+			</h:panelGrid>
+		</p:fieldset>
+	</h:form>
+</h:body>
+</html>

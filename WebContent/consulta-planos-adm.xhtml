@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/_panel-consulta.xhtml"
+	xmlns:golive="http://java.sun.com/jsf/composite/components">
+
+	<ui:param name="tituloPainel" value="Planos" />
+	<ui:param name="help" value="Planos" />
+	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="bean" value="#{consultaPlanoAdmMB}" />
+	<ui:define name="tableColumns">
+		<p:column headerText="Cod.Plano" sortBy="#{list.id}">
+			<h:outputText value="#{list.id}" />
+		</p:column>
+		<p:column headerText="Descrição" sortBy="#{list.descricao}">
+			<h:outputText value="#{list.descricao}" />
+		</p:column>
+		<p:column headerText="Faixa Inicial" sortBy="#{list.faixaInicial}">
+			<h:outputText value="#{list.faixaInicial}" />
+		</p:column>
+		<p:column headerText="Faixa Final" sortBy="#{list.faixaFinal}">
+			<h:outputText value="#{list.faixaFinal}" />
+		</p:column>
+		<p:column headerText="Valor Mensalidade" sortBy="#{list.valorMensal}">
+			<h:outputText value="#{list.valorMensal}">
+				<f:convertNumber currencySymbol="R$" type="currency" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Valor NFe Adicional"
+			sortBy="#{list.valorNfeAdicional}">
+			<h:outputText value="#{list.valorNfeAdicional}">
+				<f:convertNumber currencySymbol="R$" type="currency" />
+			</h:outputText>
+		</p:column>
+	</ui:define>
+	<ui:define name="popup-incluir">
+		<golive:incluir-planos bean="#{consultaPlanoAdmMB}" />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/_headerFooter.xhtml">
+	<ui:define name="corpo">
+		<div id="formLogin">
+			<h:form id="formLogin">
+				<p:growl id="growl" showDetail="true" sticky="true" />
+				<p:panel id="login" styleClass="panelTitulo">
+					<f:facet name="header">
+						<h:panelGrid columns="2">
+							<h:outputText styleClass="ui-icon ui-icon-person" />
+							<h:outputText value="#{tituloPainel}" />
+						</h:panelGrid>
+					</f:facet>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Usuário" for="itUsuario"></p:outputLabel>
+						<p:inputText id="itUsuario" value="#{loginBean.usuario.login}">
+							<p:ajax event="blur" update="growl,smAssinante,itUsuario"
+								listener="#{loginBean.inputLoginBlurHandler}" />
+						</p:inputText>
+
+						<p:outputLabel value="Senha" for="pwd"></p:outputLabel>
+						<p:password id="pwd" value="#{loginBean.usuario.senha}"></p:password>
+
+						<p:outputLabel id="lbAssinante" value="Assinante"
+							for="smAssinante" rendered="#{loginBean.assinantesRendered}" />
+						<p:selectOneMenu id="smAssinante" value="#{loginBean.assinante}"
+							converter="assinanteConverter"
+							rendered="#{loginBean.assinantesRendered}">
+							<f:selectItems value="#{loginBean.assinantes}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<br />
+					<div id="botaoLogin">
+						<p:commandButton value="Conectar"
+							action="#{loginBean.efetuaLogin}" update="growl"
+							onclick="setHiddenValue();"></p:commandButton>
+						<p:commandButton value="Limpar"
+							actionListener="#{loginBean.limpar}"
+							update="itUsuario,pwd,smAssinante,lbAssinante"></p:commandButton>
+					</div>
+				</p:panel>
+				<h:inputHidden id="hidden2" value="#{loginBean.modulo}" />
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

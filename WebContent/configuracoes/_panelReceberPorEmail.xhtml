@@ -1,0 +1,46 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel id="pnlReceberEmail" header="#{tituloPanelReceberPorEmail}">
+		<f:facet name="actions">
+			<h:commandLink
+				styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+				<h:outputText styleClass="ui-icon ui-icon-help" />
+			</h:commandLink>
+		</f:facet>
+		<h:panelGrid columns="1">
+			<p:inplace label="Digite aqui o endereço de seu provedor de e-mail">
+				<p:inputText id="intProvedorEmail"
+					value="#{configuracoesManagedBeans.receberProvedor}" />
+			</p:inplace>
+			<p:outputLabel value="Exemplo: smtp.provedor.com.br"
+				for="intProvedorEmail" />
+			<p:selectOneRadio id="srdEncriptacao"
+				value="#{configuracoesManagedBeans.receberEncriptacao}"
+				layout="grid" columns="1">
+				<f:selectItem itemLabel="Sem Encriptação" id="rdiSEncrip" />
+				<f:selectItem itemLabel="Com Encriptação SSL" id="rdiEncripSSL" />
+				<f:selectItem itemLabel="Com Encriptação TLS" id="rdiEncripTLS" />
+			</p:selectOneRadio>
+			<p:inplace label="Digite aqui a porta">
+				<p:inputText id="intPorta" value="#{configuracoesManagedBeans.receberPorta}" />
+			</p:inplace>
+			<p:outputLabel value="Exemplo: 587" for="intPorta" />
+			<h:panelGrid columns="2">
+				<p:selectBooleanCheckbox id="chbAutenticacao"
+					value="#{configuracoesManagedBeans.receberAutenticacao}" />
+				<p:outputLabel value="Requer Autenticação?" for="chbAutenticacao" />
+			</h:panelGrid>
+			<p:inplace label="Digite aqui o seu endereço de e-mail">
+				<p:inputText id="intEmail"
+					value="#{configuracoesManagedBeans.receberEmail}" />
+			</p:inplace>
+			<p:inplace label="Digite aqui a sua senha">
+				<p:inputText id="intSenha" value="#{configuracoesManagedBeans.receberSenha}" />
+			</p:inplace>
+		</h:panelGrid>
+	</p:panel>
+</ui:fragment>

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/_headerFooter.xhtml">
+	<ui:define name="corpo">
+		<h:form id="formPainel">
+			<p:panel id="painelMaster" header="#{tituloPainel}" styleClass="panelTitulo">
+				<f:facet name="actions">
+					<h:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-help" />
+					</h:commandLink>
+				</f:facet>
+				<h:panelGrid columns="2">
+					<h:panelGrid columns="1">
+						<ui:insert name="menu" />
+						<ui:insert name="infoMenu" />
+					</h:panelGrid>
+					<h:panelGrid columns="2" styleClass="grafico">
+							<ui:insert name="grafico1" />
+							<ui:insert name="grafico2" />
+							<ui:insert name="grafico3" />
+							<ui:insert name="grafico4" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

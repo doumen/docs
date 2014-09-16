@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/_panel-consulta.xhtml"
+	xmlns:golive="http://java.sun.com/jsf/composite/components">
+
+	<ui:param name="tituloPainel" value="Assinantes" />
+	<ui:param name="help" value="Assinantes" />
+	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="bean" value="#{consultaAssinantesAdmMB}" />
+	<ui:define name="tableColumns">
+		<p:column headerText="Vencimento" sortBy="#{list.dataInclusao.time}">
+			<h:outputText value="#{list.dataInclusao.time}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Cod.plano" sortBy="#{list.plano.id}">
+			<h:outputText value="#{list.plano.id}" />
+		</p:column>
+		<p:column headerText="Descrição" sortBy="#{list.plano.descricao}">
+			<h:outputText value="#{list.plano.descricao}" />
+		</p:column>
+		<p:column headerText="Valor Mensal" sortBy="#{list.plano.valorMensal}">
+			<h:outputText value="#{list.plano.valorMensal}">
+				<f:convertNumber currencySymbol="R$" type="currency" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Cod. Ass" sortBy="#{list.id}">
+			<h:outputText value="#{list.id}" />
+		</p:column>
+		<p:column headerText="CNPJ" sortBy="#{list.cnpj}">
+			<h:outputText value="#{list.cnpj}" />
+		</p:column>
+		<p:column headerText="Assinante" sortBy="#{list.razaoSocial}">
+			<h:outputText value="#{list.razaoSocial}" />
+		</p:column>
+		<p:column headerText="Cod. Cont" sortBy="#{list.contabilidade.id}">
+			<h:outputText value="#{list.contabilidade.id}" />
+		</p:column>
+		<p:column headerText="CNPJ" sortBy="#{list.contabilidade.cnpj}">
+			<h:outputText value="#{list.contabilidade.cnpj}" />
+		</p:column>
+		<p:column headerText="Contabilidade"
+			sortBy="#{list.contabilidade.razaoSocial}">
+			<h:outputText value="#{list.contabilidade.razaoSocial}" />
+		</p:column>
+	</ui:define>
+	<ui:define name="popup-incluir">
+		<golive:incluir-assinantes bean="#{consultaAssinantesAdmMB}" />
+	</ui:define>
+</ui:composition>

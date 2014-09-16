@@ -1,0 +1,16 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:panelGrid columns="3">
+		<h:panelGrid columns="2" rendered="#{comissao}">
+			<p:outputLabel value="Comissão" for="intComissao" />
+			<p:inputText id="intComissao" />
+		</h:panelGrid>
+		<p:commandButton id="cdbIncluir"
+			style="background-image: url('resources/images/check.png') !important;background-repeat: no-repeat;background-position: left;"
+			value=" Incluir" />
+	</h:panelGrid>
+</ui:fragment>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:panel>
+			<h:panelGrid columns="1">
+				<p:fieldset id="fdsDadosAssinante" legend="Dados Assinante">
+					<h:panelGrid columns="4">
+						<p:outputLabel value="CNPJ" for="intCnpj" />
+						<p:inputText id="intCnpj"
+							value="#{cadastrarAssinanteManagedBean.cnpj}" />
+						<p:outputLabel value="Inscr.Estadual" for="intInscEstadual" />
+						<p:inputText id="intInscEstadual"
+							value="#{cadastrarAssinanteManagedBean.inscrEstadual}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Nome Fantasia" for="intNomeFantasia" />
+						<p:inputText id="intNomeFantasia"
+							value="#{cadastrarAssinanteManagedBean.nomeFantasia}" />
+						<p:outputLabel value="Razão Social" for="intRazaoSocial" />
+						<p:inputText id="intRazaoSocial"
+							value="#{cadastrarAssinanteManagedBean.razaoSocial}" />
+					</h:panelGrid>
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Endereço" for="intEndereco" />
+						<p:inputText id="intEndereco"
+							value="#{cadastrarAssinanteManagedBean.endereco}" />
+						<p:outputLabel value="Nº" for="intNumero" />
+						<p:inputText id="intNumero"
+							value="#{cadastrarAssinanteManagedBean.numero}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Complemento" for="intComplemento" />
+						<p:inputText id="intComplemento"
+							value="#{cadastrarAssinanteManagedBean.complemento}" />
+					</h:panelGrid>
+					<h:panelGrid columns="6">
+						<p:outputLabel value="Bairro" for="intBairro" />
+						<p:inputText id="intBairro"
+							value="#{cadastrarAssinanteManagedBean.bairro}" />
+						<p:outputLabel value="Município" for="somMunicipio" />
+						<p:selectOneMenu id="somMunicipio"
+							value="#{cadastrarAssinanteManagedBean.municipio}">
+							<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+						</p:selectOneMenu>
+						<p:outputLabel value="UF" for="somUf" />
+						<p:selectOneMenu id="somUf"
+							value="#{cadastrarAssinanteManagedBean.uf}">
+							<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="CEP" for="intCep" />
+						<p:inputText id="intCep"
+							value="#{cadastrarAssinanteManagedBean.cep}" />
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset id="fdsDadosAcesso" legend="Dados de Acesso">
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Usuário Master" for="intUsuarioMaster" />
+						<p:inputText id="intUsuarioMaster"
+							value="#{cadastrarAssinanteManagedBean.usuarioMaster}" />
+						<p:outputLabel value="Senha" for="pwdUsuarioMaster" />
+						<p:password id="pwdUsuarioMaster"
+							value="#{cadastrarAssinanteManagedBean.senha}" />
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset id="fdsAssinatura" legend="Assinatura">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Plano" for="somPlano" />
+						<p:selectOneMenu id="somPlano"
+							value="#{cadastrarAssinanteManagedBean.planoAssinatura}">
+							<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+				</p:fieldset>
+
+				<p:fieldset id="fdsContabilidade" legend="Contabilidade">
+					<h:panelGrid columns="3">
+						<p:outputLabel value="Contabilidade" for="somContabilidade" />
+						<p:selectOneMenu id="somContabilidade"
+							value="#{cadastrarAssinanteManagedBean.contabilidade}">
+							<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+						</p:selectOneMenu>
+						<p:commandButton id="cbLocalizarContabilidade"
+							value="Não localizei a minha contabilidade"
+							onclick="PF('dlgLocalizarContabilidade').show();return false;" />
+						<p:outputLabel
+							value="Através de sua assinatura a sua contabilidade receberá recursos para lhe ajudar com o gerenciamento dos Documentos Eletrônicos." />
+					</h:panelGrid>
+				</p:fieldset>
+				<h:panelGrid columns="2">
+					<p:commandButton id="cbContratar" value="Contratar"
+						action="#{cadastrarAssinanteManagedBean.contratar}"></p:commandButton>
+					<p:commandButton id="cbVoltar" value="Voltar"
+						action="#{cadastrarAssinanteManagedBean.voltar}"></p:commandButton>
+				</h:panelGrid>
+			</h:panelGrid>
+			<p:dialog widgetVar="dlgLocalizarContabilidade" modal="true">
+				<ui:include src="/cadastrar-dados-contabilidade.xhtml" />
+			</p:dialog>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>
