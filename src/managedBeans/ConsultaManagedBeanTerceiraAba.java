@@ -1,6 +1,5 @@
 package managedBeans;
 
-import java.io.FileNotFoundException;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -9,12 +8,7 @@ import javax.faces.bean.ManagedBean;
 import model.Contabilidade;
 /*
 @ManagedBean
-public class ConsultaManagedBean extends AbstractProcessosMB<Contabilidade>{
-
-	public ConsultaManagedBean() throws FileNotFoundException {
-		super(new Contabilidade("", ""),"NFe");
-		selected = new Contabilidade("","");
-	}
+public class ConsultaManagedBeanTerceiraAba extends AbstractListMB<Contabilidade>{
 
 	@PostConstruct
 	public void init(){
@@ -23,10 +17,13 @@ public class ConsultaManagedBean extends AbstractProcessosMB<Contabilidade>{
 		}
 	}
 	
+	public ConsultaManagedBeanTerceiraAba(){
+		super(new Contabilidade("",""));
+	}
+	
 	@Override
-	public String getArgs() {
-		
-		return "cnpj,id,razaoSocial";
+	public String getArgs() {		
+		return "id,cnpj";
 	}
 
 }

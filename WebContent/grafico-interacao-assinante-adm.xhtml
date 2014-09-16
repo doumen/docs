@@ -3,29 +3,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h5="http://java.sun.com/jsf/composite/html5">
 
-<ui:composition template="/templates/_headerFooter.xhtml">
-	<ui:param name="tituloPainel" value="Gráfico - Interação X Assinantes" />
+<ui:composition template="/templates/_grafico-interacao-assinante.xhtml">
+	<ui:param name="tituloPainel" value="Gráfico Interação X Assinante" />
 	<ui:param name="modulo" value="administrativo" />
-	<ui:param name="bean" value="#{graficoInteracaoAssinanteAdmMB}" />
-	<ui:define name="corpo">
-
-		<h:form id="form">
-			<p:dataList value="#{bean.graficoInteracaoAssinanteAdms}" 
-				var="graficoInteracaoAssinanteAdm" type="unordered" itemType="none"
-				paginator="true" rows="1" styleClass="paginated">
-				<f:facet name="header">
-            Gráfico - Interação X Assinantes
-        </f:facet>
-				<p:panel>
-					<p:panelGrid columns="1">
-						<p:chart type="bar" model="#{graficoInteracaoAssinanteAdm.barChartModel}"
-							style="width:1000px;height:400px" />
-					</p:panelGrid>
-				</p:panel>
-			</p:dataList>
-		</h:form>
-	</ui:define>
+	<ui:param name="bean" value="#{graficoInteracaoAssinantesAdmMB}" />
 </ui:composition>
 </html>

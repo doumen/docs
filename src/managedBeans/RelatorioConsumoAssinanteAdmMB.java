@@ -1,7 +1,7 @@
 package managedBeans;
 
+import java.io.Serializable;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,13 +16,12 @@ import component.AssinanteComponent;
 
 @ManagedBean
 @ViewScoped
-public class RelatorioConsumoAssinanteAdmMB extends
-		AbstractConsultaMB<Assinante> {
+public class RelatorioConsumoAssinanteAdmMB implements Serializable {
 
-	public RelatorioConsumoAssinanteAdmMB() {
-		super(Assinante.class);
-		System.out.println("Instanciou o RelatorioConsumoAssinanteAdmMB!!");
-	}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private AssinanteComponent assinanteComponent;
@@ -124,15 +123,15 @@ public class RelatorioConsumoAssinanteAdmMB extends
 						acumulaDados(p);
 					break;
 				case 5:
-					if (ehIgual(p.getPlano().getFaixaInicial(), o))
+					if (ehIgual(p.getPlano().getFaixaInicial(),o))
 						acumulaDados(p);
 					break;
 				case 6:
-					if (ehIgual(p.getPlano().getFaixaFinal(), o))
+					if (ehIgual(p.getPlano().getFaixaFinal(),o))
 						acumulaDados(p);
 					break;
 				case 7:
-					if (ehIgual(p.getPlano().getValorMensal(), o))
+					if (ehIgual(p.getPlano().getValorMensal(),o))
 						acumulaDados(p);
 					break;
 				case 8:
@@ -144,11 +143,11 @@ public class RelatorioConsumoAssinanteAdmMB extends
 						acumulaDados(p);
 					break;
 				case 10:
-					if (ehIgual(p.getContabilidade().getComissao(), o))
+					if (ehIgual(p.getContabilidade().getComissao(),o))
 						acumulaDados(p);
 					break;
 				case 11:
-					if (ehIgual(p.getComissaoMensal(), o))
+					if (ehIgual(p.getComissaoMensal(),o))
 						acumulaDados(p);
 					break;
 				default:
@@ -187,32 +186,7 @@ public class RelatorioConsumoAssinanteAdmMB extends
 	}
 
 	public double getComissaoMedia() {
-		return getTotalValorMensal() != 0 ? getTotalComissaoMensal()
-				/ getTotalValorMensal() : 0;
+		return getTotalValorMensal()!=0?getTotalComissaoMensal() / getTotalValorMensal():0;
 	}
 
-	@Override
-	public String getAvisoExcluir() {
-		return null;
-	}
-
-	@Override
-	public String getAvisoPreExcluir() {
-		return null;
-	}
-
-	@Override
-	public String getPdfFileName() {
-		return null;
-	}
-
-	@Override
-	public String[] getArgs() {
-		return null;
-	}
-
-	@Override
-	public Properties getProperties() {
-		return null;
-	}
 }

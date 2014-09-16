@@ -1,18 +1,16 @@
 package managedBeans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.inject.Inject;
 
 import model.Contabilidade;
+import facade.GenericCRUDFacade;
 
 @ManagedBean
-@RequestScoped
 public class MasterContabilidadeManagedBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Contabilidade> contabilidades;
@@ -42,17 +40,17 @@ public class MasterContabilidadeManagedBean implements Serializable {
 	public void setSelectedContabilidades(List<Contabilidade> selectedContabilidade) {
 		this.selectedContabilidades = selectedContabilidade;
 	}
-	
-	public void removeContabilidade(){
-		contabilidades.removeAll(selectedContabilidades);
-		this.selectedContabilidades = new ArrayList<>();
-	}
-	
+		
 	public boolean isPrimeiroDialogRendered(){
 		return primeiroDialogRendered;
 	}
 	
 	public void mostraPrimeiroDialog(){
 	    org.primefaces.context.RequestContext.getCurrentInstance().execute("dlgExcluir.show();"); 
+	}
+
+	public void setGenericCRUDFacade(
+			GenericCRUDFacade<Contabilidade> genericCRUDFacade) {
+		// TODO Auto-generated method stub		
 	}
 }

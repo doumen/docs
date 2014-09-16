@@ -1,6 +1,7 @@
 package managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import model.Assinante;
+import model.SiglaEstado;
 
 import org.primefaces.event.data.SortEvent;
 
@@ -30,6 +32,9 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		assinantes = assinanteComponent.getRelatorioContratacaoConsumo();
+		selectedZooms = new ArrayList<Integer>();
+		selectedZooms.add(10);
+		selectedZooms.add(100);
 	}
 
 	public List<Assinante> getAssinantes() {
@@ -136,6 +141,7 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 		this.assinantes = assinantes;
 	}
 
+
 	public float getFont() {
 		return font;
 	}
@@ -166,8 +172,12 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 		this.zoom = zoom;
 	}
 
-		public List<Integer> getSelectedZooms() {
+	public void setEstados(List<SiglaEstado> estados) {
+	}
+
+	public List<Integer> getSelectedZooms() {
 		return selectedZooms;
+		//Arrays.asList(SiglaEstado.values());
 	}
 
 	public void setSelectedZooms(List<Integer> selectedZooms) {

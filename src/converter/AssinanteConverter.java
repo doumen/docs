@@ -13,8 +13,7 @@ public class AssinanteConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1,
 			String nomeFantasia) {
-		Assinante a = new Assinante();
-		a.setNomeFantasia(nomeFantasia);
+		Assinante a = new Assinante(nomeFantasia);
 		return a;
 	}
 

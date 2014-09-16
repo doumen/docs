@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h5="http://java.sun.com/jsf/composite/html5">
+
+<ui:composition template="/templates/_panel-titulo.xhtml">
+	<ui:param name="tituloPainel" value="Gráfico Interação X Assinante" />
+	<ui:define name="conteudoPainel">
+		<div
+			class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all ui-state-default"
+			id="header">
+			<div>
+			<div style="display: inline-block; text-align: left; float: left">
+					<h:commandLink id="inverte"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText
+							styleClass="ui-icon ui-icon-transferthick-e-w text-align: left;" />
+						<f:ajax event="click" listener="#{bean.inverteOrdem}" render="@form"></f:ajax>							
+					</h:commandLink>
+			</div>
+				<div
+					style="display: inline-block; width 70%; float: left; padding-left: 50%">
+					<h:commandLink id="zoomOut"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						actionListener="#{bean.diminuiZoom}" update="tamanhoZoom">
+						<h:outputText styleClass="ui-icon ui-icon-zoomout" />
+					</h:commandLink>
+
+					<h:selectOneMenu id="tamanhoZoom" rendered="true"
+						value="#{bean.zoom}"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<f:selectItem itemLabel=" " itemValue="" />
+						<f:selectItems value="#{bean.selectedZooms}" />
+						<f:ajax event="change" listener="#{bean.zoomSelectOneMenu}" render="@form"></f:ajax>
+					</h:selectOneMenu>
+					
+					<h:commandLink id="zoomIn"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						actionListener="#{bean.aumentaZoom}" update="tamanhoZoom">
+						<h:outputText
+							styleClass="ui-icon ui-icon-zoomin text-align: center;" />
+					</h:commandLink>
+				</div>
+				<div
+					style="display: inline-block; text-align: right; width: 20%; float: right; padding-right: 10px">
+					<h:commandLink id="cbImprimir" onclick="print_voucher('chart');">
+						<p:graphicImage name="/images/imprimir.gif" width="16" height="16" />
+						
+					</h:commandLink>
+					<h:commandLink id="cbExcel" action="#{bean.download()}">
+						<p:graphicImage name="/images/excel.gif" width="16" height="16" />
+
+					</h:commandLink>
+					<h:commandLink id="cbPdf" onclick="print_pdf('chart');">
+						<p:graphicImage name="/images/pdf.gif" width="16" height="16" />
+						
+					</h:commandLink>
+				</div>
+			</div>
+		</div>
+		<h5:canvas id="chart" library="html5" script="bar.js" width="300px" maiorAssinante="#{bean.maiorBarra}" totalBarras="#{bean.totalBarras}" cores="blue,red,yellow"
+			height="300px" barras="#{bean.barras}" ordem="#{bean.ordem}">
+         #{msgs.canvasUnsupported}
+      </h5:canvas>
+		<div
+			class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+			id="footer">
+			<div class="centerPaginator">
+				<h:commandLink id="ultimaPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{bean.irParaUltimaPagina}" update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-end" />
+				</h:commandLink>
+				<h:commandLink id="proximaPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{bean.irParaProximaPagina}" update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-next" />
+				</h:commandLink>
+
+				<h:commandLink id="paginaAtual"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText value="#{bean.paginaAtual} de #{bean.totPag}" />
+				</h:commandLink>
+
+				<h:commandLink id="paginaAnterior"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default text-align: center;"
+					actionListener="#{bean.irParaPaginaAnterior}" update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-prev" />
+				</h:commandLink>
+				<h:commandLink id="primeiraPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{bean.irParaPrimeiraPagina}" update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-first" />
+				</h:commandLink>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

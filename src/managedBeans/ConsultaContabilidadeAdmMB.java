@@ -116,4 +116,22 @@ public class ConsultaContabilidadeAdmMB extends
 	public void setPermissaoAreaAssinante(boolean permissaoAreaAssinante) {
 		this.permissaoAreaAssinante = permissaoAreaAssinante;
 	}
+
+	@Override
+	public void removeSelectedList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void incluir() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void alterar() {
+		// TODO Auto-generated method stub
+		
+	}
 }

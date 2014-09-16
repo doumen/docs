@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class Assinante implements Comparable<Assinante> {
@@ -21,14 +21,14 @@ public class Assinante implements Comparable<Assinante> {
 	private int cep;
 	private String emailMaster;
 	private String emailFinanceiro;
-	private Date dataInclusao;
+	private Calendar dataInclusao;
 	private Plano plano;
 	private Contabilidade contabilidade;
 	private List<Usuario> usuarios;
 	private CertificadoA1 certificadoA1;
 	private Usuario usuario;
 	private int totalDoctosArmazenados;
-	
+	private int interacao;
 	private String tipoInclusao;
 	private List<NFe> nfes;
 	private List<CTe> ctes;
@@ -36,13 +36,48 @@ public class Assinante implements Comparable<Assinante> {
 	private List<SpedSocial> spedsSociais;
 	private List<SpedContribuicoes> spedsContribuicoes;
 
-	public int getInteracoes() {
-		return nfes.size() + ctes.size() + spedsFiscais.size()
-				+ spedsSociais.size() + spedsContribuicoes.size();
-	}
-
 	public Long getId() {
 		return id;
+	}
+
+	public List<NFe> getNfes() {
+		return nfes;
+	}
+
+	public void setNfes(List<NFe> nfes) {
+		this.nfes = nfes;
+	}
+
+	public List<CTe> getCtes() {
+		return ctes;
+	}
+
+	public void setCtes(List<CTe> ctes) {
+		this.ctes = ctes;
+	}
+
+	public List<SpedFiscal> getSpedsFiscais() {
+		return spedsFiscais;
+	}
+
+	public void setSpedsFiscais(List<SpedFiscal> spedsFiscais) {
+		this.spedsFiscais = spedsFiscais;
+	}
+
+	public List<SpedSocial> getSpedsSociais() {
+		return spedsSociais;
+	}
+
+	public void setSpedsSociais(List<SpedSocial> spedsSociais) {
+		this.spedsSociais = spedsSociais;
+	}
+
+	public List<SpedContribuicoes> getSpedsContribuicoes() {
+		return spedsContribuicoes;
+	}
+
+	public void setSpedsContribuicoes(List<SpedContribuicoes> spedsContribuicoes) {
+		this.spedsContribuicoes = spedsContribuicoes;
 	}
 
 	public void setId(Long id) {
@@ -113,6 +148,14 @@ public class Assinante implements Comparable<Assinante> {
 		this.municipio = municipio;
 	}
 
+	public SiglaEstado getUf() {
+		return uf;
+	}
+
+	public void setUf(SiglaEstado uf) {
+		this.uf = uf;
+	}
+
 	public int getCep() {
 		return cep;
 	}
@@ -137,11 +180,11 @@ public class Assinante implements Comparable<Assinante> {
 		this.emailFinanceiro = emailFinanceiro;
 	}
 
-	public Date getDataInclusao() {
+	public Calendar getDataInclusao() {
 		return dataInclusao;
 	}
 
-	public void setDataInclusao(Date dataInclusao) {
+	public void setDataInclusao(Calendar dataInclusao) {
 		this.dataInclusao = dataInclusao;
 	}
 
@@ -232,6 +275,33 @@ public class Assinante implements Comparable<Assinante> {
 		this.usuario = usuario;
 	}
 
+	public double getComissaoMensal() {
+		return getContabilidade().getComissao() * getPlano().getValorMensal();
+	}
+
+	@Override
+	public int compareTo(Assinante o) {
+		// TODO Auto-generated method stub
+		// Ordenar pela interação
+		return 0;
+	}
+
+	public int getTotalDoctosArmazenados() {
+		return totalDoctosArmazenados;
+	}
+
+	public void setTotalDoctosArmazenados(int totalDoctosArmazenados) {
+		this.totalDoctosArmazenados = totalDoctosArmazenados;
+	}
+
+	public int getInteracao() {
+		return interacao;
+	}
+
+	public void setInteracao(int interacao) {
+		this.interacao = interacao;
+	}
+
 	public String getTipoInclusao() {
 		return tipoInclusao;
 	}
@@ -239,7 +309,13 @@ public class Assinante implements Comparable<Assinante> {
 	public void setTipoInclusao(String tipoInclusao) {
 		this.tipoInclusao = tipoInclusao;
 	}
+	public List<SiglaEstado> getEstados() {
+		return Arrays.asList(SiglaEstado.values());
+	}
 
+	public void setEstados(List<SiglaEstado> estados) {
+	}
+	
 	public void addUsuario(Usuario u) {
 		usuarios.add(u);
 	}
@@ -248,37 +324,4 @@ public class Assinante implements Comparable<Assinante> {
 		usuarios.remove(u);
 	}
 
-	public List<SiglaEstado> getEstados() {
-		return Arrays.asList(SiglaEstado.values());
-	}
-
-	public void setEstados(List<SiglaEstado> estados) {
-	}
-
-	public SiglaEstado getUf() {
-		return uf;
-	}
-
-	public void setUf(SiglaEstado uf) {
-		this.uf = uf;
-	}
-
-	@Override
-	public int compareTo(Assinante o) {
-		if (o == null)
-			return 0;
-		return this.getInteracoes() - o.getInteracoes();
-	}
-
-	public double getComissaoMensal() {
-		return getContabilidade().getComissao() * getPlano().getValorMensal();
-	}
-	
-	public int getTotalDoctosArmazenados() {
-		return totalDoctosArmazenados;
-	}
-
-	public void setTotalDoctosArmazenados(int totalDoctosArmazenados) {
-		this.totalDoctosArmazenados = totalDoctosArmazenados;
-	}
 }

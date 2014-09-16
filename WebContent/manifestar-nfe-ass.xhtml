@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:panel id="pnlManifestar" header="Manifestar NFe">
+		<f:facet name="actions">
+				<h:commandLink
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText styleClass="ui-icon ui-icon-help" />
+				</h:commandLink>
+			</f:facet>
+			<h:panelGrid columns="2">
+				<p:commandButton id="cbProcessarManifesto" ajax="false" value=""
+					style="background-image: url('resources/images/processarManifesto.png') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+				</p:commandButton>
+				<p:outputLabel value="Processar Manifesto NFe"
+					for="cbProcessarManifesto" />
+			</h:panelGrid>
+			<p:dataTable id="dtManifestoNfe" var="contabilidade"
+				value="#{masterContabilidadeManagedBean.contabilidades}"
+				selection="#{masterContabilidadeManagedBean.selectedContabilidades}"
+				rowKey="#{contabilidade.cnpj}">
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+				<p:column headerText="Status" sortBy="#{contabilidade.razaoSocial}">
+					<h:outputText value="#{contabilidade.razaoSocial}" />
+				</p:column>
+				<p:column headerText="Chave NFe" sortBy="#{contabilidade.cnpj}">
+					<h:outputText value="#{contabilidade.cnpj}" />
+				</p:column>
+				<p:column headerText="Tipo Evento">
+					<p:selectOneMenu id="somTipoEvento">
+						<f:selectItem itemLabel="Confirma Operação" />
+						<f:selectItem itemLabel="Desconhe Operação" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column headerText="Justificativa">
+					<p:inplace label="Digite aqui a sua Justificativa">
+						<p:inputText id="intJustificativa" />
+					</p:inplace>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</h:body>
+</html>

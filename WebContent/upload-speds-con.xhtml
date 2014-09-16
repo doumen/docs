@@ -1,11 +1,11 @@
-<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition template="/templates/_configuracoes.xhtml">
-	<ui:param name="tituloPainel" value="XML NFe - Configurações" />
+	<ui:param name="tituloPainel" value="XML CT-e - Configurações" />
 
 	<ui:define name="download">
 		<ui:param name="checkXml" value="true" />
@@ -21,7 +21,7 @@
 
 	<ui:define name="receberPorEmail">
 		<ui:param name="tituloPanelReceberPorEmail"
-			value="Receber NFe XML - Por E-mail" />
+			value="Receber CT-e XML - Por E-mail" />
 		<ui:include src="/configuracoes/_panelReceberPorEmail.xhtml" />
 	</ui:define>
 	<ui:define name="enviarPorEmail">
@@ -38,8 +38,8 @@
 	</ui:define>
 	<ui:define name="aplicativos">
 		<ui:param name="tituloPanelAplicativos"
-			value="Aplicativo para Upload NFe XML" />
+			value="Aplicativo para Upload CT-e XML" />
 		<ui:include src="/configuracoes/_panelAplicativos.xhtml" />
 	</ui:define>
 </ui:composition>
-</ui:fragment>
+</html>

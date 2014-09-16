@@ -19,13 +19,13 @@ import component.AssinanteComponent;
 @ManagedBean
 @ViewScoped
 public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante>{
+
 	private String login;
 	private String senha;
 	private UploadedFile file;
 	
 	public ConsultaAssinantesAdmMB() {
 		super(Assinante.class);
-		System.out.println("Instanciou o ConsultaAssinantesAdmMB!!");
 	}
 
 	public void init(){
@@ -43,42 +43,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante>{
 	@Override
 	public String getAvisoPreExcluir() {
 		return "Os itens serão excluídos";
-	}
-
-	@Override
-	public String getPdfFileName() {
-		return "assinantes.pdf";
-	}
-
-	@Override
-	public String[] getArgs() {
-		String[] s = {"dataInclusao",
-				"plano.id",
-				"plano.descricao",
-				"plano.valorMensal",
-				"id",
-				"cnpj",
-				"nomeFantasia",
-				"contabilidade.id",
-				"contabilidade.cnpj",
-				"contabilidade.nomeFantasia"};
-		return s;
-	}
-
-	@Override
-	public Properties getProperties() {
-		Properties p = new Properties();
-			p.put("dataInclusao", "Vencimento");
-			p.put("plano.id", "Cod.plano");
-			p.put("plano.descricao", "Descrição");
-			p.put("plano.valorMensal", "Valor Mensal");
-			p.put("assinante.id", "Cod. Ass");
-			p.put("cnpj", "CNPJ");
-			p.put("nomeFantasia", "Assinante");
-			p.put("contabilidade.id", "Cod. Cont");
-			p.put("contabilidade.cnpj", "CNPJ");
-			p.put("contabilidade.nomeFantasia", "Contabilidade");
-		return p;
 	}
 
 	public void adicionaUsuario(){
@@ -124,9 +88,57 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante>{
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
     }
-	
+		
+	@Override
+	public String getPdfFileName() {
+		return "assinantes.pdf";
+	}
+
+	@Override
+	public void removeSelectedList() {
+		listTable.removeAll(getSelectedList());
+		System.out.println("Excluir!!");
+	}
+
 	@Override
 	public void incluir() {
-		System.out.println("incluiu");
+		System.out.println("Incluir o " + selected);
 	}
+
+	@Override
+	public void alterar() {
+		System.out.println("Alterar!");
+	}
+
+	@Override
+	public String[] getArgs() {
+		String[] s = {"dataInclusao",
+				"plano.id",
+				"plano.descricao",
+				"plano.valorMensal",
+				"id",
+				"cnpj",
+				"nomeFantasia",
+				"contabilidade.id",
+				"contabilidade.cnpj",
+				"contabilidade.nomeFantasia"};
+		return s;
+	}
+
+	@Override
+	public Properties getProperties() {
+		Properties p = new Properties();
+			p.put("dataInclusao", "Vencimento");
+			p.put("plano.id", "Cod.plano");
+			p.put("plano.descricao", "Descrição");
+			p.put("plano.valorMensal", "Valor Mensal");
+			p.put("assinante.id", "Cod. Ass");
+			p.put("cnpj", "CNPJ");
+			p.put("nomeFantasia", "Assinante");
+			p.put("contabilidade.id", "Cod. Cont");
+			p.put("contabilidade.cnpj", "CNPJ");
+			p.put("contabilidade.nomeFantasia", "Contabilidade");
+		return p;
+	}
+
 }

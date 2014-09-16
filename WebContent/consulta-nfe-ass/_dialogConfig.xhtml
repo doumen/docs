@@ -1,0 +1,25 @@
+<ui:fragment xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<p:panel id="pnlAplicativo" header="#{tituloPanelAplicativos}">
+		<f:facet name="actions">
+			<h:commandLink
+				styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+				<h:outputText styleClass="ui-icon ui-icon-help" />
+			</h:commandLink>
+		</f:facet>
+		<h:panelGrid columns="1" id="pngAplicativo">
+			<h:panelGrid columns="3">
+				<p:graphicImage name="/images/windowns.png" width="60" height="60" />
+				<p:graphicImage name="/images/mac.jpg" width="60" height="60" />
+				<p:graphicImage name="/images/linux.jpg" width="60" height="60" />
+			</h:panelGrid>
+			<h:outputText
+				value="Baixe o Aplicativo para Instalar em seu computador, que nos enviará seus arquivos .txt referente aos SPEDs automaticamente."
+				for="pngAplicativo" />
+		</h:panelGrid>
+	</p:panel>
+</ui:fragment>

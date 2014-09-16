@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form>
+		<p:panel header="UpLoad de NFe - XML" id="pnlUploadNfe">
+			<f:facet name="actions">
+				<h:commandLink
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText styleClass="ui-icon ui-icon-help" />
+				</h:commandLink>
+			</f:facet>
+			<p:tabView>
+				<p:tab title="Arquivos">
+					<h:panelGrid columns="3">
+						<p:commandButton id="cbIncluirArquivo" ajax="false" value=""
+							style="background-image: url('resources/images/incluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+							<p:tooltip for="cbIncluirArquivo" value="Incluir Arquivos" />
+						</p:commandButton>
+						<p:commandButton value="" id="cbExcluirArquivo" ajax="false"
+							style="background-image: url('resources/images/excluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+							<p:tooltip for="cbExcluirArquivo" value="Excluir Arquivos" />
+						</p:commandButton>
+						<p:commandButton value="" id="cbEnviarArquivos" ajax="false"
+							onclick="PF('pbEnviarArquivos').start();"
+							style="background-image: url('resources/images/enviarArquivo.png') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+							<p:tooltip for="cbEnviarArquivos" value="Enviar Arquivos" />
+						</p:commandButton>
+					</h:panelGrid>
+					<p:dataTable id="dtArquivo" var="contabilidade"
+						value="#{masterContabilidadeManagedBean.contabilidades}"
+						selection="#{masterContabilidadeManagedBean.selectedContabilidades}"
+						rowKey="#{contabilidade.cnpj}">
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Status"
+							sortBy="#{contabilidade.razaoSocial}">
+							<h:outputText value="#{contabilidade.razaoSocial}" />
+						</p:column>
+						<p:column headerText="Arquivo" sortBy="#{contabilidade.cnpj}">
+							<h:outputText value="#{contabilidade.cnpj}" />
+						</p:column>
+						<p:column headerText="Progresso">
+							<p:progressBar widgetVar="pbEnviarArquivos" ajax="true"
+								value="#{uploadManagedBean.progressEnviarArquivo}"
+								labelTemplate="{value}%" styleClass="animated" global="false">
+							</p:progressBar>
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+				<p:tab title="Chaves da NFe">
+					<h:panelGrid columns="4">
+						<p:inplace label="Digite Aqui a Chave da NFe">
+							<p:inputText id="intChaveNfe" />
+						</p:inplace>
+						<p:commandButton id="cbIncluirChave" ajax="false" value=""
+							style="background-image: url('resources/images/incluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+							<p:tooltip for="cbIncluirChave" value="Incluir Chave NFe" />
+						</p:commandButton>
+						<p:commandButton value="" id="cbExcluirChave" ajax="false"
+							style="background-image: url('resources/images/excluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+							<p:tooltip for="cbExcluirChave" value="Excluir Chave NFe" />
+						</p:commandButton>
+						<p:commandButton value="" id="cbProcessarChave" ajax="false"
+							onclick="PF('pbProcessarNfe').start();"
+							style="background-image: url('resources/images/processar.jpg') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;">
+							<p:tooltip for="cbProcessarChave" value="Processar NFe" />
+						</p:commandButton>
+					</h:panelGrid>
+					<p:dataTable id="dtChaves" var="contabilidade"
+						value="#{masterContabilidadeManagedBean.contabilidades}"
+						selection="#{masterContabilidadeManagedBean.selectedContabilidades}"
+						rowKey="#{contabilidade.cnpj}">
+						<p:column selectionMode="multiple"
+							style="width:16px;text-align:center" />
+						<p:column headerText="Status"
+							sortBy="#{contabilidade.razaoSocial}">
+							<h:outputText value="#{contabilidade.razaoSocial}" />
+						</p:column>
+						<p:column headerText="Arquivo" sortBy="#{contabilidade.cnpj}">
+							<h:outputText value="#{contabilidade.cnpj}" />
+						</p:column>
+						<p:column headerText="Progresso">
+							<p:progressBar widgetVar="pbProcessarNfe" ajax="true"
+								value="#{uploadManagedBean.progressProcessarNfe}"
+								labelTemplate="{value}%" styleClass="animated" global="false">
+							</p:progressBar>
+						</p:column>
+					</p:dataTable>
+				</p:tab>
+			</p:tabView>
+		</p:panel>
+	</h:form>
+	<style type="text/css">
+.animated .ui-progressbar-value {
+	background-image:
+		url("/showcase/javax.faces.resource/demo/images/pbar-ani.gif.xhtml");
+}
+</style>
+</h:body>
+</html>

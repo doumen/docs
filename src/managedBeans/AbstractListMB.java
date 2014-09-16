@@ -7,29 +7,30 @@ import java.util.Properties;
 import javax.annotation.PostConstruct;
 
 public abstract class AbstractListMB<T> {
-
-	public AbstractListMB(Class<T> clazz) {
+	
+	public AbstractListMB(Class<T> clazz){
 		try {
 			this.selected = clazz.newInstance();
 			this.selectedClass = clazz;
 		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
+	
 	private Class<T> selectedClass;
-
+	
 	@PostConstruct
-	public void iniciar() {
+	public void iniciar(){
 		this.init();
 	}
-
+	
 	protected List<T> selectedList = new ArrayList<>();
 
 	protected List<T> listTable = new ArrayList<>();
 
 	protected T selected;
-
+		
 	public List<T> getSelectedList() {
 		return selectedList;
 	}
@@ -41,28 +42,29 @@ public abstract class AbstractListMB<T> {
 	public List<T> getListTable() {
 		return listTable;
 	}
-
+	
 	public abstract String[] getArgs();
-
+	
 	public abstract Properties getProperties();
 
 	public abstract void init();
-
-	public T getSelected() throws InstantiationException,
-			IllegalAccessException {
-		return selected == null ? selectedClass.newInstance() : selected;
+	
+	public T getSelected() throws InstantiationException, IllegalAccessException {
+		return selected==null?selectedClass.newInstance():selected;
 	}
 
 	public void setSelected(T selected) {
 		this.selected = selected;
 	}
-
-	public void limpar() {
+	
+	public void limpar(){
 		try {
 			this.selected = selectedClass.newInstance();
 		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
