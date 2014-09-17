@@ -55,17 +55,23 @@
 	border-radius: 0px;
 }
 
+.panelTitulo.ui-panel .ui-panel-title{
+	margin: auto;	
+}
+
 .ui-widget { /** Tamanho da letra para o site **/
 	font-size: 13px;
 }
 
 /** Página de Login **/
 #formLogin {
-	margin-left: 20%;
-	margin-right: 25%;
-	margin-top: 12%;
-	position: absolute;
-	width: 60%;
+	width:500px; 
+	height:200px; 
+    position:absolute; 
+    top:50%; 
+    margin-top:-100px; 
+    left:50%;
+    margin-left:-250px; 
 }
 
 #formLogin .ui-widget-header { /** Título do form de login**/
@@ -239,8 +245,10 @@
 }
 
 #dadosPesquisa .ui-panel { /** Painel dos dados de pesquisa **/
+    position: relative;
+	width: 92.6%;
 	border-color: transparent;
-}
+	white-space: nowrap;}
 
 #dadosPesquisa .ui-outputlabel { /** Label dos dados de pesquisa **/
 	color: #9C9C9C;
@@ -479,11 +487,13 @@
 
 /** Pop-Up Assinantes **/
 .Assinantes.ui-dialog { /** Dimensões do Pop-Up **/
-	width: 50% !important;
-	margin-left: 21%;
-	margin-top: 5% !important;
-	white-space: nowrap !important;
-	height: 68% !important;
+	width:600px !important;
+	height:630px !important;
+	position:absolute !important;
+	top:30% !important; 
+	margin-top:-100px !important;
+    left:45% !important;
+    margin-left:-250px !important; 
 }
 
 .Assinantes .ui-dialog-titlebar { /** Título do Pop-Up **/
@@ -502,31 +512,75 @@
 }
 
 /** Tab Dados Assinantes **/
-.popUpLabelCodAss.ui-outputlabel { /** Label Cód. Assinante **/
-	white-space: nowrap;
+.inputTextCodAss{
+	position: relative;
+	width: 30%;
+	text-align: center;
+}
+.inputTextDtInclusao .ui-inputfield{
+	position: relative;
+	width: 75%;
+	text-align: center;
+	left: -50px;
+}
+.inputTextTpInclusao{
+	position: relative;
+	float: left;
+	width: 250%;
+	left: -50px;
+}
+.labelDtInclusao{
+	position: relative;
+	float: right;
+	left: -50px;
+}
+.labelTpInclusao{
+	position: relative;
+	float: right;
+	left: -50px;
 }
 
-.popUpCodAss.ui-inputfield { /** InputText Cód. Assinante **/
-	width: 20% !important;
-	margin-left: 10;
+
+.panelDois_primeiraColuna{
+}
+.panelDois_segundaColuna{
 }
 
-.popUpDtInclusaoAss.ui-outputlabel { /** Label Data Inclusão **/
-	margin-left: -80%;
+.panelTres_primeiraColuna{
+	position: relative;
+	width: 100%;
+}
+.panelTres_segundaColuna{
+	position: relative;
+	left: 7.5%;
+}
+.panelTres_terceiraColuna{
+	position: relative;
+	left: 7.5%;
+}
+.inputTextAlone{
+	position: relative;
+	left: 0.6%;
+	width: 96%;
+}
+.inputTextNumero{
+	position: relative;
+	width: 370%;
+}
+.inputTextEndereco{
+	position: relative;
+	width: 105%;
+}
+.inputTextCep{
+	position: relative;
+	left: 0.6%;
+	width: 15%;
 }
 
-.popUpInclusaoDtAss .ui-inputfield { /** InputText Data Inclusão **/
-	width: 50% !important;
-	margin-left: -50%;
-}
-
-.popUpTpInclusaoAss.ui-outputlabel { /** Label Tipo Inclusão **/
-	margin-left: -3%;
-}
-
-.popUpInclusaoTpAss.ui-inputfield { /** InputText Tipo Inclusão **/
-	width: 96% !important;
-	margin-left: 1%;
+.dadosAssinantes{
+	border-radius: 0px;
+	border: 0px none;
+	padding: 0px !important;
 }
 
 .dadosAss .ui-fieldset-legend { /** Título do fieldset **/
@@ -541,71 +595,12 @@
 	border: 0px;
 }
 
-.popUpCnpjAss.ui-inputfield { /** InputText CNPJ **/
-	margin-left: 22%;
-	width: 52%;
-}
 
-.labelInscEstAss.ui-outputlabel { /** label Inscr. Estadual **/
-	margin-left: -35%;
-}
 
-.popUpInscEstadualAss.ui-inputfield {
-	/** InputText Inscrição Estadual **/
-	width: 55%;
-	margin-left: -15%;
-}
-
-.popUpRazaoSocialAss.ui-inputfield { /** InputText Razão Social **/
-	margin-left: 4%;
-	width: 263%;
-}
-
-.popUpEnderecoAss.ui-inputfield { /** InputText Endereço **/
-	margin-left: 53%;
-	width: 760%;
-}
-
-.labelNumeroAss.ui-outputlabel { /** Label Número **/
-	margin-left: 2900%;
-}
-
-.popUpNumeroAss.ui-inputfield { /** InputText Número **/
-	margin-left: 95%;
-	width: 6%
-}
-
-.popUpComplementoAss.ui-inputfield { /** InputText Complemento **/
-	margin-left: 2.5%;
-	width: 267%;
-}
-
-.popUpBairroAss.ui-inputfield { /** InputText Bairro **/
-	margin-left: 22%;
-	width: 100%;
-}
-
-.popUpMunicipioAss.ui-inputfield { /** InputText Municipio **/
-	margin-left: 14%;
-	width: 110%;
-}
-
-.labelUfAss.ui-outputlabel { /** Label UF **/
-	margin-left: 450%;
-}
-
-.selectOneMenuUfAss.ui-selectonemenu { /** SelectOneMenu UF **/
-	margin-left: 60%;
-}
-
-.selectOneMenuUfAss .ui-icon { /** Ícone do selectOneMenu **/
+.selectUf .ui-icon { /** Ícone do selectOneMenu **/
 	background-color: transparent;
 }
 
-.popUpCepAss.ui-inputfield { /** InputText Cep **/
-	margin-left: 24%;
-	width: 27%;
-}
 
 .tabDados .ui-tabs-panel { /** TabView **/
 	padding: 0% !important;
