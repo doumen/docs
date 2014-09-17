@@ -1,10 +1,6 @@
-/.project
-/bin/
-src/teste/*.java
-*~
+bin/
+build/
 .classpath
 .metadata/
 .project
 .settings/
-build/
-
