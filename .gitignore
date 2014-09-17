@@ -1,1 +1,4 @@
-src/teste/*.java
+/build/
+/.gitignore
+/.project
+/bin/
