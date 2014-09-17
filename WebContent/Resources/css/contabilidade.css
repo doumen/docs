@@ -1,0 +1,81 @@
+@import url("base.css");
+/** cabecalho **/
+#cabecalho{
+	background-color:#436EEE;
+	height: 114px;
+}
+
+#logoCompany {
+	float:left;
+	position: absolute;
+}
+
+/** rodape **/
+#rodape { 
+	background-color:#436EEE;
+	width:100%;
+	position:fixed;
+	bottom: 0;
+	text-align: center;
+	font-size:10px; 
+	color:#FFF;
+	display: block;
+}
+
+#cmbExcluir {
+background-image: url('resources/images/excluir.gif') !important;
+background-repeat: no-repeat;
+background-position: center;
+width: 16px;height: 16px;	
+}
+@import url("base.css");
+/** cabecalho **/
+#cabecalho{
+	background-color:#436EEE;
+	height: 114px;
+}
+
+#logoCompany {
+	float:left;
+	position: absolute;
+}
+
+/** rodape **/
+#rodape { 
+	background-color:#436EEE;
+	width:100%;
+	position:fixed;
+	bottom: 0;
+	text-align: center;
+	font-size:10px; 
+	color:#FFF;
+	display: block;
+}
+#logoutLabel{
+	position: absolute;
+	right: 14px;
+	top: 100px;
+}
+#logoutLink{
+	position: absolute;
+	right: 14px;
+	top: 86px;
+}
+#logout{
+	position: absolute;
+	right: 14px;
+	top: 86px;
+}
+
+
+
+.myPanelStyle1.ui-panel .ui-panel-titlebar {
+	background-color:blue;
+}
+
+#cmbExcluir {
+background-image: url('resources/images/excluir.gif') !important;
+background-repeat: no-repeat;
+background-position: center;
+width: 16px;height: 16px;	
+}

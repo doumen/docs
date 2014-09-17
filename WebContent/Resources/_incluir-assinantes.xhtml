@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>This content will not be displayed</title>
+</h:head>
+
+<composite:interface>
+	<composite:attribute name="metodoIncluir"
+		method-signature="java.lang.String action()" />
+</composite:interface>
+
+<composite:implementation>
+	<p:panel id="pnlAssinantes" header="Assinantes | Incluir">
+			<p:commandButton value="teste" action="#{cc.attrs.metodoIncluir}"/>
+
+		<h:panelGrid columns="6">
+			<p:outputLabel value="Cód. Assinante" for="intCodAssinante" />
+			<p:inputText id="intCodAssinante" />
+			<p:outputLabel value="Data Inclusão" for="intDtInclusao" />
+			<p:inputText id="intDtInclusao" />
+			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao" />
+			<p:inputText id="intTipoInclusao" />
+		</h:panelGrid>
+		<p:tabView>
+			<p:tab title="Dados Assinantes">
+				<p:fieldset id="fdsDadosAssinantes" legend="Dados Assinantes">
+					<h:panelGrid columns="4">
+						<p:outputLabel value="CNPJ " for="intCnpj" />
+						<p:inputText id="intCnpj" value="#{bean.selected.cnpj}" />
+						<p:outputLabel value="Inscr.Estadual " for="intInscEst" />
+						<p:inputText id="intInscEst"
+							value="#{bean.selected.inscricaoEstadual}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Razão Social " for="intRazaoSocial" />
+						<p:inputText id="intRazaoSocial"
+							value="#{bean.selected.razaoSocial}" />
+					</h:panelGrid>
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Endereço " for="intEndereco" />
+						<p:inputText id="intEndereco" value="#{bean.selected.endereco}" />
+						<p:outputLabel value="Nº " for="intNumero" />
+						<p:inputText id="intNumero"
+							value="#{bean.selected.enderecoNumero}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Complemento " for="intComplemento" />
+						<p:inputText id="intComplemento"
+							value="#{bean.selected.enderecoComplemento}" />
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Bairro " for="intBairro" />
+						<p:inputText id="intBairro" value="#{bean.selected.bairro}" />
+					</h:panelGrid>
+					<h:panelGrid columns="4">
+						<p:outputLabel value="Município " for="somMunicipio" />
+						<p:selectOneMenu id="somMunicipio"
+							value="#{bean.selected.municipio}">
+							<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+						</p:selectOneMenu>
+						<p:outputLabel value="UF " for="somUf" />
+						<p:selectOneMenu id="somUf" value="#{bean.selected.uf}">
+							<f:selectItem itemLabel="" itemValue="" noSelectionOption="true" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:outputLabel value="CEP " for="intCep" />
+						<p:inputText id="intCep" value="#{bean.selected.cep}" />
+					</h:panelGrid>
+				</p:fieldset>
+				<h:panelGrid columns="1">
+					<p:fieldset id="fdsUsuarios" legend="Usuários">
+						<h:panelGrid columns="7">
+							<p:outputLabel value="Usuário" for="intUsuario" />
+							<p:inputText id="intUsuario"
+								value="#{bean.selected.usuario.login}" />
+							<p:outputLabel value="Senha" for="pwdUsuario" />
+							<p:password id="pwdUsuario"
+								value="#{bean.selected.usuario.senha}" />
+
+							<p:commandButton id="cbIncluir" value=""
+								style="background-image: url('resources/images/incluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+							<p:tooltip for="cbIncluir" value="Incluir" />
+							<p:commandButton id="cmbExcluir" value=""
+								style="background-image: url('resources/images/minus.png') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+							<p:tooltip for="cmbExcluir" value="Excluir" />
+						</h:panelGrid>
+
+						<p:dataTable id="dtbUsuarios">
+							<p:column headerText="ID">
+								<h:outputText value="#{bean.selected.id}" />
+							</p:column>
+							<p:column headerText="Usuário">
+								<h:outputText value="#{bean.selected.login}" />
+							</p:column>
+						</p:dataTable>
+					</p:fieldset>
+				</h:panelGrid>
+
+			</p:tab>
+			<p:tab title="Plano Contratação">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Cód.Plano" for="intCodPlano" />
+					<p:inputText id="intCodPlano" value="#{bean.selected.plano.id}" />
+					<p:outputLabel value="Descr.Plano" for="intDescrPlano" />
+					<p:inputText id="intDescrPlano"
+						value="#{bean.selected.plano.descricao}" />
+					<p:outputLabel value="Valor Mensal" for="intValorMensal" />
+					<p:inputText id="intValorMensal"
+						value="#{bean.selected.plano.valorMensal}" />
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Contabilidade">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Cód.Cont." for="intCodCont" />
+					<p:inputText id="intCodCont"
+						value="#{bean.selected.contabilidade.id}" />
+					<p:outputLabel value="CNPJ" for="intContCnpj" />
+					<p:inputText id="intContCnpj"
+						value="#{bean.selected.contabilidade.cnpj}" />
+					<p:outputLabel value="Razão Social" for="intContRazaoSocial" />
+					<p:inputText id="intContRazaoSocial"
+						value="#{bean.selected.contabilidade.razaoSocial}" />
+				</h:panelGrid>
+			</p:tab>
+			<p:tab title="Parametros">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Certificado Digital A1" />
+					<p:inplace
+						label="Escolha aqui o Arquivo Referente ao Certificado Digital A1">
+						<!-- <p:fileUpload id="fluCertDigital" mode="simple"
+							value="#{bean.selected.certificadoA1.arquivo_PFX_certificadoA1}" /> -->
+					</p:inplace>
+					<p:selectBooleanCheckbox id="ckbNotificar"
+						value="#{bean.selected.certificadoA1.notificarExpiracaoCertificado}" />
+					<p:outputLabel
+						value="Notificar por e-mail quando o Certificado estiver próximo de expirar?"
+						for="ckbNotificar" />
+					<p:outputLabel value="E-mail Master" for="intEmailMaster" />
+					<p:inplace
+						label="Digite aqui o endereço de e-mail do responsável pelo Serviço no Assinante">
+						<p:inputText id="intEmailMaster"
+							value="#{bean.selected.emailMaster}" />
+					</p:inplace>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel
+						value="Todas as atualizações, revisões, melhorias e notificações técnicas serão enviadas para este e-mail." />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:outputLabel value="E-mail Financeiro" for="intEmailFinanceiro" />
+					<p:inplace
+						label="Digite aqui o endereço de e-mail do Assinante responsável pelo Financeiro/Contas a Pagar">
+						<p:inputText id="intEmailFinanceiro"
+							value="#{bean.selected.emailFinanceiro}" />
+					</p:inplace>
+				</h:panelGrid>
+				<h:panelGrid columns="1">
+					<p:outputLabel
+						value="Este endereço de e-mail receberá os Boletos e Notas Fiscais Referente a Assinatura Mensal" />
+				</h:panelGrid>
+			</p:tab>
+		</p:tabView>
+		<p:commandButton id="cdbIncluir"
+			style="background-image: url('resources/images/check.png') !important;background-repeat: no-repeat;background-position: left;"
+			value=" Incluir" />
+	</p:panel>
+</composite:implementation>
+
+
+</html>

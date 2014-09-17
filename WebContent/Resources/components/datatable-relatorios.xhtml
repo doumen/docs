@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<composite:interface>
+	<composite:attribute name="value" />
+	<composite:attribute name="id" />
+	<composite:attribute name="onSort"
+		method-signature="void onSort(org.primefaces.event.data.SortEvent)" />
+	<composite:attribute name="rows" />
+	<composite:attribute name="paginatorPosition" />
+	<composite:attribute name="sortBy" />
+	<composite:attribute name="rowKey" />
+	<composite:attribute name="var" />
+</composite:interface>
+
+<composite:implementation>
+	<p:dataTable value="#{cc.attrs.value}" id="#{cc.attrs.id}"
+		rowKey="#{cc.attrs.rowKey}" sortBy="#{cc.attrs.sortBy}"
+		paginator="true" paginatorPosition="#{cc.attrs.paginatorPosition}"
+		rows="#{cc.attrs.rows}" resizableColumns="true"
+		style="font-size:#{relatorioDataTableMB.font}em !important;"
+		styleClass="dataTable" emptyMessage="Nenhum registro encontrado.">
+
+		<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />
+
+		<p:ajax event="sort" listener="#{cc.attrs.onSort}" />
+		<f:facet name="header">
+			<div id="block_container">
+				<div id="icones-zoom">
+					<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+						style="background-image: url('resources/images/zoommais.png') !important;">
+						<f:ajax listener="#{relatorioDataTableMB.aumentaZoom}"
+							render="#{cc.attrs.id}" execute="@form" />
+					</h:commandButton>
+					<p:selectOneMenu id="somZoom" rendered="true"
+						value="#{relatorioDataTableMB.zoom}">
+						<f:selectItem itemLabel=" " itemValue="" />
+						<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+						<p:ajax update="#{cc.attrs.id}"
+							listener="#{relatorioDataTableMB.zoomSelectOneMenu}"></p:ajax>
+					</p:selectOneMenu>
+					<h:commandButton id="cbZoomMenos" styleClass="botoes"
+						style="background-image: url('resources/images/zoommenos.png') !important;">
+						<f:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+							render="#{cc.attrs.id}" execute="@form" />
+					</h:commandButton>
+				</div>
+				<div id="icones-exportar">
+					<h:commandButton id="cbImprimir" styleClass="botoes"
+						style="background-image: url('resources/images/imprimir.gif') !important;">
+						<p:printer target="#{cc.attrs.id}" />
+					</h:commandButton>
+					<h:commandButton id="cbExcel" styleClass="botoes"
+						style="background-image: url('resources/images/excel.gif') !important;">
+						<p:dataExporter type="xls" target="#{cc.attrs.id}"
+							fileName="dataTable" />
+					</h:commandButton>
+					<h:commandButton id="cbPdf" styleClass="botoes"
+						style="background-image: url('resources/images/pdf.gif') !important;">
+						<p:dataExporter type="pdf" target="#{cc.attrs.id}"
+							fileName="dataTable" />
+					</h:commandButton>
+				</div>
+			</div>
+		</f:facet>
+		<composite:insertChildren />
+	</p:dataTable>
+</composite:implementation>
+</html>

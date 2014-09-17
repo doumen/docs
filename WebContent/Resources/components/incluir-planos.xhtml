@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+	<composite:attribute name="bean" />
+</composite:interface>
+
+<composite:implementation>
+	<p:panel id="pnlPlanos" styleClass="teste">
+		<div id="dadosPesquisa">
+			<h:panelGrid columns="6">
+				<p:outputLabel value="Cód. Plano" for="intCodPlano" />
+				<p:inputText id="intCodPlano" value="#{cc.attrs.bean.selected.id}"
+					disabled="true" styleClass="popUpPlano" />
+				<p:outputLabel value="Data Inclusão" for="intDtInclusao"
+					styleClass="popUpDtInclusao" />
+				<p:calendar id="intDtInclusao"
+					value="#{cc.attrs.bean.selected.dataInclusao}" disabled="true"
+					styleClass="popUpInclusaoDt" />
+				<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
+					styleClass="popUpTpInclusao" />
+				<p:inputText id="intTipoInclusao" styleClass="popUpInclusaoTp"
+					value="#{cc.attrs.bean.selected.id}" disabled="true" />
+			</h:panelGrid>
+		</div>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Descrição" for="intDescricao" />
+			<p:inputText id="intDescricao"
+				value="#{cc.attrs.bean.selected.descricao}"
+				styleClass="popUpDescricao" />
+			<p:outputLabel value="Faixa Inicial" for="intFaixaInicial" />
+			<p:inputText id="intFaixaInicial"
+				value="#{cc.attrs.bean.selected.faixaInicial}"
+				styleClass="planosValores" />
+			<p:outputLabel value="Faixa Final" for="intFaixaFinal" />
+			<p:inputText id="intFaixaFinal"
+				value="#{cc.attrs.bean.selected.faixaFinal}"
+				styleClass="planosValores" />
+			<p:outputLabel value="Valor Mensal" for="intValorMensal" />
+			<p:inputText id="intValorMensal"
+				value="#{cc.attrs.bean.selected.valorMensal}"
+				styleClass="planosValores">
+				<f:convertNumber currencySymbol="R$" type="currency" />
+			</p:inputText>
+		</h:panelGrid>
+		<h:panelGrid columns="3">
+			<p:outputLabel value="Valor NFe Adicional" for="intValorNfeAdicional" />
+			<p:inputText id="intValorNfeAdicional"
+				value="#{cc.attrs.bean.selected.valorNfeAdicional}"
+				styleClass="planosValores">
+				<f:convertNumber currencySymbol="R$" type="currency" />
+			</p:inputText>
+		</h:panelGrid>
+		<br></br>
+		<div id="botaoIncluirAlterarPlano">
+			<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
+				styleClass="botaoIncluirAlterarPlano"
+				style="background-image: url('resources/images/check.png') !important;"
+				value=" Incluir" action="#{bean.incluir}"
+				oncomplete="PF('dlgIncluirPlano').show();" />
+			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
+				styleClass="botaoIncluirAlterarPlano"
+				style="background-image: url('resources/images/check.png') !important;"
+				value=" Alterar" action="#{bean.alterar}" />
+		</div>
+		<p:dialog widgetVar="dlgIncluirPlano" id="dlgIncluirPlano">
+			<p:outputLabel value="Plano inserido com sucesso" />
+		</p:dialog>
+	</p:panel>
+</composite:implementation>
+</html>

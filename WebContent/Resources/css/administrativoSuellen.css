@@ -1,0 +1,804 @@
+#cabecalho {
+	background-color: #FF7F24;
+	height: 114px;
+}
+
+#logoCompany {
+	float: left;
+	position: absolute;
+}
+
+/** rodape **/
+#rodape {
+	background-color: #FF7F24;
+	background-image: none;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	text-align: center;
+	font-size: 10px;
+	color: #FFFFFF;
+	display: block;
+	background-image: none;
+}
+
+#logoutLabel {
+	position: absolute;
+	right: 14px;
+	top: 100px;
+}
+
+#logoutLink {
+	position: absolute;
+	right: 14px;
+	top: 86px;
+}
+
+#logout {
+	position: absolute;
+	right: 14px;
+	top: 86px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em;
+	color: #FFFFFF;
+}
+
+#conteudo {
+	width: 100%;
+}
+
+/** Padrão **/
+.panelTitulo.ui-panel .ui-panel-titlebar { /** Painel de título **/
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
+
+.ui-widget { /** Tamanho da letra para o site **/
+	font-size: 13px;
+}
+
+/** Página de Login **/
+#formLogin {
+	margin-left: 20%;
+	margin-right: 25%;
+	margin-top: 12%;
+	position: absolute;
+	width: 60%;
+}
+
+#formLogin .ui-widget-header { /** Título do form de login**/
+	color: #FFFFFF;
+	height: 25px;
+}
+
+#formLogin .ui-inputtext { /** Caixa de texto do form **/
+	width: 170%;
+}
+
+#formLogin .ui-password { /** Passaword do form **/
+	width: 65%;
+}
+
+#formLogin .ui-icon { /** Ícone no título do form **/
+	background-color: #FFFFFF;
+}
+
+#botaoLogin { /** Botões Conectar e Limpar **/
+	text-align: right;
+}
+
+/** Painel **/
+.painel.ui-menu { /** Menu **/
+	margin-left: -8.5%;
+	margin-top: -48%;
+	border-radius: 0px;
+	width: 120%;
+	font-size: 13px;
+	background-image: none;
+	text-align: center;
+}
+
+.painel.ui-menu .ui-widget-header { /** Título SubMenu **/
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.painel.ui-menu .ui-menu-list { /** Tamanho título Submenu **/
+	width: 93%;
+}
+
+.painel.ui-inputfield {
+	/** Caixa de texto de informação de evolução de vendas **/
+	margin-left: -8.5%;
+	margin-top: -5px;
+	font-size: 12px;
+	box-shadow: none;
+	border-radius: 0px;
+	text-align: center;
+	width: 120%;
+}
+
+.painel .ui-menu .ui-menuitem-link { /** Itens do menu **/
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+}
+
+.iconesMenu { /** Ícones do SubMenu **/
+	background: no-repeat 2%;
+	padding-left: 20px !important;
+}
+
+.grafico { /** Gráficos da Tela **/
+	width: 1800%;
+	height: 100%;
+	position: relative;
+	font-size: 1.0em;
+	margin-left: 40px;
+}
+
+/** Páginas de Consulta **/
+.panelConsulta.ui-panel .ui-panel-titlebar { /** Painel de título **/
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.botaoConsulta.ui-button { /** Botões de Crud e Impressão **/
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+	height: 28px;
+	background-color: #FFFFFF;
+	border-color: #FFFFFF;
+}
+
+/** Páginas de Relatório **/
+#icones-zoom { /** Div para organizar os ícones de zoom **/
+	text-align: center;
+	height: 20px;
+	display: inline;
+	width: 100%;
+	margin-left: 25%;
+}
+
+#icones-exportar { /** Div para organizar os ícones de exportação **/
+	text-align: right;
+	display: inline;
+	width: 20%;
+	float: right;
+	margin-top: 0.5%;
+}
+
+.botoes { /** Configuração dos botões (zoom, exportação) **/
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 50px;
+	height: 20px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+#block_container { /** Div para alinhar os botões (zoom, exportação) **/
+	text-align: center;
+}
+
+.dataTable.ui-datatable .ui-sortable-column { /** Cabeçalho do Grid **/
+	text-align: center;
+}
+
+.dataTable .ui-widget-content { /** Conteúdo do Grid **/
+	text-align: center;
+}
+
+.dataTable .ui-widget {
+	/** Alinhamento header com os botões (zoom, exportação) **/
+	vertical-align: bottom;
+}
+
+/** PopUp Excluir **/
+.popUpExcluir .ui-dialog-titlebar {
+	background-color: #FFFFFF;
+	background-image: none;
+}
+
+.popUpExcluir.ui-confirm-dialog.ui-dialog.ui-widget.ui-widget-content.ui-corner-all
+	{
+	border-radius: 10px;
+	text-align: center;
+}
+
+.popUpExcluir.ui-dialog .ui-dialog-buttonpane {
+	text-align: center;
+}
+
+/** PopUp - Planos **/
+.Planos.ui-dialog { /** Dimensões do Pop-Up **/
+	width: 45% !important;
+	margin-left: 20%;
+	margin-top: 15% !important;
+	white-space: nowrap !important;
+}
+
+.Planos .ui-dialog-titlebar { /** Título do Pop-Up **/
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Planos .ui-icon { /** Ícone de fechar **/
+	background-color: #FFFFFF;
+}
+
+.Planos .ui-panel-content { /** Alinhamento painel interno **/
+	padding: 0px !important;
+	font-size: 13px;
+}
+
+#dadosPesquisa .ui-panel { /** Painel dos dados de pesquisa **/
+	border-color: transparent;
+}
+
+#dadosPesquisa .ui-outputlabel { /** Label dos dados de pesquisa **/
+	color: #9C9C9C;
+}
+
+.popUpPlano.ui-inputfield { /** InputText Plano **/
+	width: 13% !important;
+	margin-left: 10%;
+}
+
+.popUpDtInclusao.ui-outputlabel { /** Label Data Inclusão **/
+	margin-left: -60%;
+}
+
+.popUpInclusaoDt .ui-inputfield { /** InputText Data Inclusão **/
+	width: 75% !important;
+	margin-left: -50%;
+}
+
+.popUpTpInclusao.ui-outputlabel { /** Label Tipo Inclusão **/
+	margin-left: -3%;
+}
+
+.popUpInclusaoTp.ui-inputfield { /** InputText Tipo Inclusão **/
+	width: 87% !important;
+	margin-left: 1%;
+}
+
+.popUpDescricao.ui-inputfield { /** InputText Descrição **/
+	width: 200% !important;
+}
+
+.planosValores.ui-inputfield {
+	/** InputText Faixa Inicial e final, Valor Mensal e NFe Adicional **/
+	text-align: right;
+	width: 35%;
+}
+
+#botaoIncluirAlterarPlano { /** Div do botão Incluir/Alterar **/
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarPlano .ui-button { /** Botão Incluir/Alterar **/
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+}
+
+/** Pop-Up Contabilidade **/
+.Contabilidade.ui-dialog { /** Dimensões do Pop-Up **/
+	width: 60% !important;
+	margin-left: 21%;
+	margin-top: 5% !important;
+	white-space: nowrap !important;
+}
+
+.Contabilidade .ui-dialog-titlebar { /** Título do Pop-Up **/
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Contabilidade .ui-icon { /** Ícone de fechar **/
+	background-color: #FFFFFF;
+}
+
+.Contabilidade .ui-panel-content { /** Alinhamento painel interno **/
+	padding: 0px !important;
+	font-size: 13px;
+}
+
+.popUpLabelCod.ui-outputlabel { /** Label Cód. Contabilidade **/
+	white-space: normal;
+}
+
+.popUpCodCont.ui-inputfield { /** InputText Cód. Contabilidade **/
+	width: 13% !important;
+	margin-left: -9%;
+}
+
+.popUpDtInclusaoCont.ui-outputlabel { /** Label Data Inclusão **/
+	margin-left: -140%;
+}
+
+.popUpInclusaoDtCont .ui-inputfield { /** InputText Data Inclusão **/
+	width: 40% !important;
+	margin-left: -70%;
+}
+
+.popUpTpInclusaoCont.ui-outputlabel { /** Label Tipo Inclusão **/
+	margin-left: -3%;
+}
+
+.popUpInclusaoTpCont.ui-inputfield { /** InputText Tipo Inclusão **/
+	width: 95% !important;
+	margin-left: 1%;
+}
+
+.dados .ui-fieldset-legend { /** Título do fieldset **/
+	background-color: transparent;
+	border: 0px solid #A8A8A8;
+}
+
+.dados.ui-fieldset { /** fieldset **/
+	padding-top: 0px;
+	padding-left: 7px;
+	width: 96%;
+}
+
+.popUpCnpj.ui-inputfield { /** InputText CNPJ **/
+	margin-left: 22%;
+	width: 52%;
+}
+
+.labelInscEst.ui-outputlabel { /** Label Inscr. Estadual **/
+	margin-left: -35%;
+}
+
+.popUpInscEstadual.ui-inputfield { /** InputText Inscrição Estadual **/
+	width: 55%;
+	margin-left: -15%;
+}
+
+.popUpRazaoSocial.ui-inputfield { /** InputText Razão Social **/
+	margin-left: 4%;
+	width: 325%;
+}
+
+.popUpEndereco.ui-inputfield { /** InputText Endereço **/
+	margin-left: 36.5%;
+	width: 650%;
+}
+
+.labelNumero.ui-outputlabel { /** Label Número **/
+	margin-left: 3500%;
+}
+
+.popUpNumero.ui-inputfield { /** InputText Número **/
+	margin-left: 91.5%;
+	width: 7%
+}
+
+.popUpComplemento.ui-inputfield { /** InputText Complemento **/
+	margin-left: 2.5%;
+	width: 329%;
+}
+
+.popUpBairro.ui-inputfield { /** InputText Bairro **/
+	margin-left: 22%;
+	width: 100%;
+}
+
+.popUpMunicipio.ui-inputfield { /** InputText Municipio **/
+	margin-left: 14%;
+	width: 110%;
+}
+
+.labelUf.ui-outputlabel { /** Label UF **/
+	margin-left: 450%;
+}
+
+.selectOneMenuUf.ui-selectonemenu { /** SelectOneMenu UF **/
+	margin-left: 60%;
+}
+
+.selectOneMenuUf .ui-icon { /** Ícone do selectOneMenu **/
+	background-color: transparent;
+}
+
+.popUpCep.ui-inputfield { /** InputText Cep **/
+	margin-left: 24%;
+	width: 27%;
+}
+
+.usuarioCheckBox .ui-chkbox-box { /** CheckBox Permissão **/
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.usuarioCheckBox .ui-chkbox-icon { /** Check do checkbox Permissão **/
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.usuarioLabel.ui-outputlabel { /** Label de Permissão **/
+	font-size: 11px;
+}
+
+.botaoUsuarios.ui-button { /** Botões Incluir/Excluir Usuários **/
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+	height: 28px;
+	background-color: transparent;
+	border-color: transparent;
+	margin-left: 75%;
+}
+
+.dataTableUsuarios.ui-datatable /** DataTable Usuário **/ {
+	width: 85%;
+	white-space: normal;
+}
+
+#comissao { /** Div Comissão **/
+	text-align: left;
+	width: 91%;
+}
+
+#comissao .ui-outputlabel { /** Label Comissão **/
+	text-align: left;
+	margin-right: 10px;
+}
+
+#comissao .ui-inputfield { /** InputText Comissão **/
+	text-align: right;
+	width: 6%;
+}
+
+#botaoIncluirAlterarContabilidade { /** Div Botão Incluir/Alterar **/
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarContabilidade .ui-button {
+	/** Botão Incluir/Alterar **/
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+/** Pop-Up Assinantes **/
+.Assinantes.ui-dialog { /** Dimensões do Pop-Up **/
+	width: 50% !important;
+	margin-left: 21%;
+	margin-top: 5% !important;
+	white-space: nowrap !important;
+	height: 68% !important;
+}
+
+.Assinantes .ui-dialog-titlebar { /** Título do Pop-Up **/
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Assinantes .ui-icon { /** Ícone de fechar **/
+	background-color: #FFFFFF;
+}
+
+.Assinantes .ui-panel-content { /** Alinhamento painel interno **/
+	padding: 0px !important;
+	font-size: 13px;
+}
+
+/** Tab Dados Assinantes **/
+.popUpLabelCodAss.ui-outputlabel { /** Label Cód. Assinante **/
+	white-space: nowrap;
+}
+
+.popUpCodAss.ui-inputfield { /** InputText Cód. Assinante **/
+	width: 20% !important;
+	margin-left: 10;
+}
+
+.popUpDtInclusaoAss.ui-outputlabel { /** Label Data Inclusão **/
+	margin-left: -80%;
+}
+
+.popUpInclusaoDtAss .ui-inputfield { /** InputText Data Inclusão **/
+	width: 50% !important;
+	margin-left: -50%;
+}
+
+.popUpTpInclusaoAss.ui-outputlabel { /** Label Tipo Inclusão **/
+	margin-left: -3%;
+}
+
+.popUpInclusaoTpAss.ui-inputfield { /** InputText Tipo Inclusão **/
+	width: 96% !important;
+	margin-left: 1%;
+}
+
+.dadosAss .ui-fieldset-legend { /** Título do fieldset **/
+	background-color: transparent;
+	border: 0px solid #A8A8A8;
+}
+
+.dadosAss.ui-fieldset { /** fieldset **/
+	padding-top: 7px;
+	padding-left: 0px;
+	width: 96%;
+	border: 0px;
+}
+
+.popUpCnpjAss.ui-inputfield { /** InputText CNPJ **/
+	margin-left: 22%;
+	width: 52%;
+}
+
+.labelInscEstAss.ui-outputlabel { /** label Inscr. Estadual **/
+	margin-left: -35%;
+}
+
+.popUpInscEstadualAss.ui-inputfield {
+	/** InputText Inscrição Estadual **/
+	width: 55%;
+	margin-left: -15%;
+}
+
+.popUpRazaoSocialAss.ui-inputfield { /** InputText Razão Social **/
+	margin-left: 4%;
+	width: 263%;
+}
+
+.popUpEnderecoAss.ui-inputfield { /** InputText Endereço **/
+	margin-left: 53%;
+	width: 760%;
+}
+
+.labelNumeroAss.ui-outputlabel { /** Label Número **/
+	margin-left: 2900%;
+}
+
+.popUpNumeroAss.ui-inputfield { /** InputText Número **/
+	margin-left: 95%;
+	width: 6%
+}
+
+.popUpComplementoAss.ui-inputfield { /** InputText Complemento **/
+	margin-left: 2.5%;
+	width: 267%;
+}
+
+.popUpBairroAss.ui-inputfield { /** InputText Bairro **/
+	margin-left: 22%;
+	width: 100%;
+}
+
+.popUpMunicipioAss.ui-inputfield { /** InputText Municipio **/
+	margin-left: 14%;
+	width: 110%;
+}
+
+.labelUfAss.ui-outputlabel { /** Label UF **/
+	margin-left: 450%;
+}
+
+.selectOneMenuUfAss.ui-selectonemenu { /** SelectOneMenu UF **/
+	margin-left: 60%;
+}
+
+.selectOneMenuUfAss .ui-icon { /** Ícone do selectOneMenu **/
+	background-color: transparent;
+}
+
+.popUpCepAss.ui-inputfield { /** InputText Cep **/
+	margin-left: 24%;
+	width: 27%;
+}
+
+.tabDados .ui-tabs-panel { /** TabView **/
+	padding: 0% !important;
+}
+
+.botaoUsuariosAss.ui-button { /** Botões Incluir/Excluir Usuários **/
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px !important;
+	height: 28px !important;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.dataTableUsuariosAss.ui-datatable /** DataTable Usuário **/ {
+	width: 92.5%;
+	white-space: normal !important;
+}
+
+/** Tab Plano Contratação **/
+.codPlanoAss.ui-inputfield { /** InputText Cód. Plano **/
+	text-align: right;
+	width: 30%;
+}
+
+.descPlanoAss.ui-inputfield { /** InputText Descr. Plano **/
+	width: 200%;
+}
+
+.vlMensalAss.ui-inputfield { /** InputText Valor Mensal **/
+	text-align: right;
+	width: 70%
+}
+
+/** Tab Contabilidade **/
+.codContAss.ui-inputfield { /** InputText Cód. Cont. **/
+	text-align: right;
+	width: 30%;
+}
+
+.cnpjAss.ui-inputfield { /** InputText CNPJ **/
+	width: 70%;
+}
+
+.razaoSocialAss.ui-inputfield { /** InputText Razão Social **/
+	width: 200%;
+}
+
+/** Tab Parametros **/
+.notificarAss .ui-chkbox-box { /** CheckBox Notificação **/
+	margin-left: 89.5%;
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.notificarAss .ui-chkbox-icon { /** Check CheckBox Notificação **/
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.labelNotificarAss.ui-outputlabel /** Labal Notificação **/ {
+	font-size: 11px;
+	margin-left: 1%;
+}
+
+.emailMasterAss.ui-inputfield { /** InputText Email Master **/
+	width: 150%;
+	margin-left: 19%;
+}
+
+.avisoMasterAss.ui-outputlabel { /** Label Aviso Email Master **/
+	font-size: 10px;
+	margin-left: 28%;
+}
+
+.emailFinanceiroAss.ui-inputfield { /** InputText Email Financeiro **/
+	width: 167%;
+	margin-left: 10%;
+}
+
+.avisoFinanceiroAss.ui-outputlabel {
+	/** Label Aviso Email Financeiro **/
+	font-size: 10px;
+	margin-left: 30%;
+}
+
+#botaoIncluirAlterarAss { /** Div Botão Incluir/Alterar **/
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarAss .ui-button {
+	/** Botão Incluir/Alterar **/
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+/** Gráfico **/
+.dataListGrafico .ui-datalist-header { /** Título do Gráfico **/
+	background-color: #FFFFFF;
+	border: 0px;
+	font-size: 17px;
+}
+
+.dataListGrafico .ui-datalist-content { /** border interno datalist **/
+	border: 0px;
+}
+
+.dataListGrafico .ui-datalist-item { /** Itens do datalist **/
+	color: #FFFFFF;
+}
+
+.panelGrafico.ui-panel .ui-panel-content {
+	/** centralização do panelGrid **/
+	text-align: center;
+}
+
+.panelGrafico.ui-widget-content { /** panelGrid dentro do dataList **/
+	border: 1px solid #000000 !important;
+	margin-left: -4% !important;
+	margin-right: -0.5% !important;
+}
+
+.labelAss.ui-outputlabel { /** label Assinante **/
+	font-weight: bold;
+	margin-left: -30%;
+	font-size: 14px;
+}
+
+.textAss.ui-inputtext { /** InputText Assinante **/
+	font-size: 14px;
+	width: 600%;
+}
+
+.labelCont.ui-outputlabel { /** label contabilidade **/
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.textCont.ui-inputtext { /** InputText contabilidade **/
+	font-size: 14px;
+	width: 600%;
+}
+
+.labelPlano.ui-outputlabel { /** Label plano Contratado **/
+	font-weight: bold;
+	font-size: 14px;
+	margin-left: -9%;
+}
+
+.textPlano.ui-inputtext { /** InputText Plano Contratado **/
+	font-size: 14px;
+	width: 300%;
+}
+
+.labelConsumo.ui-outputlabel { /** Label Consumo Restante **/
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.textConsumo.ui-inputtext { /** InputText Consumo Restante **/
+	font-size: 14px;
+}
+
+.graficoPie { /** Gráfico Consumo de Recurso Contratado **/
+	border: 1px solid #000000;
+	width: 110%;
+	padding-left: 5%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	padding-top: 3%;
+	text-align: left;
+	font-weight: bold;
+}
+
+.graficoLine { /** Gráfico Histórico Consumo **/
+	border: 1px solid #000000;
+	width: 100%;
+	padding-left: 5%;
+	margin-top: 3%;
+	margin-bottom: 3%;
+	padding-top: 3%;
+	margin-left: 10%;
+	font-weight: bold;
+}
+
+.dataListGrafico .ui-paginator.ui-paginator-bottom {
+	/** Paginação do DataList **/
+	border-top: 1px solid #A8A8A8 !important;
+	margin-left: -0.9%;
+	margin-right: -0.7%;
+}

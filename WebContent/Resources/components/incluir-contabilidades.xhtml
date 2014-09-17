@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+	<composite:attribute name="bean" />
+</composite:interface>
+
+<composite:implementation>
+	<div id="dadosPesquisa">
+		<p:panel id="pnlContabilidade">
+			<h:panelGrid columns="6">
+				<p:outputLabel value="Cód. Contabilidade" for="intCodContabilidade"
+					styleClass="popUpLabelCod" />
+				<p:inputText id="intCodContabilidade"
+					value="#{cc.attrs.bean.selected.id}" disabled="true"
+					styleClass="popUpCodCont" />
+				<p:outputLabel value="Data Inclusão" for="intDtInclusao"
+					styleClass="popUpDtInclusaoCont" />
+				<p:calendar id="intDtInclusao"
+					value="#{cc.attrs.bean.selected.dataInclusao}" disabled="true"
+					styleClass="popUpInclusaoDtCont" />
+				<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
+					styleClass="popUpTpInclusaoCont" />
+				<p:inputText id="intTipoInclusao"
+					value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="true"
+					styleClass="popUpInclusaoTpCont" />
+			</h:panelGrid>
+		</p:panel>
+	</div>
+	<p:fieldset id="fdsDadosContabilidade" legend="Dados Contabilidade"
+		styleClass="dados">
+		<h:panelGrid columns="4">
+			<p:outputLabel value="CNPJ " for="intCnpj" />
+			<p:inputText id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
+				maxlength="18" styleClass="popUpCnpj" />
+			<p:outputLabel value="Inscr.Estadual " for="intInscEst"
+				styleClass="labelInscEst" />
+			<p:inputText id="intInscEst"
+				value="#{cc.attrs.bean.selected.inscricaoEstadual}" maxlength="15"
+				styleClass="popUpInscEstadual" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Razão Social " for="intRazaoSocial" />
+			<p:inputText id="intRazaoSocial"
+				value="#{cc.attrs.bean.selected.razaoSocial}"
+				styleClass="popUpRazaoSocial" />
+		</h:panelGrid>
+		<h:panelGrid columns="4">
+			<p:outputLabel value="Endereço " for="intEndereco" />
+			<p:inputText id="intEndereco"
+				value="#{cc.attrs.bean.selected.endereco}"
+				styleClass="popUpEndereco" />
+			<p:outputLabel value="Nº " for="intNumero" styleClass="labelNumero" />
+			<p:inputText id="intNumero"
+				value="#{cc.attrs.bean.selected.enderecoNumero}"
+				styleClass="popUpNumero" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Complemento " for="intComplemento" />
+			<p:inputText id="intComplemento"
+				value="#{cc.attrs.bean.selected.enderecoComplemento}"
+				styleClass="popUpComplemento" />
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="Bairro " for="intBairro" />
+			<p:inputText id="intBairro" value="#{cc.attrs.bean.selected.bairro}"
+				styleClass="popUpBairro" />
+		</h:panelGrid>
+		<h:panelGrid columns="4">
+			<p:outputLabel value="Município " for="intMunicipio" />
+			<p:inputText id="intMunicipio"
+				value="#{cc.attrs.bean.selected.municipio}"
+				styleClass="popUpMunicipio" />
+			<p:outputLabel value="UF " for="somUf" styleClass="labelUf" />
+			<p:selectOneMenu id="somUf" value="#{cc.attrs.bean.selected.uf}"
+				styleClass="selectOneMenuUf">
+				<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
+			</p:selectOneMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+			<p:outputLabel value="CEP " for="intCep" />
+			<p:inputText id="intCep" value="#{cc.attrs.bean.selected.cep}"
+				maxlength="9" styleClass="popUpCep" />
+		</h:panelGrid>
+	</p:fieldset>
+	<br />
+	<p:fieldset id="fdsUsuarios" legend="Usuários" styleClass="dados">
+		<h:panelGrid columns="1">
+			<h:panelGrid columns="8">
+				<p:outputLabel value="Usuário" for="intUsuario" />
+				<p:inputText id="intUsuario" value="#{bean.login}" />
+				<p:outputLabel value="Senha" for="pwdUsuario" />
+				<p:password id="pwdUsuario" value="#{bean.senha}" />
+
+				<h:panelGrid columns="2">
+					<p:selectBooleanCheckbox id="sbcPermAreaContabilidade"
+						value="#{bean.permissaoAreaContador}" styleClass="usuarioCheckBox" />
+					<p:outputLabel for="sbcPermAreaContabilidade"
+						value="Perm. Área Contabilidade?" styleClass="usuarioLabel" />
+					<p:selectBooleanCheckbox id="sbcPermAreaAssinante"
+						value="#{bean.permissaoAreaAssinante}"
+						styleClass="usuarioCheckBox" />
+					<p:outputLabel for="sbcPermAreaAssinante"
+						value="Perm. Área Assinante?" styleClass="usuarioLabel" />
+				</h:panelGrid>
+
+				<p:commandButton id="cbIncluir" value=""
+					action="#{bean.adicionaUsuario}" update="dtbUsuarios"
+					styleClass="botaoUsuarios"
+					style="background-image: url('resources/images/incluir.gif') !important;" />
+				<p:commandButton id="cmbExcluir" value=""
+					action="#{bean.removeUsuario}" update="dtbUsuarios"
+					styleClass="botaoUsuarios"
+					style="background-image: url('resources/images/minus.png') !important;" />
+				<p:tooltip for="cbIncluir" value="Incluir" />
+				<p:tooltip for="cmbExcluir" value="Excluir" />
+
+			</h:panelGrid>
+
+			<p:dataTable id="dtbUsuarios" scrollable="true" scrollHeight="100"
+				value="#{cc.attrs.bean.selected.usuarios}" var="usuario"
+				styleClass="dataTableUsuarios"
+				emptyMessage="Nenhum registro encontrado.">
+				<p:column headerText="ID">
+					<h:outputText value="#{usuario.id}" />
+				</p:column>
+				<p:column headerText="Usuário">
+					<h:outputText value="#{usuario.login}" />
+				</p:column>
+				<p:column headerText="Permissão Área Usuário?">
+					<p:selectBooleanCheckbox value="#{usuario.permissaoAreaAssinante}" />
+				</p:column>
+				<p:column headerText="Permissão Área Contador?">
+					<p:selectBooleanCheckbox value="#{usuario.permissaoAreaContador}" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</p:fieldset>
+	<table>
+		<tr>
+			<td id="comissao"><p:outputLabel value="Comissão"
+					for="intComissao" /> <p:inputText id="intComissao"
+					value="#{cc.attrs.bean.selected.comissao}">
+					<f:convertNumber type="percent" />
+				</p:inputText></td>
+			<td id="comissao">
+				<div id="botaoIncluirAlterarContabilidade">
+					<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
+						style="background-image: url('resources/images/check.png') !important;"
+						styleClass="botaoIncluirAlterarContabilidade" value=" Incluir"
+						action="#{bean.incluir}"
+						oncomplete="PF('dlgIncluirContabilidade').show();" />
+					<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
+						style="background-image: url('resources/images/check.png') !important;"
+						styleClass="botaoIncluirAlterarContabilidade" value=" Alterar"
+						action="#{bean.alterar}" />
+				</div>
+			</td>
+		</tr>
+	</table>
+	<p:dialog widgetVar="dlgIncluirContabilidade"
+		id="dlgIncluirContabilidade">
+		<p:outputLabel value="Contabilidade inserida com sucesso" />
+	</p:dialog>
+</composite:implementation>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="id" />
+	<composite:attribute name="width" />
+	<composite:attribute name="height" />
+	<composite:attribute name="barras" />
+	<composite:attribute name="totalBarras" />
+	<composite:attribute name="maiorAssinante" />
+	<composite:attribute name="cores" />
+	<composite:attribute name="ordem" />
+	<composite:attribute name="library" default="html5" />
+	<composite:attribute name="script" default="canvasDefault.js" />
+</composite:interface>
+
+<composite:implementation>
+<canvas id="tip" width="0" height="0"></canvas>
+		<canvas id="#{cc.attrs.id}" width="0"
+			height="0" style="padding-left: 1.3%">                                
+	      <composite:insertChildren />           
+    	</canvas>
+	<h:outputScript library="#{cc.attrs.library}" name="#{cc.attrs.script}" />
+	<h:outputScript library="javax.faces" name="jsf.js" target="head" />
+	<h:outputScript library="js" name="printVoucher.js" target="head" />
+	<script type="text/javascript">
+
+        var assinantes = [];
+     	<ui:repeat var="ass" value="#{cc.attrs.barras}" >
+     		var assinante = {
+     		 		totalDoctos: '#{ass.totalDoctosArmazenados}',
+     	 		 	nome: '#{ass.cnpj}' + ' - ' + '#{ass.nomeFantasia}'	
+     		}; 
+     		assinantes.push(assinante);
+    	</ui:repeat>
+    	var cores = "#{cc.attrs.cores}";   
+          #{cc.attrs.script}.init(#{cc.attrs.id},assinantes,#{cc.attrs.maiorAssinante},#{cc.attrs.totalBarras},cores,#{cc.attrs.ordem})
+        
+        var loadBarras = function(data){
+            var ajaxstatus = data.status; // Can be "begin", "complete" and "success"
+            switch (ajaxstatus) {
+                case "begin": // This is called right before ajax request is been sent.
+                	#{cc.attrs.script}.init(#{cc.attrs.id},assinantes,#{cc.attrs.maiorAssinante},#{cc.attrs.totalBarras},cores,#{cc.attrs.ordem});
+                    break;
+
+                case "complete": // This is called right after ajax response is received.
+                	#{cc.attrs.script}.init(#{cc.attrs.id},assinantes,#{cc.attrs.maiorAssinante},#{cc.attrs.totalBarras},cores,#{cc.attrs.ordem});
+                    break;
+
+                case "success": // This is called when ajax response is successfully processed.
+    				#{cc.attrs.script}.init(#{cc.attrs.id},assinantes,#{cc.attrs.maiorAssinante},#{cc.attrs.totalBarras},cores,#{cc.attrs.ordem});
+                    break;
+            }
+        };                   
+    	jsf.ajax.addOnEvent(loadBarras(data));
+	
+    </script>
+</composite:implementation>
+</html>
