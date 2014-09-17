@@ -1,2 +1,7 @@
 src/teste/*.java
 *~
+.classpath
+.metadata/
+.project
+.settings/
+build/
