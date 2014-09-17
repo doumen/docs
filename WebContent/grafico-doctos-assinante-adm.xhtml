@@ -14,7 +14,7 @@
 
 	<ui:define name="conteudoPainel">
 		<h:form id="form">
-			<p:dataList value="#{bean.graficoDoctosAssinanteAdm}" id="dataList"
+			<p:dataList value="#{bean.graficosDoctosAssinante}" id="dataList"
 				paginatorPosition="bottom" var="graficoDoctosAssinanteAdm"
 				paginator="true" rows="1" styleClass="dataListGrafico">
 				<f:facet name="header">
@@ -22,19 +22,19 @@
 				<div id="icones-zoom">
 					<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
 						style="background-image: url('resources/images/zoommais.png') !important;">
-						<f:ajax listener="#{relatorioDataTableMB.aumentaZoom}"
+						<f:ajax listener="#{bean.aumentaZoom}"
 							render="#{dataList}" execute="@form" />
 					</h:commandButton>
 					<p:selectOneMenu id="somZoom" rendered="true"
-						value="#{relatorioDataTableMB.zoom}">
+						value="#{bean.zoom}">
 						<f:selectItem itemLabel=" " itemValue="" />
-						<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+						<f:selectItems value="#{bean.selectedZooms}" />
 						<p:ajax update="#{dataList}"
-							listener="#{relatorioDataTableMB.zoomSelectOneMenu}"></p:ajax>
+							listener="#{bean.zoomSelectOneMenu}"></p:ajax>
 					</p:selectOneMenu>
 					<h:commandButton id="cbZoomMenos" styleClass="botoes"
 						style="background-image: url('resources/images/zoommenos.png') !important;">
-						<f:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+						<f:ajax listener="#{bean.diminuiZoom}"
 							render="#{dataList}" execute="@form" />
 					</h:commandButton>
 				</div>
@@ -64,7 +64,7 @@
 							value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}" styleClass="textAss" />
 						<p:outputLabel value="Contabilidade" for="intContabilidade" styleClass="labelCont" />
 						<p:inputText id="intContabilidade"
-							value="#{graficoDoctosAssinanteAdm.contabilidade.razaoSocial}" styleClass="textCont" />
+							value="#{graficoDoctosAssinanteAdm.contabilidade.nomeFantasia}" styleClass="textCont" />
 					</h:panelGrid>
 					<h:panelGrid columns="2">
 						<h:panelGrid columns="1" styleClass="graficoPie">

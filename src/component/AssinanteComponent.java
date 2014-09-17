@@ -16,6 +16,7 @@ import model.Usuario;
 
 @Stateless
 public class AssinanteComponent {
+	
 	public List<Assinante> getAssinantes() {
 		ArrayList<Assinante> assinantes = new ArrayList<>();
 		int j = 0;
@@ -109,4 +110,6 @@ public class AssinanteComponent {
 		List<Assinante> as = getAssinantes();
 		return as;
 	}
+	
+	
 }

@@ -10,10 +10,10 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped	
 public class RelatorioDataTableMB {
-	private float font = 1.0f;
-	private int zoom = 100;
-	private Integer selectedZoom;
-	private Map<String, Integer> selectedZooms = new LinkedHashMap<String, Integer>();
+	protected float font = 1.0f;
+	protected int zoom = 100;
+	protected Integer selectedZoom;
+	protected Map<String, Integer> selectedZooms = new LinkedHashMap<String, Integer>();
 
 	public float getFont() {
 		return font;
