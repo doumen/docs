@@ -303,10 +303,13 @@
 
 /* Pop-Up Contabilidade */
 .Contabilidade.ui-dialog { /* Dimensões do Pop-Up */
-	width: 60% !important;
-	margin-left: 21%;
-	margin-top: 5% !important;
-	white-space: nowrap !important;
+	width:770px !important; 
+	height:650px !important; 
+	position:absolute !important; 
+	top:25% !important; 
+	margin-top:-100px !important; 
+	left:43% !important; 
+	margin-left:-250px !important; 
 }
 
 .Contabilidade .ui-dialog-titlebar { /* Título do Pop-Up */
@@ -324,33 +327,6 @@
 	font-size: 13px;
 }
 
-.popUpLabelCod.ui-outputlabel { /* Label Cód. Contabilidade */
-	white-space: normal;
-}
-
-.popUpCodCont.ui-inputfield { /* InputText Cód. Contabilidade */
-	width: 13% !important;
-	margin-left: -9%;
-}
-
-.popUpDtInclusaoCont.ui-outputlabel { /* Label Data Inclusão */
-	margin-left: -140%;
-}
-
-.popUpInclusaoDtCont .ui-inputfield { /* InputText Data Inclusão */
-	width: 40% !important;
-	margin-left: -70%;
-}
-
-.popUpTpInclusaoCont.ui-outputlabel { /* Label Tipo Inclusão */
-	margin-left: -3%;
-}
-
-.popUpInclusaoTpCont.ui-inputfield { /* InputText Tipo Inclusão */
-	width: 95% !important;
-	margin-left: 1%;
-}
-
 .dados .ui-fieldset-legend { /* Título do fieldset */
 	background-color: transparent;
 	border: 0px solid #A8A8A8;
@@ -362,70 +338,51 @@
 	width: 96%;
 }
 
-.popUpCnpj.ui-inputfield { /* InputText CNPJ */
-	margin-left: 22%;
-	width: 52%;
+
+
+
+
+.iptDadosContabilidade {
+	position: relative;
+	left: 0.6%;
+	width: 96%;
 }
 
-.labelInscEst.ui-outputlabel { /* Label Inscr. Estadual */
-	margin-left: -35%;
-}
-
-.popUpInscEstadual.ui-inputfield { /* InputText Inscrição Estadual */
-	width: 55%;
-	margin-left: -15%;
-}
-
-.popUpRazaoSocial.ui-inputfield { /* InputText Razão Social */
-	margin-left: 4%;
-	width: 325%;
-}
-
-.popUpEndereco.ui-inputfield { /* InputText Endereço */
-	margin-left: 36.5%;
-	width: 650%;
-}
-
-.labelNumero.ui-outputlabel { /* Label Número */
-	margin-left: 3500%;
-}
-
-.popUpNumero.ui-inputfield { /* InputText Número */
-	margin-left: 91.5%;
-	width: 7%
-}
-
-.popUpComplemento.ui-inputfield { /* InputText Complemento */
-	margin-left: 2.5%;
-	width: 329%;
-}
-
-.popUpBairro.ui-inputfield { /* InputText Bairro */
-	margin-left: 22%;
+.pnlgContEndereco{
 	width: 100%;
 }
 
-.popUpMunicipio.ui-inputfield { /* InputText Municipio */
-	margin-left: 14%;
-	width: 110%;
+.pnlgContEndereco_c1 {
+	width: 80%;
+}
+.iptContEndereco {
+	width: 97%;
+}
+.pnlgContEndereco_c2 {
+	width: 5%;
+}
+.pnlgContEndereco_c3 {
+	width: 11%;
+}
+.iptContNumero {
+	width: 72%;
+}
+.iptContBairro {
+	position: relative;
+	left: 0.6%;
 }
 
-.labelUf.ui-outputlabel { /* Label UF */
-	margin-left: 450%;
+.iptContCep {
+	position: relative;
+	left: 0.6%;
+	width: 15%;
 }
 
-.selectOneMenuUf.ui-selectonemenu { /* SelectOneMenu UF */
-	margin-left: 60%;
+.pnlDadosCont_c2{
+	width: 99%;
 }
 
-.selectOneMenuUf .ui-icon { /* Ícone do selectOneMenu */
-	background-color: transparent;
-}
 
-.popUpCep.ui-inputfield { /* InputText Cep */
-	margin-left: 24%;
-	width: 27%;
-}
 
 .usuarioCheckBox .ui-chkbox-box { /* CheckBox Permissão */
 	width: 13px !important;
@@ -454,6 +411,12 @@
 .dataTableUsuarios.ui-datatable /* DataTable Usuário */ {
 	width: 85%;
 	white-space: normal;
+	font-size: 11px;
+	text-align: center;
+}
+
+.dataTableUsuarios .ui-datatable-empty-message{
+	text-align: left;
 }
 
 #comissao { /* Div Comissão */
@@ -642,7 +605,7 @@
 	font-size: 13px;
 }
 
-.pnlAssinantes{
+.pnlAssinantes, .pnlContabilidade{
 	border: 0;
 }
 
@@ -767,7 +730,7 @@
 }
 
 
-.pnlgEndereco, .pngParametrosNotificar, .pnlgInformacao { /*panelGrid Endereço/ParametrosNotificar/Informação*/
+.pnlgEndereco, .pngParametrosNotificar, .pnlgInformacao{ /*panelGrid Endereço/ParametrosNotificar/Informação*/
 	width: 100%;
 }
 
