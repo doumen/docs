@@ -14,77 +14,92 @@
 
 	<ui:define name="conteudoPainel">
 		<h:form id="form">
+			<h:outputScript library="js" name="printVoucher.js" target="head" />
 			<p:dataList value="#{bean.graficosDoctosAssinante}" id="dataList"
 				paginatorPosition="bottom" var="graficoDoctosAssinanteAdm"
 				paginator="true" rows="1" styleClass="dataListGrafico">
 				<f:facet name="header">
-				          			<div id="block_container">
-				<div id="icones-zoom">
-					<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
-						style="background-image: url('resources/images/zoommais.png') !important;">
-						<f:ajax listener="#{bean.aumentaZoom}"
-							render="#{dataList}" execute="@form" />
-					</h:commandButton>
-					<p:selectOneMenu id="somZoom" rendered="true"
-						value="#{bean.zoom}">
-						<f:selectItem itemLabel=" " itemValue="" />
-						<f:selectItems value="#{bean.selectedZooms}" />
-						<p:ajax update="#{dataList}"
-							listener="#{bean.zoomSelectOneMenu}"></p:ajax>
-					</p:selectOneMenu>
-					<h:commandButton id="cbZoomMenos" styleClass="botoes"
-						style="background-image: url('resources/images/zoommenos.png') !important;">
-						<f:ajax listener="#{bean.diminuiZoom}"
-							render="#{dataList}" execute="@form" />
-					</h:commandButton>
-				</div>
-				<div id="icones-exportar">
-					<h:commandButton id="cbImprimir" styleClass="botoes"
-						style="background-image: url('resources/images/imprimir.gif') !important;">
-						<p:printer target="#{dataList}" />
-					</h:commandButton>
-					<h:commandButton id="cbExcel" styleClass="botoes"
-						style="background-image: url('resources/images/excel.gif') !important;">
-						<p:dataExporter type="xls" target="#{dataList}"
-							fileName="dataTable" />
-					</h:commandButton>
-					<h:commandButton id="cbPdf" styleClass="botoes"
-						style="background-image: url('resources/images/pdf.gif') !important;">
-						<p:dataExporter type="pdf" target="#{dataList}"
-							fileName="dataTable" />
-					</h:commandButton>
-				</div>
-			</div>
+					<div id="block_container">
+						<div id="icones-zoom">
+							<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+								style="background-image: url('resources/images/zoommais.png') !important;">
+								<f:ajax listener="#{bean.aumentaZoom}" render="#{dataList}"
+									execute="@form" />
+							</h:commandButton>
+							<p:selectOneMenu id="somZoom" rendered="true"
+								value="#{bean.zoom}">
+								<f:selectItem itemLabel=" " itemValue="" />
+								<f:selectItems value="#{bean.selectedZooms}" />
+								<p:ajax update="#{dataList}"
+									listener="#{bean.zoomSelectOneMenu}"></p:ajax>
+							</p:selectOneMenu>
+							<h:commandButton id="cbZoomMenos" styleClass="botoes"
+								style="background-image: url('resources/images/zoommenos.png') !important;">
+								<f:ajax listener="#{bean.diminuiZoom}" render="#{dataList}"
+									execute="@form" />
+							</h:commandButton>
+						</div>
+						<div id="icones-exportar">
+							<h:commandButton id="cbImprimir" styleClass="botoes"
+								style="background-image: url('resources/images/imprimir.gif') !important;"
+								onclick="print_grafico_doctos_assinantes(#{bean.graficoDoctosAssinante},'contabilidade','pieChart','lineChart','','');">
+							</h:commandButton>
+							<h:commandButton id="cbExcel" styleClass="botoes"
+								style="background-image: url('resources/images/excel.gif') !important;">
+								<p:dataExporter type="xls" target="dataList"
+									fileName="dataTable" />
+							</h:commandButton>
+							<h:commandButton id="cbPdf" styleClass="botoes"
+								style="background-image: url('resources/images/pdf.gif') !important;">
+								<p:dataExporter type="pdf" target="dataList"
+									fileName="dataTable" />
+							</h:commandButton>
+						</div>
+					</div>
             		Gráfico - Manipulação Doctos X Assinantes
         		</f:facet>
+
 				<p:panel styleClass="panelGrafico">
-					<h:panelGrid columns="2">
-						<p:outputLabel value="Assinante" for="intAssinante" styleClass="labelAss" />
+				#{graficoDoctosAssinanteAdm}
+					<f:event type="preRenderComponent" listener="#{bean.method}">
+						<f:attribute name="howMany" value="#{graficoDoctosAssinanteAdm}" />
+					</f:event>
+					
+					<h:panelGrid columns="2" id="label1">
+						<p:outputLabel value="Assinante" for="intAssinante"
+							styleClass="labelAss" />
 						<p:inputText id="intAssinante"
-							value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}" styleClass="textAss" />
-						<p:outputLabel value="Contabilidade" for="intContabilidade" styleClass="labelCont" />
+							value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}"
+							styleClass="textAss" />
+						<p:outputLabel value="Contabilidade" for="intContabilidade"
+							styleClass="labelCont" />
 						<p:inputText id="intContabilidade"
-							value="#{graficoDoctosAssinanteAdm.contabilidade.nomeFantasia}" styleClass="textCont" />
+							value="#{graficoDoctosAssinanteAdm.contabilidade.nomeFantasia}"
+							styleClass="textCont" />
 					</h:panelGrid>
 					<h:panelGrid columns="2">
 						<h:panelGrid columns="1" styleClass="graficoPie">
-							<p:chart type="pie"
+							<p:chart type="pie" id="pieChart" widgetVar="pieChart"
 								model="#{graficoDoctosAssinanteAdm.pieChartModel}"
 								style="width:500px;height:400px" />
 						</h:panelGrid>
 						<h:panelGrid columns="1" styleClass="graficoLine">
-							<p:chart type="line"
+							<p:chart type="line" id="lineChart" widgetVar="lineChart"
 								model="#{graficoDoctosAssinanteAdm.lineChartModel}"
 								style="width:500px;height:400px" />
 						</h:panelGrid>
 					</h:panelGrid>
-					<h:panelGrid columns="2">
-						<p:outputLabel value="Plano Contratado" for="intPlanoContratado" styleClass="labelPlano" />
+					<h:panelGrid columns="2" id="label2">
+						<p:outputLabel value="Plano Contratado" for="intPlanoContratado"
+							styleClass="labelPlano" />
 						<p:inputText id="intPlanoContratado"
-							value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}" styleClass="textPlano" />
-						<p:outputLabel value="Consumo Restante" for="intConsumoRestante" styleClass="labelConsumo"/>
+							value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}"
+							styleClass="textPlano" />
+						<p:outputLabel value="Consumo Restante" for="intConsumoRestante"
+							styleClass="labelConsumo" />
 						<p:inputText id="intConsumoRestante"
-							value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}" styleClass="textConsumo" />
+							value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}"
+							styleClass="textConsumo" />
 					</h:panelGrid>
 				</p:panel>
 			</p:dataList>

@@ -93,9 +93,7 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	   protected int totPag;
 	   
 	   protected float zoom;
-	   
-	   private File csvFile;
-	   
+	   	   
 	   public void irParaProximaPagina(){
 	       if(pgAtual<getTotPag()){
 	           pgAtual ++;
@@ -242,19 +240,12 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 		this.ordem = ordem;
 	}
 	
-	public void download() throws IOException {
-		createAndPopulateCsvFile();
-	    Faces.sendFile(getCsvFile(), true);
-	    csvFile.delete();
+	public void downloadExcel() throws IOException {
+		File f = createAndPopulateCsvFile();
+	    Faces.sendFile(createAndPopulateCsvFile(), true);
+	    f.delete();
 	}
 
-	public abstract void createAndPopulateCsvFile();
+	public abstract File createAndPopulateCsvFile();
 	
-	public File getCsvFile() {
-		return csvFile;
-	}
-
-	public void setCsvFile(File csvFile) {
-		this.csvFile = csvFile;
-	}
 }
