@@ -26,6 +26,7 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante>{
 	
 	public ConsultaAssinantesAdmMB() {
 		super(Assinante.class);
+		System.out.println("Instanciou o ConsultaAssinantesAdmMB!!");
 	}
 
 	public void init(){
@@ -95,22 +96,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante>{
 	}
 
 	@Override
-	public void removeSelectedList() {
-		listTable.removeAll(getSelectedList());
-		System.out.println("Excluir!!");
-	}
-
-	@Override
-	public void incluir() {
-		System.out.println("Incluir o " + selected);
-	}
-
-	@Override
-	public void alterar() {
-		System.out.println("Alterar!");
-	}
-
-	@Override
 	public String[] getArgs() {
 		String[] s = {"dataInclusao",
 				"plano.id",
@@ -140,5 +125,4 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante>{
 			p.put("contabilidade.nomeFantasia", "Contabilidade");
 		return p;
 	}
-
 }
