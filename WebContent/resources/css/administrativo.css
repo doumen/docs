@@ -799,3 +799,16 @@
 	background-position: left;
 	height: 35px;
 }
+
+.panelGrafico{
+	width: 100%;
+}
+.pg_c1{
+	width: 10%;
+	text-align:left;
+}
+.pg_c2{
+	border: 1px solid;
+	text-align:left;
+	width: 90%;
+}
