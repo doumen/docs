@@ -10,7 +10,6 @@ import javax.inject.Inject;
 
 import model.Contabilidade;
 import model.Usuario;
-
 import component.ContabilidadeComponent;
 
 @ManagedBean
@@ -21,7 +20,7 @@ public class ConsultaContabilidadeAdmMB extends
 	private String senha;
 	private boolean permissaoAreaContador;
 	private boolean permissaoAreaAssinante;
-	
+
 	public ConsultaContabilidadeAdmMB() throws InstantiationException,
 			IllegalAccessException {
 		super(Contabilidade.class);
@@ -115,23 +114,5 @@ public class ConsultaContabilidadeAdmMB extends
 
 	public void setPermissaoAreaAssinante(boolean permissaoAreaAssinante) {
 		this.permissaoAreaAssinante = permissaoAreaAssinante;
-	}
-
-	@Override
-	public void removeSelectedList() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void incluir() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void alterar() {
-		// TODO Auto-generated method stub
-		
 	}
 }
