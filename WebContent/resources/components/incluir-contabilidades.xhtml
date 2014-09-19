@@ -64,6 +64,7 @@
 					<p:outputLabel value="UF" for="somUf" />
 					<p:selectOneMenu id="somUf" value="#{cc.attrs.bean.selected.uf}"
 						styleClass="selectUf">
+						<f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true"/>
 						<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
 					</p:selectOneMenu>
 				</h:panelGrid>
