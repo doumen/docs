@@ -7,42 +7,43 @@
 	xmlns:golive="http://java.sun.com/jsf/composite/components"
 	template="/templates/_panel-titulo.xhtml">
 
-	<ui:param name="tituloPainel" value="Gráfico - Interação X Assinantes" />
-	<ui:param name="help" value="Gráfico - Interação X Assinantes" />
+	<ui:param name="tituloPainel" value="Gráfico - manipulação Doctos X Assinantes" />
+	<ui:param name="help" value="Gráfico - manipulação Doctos X Assinantes" />
 	<ui:param name="modulo" value="administrativo" />
 	<ui:param name="bean" value="#{graficoDoctosAssinanteAdmMB}" />
 
 	<ui:define name="conteudoPainel">
-		<h:form id="form">
-			<h:outputScript library="js" name="printVoucher.js" target="head" />
-			<p:dataList value="#{bean.graficosDoctosAssinante}" id="dataList"
-				paginatorPosition="bottom" var="graficoDoctosAssinanteAdm"
-				paginator="true" rows="1" styleClass="dataListGrafico">
-				<f:facet name="header">
+	<h:outputScript library="js" name="printVoucher.js" target="head" />
+			<p:dataGrid value="#{bean.graficosDoctosAssinante}" var="graficoDoctosAssinanteAdm" paginator="true" paginatorPosition="bottom"
+			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+			currentPageReportTemplate="[{currentPage} de {totalPages} ]" rows="1" columns="1"			
+			id="dataList" widgetVar="dataGrid">
+			
+			<f:facet name="header">
 					<div id="block_container">
 						<div id="icones-zoom">
 							<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
 								style="background-image: url('resources/images/zoommais.png') !important;">
-								<f:ajax listener="#{bean.aumentaZoom}" render="#{dataList}"
+								<f:ajax listener="#{relatorioDataTableMB.aumentaZoom}" render="dataList"
 									execute="@form" />
 							</h:commandButton>
 							<p:selectOneMenu id="somZoom" rendered="true"
-								value="#{bean.zoom}">
+								value="#{relatorioDataTableMB.zoom}">
 								<f:selectItem itemLabel=" " itemValue="" />
-								<f:selectItems value="#{bean.selectedZooms}" />
-								<p:ajax update="#{dataList}"
-									listener="#{bean.zoomSelectOneMenu}"></p:ajax>
+								<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+								<f:ajax render="dataList" event="change"
+									listener="#{relatorioDataTableMB.zoomSelectOneMenu}"></f:ajax>
 							</p:selectOneMenu>
 							<h:commandButton id="cbZoomMenos" styleClass="botoes"
 								style="background-image: url('resources/images/zoommenos.png') !important;">
-								<f:ajax listener="#{bean.diminuiZoom}" render="#{dataList}"
+								<f:ajax listener="#{relatorioDataTableMB.diminuiZoom}" render="dataList"
 									execute="@form" />
 							</h:commandButton>
 						</div>
 						<div id="icones-exportar">
 							<h:commandButton id="cbImprimir" styleClass="botoes"
 								style="background-image: url('resources/images/imprimir.gif') !important;"
-								onclick="print_grafico_doctos_assinantes(#{bean.graficoDoctosAssinante},'contabilidade','pieChart','lineChart','','');">
+								onclick="print_grafico_doctos_assinantes();">
 							</h:commandButton>
 							<h:commandButton id="cbExcel" styleClass="botoes"
 								style="background-image: url('resources/images/excel.gif') !important;">
@@ -56,53 +57,37 @@
 							</h:commandButton>
 						</div>
 					</div>
-            		Gráfico - Manipulação Doctos X Assinantes
         		</f:facet>
-
-				<p:panel styleClass="panelGrafico">
-				#{graficoDoctosAssinanteAdm}
-					<f:event type="preRenderComponent" listener="#{bean.method}">
-						<f:attribute name="howMany" value="#{graficoDoctosAssinanteAdm}" />
-					</f:event>
-					
-					<h:panelGrid columns="2" id="label1">
-						<p:outputLabel value="Assinante" for="intAssinante"
-							styleClass="labelAss" />
-						<p:inputText id="intAssinante"
-							value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}"
-							styleClass="textAss" />
-						<p:outputLabel value="Contabilidade" for="intContabilidade"
-							styleClass="labelCont" />
-						<p:inputText id="intContabilidade"
-							value="#{graficoDoctosAssinanteAdm.contabilidade.nomeFantasia}"
-							styleClass="textCont" />
+        		
+        		<div style="font-size:#{relatorioDataTableMB.font}em !important;text-align:center;" >
+					<p:outputLabel value="Gráfico - Manipulação Doctos X Assinantes" style="font-size:2em;"></p:outputLabel>
+					<br></br>
+					<p:panel style="border:1px solid">
+					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">
+						<h:column><p:outputLabel value="Assinante: " ></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="Contabilidade: " style="text-align:left;"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.contabilidade.nomeFantasia}"></p:outputLabel> </h:column>
 					</h:panelGrid>
 					<h:panelGrid columns="2">
-						<h:panelGrid columns="1" styleClass="graficoPie">
-							<p:chart type="pie" id="pieChart" widgetVar="pieChart"
-								model="#{graficoDoctosAssinanteAdm.pieChartModel}"
-								style="width:500px;height:400px" />
-						</h:panelGrid>
-						<h:panelGrid columns="1" styleClass="graficoLine">
-							<p:chart type="line" id="lineChart" widgetVar="lineChart"
+						<h:column><p:chart type="pie" id="pieChart" widgetVar="pieChart" model="#{graficoDoctosAssinanteAdm.pieChartModel}"	style="width:500px;height:400px" /></h:column>
+						<h:column><p:chart type="line" id="lineChart" widgetVar="lineChart"
 								model="#{graficoDoctosAssinanteAdm.lineChartModel}"
-								style="width:500px;height:400px" />
-						</h:panelGrid>
+								style="width:500px;height:400px" /></h:column>
 					</h:panelGrid>
-					<h:panelGrid columns="2" id="label2">
-						<p:outputLabel value="Plano Contratado" for="intPlanoContratado"
-							styleClass="labelPlano" />
-						<p:inputText id="intPlanoContratado"
-							value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}"
-							styleClass="textPlano" />
-						<p:outputLabel value="Consumo Restante" for="intConsumoRestante"
-							styleClass="labelConsumo" />
-						<p:inputText id="intConsumoRestante"
-							value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}"
-							styleClass="textConsumo" />
+					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">								
+						<h:column><p:outputLabel value="Plano Contratado: " ></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="Consumo Restante" style="text-align:left;"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}"></p:outputLabel> </h:column>						
 					</h:panelGrid>
-				</p:panel>
-			</p:dataList>
-		</h:form>
+										
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}" id="assinante"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.contabilidade.nomeFantasia}" id="contabilidade"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}" id="plano"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}" id="consumo"/>
+					</p:panel>
+				</div>
+			</p:dataGrid>
 	</ui:define>
 </ui:composition>
