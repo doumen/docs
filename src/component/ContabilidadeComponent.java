@@ -25,7 +25,7 @@ public class ContabilidadeComponent {
 		c.setCnpj("cnpj " + i);
 		c.setMunicipio("municipio " + i);
 		c.setUf(SiglaEstado.SP);
-		c.setNomeFantasia("Contabiliade " + i);
+		c.setRazaoSocial("Contabiliade " + i);
 		return c;
 	}
 }

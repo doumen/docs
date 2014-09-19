@@ -11,24 +11,23 @@
 </composite:interface>
 
 <composite:implementation>
-	<p:panel id="pnlPlanos" styleClass="teste">
-		<div id="dadosPesquisa">
-			<h:panelGrid columns="6">
-				<p:outputLabel value="Cód. Plano" for="intCodPlano" />
-				<p:inputText id="intCodPlano" value="#{cc.attrs.bean.selected.id}"
-					disabled="true" styleClass="popUpPlano" />
-				<p:outputLabel value="Data Inclusão" for="intDtInclusao"
-					styleClass="popUpDtInclusao" />
-				<p:calendar id="intDtInclusao"
-					value="#{cc.attrs.bean.selected.dataInclusao}" disabled="true"
-					styleClass="popUpInclusaoDt" />
-				<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
-					styleClass="popUpTpInclusao" />
-				<p:inputText id="intTipoInclusao" styleClass="popUpInclusaoTp"
-					value="#{cc.attrs.bean.selected.id}" disabled="true" />
-			</h:panelGrid>
-		</div>
-		<h:panelGrid columns="2">
+	<p:panel id="pnlPlanos" styleClass="pnlAssinantes">
+		<h:panelGrid columns="6" styleClass="pnlgInformacao"
+			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
+			<p:outputLabel value="Cód. Plano" for="intCodPlano" />
+			<p:inputText id="intCodPlano" styleClass="iptCodAss"
+				value="#{cc.attrs.bean.selected.id}" disabled="false" />
+			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
+				styleClass="oplDtInclusao" />
+			<p:calendar id="intDtInclusao" styleClass="iptDtInclusao"
+				value="#{cc.attrs.bean.selected.dataInclusao}" disabled="false" />
+			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
+				styleClass="oplTpInclusao" />
+			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
+				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="false" />
+		</h:panelGrid>
+
+<h:panelGrid columns="2" styleClass="dadosPlanos" columnClasses="dadosPlanos_c1, dadosPlanos_c2">
 			<p:outputLabel value="Descrição" for="intDescricao" />
 			<p:inputText id="intDescricao"
 				value="#{cc.attrs.bean.selected.descricao}"
@@ -48,14 +47,15 @@
 				<f:convertNumber currencySymbol="R$" type="currency" />
 			</p:inputText>
 		</h:panelGrid>
-		<h:panelGrid columns="3">
+				<h:panelGrid columns="3">
 			<p:outputLabel value="Valor NFe Adicional" for="intValorNfeAdicional" />
 			<p:inputText id="intValorNfeAdicional"
 				value="#{cc.attrs.bean.selected.valorNfeAdicional}"
-				styleClass="planosValores">
+				styleClass="iptValorNfe">
 				<f:convertNumber currencySymbol="R$" type="currency" />
 			</p:inputText>
 		</h:panelGrid>
+		
 		<br></br>
 		<div id="botaoIncluirAlterarPlano">
 			<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"

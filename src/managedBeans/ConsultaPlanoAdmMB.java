@@ -67,22 +67,4 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 		return p;
 	}
-
-	@Override
-	public void removeSelectedList() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void incluir() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void alterar() {
-		// TODO Auto-generated method stub
-		
-	}
 }

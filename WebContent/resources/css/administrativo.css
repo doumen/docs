@@ -162,6 +162,473 @@
 	border-color: #FFFFFF;
 }
 
+/* Pop-Up Assinantes */
+.Assinantes.ui-dialog { /* Dimensões do Pop-Up */
+	width: 600px !important;
+	height: 630px !important;
+	position: absolute !important;
+	top: 30% !important;
+	margin-top: -100px !important;
+	left: 45% !important;
+	margin-left: -250px !important;
+}
+
+.Assinantes .ui-dialog-titlebar { /* Título do Pop-Up */
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Assinantes .ui-icon { /* Ícone de fechar */
+	background-color: #FFFFFF;
+}
+
+.Assinantes .ui-panel-content { /* Alinhamento painel interno */
+	padding: 0 !important;
+	font-size: 13px;
+}
+
+.pnlAssinantes, .pnlContabilidade {
+	border: 0;
+}
+
+/* Tabs */
+.tabDados .ui-tabs-panel { /* TabView */
+	padding: 0 !important;
+}
+
+.dadosAssinantes {
+	border-radius: 0;
+	border: 0 none;
+	padding: 0 !important;
+}
+
+.pnlgInformacao {
+	color: #9C9C9C;
+}
+
+.pnlgInformacao_c1, .pnlgInformacao_c2, .pnlgInformacao_c3,
+	.pnlgInformacao_c4, .pnlgInformacao_c5, .pnlgInformacao_c6 {
+	font-size: 12px;
+}
+
+.pnlgInformacao_c3, .pnlgInformacao_c4 {
+	width: 15%;
+}
+
+.pnlgInformacao_c1 {
+	width: 15.25%;
+}
+
+.pnlgInformacao_c2 {
+	width: 9%;
+	text-align: center;
+}
+
+.pnlgInformacao_c6 {
+	width: 25%;
+}
+
+.iptCodAss {
+	width: 60%;
+	text-align: center;
+}
+
+.oplDtInclusao, .oplTpInclusao, .oplNumero {
+	float: right;
+}
+
+.iptDtInclusao .ui-inputfield {
+	width: 90%;
+	text-align: center;
+}
+
+.iptTpInclusao {
+	width: 94%;
+}
+
+.iptDadosAssinantes {
+	position: relative;
+	left: 0.6%;
+	width: 96%;
+}
+
+.pnlgEndereco_c1 {
+	width: 80%;
+}
+
+.iptEndereco {
+	width: 97%;
+}
+
+.pnlgEndereco_c2 {
+	width: 5%;
+}
+
+.pnlgEndereco_c3 {
+	width: 11%;
+}
+
+.iptNumero {
+	width: 72%;
+}
+
+.iptBairro {
+	position: relative;
+	left: 0.6%;
+}
+
+.iptCep {
+	position: relative;
+	left: 0.6%;
+	width: 15%;
+}
+
+.selectUf .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent;
+}
+
+.dataTableUsuariosAss.ui-datatable /* DataTable Usuário */ {
+	width: 90%;
+	white-space: normal !important;
+}
+
+.dadosUsuarios .ui-fieldset-legend { /* Título do fieldset */
+	background-color: transparent;
+	border: 0 solid #A8A8A8;
+}
+
+.dadosUsuarios.ui-fieldset { /* fieldset */
+	padding-top: 0px;
+	padding-left: 7px;
+	width: 95%;
+}
+
+.botaoUsuariosAss.ui-button { /* Botões Incluir/Excluir Usuários */
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px !important;
+	height: 28px !important;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.pnlgEndereco, .pngParametrosNotificar, .pnlgInformacao {
+	/*panelGrid Endereço/ParametrosNotificar/Informação*/
+	width: 100%;
+}
+
+/* Tab Plano Contratação */
+.codPlanoAss.ui-inputfield { /* InputText Cód. Plano */
+	text-align: right;
+	width: 30%;
+}
+
+.descPlanoAss.ui-inputfield { /* InputText Descr. Plano */
+	width: 200%;
+}
+
+.vlMensalAss.ui-inputfield { /* InputText Valor Mensal */
+	text-align: right;
+	width: 70%
+}
+
+/* Tab Contabilidade */
+.codContAss.ui-inputfield { /* InputText Cód. Cont. */
+	text-align: right;
+	width: 30%;
+}
+
+.cnpjAss.ui-inputfield { /* InputText CNPJ */
+	width: 70%;
+}
+
+.razaoSocialAss.ui-inputfield { /* InputText Razão Social */
+	width: 200%;
+}
+
+/* Tab Parametros */
+.pngParametros {
+	white-space: nowrap;
+}
+
+.pngParametrosNotificar_c2 {
+	font-size: 11px;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.chkNotificar .ui-chkbox-box, .chkNotificar .ui-chkbox-icon {
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.iptEmailMaster, .iptEmailFinanceiro {
+	width: 95%;
+}
+
+.oplAviso, .oplAviso2 {
+	font-size: 9.5px !important;
+	white-space: nowrap;
+}
+
+#botaoIncluirAlterarAss { /* Div Botão Incluir/Alterar */
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarAss .ui-button {
+	/* Botão Incluir/Alterar */
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+/* Pop-Up Contabilidade */
+.Contabilidade.ui-dialog { /* Dimensões do Pop-Up */
+	width: 770px !important;
+	height: 650px !important;
+	position: absolute !important;
+	top: 25% !important;
+	margin-top: -100px !important;
+	left: 43% !important;
+	margin-left: -250px !important;
+}
+
+.Contabilidade .ui-dialog-titlebar { /* Título do Pop-Up */
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Contabilidade .ui-icon { /* Ícone de fechar */
+	background-color: #FFFFFF;
+}
+
+.Contabilidade .ui-panel-content { /* Alinhamento painel interno */
+	padding: 0px !important;
+	font-size: 13px;
+}
+
+.dados .ui-fieldset-legend { /* Título do fieldset */
+	background-color: transparent;
+	border: 0px solid #A8A8A8;
+}
+
+.dados.ui-fieldset { /* fieldset */
+	padding-top: 0px;
+	padding-left: 7px;
+	width: 96%;
+}
+
+.iptDadosContabilidade {
+	position: relative;
+	left: 0.6%;
+	width: 96%;
+}
+
+.pnlgContEndereco {
+	width: 100%;
+}
+
+.pnlgContEndereco_c1 {
+	width: 80%;
+}
+
+.iptContEndereco {
+	width: 97%;
+}
+
+.pnlgContEndereco_c2 {
+	width: 5%;
+}
+
+.pnlgContEndereco_c3 {
+	width: 11%;
+}
+
+.iptContNumero {
+	width: 72%;
+}
+
+.iptContBairro {
+	position: relative;
+	left: 0.6%;
+}
+
+.iptContCep {
+	position: relative;
+	left: 0.6%;
+	width: 15%;
+}
+
+.pnlDadosCont_c2 {
+	width: 99%;
+}
+
+.usuarioCheckBox .ui-chkbox-box { /* CheckBox Permissão */
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.usuarioCheckBox .ui-chkbox-icon { /* Check do checkbox Permissão */
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.usuarioLabel.ui-outputlabel { /* Label de Permissão */
+	font-size: 11px;
+}
+
+.botaoUsuarios.ui-button { /* Botões Incluir/Excluir Usuários */
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+	height: 28px;
+	background-color: transparent;
+	border-color: transparent;
+	margin-left: 75%;
+}
+
+.dataTableUsuarios.ui-datatable /* DataTable Usuário */ {
+	width: 85%;
+	white-space: normal;
+	font-size: 11px;
+	text-align: center;
+}
+
+.dataTableUsuarios .ui-datatable-empty-message {
+	text-align: left;
+}
+
+#comissao { /* Div Comissão */
+	text-align: left;
+	width: 91%;
+}
+
+#comissao .ui-outputlabel { /* Label Comissão */
+	text-align: left;
+	margin-right: 10px;
+}
+
+#comissao .ui-inputfield { /* InputText Comissão */
+	text-align: right;
+	width: 6%;
+}
+
+#botaoIncluirAlterarContabilidade { /* Div Botão Incluir/Alterar */
+	text-align: left;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarContabilidade .ui-button {
+	/* Botão Incluir/Alterar */
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+/* PopUp - Planos */
+.Planos.ui-dialog { /* Dimensões do Pop-Up */
+	width: 550px !important;
+	height: 280px !important;
+	position: absolute !important;
+	top: 40% !important;
+	margin-top: -100px !important;
+	left: 48% !important;
+	margin-left: -250px !important;
+}
+
+.Planos .ui-dialog-titlebar { /* Título do Pop-Up */
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Planos .ui-icon { /* Ícone de fechar */
+	background-color: #FFFFFF;
+}
+
+.Planos .ui-panel-content { /* Alinhamento painel interno */
+	padding: 0px !important;
+	font-size: 13px;
+}
+
+.dadosPlanos {
+	width: 100%;
+}
+
+.dadosPlanos_c1 {
+	width: 15.5%;
+}
+
+.dadosPlanos_c2 {
+	width: 84%;
+}
+
+.popUpPlano.ui-inputfield { /* InputText Plano */
+	width: 13%;
+	margin-left: 10%;
+}
+
+.popUpInclusaoDt .ui-inputfield { /* InputText Data Inclusão */
+	width: 75%;
+}
+
+.popUpInclusaoTp.ui-inputfield { /* InputText Tipo Inclusão */
+	width: 87%;
+}
+
+.popUpDescricao.ui-inputfield { /* InputText Descrição */
+	width: 98%;
+}
+
+.planosValores.ui-inputfield {
+	/* InputText Faixa Inicial e final, Valor Mensal */
+	text-align: right;
+	width: 30%;
+}
+
+.iptValorNfe {
+	text-align: right;
+	width: 58%;
+}
+
+#botaoIncluirAlterarPlano { /* Div do botão Incluir/Alterar */
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarPlano .ui-button { /* Botão Incluir/Alterar */
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+}
+
+/* PopUp Excluir */
+.popUpExcluir .ui-dialog-titlebar {
+	background-color: #FFFFFF;
+	background-image: none;
+}
+
+.popUpExcluir.ui-confirm-dialog.ui-dialog.ui-widget.ui-widget-content.ui-corner-all
+	{
+	border-radius: 10px;
+	text-align: center;
+}
+
+.popUpExcluir.ui-dialog .ui-dialog-buttonpane {
+	text-align: center;
+}
+
 /* Páginas de Relatório */
 #icones-zoom { /* Div para organizar os ícones de zoom */
 	text-align: center;
@@ -204,251 +671,6 @@
 	/* Alinhamento header com os botões (zoom, exportação) */
 	vertical-align: bottom;
 }
-
-/* PopUp Excluir */
-.popUpExcluir .ui-dialog-titlebar {
-	background-color: #FFFFFF;
-	background-image: none;
-}
-
-.popUpExcluir.ui-confirm-dialog.ui-dialog.ui-widget.ui-widget-content.ui-corner-all
-	{
-	border-radius: 10px;
-	text-align: center;
-}
-
-.popUpExcluir.ui-dialog .ui-dialog-buttonpane {
-	text-align: center;
-}
-
-/* PopUp - Planos */
-.Planos.ui-dialog { /* Dimensões do Pop-Up */
-	width: 45% !important;
-	margin-left: 20%;
-	margin-top: 15% !important;
-	white-space: nowrap !important;
-}
-
-.Planos .ui-dialog-titlebar { /* Título do Pop-Up */
-	background-color: #FF7F24;
-	background-image: none;
-	color: #FFFFFF;
-}
-
-.Planos .ui-icon { /* Ícone de fechar */
-	background-color: #FFFFFF;
-}
-
-.Planos .ui-panel-content { /* Alinhamento painel interno */
-	padding: 0px !important;
-	font-size: 13px;
-}
-
-#dadosPesquisa .ui-panel { /* Painel dos dados de pesquisa */
-	position: relative;
-	width: 92.6%;
-	border-color: transparent;
-	white-space: nowrap;
-}
-
-#dadosPesquisa .ui-outputlabel { /* Label dos dados de pesquisa */
-	color: #9C9C9C;
-}
-
-.popUpPlano.ui-inputfield { /* InputText Plano */
-	width: 13% !important;
-	margin-left: 10%;
-}
-
-.popUpDtInclusao.ui-outputlabel { /* Label Data Inclusão */
-	margin-left: -60%;
-}
-
-.popUpInclusaoDt .ui-inputfield { /* InputText Data Inclusão */
-	width: 75% !important;
-	margin-left: -50%;
-}
-
-.popUpTpInclusao.ui-outputlabel { /* Label Tipo Inclusão */
-	margin-left: -3%;
-}
-
-.popUpInclusaoTp.ui-inputfield { /* InputText Tipo Inclusão */
-	width: 87% !important;
-	margin-left: 1%;
-}
-
-.popUpDescricao.ui-inputfield { /* InputText Descrição */
-	width: 200% !important;
-}
-
-.planosValores.ui-inputfield {
-	/* InputText Faixa Inicial e final, Valor Mensal e NFe Adicional */
-	text-align: right;
-	width: 35%;
-}
-
-#botaoIncluirAlterarPlano { /* Div do botão Incluir/Alterar */
-	text-align: right;
-	background-color: #FFFFFF;
-}
-
-#botaoIncluirAlterarPlano .ui-button { /* Botão Incluir/Alterar */
-	background-color: #008B45;
-	color: #FFFFFF;
-	width: 100px;
-	background-repeat: no-repeat;
-	background-position: left;
-}
-
-/* Pop-Up Contabilidade */
-.Contabilidade.ui-dialog { /* Dimensões do Pop-Up */
-	width:770px !important; 
-	height:650px !important; 
-	position:absolute !important; 
-	top:25% !important; 
-	margin-top:-100px !important; 
-	left:43% !important; 
-	margin-left:-250px !important; 
-}
-
-.Contabilidade .ui-dialog-titlebar { /* Título do Pop-Up */
-	background-color: #FF7F24;
-	background-image: none;
-	color: #FFFFFF;
-}
-
-.Contabilidade .ui-icon { /* Ícone de fechar */
-	background-color: #FFFFFF;
-}
-
-.Contabilidade .ui-panel-content { /* Alinhamento painel interno */
-	padding: 0px !important;
-	font-size: 13px;
-}
-
-.dados .ui-fieldset-legend { /* Título do fieldset */
-	background-color: transparent;
-	border: 0px solid #A8A8A8;
-}
-
-.dados.ui-fieldset { /* fieldset */
-	padding-top: 0px;
-	padding-left: 7px;
-	width: 96%;
-}
-
-
-
-
-
-.iptDadosContabilidade {
-	position: relative;
-	left: 0.6%;
-	width: 96%;
-}
-
-.pnlgContEndereco{
-	width: 100%;
-}
-
-.pnlgContEndereco_c1 {
-	width: 80%;
-}
-.iptContEndereco {
-	width: 97%;
-}
-.pnlgContEndereco_c2 {
-	width: 5%;
-}
-.pnlgContEndereco_c3 {
-	width: 11%;
-}
-.iptContNumero {
-	width: 72%;
-}
-.iptContBairro {
-	position: relative;
-	left: 0.6%;
-}
-
-.iptContCep {
-	position: relative;
-	left: 0.6%;
-	width: 15%;
-}
-
-.pnlDadosCont_c2{
-	width: 99%;
-}
-
-
-
-.usuarioCheckBox .ui-chkbox-box { /* CheckBox Permissão */
-	width: 13px !important;
-	height: 13px !important;
-}
-
-.usuarioCheckBox .ui-chkbox-icon { /* Check do checkbox Permissão */
-	width: 13px !important;
-	height: 13px !important;
-}
-
-.usuarioLabel.ui-outputlabel { /* Label de Permissão */
-	font-size: 11px;
-}
-
-.botaoUsuarios.ui-button { /* Botões Incluir/Excluir Usuários */
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 30px;
-	height: 28px;
-	background-color: transparent;
-	border-color: transparent;
-	margin-left: 75%;
-}
-
-.dataTableUsuarios.ui-datatable /* DataTable Usuário */ {
-	width: 85%;
-	white-space: normal;
-	font-size: 11px;
-	text-align: center;
-}
-
-.dataTableUsuarios .ui-datatable-empty-message{
-	text-align: left;
-}
-
-#comissao { /* Div Comissão */
-	text-align: left;
-	width: 91%;
-}
-
-#comissao .ui-outputlabel { /* Label Comissão */
-	text-align: left;
-	margin-right: 10px;
-}
-
-#comissao .ui-inputfield { /* InputText Comissão */
-	text-align: right;
-	width: 6%;
-}
-
-#botaoIncluirAlterarContabilidade { /* Div Botão Incluir/Alterar */
-	text-align: left;
-	background-color: #FFFFFF;
-}
-
-#botaoIncluirAlterarContabilidade .ui-button {
-	/* Botão Incluir/Alterar */
-	background-color: #008B45;
-	color: #FFFFFF;
-	width: 100px;
-	background-repeat: no-repeat;
-	background-position: left;
-	height: 35px;
-}
-
 
 /* Gráfico */
 .dataListGrafico .ui-datalist-header { /* Título do Gráfico */
@@ -546,250 +768,6 @@
 	margin-right: -0.7%;
 }
 
-.myPanelStyle1.ui-panel .ui-panel-titlebar {
-	background-color: #FFA500;
-}
-
-#centerZoom {
-	margin: auto;
-	width: 10%;
-	background-color: #b0e0e6;
-}
-
-.centerPaginator {
-	margin: auto;
-	width: 15%;
-	background-color: #b0e0e6;
-}
-
-#icones-zoom {
-	text-align: center;
-	height: 20px;
-}
-
-#icones-exportar {
-	text-align: right;
-}
-
-#block_container {
-	text-align: center;
-}
-
-#centerZoom, #icones-exportar {
-	display: inline;
-}
-
-/* Pop-Up Assinantes */
-.Assinantes.ui-dialog { /* Dimensões do Pop-Up */
-	width: 600px !important;
-	height: 630px !important;
-	position: absolute !important;
-	top: 30% !important;
-	margin-top: -100px !important;
-	left: 45% !important;
-	margin-left: -250px !important;
-}
-
-.Assinantes .ui-dialog-titlebar { /* Título do Pop-Up */
-	background-color: #FF7F24;
-	background-image: none;
-	color: #FFFFFF;
-}
-
-.Assinantes .ui-icon { /* Ícone de fechar */
-	background-color: #FFFFFF;
-}
-
-.Assinantes .ui-panel-content { /* Alinhamento painel interno */
-	padding: 0 !important;
-	font-size: 13px;
-}
-
-.pnlAssinantes, .pnlContabilidade{
-	border: 0;
-}
-
-/* Tabs */
-.tabDados .ui-tabs-panel { /* TabView */
-	padding: 0 !important;
-}
-
-.dadosAssinantes {
-	border-radius: 0;
-	border: 0 none;
-	padding: 0 !important;
-}
-
-.dadosAss .ui-fieldset-legend { /* Título do fieldset */
-	background-color: transparent;
-	border: 0 solid #A8A8A8;
-}
-
-.dadosAss.ui-fieldset { /* fieldset */
-	padding-top: 7px;
-	padding-left: 0;
-	width: 96%;
-	border: 0;
-}
-
-.pnlgInformacao{
-	color: #9C9C9C;	
-}
-.pnlgInformacao_c1, .pnlgInformacao_c2, .pnlgInformacao_c3, .pnlgInformacao_c4, .pnlgInformacao_c5, .pnlgInformacao_c6 {
-	font-size: 12px;
-}
-.pnlgInformacao_c3, .pnlgInformacao_c4 {
-	width: 15%;
-}
-.pnlgInformacao_c1 {
-	width: 15.25%;
-}
-.pnlgInformacao_c2 {
-	width: 9%;
-	text-align: center;
-}
-.pnlgInformacao_c6 {
-	width: 25%;
-}
-
-.iptCodAss {
-	width: 60%;
-	text-align: center;
-}
-.oplDtInclusao, .oplTpInclusao, .oplNumero {
-	float: right;
-}
-.iptDtInclusao .ui-inputfield {
-	width: 90%;
-	text-align: center;
-}
-.iptTpInclusao {
-	width: 94%;
-}
-
-.iptDadosAssinantes {
-	position: relative;
-	left: 0.6%;
-	width: 96%;
-}
-
-.pnlgEndereco_c1 {
-	width: 80%;
-}
-.iptEndereco {
-	width: 97%;
-}
-.pnlgEndereco_c2 {
-	width: 5%;
-}
-.pnlgEndereco_c3 {
-	width: 11%;
-}
-.iptNumero {
-	width: 72%;
-}
-.iptBairro {
-	position: relative;
-	left: 0.6%;
-}
-
-.iptCep {
-	position: relative;
-	left: 0.6%;
-	width: 15%;
-}
-
-.selectUf .ui-icon { /* Ícone do selectOneMenu */
-	background-color: transparent;
-}
-
-.dataTableUsuariosAss.ui-datatable /* DataTable Usuário */ {
-	width: 90%;
-	white-space: normal !important;
-}
-
-.dadosUsuarios .ui-fieldset-legend { /* Título do fieldset */
-	background-color: transparent;
-	border: 0 solid #A8A8A8;
-}
-
-.dadosUsuarios.ui-fieldset { /* fieldset */
-	padding-top: 0px;
-	padding-left: 7px;
-	width: 95%;
-}
-
-
-.botaoUsuariosAss.ui-button { /* Botões Incluir/Excluir Usuários */
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 30px !important;
-	height: 28px !important;
-	background-color: transparent;
-	border-color: transparent;
-}
-
-
-.pnlgEndereco, .pngParametrosNotificar, .pnlgInformacao{ /*panelGrid Endereço/ParametrosNotificar/Informação*/
-	width: 100%;
-}
-
-
-/* Tab Plano Contratação */
-.codPlanoAss.ui-inputfield { /* InputText Cód. Plano */
-	text-align: right;
-	width: 30%;
-}
-
-.descPlanoAss.ui-inputfield { /* InputText Descr. Plano */
-	width: 200%;
-}
-
-.vlMensalAss.ui-inputfield { /* InputText Valor Mensal */
-	text-align: right;
-	width: 70%
-}
-
-/* Tab Contabilidade */
-.codContAss.ui-inputfield { /* InputText Cód. Cont. */
-	text-align: right;
-	width: 30%;
-}
-
-.cnpjAss.ui-inputfield { /* InputText CNPJ */
-	width: 70%;
-}
-
-.razaoSocialAss.ui-inputfield { /* InputText Razão Social */
-	width: 200%;
-}
-
-/* Tab Parametros */
-.pngParametros{
-	white-space: nowrap;
-}
-.pngParametrosNotificar_c2{
-	font-size: 11px;
-	white-space: nowrap;
-	width: 100%;
-}
-.chkNotificar .ui-chkbox-box, .chkNotificar .ui-chkbox-icon{
-	width: 13px !important;
-	height: 13px !important;
-}
-.iptEmailMaster, .iptEmailFinanceiro{
-	width: 95%;
-}
-.oplAviso, .oplAviso2{
-	font-size: 9.5px !important;
-	white-space: nowrap;
-}
-
-#botaoIncluirAlterarAss { /* Div Botão Incluir/Alterar */
-	text-align: right;
-	background-color: #FFFFFF;
-}
-
 #botaoIncluirAlterarAss .ui-button {
 	/* Botão Incluir/Alterar */
 	background-color: #008B45;
@@ -811,4 +789,9 @@
 	border: 1px solid;
 	text-align:left;
 	width: 90%;
+
+.centerPaginator {
+	margin: auto;
+	width: 15%;
+	background-color: #b0e0e6;
 }
