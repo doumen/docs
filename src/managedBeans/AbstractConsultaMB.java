@@ -1,34 +1,36 @@
 package managedBeans;
 
+public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 
-public abstract class AbstractConsultaMB<T> extends AbstractListMB<T>{
-	
-	public AbstractConsultaMB(Class<T> clazz){
+	public AbstractConsultaMB(Class<T> clazz) {
 		super(clazz);
 	}
-	
+
 	private String tipo;
 	private String headerInclude;
 	private boolean botaoAlterar;
 	private boolean botaoIncluir;
 
-	public String getAvisoExcluir(){
-		return "Os itens abaixo serão excluídos";
-	}
+	public abstract String getAvisoExcluir();
 
-	public String getAvisoPreExcluir(){
-		return selectedList.isEmpty()?"":"Tem certeza que deseja excluir os itens abaixo ?";
-	}
+	public abstract String getAvisoPreExcluir();
 
 	public abstract String getPdfFileName();
-	
-	public abstract void removeSelectedList();
-	
-	public abstract void incluir();
-	
-	public abstract void alterar();
 
-	public boolean isUpdateEmptySelection(){
+	public void removeSelectedList() {
+		listTable.removeAll(selectedList);
+	}
+
+	public void incluir() {
+		listTable.add(selected);
+		System.out.println("incluiu!!!");
+	}
+
+	public void alterar() {
+		System.out.println("alterou!!!");
+	}
+
+	public boolean isUpdateEmptySelection() {
 		return "alterar".equals(tipo) && selectedList.isEmpty();
 	}
 
@@ -50,14 +52,15 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T>{
 		}
 		this.tipo = tipo;
 	}
-	
+
 	public String getHeaderInclude() {
 		return headerInclude;
 	}
-	
+
 	public void setHeaderInclude(String headerInclude) {
 		this.headerInclude = headerInclude;
 	}
+
 	public boolean isBotaoAlterar() {
 		return botaoAlterar;
 	}
