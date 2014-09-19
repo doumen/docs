@@ -1,5 +1,10 @@
 package component;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -8,11 +13,18 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
+import jfreechart.JFreeChartExporter;
 import model.Assinante;
 import model.Contabilidade;
 import model.Plano;
 import model.Usuario;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.jfree.chart.JFreeChart;
+
+import excel.ExcelExporter;
 
 @Stateless
 public class AssinanteComponent {
@@ -43,6 +55,9 @@ public class AssinanteComponent {
 		return assinantes;
 	}
 
+	@Inject
+	private ExcelExporter excelExporter;
+	
 	private Contabilidade[] contabilidades = new Contabilidade[3];
 	private Plano[] planos = new Plano[4];
 	
@@ -109,6 +124,30 @@ public class AssinanteComponent {
 	public List<Assinante> getRelatorioContratacaoConsumo() {
 		List<Assinante> as = getAssinantes();
 		return as;
+	}
+
+	@Inject
+	private JFreeChartExporter jFreeChartExporter;
+	
+	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		
+		String filePath = "/home/desenv/grafico-interacao-assinante.xls";
+		String labelTitle = "Assinantes";
+		String dataTitle = "Total Doctos";
+		String sheetName = "Dados";
+		String chartTitle = "Gráfico de Interação por Assinante";
+		Method getLabelMethod = Assinante.class.getMethod("getNomeFantasia");
+		Method getDataMethod = Assinante.class.getMethod("getTotalDoctosArmazenados");
+		
+		HSSFWorkbook workbook = excelExporter.createHSSFWorkbook(totalBarras,getLabelMethod,getDataMethod,labelTitle,dataTitle,sheetName);
+		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,getLabelMethod,getDataMethod, dataTitle, labelTitle, chartTitle);
+		
+		excelExporter.writeJFreeChartOnHSSFWorkbook(barChart, workbook, sheetName, 15*totalBarras.size(), 480, 4, 5);
+		File f = new File(filePath);
+		FileOutputStream out = new FileOutputStream(f);
+		workbook.write(out);
+		out.close();
+		return f;
 	}
 	
 	

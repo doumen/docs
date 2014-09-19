@@ -1,8 +1,6 @@
 package managedBeans;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -12,6 +10,7 @@ import javax.inject.Inject;
 
 import managedBeans.component.AbstractGraficoInteracaoAssinante;
 import model.Assinante;
+
 import component.AssinanteComponent;
 
 @ManagedBean
@@ -53,15 +52,12 @@ public class GraficoInteracaoAssinantesAdmMB extends AbstractGraficoInteracaoAss
 	}
 
 	@Override
-	public void createAndPopulateCsvFile() {
+	public File createAndPopulateCsvFile() {
 		try {
-			File f = new File("/home/desenv/grafico-interacao-assinante.xls");
-			FileWriter writer = new FileWriter(f);
-			writer.append("Hello World!");
-			writer.close();			
-			setCsvFile(f);
-		} catch (IOException e) {
+			return assinanteComponent.createExcelFileGraficoInteracaoAssinantes(totalBarras);					 					  
+		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 	}
 	

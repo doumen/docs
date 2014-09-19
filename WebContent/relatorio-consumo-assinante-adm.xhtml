@@ -14,7 +14,7 @@
 	<ui:define name="conteudoPainel">
 		<golive:datatable-relatorios id="dataTable"
 			value="#{relatorioConsumoAssinanteAdmMB.assinantes}"
-			paginatorPosition="bottom" rows="10" var="list"
+			paginatorPosition="bottom" rows="100" var="list"
 			onSort="#{relatorioConsumoAssinanteAdmMB.onSort}"
 			sortBy="#{list.contabilidade.cnpj}" rowKey="#{list.id}"
 			rendered="true">

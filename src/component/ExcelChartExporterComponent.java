@@ -152,6 +152,7 @@ public class ExcelChartExporterComponent {
 		/* Define legends for the line chart and set the position of the legend */
 		XSSFChartLegend legend = my_line_chart.getOrCreateLegend();
 		legend.setPosition(LegendPosition.BOTTOM);
+		
 		/* Create data for the chart */
 		LineChartData data = my_line_chart.getChartDataFactory()
 				.createLineChartData();
@@ -277,10 +278,12 @@ public class ExcelChartExporterComponent {
 		/* Call resize method, which resizes the image */
 		my_picture.resize();
 		/* Write changes to the workbook */
+		
 		FileOutputStream out = new FileOutputStream(new File(
 				"/home/desenv/barChart.xls"));
 		my_workbook.write(out);
 		out.close();
 	}
 
+	
 }
