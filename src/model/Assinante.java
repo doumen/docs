@@ -1,8 +1,8 @@
 package model;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 public class Assinante implements Comparable<Assinante> {
@@ -22,7 +22,7 @@ public class Assinante implements Comparable<Assinante> {
 	private int cep;
 	private String emailMaster;
 	private String emailFinanceiro;
-	private Calendar dataInclusao;
+	private Date dataInclusao;
 	private Plano plano;
 	private Contabilidade contabilidade;
 	private List<Usuario> usuarios;
@@ -183,11 +183,11 @@ public class Assinante implements Comparable<Assinante> {
 		this.emailFinanceiro = emailFinanceiro;
 	}
 
-	public Calendar getDataInclusao() {
+	public Date getDataInclusao() {
 		return dataInclusao;
 	}
 
-	public void setDataInclusao(Calendar dataInclusao) {
+	public void setDataInclusao(Date dataInclusao) {
 		this.dataInclusao = dataInclusao;
 	}
 
