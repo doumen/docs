@@ -95,22 +95,21 @@
 	text-align: right;
 }
 
+
 /* Painel */
 .painel.ui-menu { /* Menu */
-	margin-left: -8.5%;
-	margin-top: -48%;
+	margin-left: -8%;
+	margin-top: -50.4%;
 	border-radius: 0px;
 	width: 120%;
 	font-size: 13px;
 	background-image: none;
-	text-align: center;
 }
 
 .painel.ui-menu .ui-widget-header { /* Título SubMenu */
 	background-color: #FF7F24;
 	background-image: none;
 	color: #FFFFFF;
-	text-align: center;
 }
 
 .painel.ui-menu .ui-menu-list { /* Tamanho título Submenu */
@@ -119,13 +118,14 @@
 
 .painel.ui-inputfield {
 	/* Caixa de texto de informação de evolução de vendas */
-	margin-left: -8.5%;
-	margin-top: -5px;
+	margin-left: -8%;
+	margin-top: -2.5%;
 	font-size: 12px;
 	box-shadow: none;
-	border-radius: 0px;
+	border-radius: 0;
 	text-align: center;
-	width: 120%;
+	width: 119.5%;
+	padding-top: 15px;
 }
 
 .painel .ui-menu .ui-menuitem-link { /* Itens do menu */
@@ -140,11 +140,62 @@
 }
 
 .grafico { /* Gráficos da Tela */
-	width: 1800%;
-	height: 100%;
-	position: relative;
-	font-size: 1.0em;
-	margin-left: 40px;
+	width: 100%;
+	margin: auto !important;
+	font-size: 13px;
+}
+.g_c1{
+	width: 50%;
+}
+.g_c2{
+	width: 50%;
+}
+.pa1{
+	position: relative !important;
+	width: 480px !important;
+	height: 300px !important;
+	top: 35% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pa2{
+	position: relative !important;
+	width: 480px !important;
+	height: 300px !important;
+	top: 25% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pa3{
+	position: relative !important;
+	width: 480px !important;
+	height: 300px !important;
+	top: 50% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pa4{
+	position: relative !important;
+	width: 480px !important;
+	height: 300px !important;
+	top: 50% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+
+.menu{
+	width: 100%;
+}
+.m_c1{
+	width: 20%;
+}
+.m_c2{
+	width: 80%;
+	padding-left: 1%;
 }
 
 /* Páginas de Consulta */
@@ -285,7 +336,7 @@
 }
 
 .selectUf .ui-icon { /* Ícone do selectOneMenu */
-	background-color: transparent;
+	background-color: transparent !important;
 }
 
 .dataTableUsuariosAss.ui-datatable /* DataTable Usuário */ {
