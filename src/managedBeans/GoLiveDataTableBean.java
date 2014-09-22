@@ -11,7 +11,7 @@ import java.util.Properties;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang.WordUtils;
 
 @ManagedBean
 @ViewScoped

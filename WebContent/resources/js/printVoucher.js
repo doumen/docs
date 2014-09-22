@@ -7,9 +7,11 @@
         win.close();
 	}
   
-    function print_grafico_doctos_assinantes(assinante,contabilidade,pieChart,lineChart,plano,consumo){
-    	var win=window.open();
+    function print_grafico_doctos_assinantes(){
+    	var win=window.open();    	
     	var cod = "";
+    	var assinante = document.getElementById('formPainel:dataList:' + PF('dataGrid').getPaginator().cfg.page + ':assinante').value;
+    	
     	cod += "<table>";
 	    	cod += "<tbody>";
 		    	cod += "<tr>";
@@ -30,8 +32,8 @@
 	    	cod += "</tr>";
 	    	cod += "</tbody>";
     	cod += "</table>";
-    	cod += "<br><img src='"+PF(pieChart).exportAsImage().src+"'/>";
-    	cod += "<img src='"+PF(lineChart).exportAsImage().src+"'/>";
+    	cod += "<br><img src='"+PF('pieChart').exportAsImage().src+"'/>";
+    	cod += "<img src='"+PF('lineChart').exportAsImage().src+"'/>";
     	cod += "<table>";
 	    	cod += "<tbody>";
 		    	cod += "<tr>";

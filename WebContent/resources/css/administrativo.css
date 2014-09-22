@@ -819,6 +819,28 @@
 	margin-right: -0.7%;
 }
 
+#botaoIncluirAlterarAss .ui-button {
+	/* Botão Incluir/Alterar */
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+.panelGrafico{
+	width: 100%;
+}
+.pg_c1{
+	width: 10%;
+	text-align:left;
+}
+.pg_c2{
+	border: 1px solid;
+	text-align:left;
+	width: 90%;
+
 .centerPaginator {
 	margin: auto;
 	width: 15%;
