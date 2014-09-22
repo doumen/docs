@@ -1,8 +1,9 @@
 package model;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Assinante implements Comparable<Assinante> {
@@ -22,7 +23,7 @@ public class Assinante implements Comparable<Assinante> {
 	private int cep;
 	private String emailMaster;
 	private String emailFinanceiro;
-	private Date dataInclusao;
+	private Calendar dataInclusao;
 	private Plano plano;
 	private Contabilidade contabilidade;
 	private List<Usuario> usuarios;
@@ -36,8 +37,6 @@ public class Assinante implements Comparable<Assinante> {
 	private List<SpedFiscal> spedsFiscais;
 	private List<SpedSocial> spedsSociais;
 	private List<SpedContribuicoes> spedsContribuicoes;
-
-	private String teste;
 	
 	public Long getId() {
 		return id;
@@ -183,11 +182,11 @@ public class Assinante implements Comparable<Assinante> {
 		this.emailFinanceiro = emailFinanceiro;
 	}
 
-	public Date getDataInclusao() {
+	public Calendar getDataInclusao() {
 		return dataInclusao;
 	}
 
-	public void setDataInclusao(Date dataInclusao) {
+	public void setDataInclusao(Calendar dataInclusao) {
 		this.dataInclusao = dataInclusao;
 	}
 
@@ -327,4 +326,13 @@ public class Assinante implements Comparable<Assinante> {
 		usuarios.remove(u);
 	}
 
+	public Date getDataInclusaoTela(){
+		return getDataInclusao()==null?null:getDataInclusao().getTime();
+	}
+	
+	public void setDataInclusaoTela(Date d){
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		setDataInclusao(c);
+	}
 }

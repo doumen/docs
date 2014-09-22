@@ -1,6 +1,7 @@
 package component;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -26,6 +27,8 @@ public class ContabilidadeComponent {
 		c.setMunicipio("municipio " + i);
 		c.setUf(SiglaEstado.SP);
 		c.setRazaoSocial("Contabiliade " + i);
+		c.setTipoInclusao("Módulo Administrativo");
+		c.setDataInclusao(Calendar.getInstance());
 		return c;
 	}
 }

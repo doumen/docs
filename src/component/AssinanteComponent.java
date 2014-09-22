@@ -39,6 +39,7 @@ public class AssinanteComponent {
 			a.setCnpj("CNPJ " + i);
 			a.setNomeFantasia("Nome Assinante " + i);
 			a.setPlano(planos[j%4]);
+			a.setTipoInclusao("Módulo Administrativo");
 			Random rand = new Random();
 
 			// nextInt is normally exclusive of the top value,
