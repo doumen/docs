@@ -9,6 +9,7 @@ public class Assinante implements Comparable<Assinante> {
 
 	private Long id;
 	private String cnpj;
+	
 	private String inscricaoEstadual;
 	private String nomeFantasia;
 	private String razaoSocial;
@@ -36,6 +37,8 @@ public class Assinante implements Comparable<Assinante> {
 	private List<SpedSocial> spedsSociais;
 	private List<SpedContribuicoes> spedsContribuicoes;
 
+	private String teste;
+	
 	public Long getId() {
 		return id;
 	}
