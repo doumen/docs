@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Assinante implements Comparable<Assinante> {
@@ -325,4 +326,13 @@ public class Assinante implements Comparable<Assinante> {
 		usuarios.remove(u);
 	}
 
+	public Date getDataInclusaoTela(){
+		return getDataInclusao()==null?null:getDataInclusao().getTime();
+	}
+	
+	public void setDataInclusaoTela(Date d){
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		setDataInclusao(c);
+	}
 }

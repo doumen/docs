@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class Contabilidade implements Serializable {
 	private String bairro;
 	private int cep;
 	private double comissao;
-	private Date dataInclusao;
+	private Calendar dataInclusao;
 	private String tipoInclusao;
 	private String inscricaoEstadual;
 	private Usuario usuario;
@@ -130,11 +131,11 @@ public class Contabilidade implements Serializable {
 		this.comissao = comissao;
 	}
 
-	public Date getDataInclusao() {
+	public Calendar getDataInclusao() {
 		return dataInclusao;
 	}
 
-	public void setDataInclusao(Date dataInclusao) {
+	public void setDataInclusao(Calendar dataInclusao) {
 		this.dataInclusao = dataInclusao;
 	}
 
@@ -191,5 +192,15 @@ public class Contabilidade implements Serializable {
 
 	public void setUf(SiglaEstado uf) {
 		this.uf = uf;
+	}
+	
+	public Date getDataInclusaoTela(){
+		return getDataInclusao()==null?null:getDataInclusao().getTime();
+	}
+	
+	public void setDataInclusaoTela(Date d){
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		setDataInclusao(c);
 	}
 }

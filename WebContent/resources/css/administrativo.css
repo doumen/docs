@@ -264,7 +264,7 @@
 }
 
 .pnlgInformacao_c3, .pnlgInformacao_c4 {
-	width: 15%;
+	width: 17%;
 }
 
 .pnlgInformacao_c1 {
@@ -277,7 +277,7 @@
 }
 
 .pnlgInformacao_c6 {
-	width: 25%;
+	width: 27%;
 }
 
 .iptCodAss {
@@ -332,10 +332,14 @@
 .iptCep {
 	position: relative;
 	left: 0.6%;
-	width: 15%;
+	width: 40%;
 }
 
 .selectUf .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent !important;
+}
+
+.selectUf .ui-icon, .codPlanoAss .ui-icon, .codContAss .ui-icon { /* Ícone do selectOneMenu */
 	background-color: transparent !important;
 }
 
@@ -818,28 +822,6 @@
 	margin-left: -0.9%;
 	margin-right: -0.7%;
 }
-
-#botaoIncluirAlterarAss .ui-button {
-	/* Botão Incluir/Alterar */
-	background-color: #008B45;
-	color: #FFFFFF;
-	width: 100px;
-	background-repeat: no-repeat;
-	background-position: left;
-	height: 35px;
-}
-
-.panelGrafico{
-	width: 100%;
-}
-.pg_c1{
-	width: 10%;
-	text-align:left;
-}
-.pg_c2{
-	border: 1px solid;
-	text-align:left;
-	width: 90%;
 
 .centerPaginator {
 	margin: auto;

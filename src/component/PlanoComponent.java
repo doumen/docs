@@ -1,7 +1,7 @@
 package component;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -20,7 +20,8 @@ public class PlanoComponent {
 			c.setFaixaFinal((int) (i * 10));
 			c.setValorMensal(i * 1.2);
 			c.setValorNfeAdicional(i * 1.5);
-			c.setDataInclusao(new Date());
+			c.setDataInclusao(Calendar.getInstance());
+			c.setTipoInclusao("Módulo Administrativo");
 
 			planos.add(c);
 		}

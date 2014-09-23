@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Plano {
@@ -10,7 +11,7 @@ public class Plano {
 	private int faixaFinal;
 	private double valorMensal;
 	private double valorNfeAdicional;
-	private Date dataInclusao;
+	private Calendar dataInclusao;
 	private String tipoInclusao;
 	
 	public Long getId() {
@@ -61,7 +62,7 @@ public class Plano {
 		this.valorNfeAdicional = valorNfeAdicional;
 	}
 
-	public Date getDataInclusao() {
+	public Calendar getDataInclusao() {
 		return dataInclusao;
 	}
 
@@ -78,7 +79,17 @@ public class Plano {
 		return descricao;
 	}
 	
-	public void setDataInclusao(Date dataInclusao){
+	public void setDataInclusao(Calendar dataInclusao){
 		this.dataInclusao = dataInclusao;
+	}
+	
+	public Date getDataInclusaoTela(){
+		return getDataInclusao()==null?null:getDataInclusao().getTime();
+	}
+	
+	public void setDataInclusaoTela(Date d){
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		setDataInclusao(c);
 	}
 }

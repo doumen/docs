@@ -16,15 +16,15 @@
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
 			<p:outputLabel value="Cód. Plano" for="intCodPlano" />
 			<p:inputText id="intCodPlano" styleClass="iptCodAss"
-				value="#{cc.attrs.bean.selected.id}" disabled="false" />
+				value="#{cc.attrs.bean.selected.id}" disabled="true" />
 			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
 				styleClass="oplDtInclusao" />
 			<p:calendar id="intDtInclusao" styleClass="iptDtInclusao"
-				value="#{cc.attrs.bean.selected.dataInclusao}" disabled="false" />
+				value="#{cc.attrs.bean.selected.dataInclusaoTela}" disabled="true" pattern="dd/MM/yyyy" />
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
 				styleClass="oplTpInclusao" />
 			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
-				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="false" />
+				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="true" />
 		</h:panelGrid>
 
 <h:panelGrid columns="2" styleClass="dadosPlanos" columnClasses="dadosPlanos_c1, dadosPlanos_c2">

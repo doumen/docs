@@ -20,7 +20,8 @@
 			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
 				styleClass="oplDtInclusao" />
 			<p:calendar id="intDtInclusao" styleClass="iptDtInclusao"
-				value="#{cc.attrs.bean.selected.dataInclusao}" disabled="true" />
+				value="#{cc.attrs.bean.selected.dataInclusaoTela}" disabled="true"
+				pattern="dd/MM/yyyy" />
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
 				styleClass="oplTpInclusao" />
 			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
@@ -28,11 +29,12 @@
 		</h:panelGrid>
 		<p:fieldset id="fdsDadosContabilidade" styleClass="dados"
 			legend="Dados Contabilidade">
-			<h:panelGrid columns="2" columnClasses="pnlDadosCont_c1,pnlDadosCont_c2">
+			<h:panelGrid columns="2"
+				columnClasses="pnlDadosCont_c1,pnlDadosCont_c2">
 				<p:outputLabel value="CNPJ" for="intCnpj" />
 				<h:panelGrid columns="3">
-					<p:inputText id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
-						maxlength="18" />
+					<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
+						mask="99.999.999/9999-99" maxlength="18" styleClass="cnpjAss" />
 					<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
 					<p:inputText id="intInscEst"
 						value="#{cc.attrs.bean.selected.inscricaoEstadual}" maxlength="15" />
@@ -46,7 +48,8 @@
 					<p:inputText id="intEndereco"
 						value="#{cc.attrs.bean.selected.endereco}"
 						styleClass="iptContEndereco" />
-					<p:outputLabel value="Nº " for="intNumero" styleClass="oplContNumero" />
+					<p:outputLabel value="Nº " for="intNumero"
+						styleClass="oplContNumero" />
 					<p:inputText id="intNumero"
 						value="#{cc.attrs.bean.selected.enderecoNumero}"
 						styleClass="iptContNumero" />
@@ -64,13 +67,14 @@
 					<p:outputLabel value="UF" for="somUf" />
 					<p:selectOneMenu id="somUf" value="#{cc.attrs.bean.selected.uf}"
 						styleClass="selectUf">
-						<f:selectItem itemLabel="" itemValue="#{null}" noSelectionOption="true"/>
+						<f:selectItem itemLabel="" itemValue="#{null}"
+							noSelectionOption="true" />
 						<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
 					</p:selectOneMenu>
 				</h:panelGrid>
 				<p:outputLabel value="CEP" for="intCep" />
-				<p:inputText id="intCep" value="#{cc.attrs.bean.selected.cep}"
-					maxlength="9" styleClass="iptContCep" />
+				<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
+					mask="99999-999" maxlength="9" styleClass="iptContCep" />
 			</h:panelGrid>
 		</p:fieldset>
 		<br />
@@ -119,10 +123,12 @@
 						<h:outputText value="#{usuario.login}" />
 					</p:column>
 					<p:column headerText="Permissão Área Usuário?">
-						<p:selectBooleanCheckbox value="#{usuario.permissaoAreaAssinante}" disabled="true" />
+						<p:selectBooleanCheckbox value="#{usuario.permissaoAreaAssinante}"
+							disabled="true" />
 					</p:column>
 					<p:column headerText="Permissão Área Contador?">
-						<p:selectBooleanCheckbox value="#{usuario.permissaoAreaContador}" disabled="true" />
+						<p:selectBooleanCheckbox value="#{usuario.permissaoAreaContador}"
+							disabled="true" />
 					</p:column>
 				</p:dataTable>
 			</h:panelGrid>
