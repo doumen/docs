@@ -332,10 +332,14 @@
 .iptCep {
 	position: relative;
 	left: 0.6%;
-	width: 15%;
+	width: 40%;
 }
 
 .selectUf .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent !important;
+}
+
+.selectUf .ui-icon, .codPlanoAss .ui-icon, .codContAss .ui-icon { /* Ícone do selectOneMenu */
 	background-color: transparent !important;
 }
 
