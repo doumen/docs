@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
-import javax.ejb.Stateless;
-
 import model.Assinante;
 
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
@@ -48,9 +46,8 @@ import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-
 /* Line Chart Example in Apache POI */
-@Stateless
+
 public class ExcelChartExporterComponent {
 	public static void main(String[] args) {
 		try {

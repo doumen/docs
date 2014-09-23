@@ -1,42 +1,54 @@
 package factory;
 
-import javax.ejb.Stateless;
+import java.util.Map;
 
+import jfreechart.JFreeChartExporter;
 import model.Assinante;
 import model.GraficoDoctosAssinante;
 
-@Stateless
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
+
 public class GraficoDoctosAssinanteFactory {
 	
-	/*
-	public GraficoDoctosAssinante createGraficoDoctosAssinanteAdm(Assinante assinante, Contabilidade contabilidade, int[] pieGrafico, int[] lineGrafico) {
+	private JFreeChartExporter jFreeChartExporter;
+	
+	public GraficoDoctosAssinanteFactory(){
+		jFreeChartExporter = new JFreeChartExporter();
+	}
+		
+	public GraficoDoctosAssinante createGrafico(Assinante a,Map<Object,Number> historicoAssinante) {
 		GraficoDoctosAssinante g = new GraficoDoctosAssinante();
-		g.setAssinante(assinante);
-		g.setContabilidade(contabilidade);
-		g.createPieModel(pieGrafico);
-		g.createLineModels(lineGrafico);
+		
+		g.setLineChartModel(g.createLineModels(historicoAssinante));
+		g.setPieChartModel(g.createPieModel(a));
+		
+		g.setAssinante(a.getCnpj() + " - " + a.getNomeFantasia());
+		g.setContador(a.getCnpj() + " - " + a.getContabilidade().getNomeFantasia());
+		g.setPlanoContratado(a.getPlano().getId()+"- Plano " + a.getPlano().getFaixaInicial() + " à " + a.getPlano().getFaixaFinal() + " - R$ " + a.getPlano().getValorMensal() );
+		g.setConsumoRestante(a.getPlano().getFaixaFinal()+" Doctos");
+		g.setGraficoLinha(jFreeChartExporter.createLineChart(historicoAssinante,"Histórico Consumo","consumo",null,null,100,100));
+		g.setGraficoPizza(jFreeChartExporter.createPieChart(createPieDataSet(a),"Consumo de Recurso Contratado",100,100));
+		/*
+		try {
+			g.setGraficoLinha(ImageIO.read(new File("/home/desenv/mac.jpg")));
+			g.setGraficoPizza(ImageIO.read(new File("/home/desenv/mac.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		*/
 		return g;
 	}
-	*/
 	
-	public GraficoDoctosAssinante createGrafico(Assinante a) {
-		int[] lineGrafico = new int[8];
-		int[] pieGrafico = new int[5];
-		
-		for (int i = 0; i < 5; i++)
-		{
-			pieGrafico[i] = (int) (Math.random() * 100);
-		}
-		
-		for (int i = 0; i < 8; i++)
-		{
-			lineGrafico[i] = (int) (Math.random() * 1000);
-		}		
-		GraficoDoctosAssinante g = new GraficoDoctosAssinante();
-		g.setAssinante(a);
-		g.setContabilidade(a.getContabilidade());
-		g.setLineChartModel(g.createLineModels(lineGrafico));
-		g.setPieChartModel(g.createPieModel(pieGrafico));
-		return g;
+	private PieDataset createPieDataSet(Assinante a){
+		DefaultPieDataset pieChartModel = new DefaultPieDataset();
+
+		pieChartModel.setValue("NF-e", a.getNfes().size());
+		pieChartModel.setValue("CT-e", a.getCtes().size());
+		pieChartModel.setValue("SPED Fiscal", a.getSpedsFiscais().size());
+		pieChartModel.setValue("SPED Contribuições", a.getSpedsContribuicoes().size());
+		pieChartModel.setValue("SPED Social", a.getSpedsSociais().size());
+
+		return pieChartModel;
 	}
 }

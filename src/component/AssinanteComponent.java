@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import jfreechart.JFreeChartExporter;
 import model.Assinante;
@@ -55,8 +55,9 @@ public class AssinanteComponent {
 		return assinantes;
 	}
 
-	@Inject
 	private ExcelExporter excelExporter;
+	
+	private JFreeChartExporter jFreeChartExporter;
 	
 	private Contabilidade[] contabilidades = new Contabilidade[3];
 	private Plano[] planos = new Plano[4];
@@ -77,6 +78,8 @@ public class AssinanteComponent {
 			planos[j] = createPlano(i);
 			j++;
 		}
+		jFreeChartExporter = new JFreeChartExporter();
+		excelExporter = new ExcelExporter();
 	}
 
 	private Contabilidade createContabilidade(long i){
@@ -125,9 +128,6 @@ public class AssinanteComponent {
 		List<Assinante> as = getAssinantes();
 		return as;
 	}
-
-	@Inject
-	private JFreeChartExporter jFreeChartExporter;
 	
 	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		
@@ -147,6 +147,12 @@ public class AssinanteComponent {
 		FileOutputStream out = new FileOutputStream(new File(filePath));
 		workbook.write(out);
 		out.close();
+		return null;
+	}
+
+	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(
+			Assinante a, Calendar inicio, Calendar fim) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 	
