@@ -6,12 +6,13 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 
+import model.Assinante;
 import model.NFe;
 
 @Stateless
 public class NFeComponent {
 
-	public List<NFe> getNFes() {
+	public List<NFe> getNFes(Assinante a) {
 		List<NFe> nfes = new ArrayList<NFe>();
 		for(int i=0;i<10;i++){
 			nfes.add(createNfe(i));

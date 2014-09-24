@@ -38,6 +38,52 @@ public class Assinante implements Comparable<Assinante> {
 	private List<SpedSocial> spedsSociais;
 	private List<SpedContribuicoes> spedsContribuicoes;
 	
+	private Integer totalNfe;
+	private Integer totalCte;
+	private Integer totalSpedFiscal;
+	private Integer totalSpedSocial;
+	private Integer totalSpedContribuicoes;
+	
+	public Integer getTotalNfe() {
+		return totalNfe;
+	}
+
+	public void setTotalNfe(Integer totalNfe) {
+		this.totalNfe = totalNfe;
+	}
+
+	public Integer getTotalCte() {
+		return totalCte;
+	}
+
+	public void setTotalCte(Integer totalCte) {
+		this.totalCte = totalCte;
+	}
+
+	public Integer getTotalSpedFiscal() {
+		return totalSpedFiscal;
+	}
+
+	public void setTotalSpedFiscal(Integer totalSpedFiscal) {
+		this.totalSpedFiscal = totalSpedFiscal;
+	}
+
+	public Integer getTotalSpedSocial() {
+		return totalSpedSocial;
+	}
+
+	public void setTotalSpedSocial(Integer totalSpedSocial) {
+		this.totalSpedSocial = totalSpedSocial;
+	}
+
+	public Integer getTotalSpedContribuicoes() {
+		return totalSpedContribuicoes;
+	}
+
+	public void setTotalSpedContribuicoes(Integer totalSpedContribuicoes) {
+		this.totalSpedContribuicoes = totalSpedContribuicoes;
+	}
+
 	public Long getId() {
 		return id;
 	}
