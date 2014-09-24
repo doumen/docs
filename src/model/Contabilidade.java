@@ -203,4 +203,9 @@ public class Contabilidade implements Serializable {
 		c.setTime(d);
 		setDataInclusao(c);
 	}
+	
+	public Contabilidade(Long id, String razaoSocial){
+		this.id = id;
+		this.razaoSocial = razaoSocial;
+	}
 }

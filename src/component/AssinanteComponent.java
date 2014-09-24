@@ -19,6 +19,8 @@ import jfreechart.JFreeChartExporter;
 import model.Assinante;
 import model.Contabilidade;
 import model.Plano;
+import model.SiglaEstado;
+import model.TipoInclusao;
 import model.Usuario;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -28,7 +30,7 @@ import excel.ExcelExporter;
 
 @Stateless
 public class AssinanteComponent {
-	
+
 	public List<Assinante> getAssinantes() {
 		ArrayList<Assinante> assinantes = new ArrayList<>();
 		int j = 0;
@@ -38,8 +40,21 @@ public class AssinanteComponent {
 			a.setId(i);
 			a.setCnpj("CNPJ " + i);
 			a.setNomeFantasia("Nome Assinante " + i);
-			a.setPlano(planos[j%4]);
-			a.setTipoInclusao("Módulo Administrativo");
+			a.setPlano(planos[j % 4]);
+			a.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
+			a.setRazaoSocial("Razão Social Ass " + i);
+			a.setEndereco("Endereço " + i);
+			a.setEnderecoNumero(i.toString());
+			a.setEnderecoComplemento("Complemento " + i);
+			a.setBairro("Bairro " + i);
+			a.setCep(12569890);
+			a.setMunicipio("Município " + i);
+			a.setUf(SiglaEstado.SP);
+			a.setCnpj("00747677000198");
+			a.setInscricaoEstadual("276394048225");
+			a.setEmailFinanceiro("Email financeiro " + i);
+			a.setEmailMaster("Email Master " + i);
+
 			Random rand = new Random();
 
 			// nextInt is normally exclusive of the top value,
@@ -48,66 +63,82 @@ public class AssinanteComponent {
 			int min = a.getPlano().getFaixaInicial();
 			int randomNum = rand.nextInt((max - min) + 1) + min;
 			a.setTotalDoctosArmazenados(randomNum);
-			a.setContabilidade(contabilidades[j%3]);
+			a.setContabilidade(contabilidades[j % 3]);
+
+			List<Usuario> listaUsuarios = new ArrayList<>();
+
+			for (long k = 0l; k <= 3; k++) {
+				Usuario u = new Usuario();
+				
+				u.setId(k);
+				u.setLogin("usuário " + k);
+				u.setSenha("senha " + k);
+				
+				listaUsuarios.add(u);
+			}
+			
+			a.setUsuarios(listaUsuarios);
+
 			assinantes.add(a);
 			j++;
 		}
-		
+
 		return assinantes;
 	}
 
 	@Inject
 	private ExcelExporter excelExporter;
-	
+
 	private Contabilidade[] contabilidades = new Contabilidade[3];
 	private Plano[] planos = new Plano[4];
-	
+
 	public AssinanteComponent() {
 		init();
 	}
-	
+
 	@PostConstruct
-	public void init(){
-		int j=0;
-		for(Long i=0l;i<3l;i++){
+	public void init() {
+		int j = 0;
+		for (Long i = 0l; i < 3l; i++) {
 			contabilidades[j] = createContabilidade(i);
 			j++;
 		}
-		j=0;
-		for(Long i=0l;i<4l;i++){
+		j = 0;
+		for (Long i = 0l; i < 4l; i++) {
 			planos[j] = createPlano(i);
 			j++;
 		}
 	}
 
-	private Contabilidade createContabilidade(long i){
+	private Contabilidade createContabilidade(long i) {
 		Contabilidade c = new Contabilidade();
-		c.setId(i+10);
-		c.setCnpj("CNPJ " + i + 10);
+		c.setId(i + 10);
+		c.setCnpj("11101662000174");
 		c.setNomeFantasia("Contabilidade " + i);
+		c.setRazaoSocial("Razão Social Cont " + i);
 		c.setComissao(0.1d);
 		return c;
 	}
-	
-	private Plano createPlano(long i){
+
+	private Plano createPlano(long i) {
 		int j = Integer.valueOf(String.valueOf(i));
 		Plano p = new Plano();
 		p.setId(i);
 		p.setDescricao("plano " + i);
-		p.setValorMensal(i*1.2);
-		p.setFaixaInicial(j*1000+1);
-		p.setFaixaFinal((j+1)*1000);
+		p.setValorMensal(i * 1.2);
+		p.setFaixaInicial(j * 1000 + 1);
+		p.setFaixaFinal((j + 1) * 1000);
 		return p;
 	}
+
 	public List<Assinante> getAssinantes(Usuario usuario) {
 		ArrayList<Assinante> assinantes = new ArrayList<>();
-		if("contador".equals(usuario.getLogin())){
+		if ("contador".equals(usuario.getLogin())) {
 			assinantes.add(new Assinante("assinante 1 do contador"));
 			assinantes.add(new Assinante("assinante 2 do contador"));
-		}
-		else if("assinante".equals(usuario.getLogin())){
+		} else if ("assinante".equals(usuario.getLogin())) {
 			assinantes.add(new Assinante("assinante 1 do usuario assinante"));
-			assinantes.add(new Assinante("assinante 2 do usuario assinante"));			
+			assinantes.add(new Assinante("assinante 2 do usuario assinante"));
 		}
 		return assinantes;
 	}
@@ -129,27 +160,35 @@ public class AssinanteComponent {
 
 	@Inject
 	private JFreeChartExporter jFreeChartExporter;
-	
-	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		
+
+	public File createExcelFileGraficoInteracaoAssinantes(
+			List<Assinante> totalBarras) throws IOException,
+			InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException {
+
 		String filePath = "/home/desenv/grafico-interacao-assinante.xls";
 		String labelTitle = "Assinantes";
 		String dataTitle = "Total Doctos";
 		String sheetName = "Dados";
 		String chartTitle = "Gráfico de Interação por Assinante";
 		Method getLabelMethod = Assinante.class.getMethod("getNomeFantasia");
-		Method getDataMethod = Assinante.class.getMethod("getTotalDoctosArmazenados");
-		
-		HSSFWorkbook workbook = excelExporter.createHSSFWorkbook(totalBarras,getLabelMethod,getDataMethod,labelTitle,dataTitle,sheetName);
-		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,getLabelMethod,getDataMethod, dataTitle, labelTitle, chartTitle);
-		
-		excelExporter.writeJFreeChartOnHSSFWorkbook(barChart, workbook, sheetName, 15*totalBarras.size(), 480, 4, 5);
-		
+		Method getDataMethod = Assinante.class
+				.getMethod("getTotalDoctosArmazenados");
+
+		HSSFWorkbook workbook = excelExporter
+				.createHSSFWorkbook(totalBarras, getLabelMethod, getDataMethod,
+						labelTitle, dataTitle, sheetName);
+		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
+				getLabelMethod, getDataMethod, dataTitle, labelTitle,
+				chartTitle);
+
+		excelExporter.writeJFreeChartOnHSSFWorkbook(barChart, workbook,
+				sheetName, 15 * totalBarras.size(), 480, 4, 5);
+
 		FileOutputStream out = new FileOutputStream(new File(filePath));
 		workbook.write(out);
 		out.close();
 		return null;
 	}
-	
-	
 }

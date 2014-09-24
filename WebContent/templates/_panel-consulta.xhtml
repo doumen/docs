@@ -22,17 +22,19 @@
 				</f:facet>
 				<div style="float: right;">
 					<p:commandButton id="cbIncluir" value="" update="dlgIncluir"
-						styleClass="botaoConsulta"
+						styleClass="botaoConsulta" action="#{bean.carregarPopUpIncluir}"
 						style="background-image: url('resources/images/incluir.gif') !important;"
 						oncomplete="PF('dlgIncluir').show();">
 						<f:setPropertyActionListener target="#{bean.tipo}" value="incluir" />
 					</p:commandButton>
 					<p:tooltip for="cbIncluir" value="Incluir" />
 					<p:commandButton id="cbAlterar" update="dlgIncluir"
-						styleClass="botaoConsulta"
+						styleClass="botaoConsulta" action="#{bean.carregarPopUpAlterar}"
 						style="background-image: url('resources/images/alterar.gif') !important;"
 						oncomplete="PF('dlgIncluir').show();" value="">
 						<f:setPropertyActionListener target="#{bean.tipo}" value="alterar" />
+						<f:setPropertyActionListener target="#{bean.selected}"
+							value="#{selectedList.get(0)}" />
 					</p:commandButton>
 					<p:tooltip for="cbAlterar" value="Alterar" />
 					<p:commandButton id="cmbExcluir" value="" process="dataTable"
@@ -50,18 +52,22 @@
 				<br />
 				<br />
 				<p:dataTable selection="#{bean.selectedList}" rowKey="#{list.id}"
-					value="#{bean.listTable}" var="list" id="dataTable">
-					<p:column selectionMode="multiple"
+					value="#{bean.listTable}" var="list" id="dataTable"
+					emptyMessage="Nenhum registro encontrado." styleClass="teste"
+					columnClasses="t1,t2,t3" >
+					<h:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
 					<ui:insert name="tableColumns" />
 				</p:dataTable>
 			</p:panel>
 			<p:confirmDialog message="#{bean.avisoPreExcluir}" severity="alert"
-				widgetVar="dlgExcluir" dynamic="true" id="dlgExcluir" styleClass="popUpExcluir">
+				widgetVar="dlgExcluir" dynamic="true" id="dlgExcluir"
+				styleClass="popUpExcluir">
 				<br />
 				<ui:repeat var="c" value="#{bean.selectedList}">
 					<p:outputLabel value="#{c}" />
-					<br /> <br />
+					<br />
+					<br />
 				</ui:repeat>
 				<p:commandButton value="Não" onclick="PF('dlgExcluir').hide();" />
 				<p:commandButton value="Sim"
@@ -73,31 +79,34 @@
 				<br />
 				<ui:repeat var="c" value="#{bean.selectedList}">
 					<p:outputLabel value="#{c}" />
-					<br /><br />
+					<br />
+					<br />
 				</ui:repeat>
 				<p:commandButton value="Não" onclick="PF('dlgExcluirConf').hide();" />
 				<p:commandButton value="Sim"
 					onclick="PF('dlgExcluirConf').hide();PF('dlgExcluirExcluir').show()"
 					action="#{bean.removeSelectedList}" update="@all" />
 			</p:confirmDialog>
-			<p:dialog header="Incluir" widgetVar="dlgIncluir" modal="true" styleClass="#{tituloPainel}">
+			<p:dialog header="Incluir" widgetVar="dlgIncluir" modal="true"
+				styleClass="#{tituloPainel}">
 				<ui:insert name="dlgForm" />
 				<p:commandButton value="incluir" onclick="dlgIncluir.hide();"
 					style="float: center;" action="#{bean.incluir}" update="@all" />
 			</p:dialog>
-			<p:dialog header="#{tituloPainel} | #{bean.headerInclude}" styleClass="#{tituloPainel}"
-				widgetVar="dlgIncluir" id="dlgIncluir"
+			<p:dialog header="#{tituloPainel} | #{bean.headerInclude}"
+				styleClass="#{tituloPainel}" widgetVar="dlgIncluir" id="dlgIncluir"
 				modal="true">
 				<p:ajax event="close" listener="#{bean.limpar}" update="@all" />
 				<c:if test="#{!bean.updateEmptySelection}">
-					<ui:insert name="popup-incluir"></ui:insert>
+					<ui:insert name="popup-incluir" />
 				</c:if>
 				<c:if test="#{bean.updateEmptySelection}">
 					Escolha um item para alterar.
 				</c:if>
-				<br/>
+				<br />
 				<div id="botaoFechar">
-				<p:commandButton value="Fechar" onclick="PF('dlgIncluir').hide();" rendered="false" />
+					<p:commandButton value="Fechar" onclick="PF('dlgIncluir').hide();"
+						rendered="false" />
 				</div>
 			</p:dialog>
 		</h:form>
