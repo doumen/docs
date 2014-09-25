@@ -25,29 +25,22 @@ public class GraficoDoctosAssinanteFactory {
 		
 		g.setAssinante(a.getCnpj() + " - " + a.getNomeFantasia());
 		g.setContador(a.getCnpj() + " - " + a.getContabilidade().getNomeFantasia());
-		g.setPlanoContratado(a.getPlano().getId()+"- Plano " + a.getPlano().getFaixaInicial() + " à " + a.getPlano().getFaixaFinal() + " - R$ " + a.getPlano().getValorMensal() );
+		g.setPlanoContratado(a.getPlano().getId()+" - Plano " + a.getPlano().getFaixaInicial() + " à " + a.getPlano().getFaixaFinal() + " - R$ " + a.getPlano().getValorMensal() );
 		g.setConsumoRestante(a.getPlano().getFaixaFinal()+" Doctos");
-		g.setGraficoLinha(jFreeChartExporter.createLineChart(historicoAssinante,"Histórico Consumo","consumo",null,null,100,100));
-		g.setGraficoPizza(jFreeChartExporter.createPieChart(createPieDataSet(a),"Consumo de Recurso Contratado",100,100));
-		/*
-		try {
-			g.setGraficoLinha(ImageIO.read(new File("/home/desenv/mac.jpg")));
-			g.setGraficoPizza(ImageIO.read(new File("/home/desenv/mac.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
+		
+		g.setGraficoLinha(jFreeChartExporter.createLineChart(historicoAssinante,"Histórico Consumo","consumo",null,null,322,230));
+		g.setGraficoPizza(jFreeChartExporter.createPieChart(createPieDataSet(a),"Consumo de Recurso Contratado",422,230));
 		return g;
 	}
 	
 	private PieDataset createPieDataSet(Assinante a){
 		DefaultPieDataset pieChartModel = new DefaultPieDataset();
 
-		pieChartModel.setValue("NF-e", a.getNfes().size());
-		pieChartModel.setValue("CT-e", a.getCtes().size());
-		pieChartModel.setValue("SPED Fiscal", a.getSpedsFiscais().size());
-		pieChartModel.setValue("SPED Contribuições", a.getSpedsContribuicoes().size());
-		pieChartModel.setValue("SPED Social", a.getSpedsSociais().size());
+		pieChartModel.setValue("NF-e", a.getTotalNfe());
+		pieChartModel.setValue("CT-e", a.getTotalCte());
+		pieChartModel.setValue("SPED Fiscal", a.getTotalSpedFiscal());
+		pieChartModel.setValue("SPED Contribuições", a.getTotalSpedContribuicoes());
+		pieChartModel.setValue("SPED Social", a.getTotalSpedSocial());
 
 		return pieChartModel;
 	}

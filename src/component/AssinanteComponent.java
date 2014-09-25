@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -23,6 +24,7 @@ import model.Plano;
 import model.SiglaEstado;
 import model.TipoInclusao;
 import model.Usuario;
+import model.Util;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jfree.chart.JFreeChart;
@@ -82,6 +84,16 @@ public class AssinanteComponent {
 
 			assinantes.add(a);
 			j++;
+			min = 0;
+			a.setTotalCte(randomNum = rand.nextInt((max - min) + 1) + min);
+			max = max - a.getTotalCte();
+			a.setTotalNfe(randomNum = rand.nextInt((max - min) + 1) + min);
+			max = max - a.getTotalNfe();
+			a.setTotalSpedContribuicoes(randomNum = rand.nextInt((max - min) + 1) + min);
+			max = max - a.getTotalSpedContribuicoes();
+			a.setTotalSpedFiscal(randomNum = rand.nextInt((max - min) + 1) + min);
+			max = max - a.getTotalSpedFiscal();
+			a.setTotalSpedSocial(randomNum = rand.nextInt((max - min) + 1) + min);
 		}
 
 		return assinantes;
@@ -193,8 +205,11 @@ public class AssinanteComponent {
 
 	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(
 			Assinante a, Calendar inicio, Calendar fim) {
-		// TODO Auto-generated method stub
-		return null;
+        Map<Object,Number> data = new LinkedHashMap<Object, Number>();
+        for(int i=0;i<12;i++){        	
+        	data.put(Util.getMMYYYY(Util.getCalendar(i)), i);
+        }
+		return data;
 	}
 	
 	

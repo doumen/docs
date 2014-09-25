@@ -86,7 +86,7 @@ public class GraficoDoctosAssinanteAdmMB extends RelatorioDataTableMB {
     	parametros.put("total",Integer.valueOf(graficosDoctosAssinante.size()));
     	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(graficosDoctosAssinante)); 
     	final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
-    	response.addHeader("Content-disposition", "attachment; filename=Gráfico - Manipulação Doctos X Assinantes.pdf"); 
+    	response.addHeader("Content-disposition", "attachment; filename=Grafico-Manipulacao-DoctosXAssinantes.pdf"); 
     	final ServletOutputStream stream = response.getOutputStream(); 
     	JasperExportManager.exportReportToPdfStream(jasperPrint, stream); 
     	stream.flush(); 

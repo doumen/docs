@@ -1,25 +1,22 @@
 package jfreechart;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.util.Rotation;
 
 public class JFreeChartExporter {
 	
@@ -47,24 +44,27 @@ public class JFreeChartExporter {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		Set<Object> keys = data.keySet();		
 		for(Object o:keys){
-			Calendar c = (Calendar) o;			
-			dataset.addValue(data.get(o).doubleValue(), chartTitle, c);
+//			Calendar c = (Calendar) o;			
+			dataset.addValue(data.get(o).doubleValue(), dataLabel, o.toString());
 		}
-		BufferedImage image = new BufferedImage(422, 230, BufferedImage.TYPE_INT_RGB);
-		return image;
+		JFreeChart chart = ChartFactory.createLineChart(chartTitle, xLabel, null, dataset, PlotOrientation.VERTICAL, true, false, false);
+		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		CategoryAxis domainAxis = plot.getDomainAxis();
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);							
+		return 	chart.createBufferedImage(width, height);
 	}
 
 	public BufferedImage createPieChart(PieDataset pieDataset,String chartTitle, int width, int height) {
-		BufferedImage image = new BufferedImage(422, 230, BufferedImage.TYPE_INT_RGB);
-		
-		try {
-			  
-            image = ImageIO.read(new File("/home/desenv/mac.jpg"));
- 
-        } catch (IOException e) {
-        	e.printStackTrace();
-        }
-		
-		return image;
+	    JFreeChart chart = ChartFactory.createPieChart3D(chartTitle,          // chart title
+	    		pieDataset,                // data
+	            true,                   // include legend
+	            true,
+	            false);
+
+	        PiePlot3D plot = (PiePlot3D) chart.getPlot();
+	        plot.setStartAngle(290);
+	        plot.setDirection(Rotation.CLOCKWISE);
+	        plot.setForegroundAlpha(0.5f);
+	        return chart.createBufferedImage(width, height);
 	}
 }

@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
 public class GraficoDoctosAssinante implements Serializable {
@@ -84,11 +84,11 @@ public class GraficoDoctosAssinante implements Serializable {
 		PieChartModel pieChartModel = new PieChartModel();
 		pieChartModel = new PieChartModel();
 
-		pieChartModel.set("NF-e", a.getNfes().size());
-		pieChartModel.set("CT-e", a.getCtes().size());
-		pieChartModel.set("SPED Fiscal", a.getSpedsFiscais().size());
-		pieChartModel.set("SPED Contribuições", a.getSpedsContribuicoes().size());
-		pieChartModel.set("SPED Social", a.getSpedsSociais().size());
+		pieChartModel.set("NF-e", a.getTotalNfe());
+		pieChartModel.set("CT-e", a.getTotalCte());
+		pieChartModel.set("SPED Fiscal", a.getTotalSpedFiscal());
+		pieChartModel.set("SPED Contribuições", a.getTotalSpedContribuicoes());
+		pieChartModel.set("SPED Social", a.getTotalSpedSocial());
 
 		pieChartModel.setTitle("Consumo de Recurso Contratado");
 		pieChartModel.setLegendPosition("e");
@@ -101,22 +101,45 @@ public class GraficoDoctosAssinante implements Serializable {
 		lineChartModel = initLinearModel(dados);
 		lineChartModel.setTitle("Histórico Consumo");
 		lineChartModel.setLegendPosition("s");
+//		lineChartModel.setShowPointLabels(true);
+//		lineChartModel.getAxes().put(AxisType.X, new CategoryAxis("Years"));
 		Axis yAxis = lineChartModel.getAxis(AxisType.Y);
-		yAxis.setMin(0);
-		yAxis.setMax(1200);
+//        yAxis.setLabel("Births");
+        yAxis.setMin(Util.getMenorNumber(dados));
+        yAxis.setMax(Util.getMaiorNumber(dados));
 		return lineChartModel;
 	}
 
 	private LineChartModel initLinearModel(Map<Object,Number> dados) {
-		LineChartModel model = new LineChartModel();
-		LineChartSeries series1 = new LineChartSeries();
-		series1.setData(dados);
-		series1.setLabel("Consumo");
-
-		model.addSeries(series1);
-
-		return model;
-	}
+        LineChartModel model = new LineChartModel();
+        ChartSeries cs = new ChartSeries();
+        cs.setLabel("Consumo");
+        for(Object o:dados.keySet()){
+        	cs.set(o, dados.get(o));
+        }
+        /*
+        ChartSeries boys = new ChartSeries();
+        boys.setLabel("Boys");
+        boys.set("2004", 120);
+        boys.set("2005", 100);
+        boys.set("2006", 44);
+        boys.set("2007", 150);
+        boys.set("2008", 25);
+ 
+        ChartSeries girls = new ChartSeries();
+        girls.setLabel("Girls");
+        girls.set("2004", 52);
+        girls.set("2005", 60);
+        girls.set("2006", 110);
+        girls.set("2007", 90);
+        girls.set("2008", 120);
+ 
+        model.addSeries(boys);
+        model.addSeries(girls);
+         */
+        model.addSeries(cs);
+        return model;	
+        }
 
 	public String getContador() {
 		return contador;

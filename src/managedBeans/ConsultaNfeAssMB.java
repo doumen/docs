@@ -49,7 +49,7 @@ public class ConsultaNfeAssMB extends AbstractProcessosMB<NFe>{
 
 	@Override
 	public void loadDataTables() {
-		listTable = nfeComponent.getNFes();
+		listTable = nfeComponent.getNFes(null);
 	}
 	
 }
