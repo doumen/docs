@@ -13,7 +13,7 @@ public class Plano {
 	private double valorNfeAdicional;
 	private Calendar dataInclusao;
 	private String tipoInclusao;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -73,23 +73,32 @@ public class Plano {
 	public void setTipoInclusao(String tipoInclusao) {
 		this.tipoInclusao = tipoInclusao;
 	}
-	
+
 	@Override
 	public String toString() {
 		return descricao;
 	}
-	
-	public void setDataInclusao(Calendar dataInclusao){
+
+	public void setDataInclusao(Calendar dataInclusao) {
 		this.dataInclusao = dataInclusao;
 	}
-	
-	public Date getDataInclusaoTela(){
-		return getDataInclusao()==null?null:getDataInclusao().getTime();
+
+	public Date getDataInclusaoTela() {
+		return getDataInclusao() == null ? null : getDataInclusao().getTime();
 	}
-	
-	public void setDataInclusaoTela(Date d){
+
+	public void setDataInclusaoTela(Date d) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(d);
 		setDataInclusao(c);
+	}
+
+	public Plano() {
+
+	}
+
+	public Plano(Long id, String descricao) {
+		this.id = id;
+		this.descricao = descricao;
 	}
 }

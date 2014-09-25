@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Usuario {
 
-	private int id;
+	private Long id;
 	private String login;
 	private String senha;
 	private transient Assinante assinante;
@@ -13,11 +13,11 @@ public class Usuario {
 	private Calendar dataInclusao;
 	private transient Contabilidade contabilidade;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

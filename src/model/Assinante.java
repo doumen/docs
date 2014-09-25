@@ -10,7 +10,7 @@ public class Assinante implements Comparable<Assinante> {
 
 	private Long id;
 	private String cnpj;
-	
+
 	private String inscricaoEstadual;
 	private String nomeFantasia;
 	private String razaoSocial;
@@ -31,7 +31,7 @@ public class Assinante implements Comparable<Assinante> {
 	private Usuario usuario;
 	private int totalDoctosArmazenados;
 	private int interacao;
-	private String tipoInclusao;
+	private TipoInclusao tipoInclusao;
 	private List<NFe> nfes;
 	private List<CTe> ctes;
 	private List<SpedFiscal> spedsFiscais;
@@ -263,6 +263,8 @@ public class Assinante implements Comparable<Assinante> {
 		this.spedsFiscais = new ArrayList<SpedFiscal>();
 		this.spedsSociais = new ArrayList<SpedSocial>();
 		this.spedsContribuicoes = new ArrayList<SpedContribuicoes>();
+		this.dataInclusao = Calendar.getInstance();
+
 	}
 
 	public Assinante(String nomeFantasia) {
@@ -287,7 +289,7 @@ public class Assinante implements Comparable<Assinante> {
 
 	@Override
 	public String toString() {
-		return nomeFantasia;
+		return razaoSocial;
 	}
 
 	@Override
@@ -351,19 +353,20 @@ public class Assinante implements Comparable<Assinante> {
 	}
 
 	public String getTipoInclusao() {
-		return tipoInclusao;
+		return Util.getLabelTipoInclusao(tipoInclusao);
 	}
 
-	public void setTipoInclusao(String tipoInclusao) {
+	public void setTipoInclusao(TipoInclusao tipoInclusao) {
 		this.tipoInclusao = tipoInclusao;
 	}
+
 	public List<SiglaEstado> getEstados() {
 		return Arrays.asList(SiglaEstado.values());
 	}
 
 	public void setEstados(List<SiglaEstado> estados) {
 	}
-	
+
 	public void addUsuario(Usuario u) {
 		usuarios.add(u);
 	}
@@ -372,11 +375,11 @@ public class Assinante implements Comparable<Assinante> {
 		usuarios.remove(u);
 	}
 
-	public Date getDataInclusaoTela(){
-		return getDataInclusao()==null?null:getDataInclusao().getTime();
+	public Date getDataInclusaoTela() {
+		return getDataInclusao() == null ? null : getDataInclusao().getTime();
 	}
-	
-	public void setDataInclusaoTela(Date d){
+
+	public void setDataInclusaoTela(Date d) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(d);
 		setDataInclusao(c);

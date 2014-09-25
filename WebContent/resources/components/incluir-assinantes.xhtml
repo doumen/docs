@@ -33,15 +33,6 @@
 			<p:tab title="Dados Assinantes">
 				<p:fieldset id="fdsDadosAssinantes" styleClass="dadosAssinantes">
 					<h:panelGrid columns="2">
-						<p:outputLabel value="CNPJ" for="intCnpj" />
-						<h:panelGrid columns="3">
-							<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
-								mask="99.999.999/9999-99" maxlength="18" />
-							<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
-							<p:inputText id="intInscEst"
-								value="#{cc.attrs.bean.selected.inscricaoEstadual}"
-								maxlength="15" />
-						</h:panelGrid>
 						<p:outputLabel value="Razão Social" for="intRazaoSocial" />
 						<p:inputText id="intRazaoSocial" styleClass="iptDadosAssinantes"
 							value="#{cc.attrs.bean.selected.razaoSocial}" />
@@ -52,16 +43,21 @@
 								value="#{cc.attrs.bean.selected.endereco}"
 								styleClass="iptEndereco" />
 							<p:outputLabel value="Nº " for="intNumero" styleClass="oplNumero" />
-							<p:inputText id="intNumero"
+							<p:inputMask id="intNumero"
 								value="#{cc.attrs.bean.selected.enderecoNumero}"
-								styleClass="iptNumero" />
+								styleClass="iptNumero" mask="9?9999" />
 						</h:panelGrid>
 						<p:outputLabel value="Complemento" for="intComplemento" />
 						<p:inputText id="intComplemento" styleClass="iptDadosAssinantes"
 							value="#{cc.attrs.bean.selected.enderecoComplemento}" />
 						<p:outputLabel value="Bairro" for="intBairro" />
-						<p:inputText id="intBairro" styleClass="iptBairro"
-							value="#{cc.attrs.bean.selected.bairro}" />
+						<h:panelGrid columns="3">
+							<p:inputText id="intBairro" styleClass="iptBairro"
+								value="#{cc.attrs.bean.selected.bairro}" />
+							<p:outputLabel value="CEP" for="intCep" />
+							<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
+								mask="99999-999" maxlength="9" styleClass="iptCep" />
+						</h:panelGrid>
 						<p:outputLabel value="Município" for="intMunicipio" />
 						<h:panelGrid columns="3">
 							<p:inputText id="intMunicipio"
@@ -72,30 +68,51 @@
 								<f:selectItem itemLabel="" itemValue="#{null}"
 									noSelectionOption="true" />
 								<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
+								<p:ajax event="change"
+									listener="#{consultaAssinantesAdmMB.mascaraInscrEstadual}"
+									update="intInscEst" />
 							</p:selectOneMenu>
 						</h:panelGrid>
-						<p:outputLabel value="CEP" for="intCep" />
-						<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
-							mask="99999-999" maxlength="9" styleClass="iptCep" />
+						<p:outputLabel value="CNPJ" for="intCnpj" />
+						<h:panelGrid columns="3">
+							<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
+								mask="99.999.999/9999-99" />
+							<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
+							<p:inputMask id="intInscEst"
+								value="#{cc.attrs.bean.selected.inscricaoEstadual}"
+								mask="#{consultaAssinantesAdmMB.mascara}" />
+						</h:panelGrid>
+
 					</h:panelGrid>
 				</p:fieldset>
+
 				<h:panelGrid columns="1">
 					<p:fieldset id="fdsUsuarios" legend="Usuários"
 						styleClass="dadosUsuarios">
 						<h:panelGrid columns="7">
 							<p:outputLabel value="Usuário" for="intUsuario" />
-							<p:inputText id="intUsuario" value="#{bean.login}" />
+							<p:inputText id="intUsuario" value="#{bean.login}">
+								<p:ajax event="blur" update="intUsuario" />
+							</p:inputText>
+
 							<p:outputLabel value="Senha" for="pwdUsuario" />
-							<p:password id="pwdUsuario" value="#{bean.senha}" />
+							<p:password id="pwdUsuario" value="#{bean.senha}">
+								<p:ajax event="blur" update="pwdUsuario" />
+							</p:password>
+
 							<p:commandButton id="cbIncluir" value=""
-								action="#{bean.adicionaUsuario}" update="dtbUsuarios"
 								styleClass="botaoUsuariosAss"
-								style="background-image: url('resources/images/incluir.gif') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+								style="background-image: url('resources/images/incluir.gif') !important;">
+								<p:ajax event="click" listener="#{bean.adicionaUsuario}"
+									process="@this" update="dtbUsuarios" />
+							</p:commandButton>
 							<p:tooltip for="cbIncluir" value="Incluir" />
 							<p:commandButton id="cmbExcluir" value=""
-								action="#{bean.removeUsuario}" update="dtbUsuarios"
 								styleClass="botaoUsuariosAss"
-								style="background-image: url('resources/images/minus.png') !important;background-repeat: no-repeat;background-position: center;width: 16px;height: 16px;" />
+								style="background-image: url('resources/images/minus.png') !important;">
+								<p:ajax event="click" listener="#{bean.removeUsuario}"
+									process="@this" update="dtbUsuarios" />
+							</p:commandButton>
 							<p:tooltip for="cmbExcluir" value="Excluir" />
 						</h:panelGrid>
 						<p:dataTable id="dtbUsuarios" styleClass="dataTableUsuariosAss"
@@ -114,28 +131,34 @@
 			</p:tab>
 			<p:tab title="Plano Contratação">
 				<h:panelGrid columns="2">
-					<p:outputLabel value="Cód.Plano" for="intCodPlano" />
-					<p:inputText id="intCodPlano"
-						value="#{cc.attrs.bean.selected.plano.id}"
-						styleClass="codPlanoAss" />
+					<p:outputLabel value="Cód.Plano" for="somCodPlano" />
+					<p:selectOneMenu id="somCodPlano" value="#{bean.codPlano}"
+						styleClass="codPlanoAss">
+						<f:selectItem itemLabel="" itemValue="#{null}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{bean.codPlanos}" />
+					</p:selectOneMenu>
 					<p:outputLabel value="Descr.Plano" for="intDescrPlano" />
 					<p:inputText id="intDescrPlano"
 						value="#{cc.attrs.bean.selected.plano.descricao}"
 						styleClass="descPlanoAss" />
 					<p:outputLabel value="Valor Mensal" for="intValorMensal" />
-					<p:inputText id="intValorMensal"
+					<p:inputMask id="intValorMensal"
 						value="#{cc.attrs.bean.selected.plano.valorMensal}"
-						styleClass="vlMensalAss">
-						<f:convertNumber currencySymbol="R$" type="currency" />
-					</p:inputText>
+						styleClass="vlMensalAss" mask="R$ 9?999,99">
+						<f:convertNumber type="currency" />
+					</p:inputMask>
 				</h:panelGrid>
 			</p:tab>
 			<p:tab title="Contabilidade">
 				<h:panelGrid columns="2">
-					<p:outputLabel value="Cód.Cont." for="intCodCont" />
-					<p:inputText id="intCodCont"
-						value="#{cc.attrs.bean.selected.contabilidade.id}"
-						styleClass="codContAss" />
+					<p:outputLabel value="Cód.Cont." for="somCodCont" />
+					<p:selectOneMenu id="somCodCont" value="#{bean.codContabilidade}"
+						styleClass="codContAss">
+						<f:selectItem itemLabel="" itemValue="#{null}"
+							noSelectionOption="true" />
+						<f:selectItems value="#{bean.codContabilidades}" />
+					</p:selectOneMenu>
 					<p:outputLabel value="CNPJ" for="intContCnpj" />
 					<p:inputMask id="intContCnpj"
 						value="#{cc.attrs.bean.selected.contabilidade.cnpj}"
@@ -199,8 +222,9 @@
 				oncomplete="PF('dlgIncluirAssinante').show();" />
 			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"
-				styleClass="botaoIncluirAlterarAss" value=" Alterar"
-				action="#{bean.alterar}" />
+				styleClass="botaoIncluirAlterarAss" value=" Alterar">
+				<p:ajax event="click" listener="#{bean.alterar()}" process="@this" />
+			</p:commandButton>
 		</div>
 	</p:panel>
 	<p:dialog widgetVar="dlgIncluirAssinante" id="dlgIncluirAssinante">
