@@ -53,9 +53,9 @@
 				<br />
 				<p:dataTable selection="#{bean.selectedList}" rowKey="#{list.id}"
 					value="#{bean.listTable}" var="list" id="dataTable"
-					emptyMessage="Nenhum registro encontrado." styleClass="teste"
-					columnClasses="t1,t2,t3" >
-					<h:column selectionMode="multiple"
+					emptyMessage="Nenhum registro encontrado." styleClass="dtConsulta"
+					filteredValue="#{bean.filteredList}">
+					<p:column selectionMode="multiple"
 						style="width:16px;text-align:center" />
 					<ui:insert name="tableColumns" />
 				</p:dataTable>

@@ -33,6 +33,8 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	private List<Plano> codPlanos;
 	private String codContabilidade;
 	private List<Contabilidade> codContabilidades;
+	private List<Assinante> filteredList = new ArrayList<>();
+
 
 	public ConsultaAssinantesAdmMB() {
 		super(Assinante.class);
@@ -40,6 +42,7 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 
 	public void init() {
 		listTable = assinanteComponent.getAssinantes();
+		filteredList = assinanteComponent.getAssinantes();
 		
 		codPlanos = new ArrayList<Plano>();
 		codPlanos.add(new Plano((long) 1, "Plano 01"));
@@ -285,5 +288,13 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 
 	public void setCodContabilidades(List<Contabilidade> codContabilidades) {
 		this.codContabilidades = codContabilidades;
+	}
+	
+	public List<Assinante> getFilteredList() {
+		return filteredList;
+	}
+
+	public void setFilteredList(List<Assinante> filteredList) {
+		this.filteredList = filteredList;
 	}
 }

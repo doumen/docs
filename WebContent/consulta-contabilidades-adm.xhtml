@@ -12,19 +12,28 @@
 	<ui:param name="modulo" value="administrativo" />
 	<ui:param name="bean" value="#{consultaContabilidadeAdmMB}" />
 	<ui:define name="tableColumns">
-		<p:column headerText="Cod.Cont." sortBy="#{list.id}">
+		<p:column headerText="Cod.Cont." sortBy="#{list.id}"
+			styleClass="c_cca_codCont" filterBy="#{list.id}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.id}" />
 		</p:column>
-		<p:column headerText="CNPJ" sortBy="#{list.cnpj}">
+		<p:column headerText="CNPJ" sortBy="#{list.cnpj}"
+			styleClass="c_cca_cnpj" filterBy="#{list.cnpj}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.cnpj}" />
 		</p:column>
-		<p:column headerText="Contabilidade" sortBy="#{list.razaoSocial}">
+		<p:column headerText="Contabilidade" sortBy="#{list.razaoSocial}"
+			styleClass="c_cca_razaoSocialCont" filterBy="#{list.razaoSocial}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.razaoSocial}" />
 		</p:column>
-		<p:column headerText="Município" sortBy="#{list.municipio}">
+		<p:column headerText="Município" sortBy="#{list.municipio}"
+			styleClass="c_cca_municipio" filterBy="#{list.municipio}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.municipio}" />
 		</p:column>
-		<p:column headerText="UF" sortBy="#{list.uf}">
+		<p:column headerText="UF" sortBy="#{list.uf}" styleClass="c_cca_uf"
+			filterBy="#{list.uf}" filterMatchMode="contains">
 			<h:outputText value="#{list.uf}" />
 		</p:column>
 	</ui:define>
