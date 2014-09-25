@@ -23,7 +23,7 @@ public class Contabilidade implements Serializable {
 	private int cep;
 	private double comissao;
 	private Calendar dataInclusao;
-	private String tipoInclusao;
+	private TipoInclusao tipoInclusao;
 	private String inscricaoEstadual;
 	private Usuario usuario;
 	private List<Usuario> usuarios;
@@ -36,6 +36,7 @@ public class Contabilidade implements Serializable {
 	public Contabilidade() {
 		this.usuario = new Usuario();
 		this.usuarios = new ArrayList<>();
+		this.dataInclusao = Calendar.getInstance();
 	}
 
 	public String getCnpj() {
@@ -140,10 +141,10 @@ public class Contabilidade implements Serializable {
 	}
 
 	public String getTipoInclusao() {
-		return tipoInclusao;
+		return Util.getLabelTipoInclusao(tipoInclusao);
 	}
 
-	public void setTipoInclusao(String tipoInclusao) {
+	public void setTipoInclusao(TipoInclusao tipoInclusao) {
 		this.tipoInclusao = tipoInclusao;
 	}
 

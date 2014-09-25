@@ -7,6 +7,7 @@ public class CertificadoA1 {
 	private byte[] arquivo_PFX_certificadoA1;
 	private boolean notificarExpiracaoCertificado;
 	private Calendar dataInclusao;
+	private String nome;
 
 	public Long getId() {
 		return id;
@@ -39,5 +40,13 @@ public class CertificadoA1 {
 
 	public void setDataInclusao(Calendar dataInclusao) {
 		this.dataInclusao = dataInclusao;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 }

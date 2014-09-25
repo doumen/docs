@@ -31,14 +31,6 @@
 			legend="Dados Contabilidade">
 			<h:panelGrid columns="2"
 				columnClasses="pnlDadosCont_c1,pnlDadosCont_c2">
-				<p:outputLabel value="CNPJ" for="intCnpj" />
-				<h:panelGrid columns="3">
-					<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
-						mask="99.999.999/9999-99" maxlength="18" styleClass="cnpjAss" />
-					<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
-					<p:inputText id="intInscEst"
-						value="#{cc.attrs.bean.selected.inscricaoEstadual}" maxlength="15" />
-				</h:panelGrid>
 				<p:outputLabel value="Razão Social" for="intRazaoSocial" />
 				<p:inputText id="intRazaoSocial" styleClass="iptDadosContabilidade"
 					value="#{cc.attrs.bean.selected.razaoSocial}" />
@@ -50,16 +42,21 @@
 						styleClass="iptContEndereco" />
 					<p:outputLabel value="Nº " for="intNumero"
 						styleClass="oplContNumero" />
-					<p:inputText id="intNumero"
+					<p:inputMask id="intNumero"
 						value="#{cc.attrs.bean.selected.enderecoNumero}"
-						styleClass="iptContNumero" />
+						styleClass="iptContNumero" mask="9?9999" />
 				</h:panelGrid>
 				<p:outputLabel value="Complemento" for="intComplemento" />
 				<p:inputText id="intComplemento" styleClass="iptDadosContabilidade"
 					value="#{cc.attrs.bean.selected.enderecoComplemento}" />
 				<p:outputLabel value="Bairro" for="intBairro" />
-				<p:inputText id="intBairro" styleClass="iptContBairro"
-					value="#{cc.attrs.bean.selected.bairro}" />
+				<h:panelGrid columns="3">
+					<p:inputText id="intBairro" styleClass="iptContBairro"
+						value="#{cc.attrs.bean.selected.bairro}" />
+					<p:outputLabel value="CEP" for="intCep" />
+					<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
+						mask="99999-999" styleClass="iptContCep" />
+				</h:panelGrid>
 				<p:outputLabel value="Município" for="intMunicipio" />
 				<h:panelGrid columns="3">
 					<p:inputText id="intMunicipio"
@@ -70,11 +67,20 @@
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" />
 						<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
+						<p:ajax event="change"
+							listener="#{consultaContabilidadeAdmMB.mascaraInscrEstadual}"
+							update="intInscEst" />
 					</p:selectOneMenu>
 				</h:panelGrid>
-				<p:outputLabel value="CEP" for="intCep" />
-				<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
-					mask="99999-999" maxlength="9" styleClass="iptContCep" />
+				<p:outputLabel value="CNPJ" for="intCnpj" />
+				<h:panelGrid columns="3">
+					<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
+						mask="99.999.999/9999-99" styleClass="cnpjAss" />
+					<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
+					<p:inputText id="intInscEst"
+						value="#{cc.attrs.bean.selected.inscricaoEstadual}"
+						mask="#{consultaContabilidadeAdmMB.mascara}" />
+				</h:panelGrid>
 			</h:panelGrid>
 		</p:fieldset>
 		<br />
@@ -85,7 +91,6 @@
 					<p:inputText id="intUsuario" value="#{bean.login}" />
 					<p:outputLabel value="Senha" for="pwdUsuario" />
 					<p:password id="pwdUsuario" value="#{bean.senha}" />
-
 					<h:panelGrid columns="2">
 						<p:selectBooleanCheckbox id="sbcPermAreaContabilidade"
 							value="#{bean.permissaoAreaContador}"
@@ -98,7 +103,6 @@
 						<p:outputLabel for="sbcPermAreaAssinante"
 							value="Perm. Área Assinante?" styleClass="usuarioLabel" />
 					</h:panelGrid>
-
 					<p:commandButton id="cbIncluir" value=""
 						action="#{bean.adicionaUsuario}" update="dtbUsuarios"
 						styleClass="botaoUsuarios"
@@ -109,9 +113,7 @@
 						style="background-image: url('resources/images/minus.png') !important;" />
 					<p:tooltip for="cbIncluir" value="Incluir" />
 					<p:tooltip for="cmbExcluir" value="Excluir" />
-
 				</h:panelGrid>
-
 				<p:dataTable id="dtbUsuarios" scrollable="true" scrollHeight="100"
 					value="#{cc.attrs.bean.selected.usuarios}" var="usuario"
 					styleClass="dataTableUsuarios"

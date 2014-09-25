@@ -56,7 +56,7 @@
 								value="#{cc.attrs.bean.selected.bairro}" />
 							<p:outputLabel value="CEP" for="intCep" />
 							<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
-								mask="99999-999" maxlength="9" styleClass="iptCep" />
+								mask="99999-999" styleClass="iptCep" />
 						</h:panelGrid>
 						<p:outputLabel value="Município" for="intMunicipio" />
 						<h:panelGrid columns="3">
@@ -82,10 +82,8 @@
 								value="#{cc.attrs.bean.selected.inscricaoEstadual}"
 								mask="#{consultaAssinantesAdmMB.mascara}" />
 						</h:panelGrid>
-
 					</h:panelGrid>
 				</p:fieldset>
-
 				<h:panelGrid columns="1">
 					<p:fieldset id="fdsUsuarios" legend="Usuários"
 						styleClass="dadosUsuarios">
@@ -94,12 +92,10 @@
 							<p:inputText id="intUsuario" value="#{bean.login}">
 								<p:ajax event="blur" update="intUsuario" />
 							</p:inputText>
-
 							<p:outputLabel value="Senha" for="pwdUsuario" />
 							<p:password id="pwdUsuario" value="#{bean.senha}">
 								<p:ajax event="blur" update="pwdUsuario" />
 							</p:password>
-
 							<p:commandButton id="cbIncluir" value=""
 								styleClass="botaoUsuariosAss"
 								style="background-image: url('resources/images/incluir.gif') !important;">
@@ -162,7 +158,7 @@
 					<p:outputLabel value="CNPJ" for="intContCnpj" />
 					<p:inputMask id="intContCnpj"
 						value="#{cc.attrs.bean.selected.contabilidade.cnpj}"
-						mask="99.999.999/9999-99" maxlength="18" styleClass="cnpjAss" />
+						mask="99.999.999/9999-99" styleClass="cnpjAss" />
 					<p:outputLabel value="Razão Social" for="intContRazaoSocial" />
 					<p:inputText id="intContRazaoSocial"
 						value="#{cc.attrs.bean.selected.contabilidade.razaoSocial}"

@@ -8,6 +8,8 @@ import javax.ejb.Stateless;
 
 import model.Contabilidade;
 import model.SiglaEstado;
+import model.TipoInclusao;
+import model.Usuario;
 
 @Stateless
 public class ContabilidadeComponent {
@@ -23,12 +25,35 @@ public class ContabilidadeComponent {
 	private Contabilidade createContabiliade(int i) {
 		Contabilidade c = new Contabilidade();
 		c.setId(Long.valueOf(i));
-		c.setCnpj("cnpj " + i);
+		c.setCnpj("26879634000150");
 		c.setMunicipio("municipio " + i);
 		c.setUf(SiglaEstado.SP);
-		c.setRazaoSocial("Contabiliade " + i);
-		c.setTipoInclusao("Módulo Administrativo");
+		c.setRazaoSocial("Contabilidade " + i);
+		c.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
 		c.setDataInclusao(Calendar.getInstance());
+		c.setEndereco("Endereço " + i);
+		c.setEnderecoNumero(String.valueOf(i));
+		c.setEnderecoComplemento("Complemento " + i);
+		c.setBairro("Bairro " + i);
+		c.setCep(14586960);
+		c.setInscricaoEstadual("457280558835");
+		
+		List<Usuario> listaUsuarios = new ArrayList<>();
+
+		for (long j = 0l; j <= 3; j++) {
+			Usuario u = new Usuario();
+			
+			u.setId(j);
+			u.setLogin("usuário " + j);
+			u.setSenha("senha " + j);
+			u.setPermissaoAreaAssinante(true);
+			u.setPermissaoAreaContador(false);
+			
+			listaUsuarios.add(u);
+		}
+		
+		c.setUsuarios(listaUsuarios);
+
 		return c;
 	}
 }
