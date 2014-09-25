@@ -51,9 +51,7 @@
 									fileName="dataTable" />
 							</h:commandButton>
 							<h:commandButton id="cbPdf" styleClass="botoes"
-								style="background-image: url('resources/images/pdf.gif') !important;">
-								<p:dataExporter type="pdf" target="dataList"
-									fileName="dataTable" />
+								style="background-image: url('resources/images/pdf.gif') !important;" actionListener="#{bean.pdf}">
 							</h:commandButton>
 						</div>
 					</div>
@@ -65,9 +63,9 @@
 					<p:panel style="border:1px solid">
 					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">
 						<h:column><p:outputLabel value="Assinante: " ></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante}"></p:outputLabel> </h:column>
 						<h:column><p:outputLabel value="Contabilidade: " style="text-align:left;"></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.contabilidade.nomeFantasia}"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.contador}"></p:outputLabel> </h:column>
 					</h:panelGrid>
 					<h:panelGrid columns="2">
 						<h:column><p:chart type="pie" id="pieChart" widgetVar="pieChart" model="#{graficoDoctosAssinanteAdm.pieChartModel}"	style="width:500px;height:400px" /></h:column>
@@ -77,15 +75,15 @@
 					</h:panelGrid>
 					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">								
 						<h:column><p:outputLabel value="Plano Contratado: " ></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}"></p:outputLabel> </h:column>
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.planoContratado}"></p:outputLabel> </h:column>
 						<h:column><p:outputLabel value="Consumo Restante" style="text-align:left;"></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}"></p:outputLabel> </h:column>						
+						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.consumoRestante}"></p:outputLabel> </h:column>						
 					</h:panelGrid>
 										
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.nomeFantasia}" id="assinante"/>
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.contabilidade.nomeFantasia}" id="contabilidade"/>
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.plano.descricao}" id="plano"/>
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante.plano.faixaFinal}" id="consumo"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante}" id="assinante"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.contador}" id="contabilidade"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.planoContratado}" id="plano"/>
+					<h:inputHidden value="#{graficoDoctosAssinanteAdm.consumoRestante}" id="consumo"/>
 					</p:panel>
 				</div>
 			</p:dataGrid>

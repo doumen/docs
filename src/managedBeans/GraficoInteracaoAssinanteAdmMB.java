@@ -51,11 +51,11 @@ public class GraficoInteracaoAssinanteAdmMB {
 
 	private List<GraficoInteracaoAssinanteAdm> graficoInteracaoAssinanteAdms;
 	
-	@Inject
 	private GraficoInteracaoAssinanteAdmFactory graficoInteracaoAssinanteAdmFactory;
 	
 	@PostConstruct
 	public void init() {
+		graficoInteracaoAssinanteAdmFactory = new GraficoInteracaoAssinanteAdmFactory();
 		graficoInteracaoAssinanteAdms = graficoInteracaoAssinanteAdmFactory.createGraficos(5);
 	}
 }

@@ -3,13 +3,11 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Stateless;
-
 import model.Assinante;
 import model.GraficoInteracaoAssinanteAdm;
 
-@Stateless
 public class GraficoInteracaoAssinanteAdmFactory {
+	
 	public GraficoInteracaoAssinanteAdm createGraficoInteracaoAssinanteAdm(Assinante assinante) {
 		GraficoInteracaoAssinanteAdm g = new GraficoInteracaoAssinanteAdm();
 		g.setAssinante(assinante);

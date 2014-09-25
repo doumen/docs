@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.PostConstruct;
@@ -86,9 +87,9 @@ public class AssinanteComponent {
 		return assinantes;
 	}
 
-	@Inject
 	private ExcelExporter excelExporter;
-
+	
+	
 	private Contabilidade[] contabilidades = new Contabilidade[3];
 	private Plano[] planos = new Plano[4];
 
@@ -108,6 +109,8 @@ public class AssinanteComponent {
 			planos[j] = createPlano(i);
 			j++;
 		}
+		jFreeChartExporter = new JFreeChartExporter();
+		excelExporter = new ExcelExporter();
 	}
 
 	private Contabilidade createContabilidade(long i) {
@@ -161,12 +164,8 @@ public class AssinanteComponent {
 	@Inject
 	private JFreeChartExporter jFreeChartExporter;
 
-	public File createExcelFileGraficoInteracaoAssinantes(
-			List<Assinante> totalBarras) throws IOException,
-			InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException {
-
+	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		
 		String filePath = "/home/desenv/grafico-interacao-assinante.xls";
 		String labelTitle = "Assinantes";
 		String dataTitle = "Total Doctos";
@@ -191,4 +190,12 @@ public class AssinanteComponent {
 		out.close();
 		return null;
 	}
+
+	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(
+			Assinante a, Calendar inicio, Calendar fim) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }

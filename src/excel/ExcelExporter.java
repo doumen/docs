@@ -6,8 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import javax.ejb.Stateless;
-
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
@@ -20,7 +18,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 
-@Stateless
 public class ExcelExporter {
 	
 	public <T> HSSFWorkbook createHSSFWorkbook(List<T> totalBarras,
