@@ -829,21 +829,59 @@
 	background-color: #b0e0e6;
 }
 
-.teste{
+.dtConsulta{
 	width: 100%;
+	text-align: center;
+	font-size: 11px !important;
 }
-.teste2{
-	
+.dtConsulta .ui-datatable-empty-message{
+	text-align: left;
 }
-.teste3{
-	
+.c_caa_venc{
+	width: 9.4%;
+	text-align: right;
 }
-.t1{
-	width: 3%;
+.c_caa_codPlano{
+	width: 8.9%;
+	text-align: right;
 }
-.t2{
-	width: 7%;
+.c_caa_Desc{
+	width: 11%;
+	text-align: left;
 }
-.t3{
-	width: 10%;
+.c_caa_vlMensal{
+	width: 9.9%;
+	text-align: right;
+}
+.c_caa_codAss{
+	width: 8.2%;
+	text-align: right;
+}
+.c_caa_cnpj{
+	width: 9.5%;
+	text-align: center;
+}
+.c_caa_razaoSocialAss{
+	width: 11%;
+	text-align: left;
+}
+.c_caa_codCont{
+	width: 8.7%;
+	text-align: right;
+}
+.c_caa_cnpjCont{
+	width: 9.5%;
+	text-align: center;
+}
+.c_caa_razaoSocialCont{
+	width: 11%;
+	text-align: left;
+}
+.c_caa_venc .ui-column-filter, .c_caa_codPlano .ui-column-filter, .c_caa_Desc .ui-column-filter,
+.c_caa_vlMensal .ui-column-filter, .c_caa_codAss .ui-column-filter, .c_caa_cnpj .ui-column-filter,
+.c_caa_razaoSocialAss .ui-column-filter, .c_caa_codCont .ui-column-filter, .c_caa_cnpjCont .ui-column-filter,
+.c_caa_razaoSocialCont .ui-column-filter{
+	width: 90% !important;
+	text-align: center;
+	margin: auto;
 }
