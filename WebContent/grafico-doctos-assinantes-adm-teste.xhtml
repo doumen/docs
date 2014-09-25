@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h5="http://java.sun.com/jsf/composite/html5">
+
+<ui:composition template="/templates/_panel-titulo.xhtml">
+	<ui:param name="tituloPainel"
+		value="Gráfico Manipulação Doctos X Assinantes" />
+	<ui:param name="modulo" value="administrativo" />
+	<ui:define name="conteudoPainel">
+		<div
+			class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all ui-state-default"
+			id="header">
+			<div>
+				<div
+					style="display: inline-block; width 70%; float: left; padding-left: 50%">
+					<p:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+						value=""
+						style="background-image: url('resources/images/zoommais.png') !important;">
+						<p:ajax listener="#{relatorioDataTableMB.aumentaZoom}"
+							execute="@form" update="somZoom,dataList" />
+					</p:commandButton>
+
+					<p:selectOneMenu id="somZoom" rendered="true"
+						value="#{relatorioDataTableMB.zoom}">
+						<f:selectItem itemLabel=" " itemValue="" />
+						<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+						<p:ajax render="dataList" event="change"
+							listener="#{relatorioDataTableMB.zoomSelectOneMenu}"
+							update="dataList"></p:ajax>
+					</p:selectOneMenu>
+					<p:commandButton id="cbZoomMenos" styleClass="botoes" value=""
+						style="background-image: url('resources/images/zoommenos.png') !important;">
+						<p:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+							execute="@form" update="somZoom,dataList" />
+					</p:commandButton>
+				</div>
+				<div
+					style="display: inline-block; text-align: right; width: 20%; float: right; padding-right: 10px">
+					<h:commandLink id="cbImprimir">
+						<p:graphicImage name="/images/imprimir.gif" width="16" height="16" />
+
+					</h:commandLink>
+					<h:commandLink id="cbExcel" action="#{paginatorMB.excel()}">
+						<p:graphicImage name="/images/excel.gif" width="16" height="16" />
+
+					</h:commandLink>
+					<h:commandLink id="cbPdf" actionListener="#{paginatorMB.pdf()}">
+						<p:graphicImage name="/images/pdf.gif" width="16" height="16" />
+
+					</h:commandLink>
+				</div>
+			</div>
+		</div>
+		<p:panel id="dataList" style="width:100%;position: relative;">
+			<div style="font-size:#{relatorioDataTableMB.font}em !important;text-align:center;position:relative;margin:0 auto;">
+
+				<p:outputLabel value="Gráfico - Manipulação Doctos X Assinantes"
+					style="font-size:2em;"></p:outputLabel>
+				<br></br>
+				<p:panel style="border:1px solid; width:100%">
+					<h:panelGrid columns="2" columnClasses="pg_c1,pg_c2">
+						<h:column>
+							<p:outputLabel value="Assinante: "></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{paginatorMB.assinante}"></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="Contabilidade: " style="text-align:left;"></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{paginatorMB.contador}"></p:outputLabel>
+						</h:column>
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<h:column>
+							<p:chart type="pie" id="pieChart" widgetVar="pieChart"
+								model="#{paginatorMB.pieChartModel}"
+								style="width:500px;height:400px" />
+						</h:column>
+						<h:column>
+							<p:lineChart value="#{paginatorMB.lineChartModel}" style="width:500px;height:380px" extender="chartExtender"
+							title="Histórico Consumo" legendPosition="s"/>
+						</h:column>
+					</h:panelGrid>
+					<h:panelGrid columns="2" columnClasses="pg_c3,pg_c5">
+						<h:column>
+							<p:outputLabel value="Plano Contratado: "></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{paginatorMB.planoContratado}"></p:outputLabel>
+						</h:column>
+					</h:panelGrid>
+						<h:panelGrid columns="2" columnClasses="pg_c3,pg_c4">
+						<h:column>
+							<p:outputLabel value="Consumo Restante: " style="text-align:left;width:450 !important;"></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{paginatorMB.consumoRestante}" style="width:225 !important;"></p:outputLabel>
+						</h:column>
+	</h:panelGrid>
+				</p:panel>
+			</div>
+		</p:panel>
+
+
+
+
+
+		<div
+			class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+			id="footer">
+			<div class="centerPaginator">
+				<h:commandLink id="ultimaPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{paginatorMB.irParaUltimaPagina}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-end" />
+				</h:commandLink>
+				<h:commandLink id="proximaPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{paginatorMB.irParaProximaPagina}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-next" />
+				</h:commandLink>
+
+				<h:commandLink id="paginaAtual"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText
+						value="#{paginatorMB.paginaAtual} de #{paginatorMB.totPag}" />
+				</h:commandLink>
+
+				<h:commandLink id="paginaAnterior"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default text-align: center;"
+					actionListener="#{paginatorMB.irParaPaginaAnterior}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-prev" />
+				</h:commandLink>
+				<h:commandLink id="primeiraPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{paginatorMB.irParaPrimeiraPagina}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-first" />
+				</h:commandLink>
+
+			</div>
+		</div>
+		<script type="text/javascript">
+		function chartExtender() {        
+			var line = [];
+		     <ui:repeat value="#{paginatorMB.historico.entrySet().toArray()}" var="ponto">
+	     		line.push("#{ponto.key}");
+	    	</ui:repeat>
+	    	this.cfg.categories = line;
+	    	this.cfg.axes.xaxis.tickOptions.angle=-90;
+		}
+		</script>
+
+	</ui:define>
+</ui:composition>
+</html>

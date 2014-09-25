@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.ServletOutputStream;
@@ -30,7 +30,7 @@ import component.AssinanteComponent;
 import factory.GraficoDoctosAssinanteFactory;
 
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class GraficoDoctosAssinanteAdmMB extends RelatorioDataTableMB {
 
 	private List<GraficoDoctosAssinante> graficosDoctosAssinante;

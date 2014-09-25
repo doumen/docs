@@ -702,12 +702,12 @@
 }
 
 .botoes { /* Configuração dos botões (zoom, exportação) */
-	background-repeat: no-repeat;
+	background-repeat: no-repeat !important;
 	background-position: center;
-	width: 50px;
+	width: 25px;
 	height: 20px;
-	background-color: transparent;
-	border-color: transparent;
+	background-color: transparent !important;
+	border-color: transparent !important;
 }
 
 #block_container { /* Div para alinhar os botões (zoom, exportação) */
@@ -846,4 +846,37 @@
 }
 .t3{
 	width: 10%;
+}
+.panelGrafico{
+	width: 100%;
+}
+
+.pg_c1{
+	width: 90px;
+	text-align:left;
+}
+.pg_c2{
+	border: 1px solid;
+	text-align:left;
+	width: 90%
+}
+.pg_c3{
+	text-align:left;
+	width: 120px;
+}
+.pg_c4{
+	border: 1px solid;
+	text-align:left;
+	width: 225px;	
+}
+.pg_c5{
+	border: 1px solid;
+	text-align:left;
+	width: 	450px;
+}
+.centered{
+	position:relative;
+height: 100px;
+margin:0 auto;
+padding: 10% 0;
 }

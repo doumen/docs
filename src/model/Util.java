@@ -1,5 +1,9 @@
 package model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -7,13 +11,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
+import org.jfree.chart.JFreeChart;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 public class Util {
 	
 	public static String getMMYYYY(Calendar c){
 	    String[] monthNames = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outobro", "Novembro", "Dezembro"};
 	    return monthNames[c.get(Calendar.MONTH)] + "/" + c.get(Calendar.YEAR);
+//	    return (c.get(Calendar.MONTH)+1) + "" ;//+ "/" + c.get(Calendar.YEAR);
 	}
 	
 	public static Calendar getCalendar(int i){
@@ -58,5 +68,15 @@ public class Util {
 
 	public static String getLabelTipoInclusao(TipoInclusao inclusao){
 		return inclusao==TipoInclusao.MODULO_ADMINISTRATIVO?"Módulo Administrativo":null;
+	}
+	
+	public static StreamedContent convertToStreamedContent(JFreeChart chart,int width,int height) throws IOException{
+		if(chart != null){
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		ImageIO.write(chart.createBufferedImage(width, height), "jpeg", os);
+		InputStream is = new ByteArrayInputStream(os.toByteArray());
+		return new DefaultStreamedContent(is, "image/jpeg");
+		}else
+			return new DefaultStreamedContent();
 	}
 }

@@ -1,6 +1,6 @@
 package jfreechart;
 
-import java.awt.image.BufferedImage;
+import java.awt.Font;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -14,6 +14,7 @@ import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
@@ -40,7 +41,7 @@ public class JFreeChartExporter {
 		return barChartObject;
 	}
 
-	public BufferedImage createLineChart(Map<Object, Number> data,String chartTitle,String dataLabel,String xLabel,String yLabel,int width,int height) {
+	public JFreeChart createLineChart(Map<Object, Number> data,String chartTitle,String dataLabel,String xLabel,String yLabel) {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		Set<Object> keys = data.keySet();		
 		for(Object o:keys){
@@ -49,22 +50,30 @@ public class JFreeChartExporter {
 		}
 		JFreeChart chart = ChartFactory.createLineChart(chartTitle, xLabel, null, dataset, PlotOrientation.VERTICAL, true, false, false);
 		CategoryPlot plot = (CategoryPlot) chart.getPlot();
+		TextTitle tx = new TextTitle(chartTitle, new Font("Dialog", Font.BOLD, 18));
+		chart.setTitle(tx);
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);							
-		return 	chart.createBufferedImage(width, height);
+		Font font = new Font("Dialog", Font.PLAIN, 9);
+		domainAxis.setTickLabelFont(font);
+		return 	chart;
 	}
 
-	public BufferedImage createPieChart(PieDataset pieDataset,String chartTitle, int width, int height) {
+	public JFreeChart createPieChart(PieDataset pieDataset,String chartTitle) {
 	    JFreeChart chart = ChartFactory.createPieChart3D(chartTitle,          // chart title
 	    		pieDataset,                // data
 	            true,                   // include legend
 	            true,
 	            false);
+	    
+		TextTitle tx = new TextTitle(chartTitle, new Font("Dialog", Font.BOLD, 18));
+		chart.setTitle(tx);
 
 	        PiePlot3D plot = (PiePlot3D) chart.getPlot();
 	        plot.setStartAngle(290);
 	        plot.setDirection(Rotation.CLOCKWISE);
 	        plot.setForegroundAlpha(0.5f);
-	        return chart.createBufferedImage(width, height);
+	        plot.setLabelFont(new Font("Dialog", Font.PLAIN, 9));
+	        return chart;
 	}
 }

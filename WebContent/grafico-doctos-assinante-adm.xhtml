@@ -22,11 +22,11 @@
 			<f:facet name="header">
 					<div id="block_container">
 						<div id="icones-zoom">
-							<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+							<p:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
 								style="background-image: url('resources/images/zoommais.png') !important;">
-								<f:ajax listener="#{relatorioDataTableMB.aumentaZoom}" render="dataList"
-									execute="@form" />
-							</h:commandButton>
+								<p:ajax listener="#{relatorioDataTableMB.aumentaZoom}" render="dataList"
+									execute="@form" update="somZoom"/>
+							</p:commandButton>
 							<p:selectOneMenu id="somZoom" rendered="true"
 								value="#{relatorioDataTableMB.zoom}">
 								<f:selectItem itemLabel=" " itemValue="" />
@@ -34,11 +34,11 @@
 								<f:ajax render="dataList" event="change"
 									listener="#{relatorioDataTableMB.zoomSelectOneMenu}"></f:ajax>
 							</p:selectOneMenu>
-							<h:commandButton id="cbZoomMenos" styleClass="botoes"
+							<p:commandButton id="cbZoomMenos" styleClass="botoes"
 								style="background-image: url('resources/images/zoommenos.png') !important;">
-								<f:ajax listener="#{relatorioDataTableMB.diminuiZoom}" render="dataList"
-									execute="@form" />
-							</h:commandButton>
+								<p:ajax listener="#{relatorioDataTableMB.diminuiZoom}" render="dataList"
+									execute="@form" update="somZoom"/>
+							</p:commandButton>
 						</div>
 						<div id="icones-exportar">
 							<h:commandButton id="cbImprimir" styleClass="botoes"
@@ -68,10 +68,8 @@
 						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.contador}"></p:outputLabel> </h:column>
 					</h:panelGrid>
 					<h:panelGrid columns="2">
-						<h:column><p:chart type="pie" id="pieChart" widgetVar="pieChart" model="#{graficoDoctosAssinanteAdm.pieChartModel}"	style="width:500px;height:400px" /></h:column>
-						<h:column><p:chart type="line" id="lineChart" widgetVar="lineChart"
-								model="#{graficoDoctosAssinanteAdm.lineChartModel}"
-								style="width:500px;height:400px" /></h:column>
+						<h:column><p:graphicImage value="#{graficoDoctosAssinanteAdm.pieChart}" /></h:column>
+						<h:column><p:graphicImage value="#{graficoDoctosAssinanteAdm.lineChart}" /></h:column>
 					</h:panelGrid>
 					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">								
 						<h:column><p:outputLabel value="Plano Contratado: " ></p:outputLabel> </h:column>

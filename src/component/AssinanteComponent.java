@@ -15,7 +15,6 @@ import java.util.Random;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 import jfreechart.JFreeChartExporter;
 import model.Assinante;
@@ -173,7 +172,6 @@ public class AssinanteComponent {
 		return as;
 	}
 
-	@Inject
 	private JFreeChartExporter jFreeChartExporter;
 
 	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
