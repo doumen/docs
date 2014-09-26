@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import model.Plano;
+import model.TipoInclusao;
 
 @Stateless
 public class PlanoComponent {
@@ -21,7 +22,7 @@ public class PlanoComponent {
 			c.setValorMensal(i * 1.2);
 			c.setValorNfeAdicional(i * 1.5);
 			c.setDataInclusao(Calendar.getInstance());
-			c.setTipoInclusao("Módulo Administrativo");
+			c.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
 
 			planos.add(c);
 		}

@@ -67,8 +67,7 @@
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" />
 						<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
-						<p:ajax event="change"
-							listener="#{consultaContabilidadeAdmMB.mascaraInscrEstadual}"
+						<p:ajax event="change" listener="#{bean.mascaraInscrEstadual}"
 							update="intInscEst" />
 					</p:selectOneMenu>
 				</h:panelGrid>
@@ -77,40 +76,53 @@
 					<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
 						mask="99.999.999/9999-99" styleClass="cnpjAss" />
 					<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
-					<p:inputText id="intInscEst"
+					<p:inputMask id="intInscEst"
 						value="#{cc.attrs.bean.selected.inscricaoEstadual}"
-						mask="#{consultaContabilidadeAdmMB.mascara}" />
+						mask="#{bean.mascara}" />
 				</h:panelGrid>
 			</h:panelGrid>
 		</p:fieldset>
 		<br />
 		<p:fieldset id="fdsUsuarios" legend="Usuários" styleClass="dados">
 			<h:panelGrid columns="1">
-				<h:panelGrid columns="8">
+				<h:panelGrid columns="7" styleClass="gridUsuario" columnClasses="gU_c1,gU_c2,gU_c3,gU_c4,gU_c5,gU_c6,gU_c7">
 					<p:outputLabel value="Usuário" for="intUsuario" />
-					<p:inputText id="intUsuario" value="#{bean.login}" />
+					<p:inputText id="intUsuario" value="#{bean.login}">
+						<p:ajax event="blur" update="intUsuario" />
+					</p:inputText>
 					<p:outputLabel value="Senha" for="pwdUsuario" />
-					<p:password id="pwdUsuario" value="#{bean.senha}" />
+					<p:password id="pwdUsuario" value="#{bean.senha}">
+						<p:ajax event="blur" />
+					</p:password>
 					<h:panelGrid columns="2">
 						<p:selectBooleanCheckbox id="sbcPermAreaContabilidade"
 							value="#{bean.permissaoAreaContador}"
-							styleClass="usuarioCheckBox" />
+							styleClass="usuarioCheckBox">
+							<p:ajax event="change" update="sbcPermAreaContabilidade"
+								process="@this" />
+						</p:selectBooleanCheckbox>
 						<p:outputLabel for="sbcPermAreaContabilidade"
 							value="Perm. Área Contabilidade?" styleClass="usuarioLabel" />
 						<p:selectBooleanCheckbox id="sbcPermAreaAssinante"
 							value="#{bean.permissaoAreaAssinante}"
-							styleClass="usuarioCheckBox" />
+							styleClass="usuarioCheckBox">
+							<p:ajax event="change" update="sbcPermAreaContabilidade"
+								process="@this" />
+						</p:selectBooleanCheckbox>
 						<p:outputLabel for="sbcPermAreaAssinante"
 							value="Perm. Área Assinante?" styleClass="usuarioLabel" />
 					</h:panelGrid>
-					<p:commandButton id="cbIncluir" value=""
-						action="#{bean.adicionaUsuario}" update="dtbUsuarios"
-						styleClass="botaoUsuarios"
-						style="background-image: url('resources/images/incluir.gif') !important;" />
+					<p:commandButton id="cbIncluir" value="" 
+						style="background-image: url('resources/images/incluir.gif') !important;">
+						<p:ajax event="click" listener="#{bean.adicionaUsuario}"
+							process="@this" update="dtbUsuarios" />
+					</p:commandButton>
 					<p:commandButton id="cmbExcluir" value=""
-						action="#{bean.removeUsuario}" update="dtbUsuarios"
-						styleClass="botaoUsuarios"
-						style="background-image: url('resources/images/minus.png') !important;" />
+						style="background-image: url('resources/images/minus.png') !important;">
+						<p:ajax event="click" listener="#{bean.removeUsuario}"
+							process="@this" update="dtbUsuarios" />
+					</p:commandButton>
+
 					<p:tooltip for="cbIncluir" value="Incluir" />
 					<p:tooltip for="cmbExcluir" value="Excluir" />
 				</h:panelGrid>
@@ -135,28 +147,26 @@
 				</p:dataTable>
 			</h:panelGrid>
 		</p:fieldset>
-		<table>
-			<tr>
-				<td id="comissao"><p:outputLabel value="Comissão"
-						for="intComissao" /> <p:inputText id="intComissao"
-						value="#{cc.attrs.bean.selected.comissao}">
-						<f:convertNumber type="percent" />
-					</p:inputText></td>
-				<td id="comissao">
-					<div id="botaoIncluirAlterarContabilidade">
-						<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
-							style="background-image: url('resources/images/check.png') !important;"
-							styleClass="botaoIncluirAlterarContabilidade" value=" Incluir"
-							action="#{bean.incluir}"
-							oncomplete="PF('dlgIncluirContabilidade').show();" />
-						<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
-							style="background-image: url('resources/images/check.png') !important;"
-							styleClass="botaoIncluirAlterarContabilidade" value=" Alterar"
-							action="#{bean.alterar}" />
-					</div>
-				</td>
-			</tr>
-		</table>
+		<h:panelGrid columns="3" styleClass="gridBotao"
+			columnClasses="gridBotao_c1,grid_Botao_c2,grid_Botao_c3">
+			<p:outputLabel value="Comissão" for="intComissao" />
+			<p:inputText id="intComissao"
+				value="#{cc.attrs.bean.selected.comissao}">
+				<f:convertNumber type="percent" />
+			</p:inputText>
+			<h:panelGrid columns="2">
+				<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
+					style="background-image: url('resources/images/check.png') !important;"
+					value=" Incluir" oncomplete="PF('dlgIncluirAssinante').show();">
+					<p:ajax event="click" listener="#{bean.incluir()}" process="@this" />
+				</p:commandButton>
+				<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
+					style="background-image: url('resources/images/check.png') !important;"
+					value=" Alterar">
+					<p:ajax event="click" listener="#{bean.alterar()}" process="@this" />
+				</p:commandButton>
+			</h:panelGrid>
+		</h:panelGrid>
 	</p:panel>
 	<p:dialog widgetVar="dlgIncluirContabilidade"
 		id="dlgIncluirContabilidade">

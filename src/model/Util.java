@@ -79,4 +79,8 @@ public class Util {
 		}else
 			return new DefaultStreamedContent();
 	}
+	
+	public static String formatCnpj(String cnpj){
+		return cnpj.substring(0, 2) + "." + cnpj.substring(2, 5) + "." + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-" + cnpj.substring(12, 14);
+	}
 }

@@ -12,7 +12,7 @@ public class Plano {
 	private double valorMensal;
 	private double valorNfeAdicional;
 	private Calendar dataInclusao;
-	private String tipoInclusao;
+	private TipoInclusao tipoInclusao;
 
 	public Long getId() {
 		return id;
@@ -67,10 +67,10 @@ public class Plano {
 	}
 
 	public String getTipoInclusao() {
-		return tipoInclusao;
+		return Util.getLabelTipoInclusao(tipoInclusao);
 	}
 
-	public void setTipoInclusao(String tipoInclusao) {
+	public void setTipoInclusao(TipoInclusao tipoInclusao) {
 		this.tipoInclusao = tipoInclusao;
 	}
 
@@ -94,7 +94,7 @@ public class Plano {
 	}
 
 	public Plano() {
-
+		this.dataInclusao = Calendar.getInstance();
 	}
 
 	public Plano(Long id, String descricao) {

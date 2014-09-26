@@ -34,7 +34,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	private List<Contabilidade> codContabilidades;
 	private List<Assinante> filteredList = new ArrayList<>();
 
-
 	public ConsultaAssinantesAdmMB() {
 		super(Assinante.class);
 	}
@@ -42,11 +41,11 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public void init() {
 		listTable = assinanteComponent.getAssinantes();
 		filteredList = assinanteComponent.getAssinantes();
-		
+
 		codPlanos = new ArrayList<Plano>();
 		codPlanos.add(new Plano((long) 1, "Plano 01"));
 		codPlanos.add(new Plano((long) 2, "Plano 02"));
-		
+
 		codContabilidades = new ArrayList<Contabilidade>();
 		codContabilidades.add(new Contabilidade((long) 1, "Contabilidade 01"));
 		codContabilidades.add(new Contabilidade((long) 2, "Contabilidade 02"));
@@ -65,25 +64,29 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		return "Os itens serão excluídos";
 	}
 
-	public void carregarPopUpAlterar(){
-		if((selectedList != null) && (!selectedList.isEmpty())){
-			selected = selectedList.get(0);	
+	public void carregarPopUpAlterar() {
+		if ((selectedList != null) && (!selectedList.isEmpty())) {
+			selected = selectedList.get(0);
 			login = "";
 			senha = "";
 		}
 	}
-	
-	public void carregarPopUpIncluir(){
+
+	public void carregarPopUpIncluir() {
 		selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
+		login = "";
+		senha = "";
 	}
-	
+
 	public void adicionaUsuario() {
+		if (validateUsuario()){
 		Usuario u = new Usuario();
 		u.setAssinante(selected);
 		u.setDataInclusao(Calendar.getInstance());
 		u.setLogin(login);
 		u.setSenha(senha);
 		selected.addUsuario(u);
+		}
 	}
 
 	public void removeUsuario() {
@@ -224,13 +227,13 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public void setMascara(String mascara) {
 		this.mascara = mascara;
 	}
-	
+
 	@Override
 	public void setSelected(Assinante selected) {
-		if(selected!=null && selected.getUf()!=null)
-			this.selected = selected;		
-		else if(selectedList != null && !selectedList.isEmpty())
-			this.selected = selectedList.get(0);		
+		if (selected != null && selected.getUf() != null)
+			this.selected = selected;
+		else if (selectedList != null && !selectedList.isEmpty())
+			this.selected = selectedList.get(0);
 		setMascara(this.mascaraInscrEstadual());
 	}
 
@@ -265,12 +268,25 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public void setCodContabilidades(List<Contabilidade> codContabilidades) {
 		this.codContabilidades = codContabilidades;
 	}
-	
+
 	public List<Assinante> getFilteredList() {
 		return filteredList;
 	}
 
 	public void setFilteredList(List<Assinante> filteredList) {
 		this.filteredList = filteredList;
+	}
+
+	public boolean validateUsuario() {
+		if (!selected.getUsuarios().isEmpty()) {
+			for (int i = 0; i < selected.getUsuarios().size() - 1; i++) {
+				if (login.equals(selected.getUsuarios().get(i).getLogin().toString())){
+					System.out.println("Usuário já cadastrado");
+					return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 }
