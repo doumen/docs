@@ -2,7 +2,6 @@ package managedBeans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
@@ -41,10 +40,6 @@ public abstract class AbstractListMB<T> {
 	public List<T> getListTable() {
 		return listTable;
 	}
-
-	public abstract String[] getArgs();
-
-	public abstract Properties getProperties();
 
 	public abstract void init();
 

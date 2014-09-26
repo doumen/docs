@@ -3,7 +3,6 @@ package managedBeans;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Properties;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -129,115 +128,92 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		return "assinantes.pdf";
 	}
 
-	@Override
-	public String[] getArgs() {
-		String[] s = { "dataInclusao", "plano.id", "plano.descricao",
-				"plano.valorMensal", "id", "cnpj", "nomeFantasia",
-				"contabilidade.id", "contabilidade.cnpj",
-				"contabilidade.nomeFantasia" };
-		return s;
-	}
-
-	@Override
-	public Properties getProperties() {
-		Properties p = new Properties();
-		p.put("dataInclusao", "Vencimento");
-		p.put("plano.id", "Cod.plano");
-		p.put("plano.descricao", "Descrição");
-		p.put("plano.valorMensal", "Valor Mensal");
-		p.put("assinante.id", "Cod. Ass");
-		p.put("cnpj", "CNPJ");
-		p.put("nomeFantasia", "Assinante");
-		p.put("contabilidade.id", "Cod. Cont");
-		p.put("contabilidade.cnpj", "CNPJ");
-		p.put("contabilidade.nomeFantasia", "Contabilidade");
-		return p;
-	}
 
 	public String mascaraInscrEstadual() {
 		if (selected.getUf() != null) {
-			switch (selected.getUf().toString()) {
-			case "AC":
+			switch (selected.getUf()) {
+			case AC:
 				mascara = "99.999.999/999-99";
 				break;
-			case "AL":
+			case AL:
 				mascara = "999999999";
 				break;
-			case "AP":
+			case AP:
 				mascara = "999999999";
 				break;
-			case "AM":
+			case AM:
 				mascara = "99.999.999-9";
 				break;
-			case "BA":
+			case BA:
 				mascara = "999.999.99-9";
 				break;
-			case "CE":
+			case CE:
 				mascara = "99999999-9";
 				break;
-			case "DF":
+			case DF:
 				mascara = "99999999999-99";
 				break;
-			case "ES":
+			case ES:
 				mascara = "999.999.99-9";
 				break;
-			case "GO":
+			case GO:
 				mascara = "99.999.999-9";
 				break;
-			case "MA":
+			case MA:
 				mascara = "999999999";
 				break;
-			case "MT":
+			case MT:
 				mascara = "999999999";
 				break;
-			case "MS":
+			case MS:
 				mascara = "999999999";
 				break;
-			case "MG":
+			case MG:
 				mascara = "999.999.999/9999";
 				break;
-			case "PA":
+			case PA:
 				mascara = "99-999999-9";
 				break;
-			case "PB":
+			case PB:
 				mascara = "99999999-9";
 				break;
-			case "PR":
+			case PR:
 				mascara = "99999999-99";
 				break;
-			case "PE":
+			case PE:
 				mascara = "99.9.999.9999999-9";
 				break;
-			case "PI":
+			case PI:
 				mascara = "999999999";
 				break;
-			case "RJ":
+			case RJ:
 				mascara = "99.999.99-9";
 				break;
-			case "RN":
+			case RN:
 				mascara = "99.999.999-9";
 				break;
-			case "RS":
+			case RS:
 				mascara = "999-9999999";
 				break;
-			case "RO":
+			case RO:
 				mascara = "999.99999-9";
 				break;
-			case "RR":
+			case RR:
 				mascara = "99999999-9";
 				break;
-			case "SC":
+			case SC:
 				mascara = "999.999.999";
 				break;
-			case "SP":
+			case SP:
 				mascara = "999.999.999.999";
 				break;
-			case "SE":
+			case SE:
 				mascara = "999999999-9";
+				break;
+			default:
 				break;
 			}
 		}
-
 		return mascara;
 	}
 

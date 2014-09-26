@@ -3,7 +3,6 @@ package managedBeans;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -68,24 +67,6 @@ public class ConsultaContabilidadeAdmMB extends
 	@Override
 	public String getPdfFileName() {
 		return "assinantes.pdf";
-	}
-
-	@Override
-	public String[] getArgs() {
-		String[] s = { "id", "cnpj", "razaoSocial", "municipio", "uf" };
-		return s;
-	}
-
-	@Override
-	public Properties getProperties() {
-		Properties p = new Properties();
-		p.put("id", "Cod.Cont.");
-		p.put("cnpj", "CNPJ");
-		p.put("razaoSocial", "Contabilidade");
-		p.put("municipio", "Município");
-		p.put("uf", "UF");
-
-		return p;
 	}
 
 	public void adicionaUsuario() {

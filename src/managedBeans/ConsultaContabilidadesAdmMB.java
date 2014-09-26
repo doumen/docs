@@ -1,12 +1,11 @@
 package managedBeans;
 
-import java.util.Properties;
-
 import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
-import component.ContabilidadeComponent;
 import model.Contabilidade;
+
+import component.ContabilidadeComponent;
 
 @ManagedBean
 public class ConsultaContabilidadesAdmMB extends AbstractConsultaMB<Contabilidade> {
@@ -52,29 +51,6 @@ public class ConsultaContabilidadesAdmMB extends AbstractConsultaMB<Contabilidad
 	public void alterar() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String[] getArgs() {
-		return new String[]{
-				"id",
-				"cnpj",
-				"nomeFantasia",
-				"municipio",
-				"uf"
-				
-		};
-	}
-
-	@Override
-	public Properties getProperties() {
-		Properties p = new Properties();
-			p.put("id", "Cod.Cont");
-			p.put("cnpj", "CNPJ");
-			p.put("nomeFantasia", "Contabilidade");
-			p.put("municipio", "Município");
-			p.put("uf", "UF");
-		return p;
 	}
 
 	@Override

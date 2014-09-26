@@ -1,11 +1,5 @@
 package managedBeans;
 
-import java.util.Properties;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-
-import model.Contabilidade;
 /*
 @ManagedBean
 public class ConsultaManagedBeanSegundaAba extends AbstractListMB<Contabilidade> {

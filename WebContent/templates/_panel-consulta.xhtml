@@ -42,10 +42,9 @@
 						oncomplete="PF('dlgExcluir').show()" styleClass="botaoConsulta"
 						style="background-image: url('resources/images/excluir.gif') !important;" />
 					<p:tooltip for="cmbExcluir" value="Excluir" />
-					<p:commandButton id="cbImprimir" value="" process="dataTable"
-						styleClass="botaoConsulta"
+					<p:commandButton id="cbImprimir" value=""
+						styleClass="botaoConsulta" actionListener="#{bean.exportPdf}"
 						style="background-image: url('resources/images/imprimir.gif') !important;">
-						<p:printer target="dataTable" />
 					</p:commandButton>
 					<p:tooltip for="cbImprimir" value="Imprimir" />
 				</div>

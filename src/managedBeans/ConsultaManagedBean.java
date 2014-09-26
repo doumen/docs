@@ -1,12 +1,5 @@
 package managedBeans;
 
-import java.io.FileNotFoundException;
-import java.util.Properties;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-
-import model.Contabilidade;
 /*
 @ManagedBean
 public class ConsultaManagedBean extends AbstractProcessosMB<Contabilidade>{

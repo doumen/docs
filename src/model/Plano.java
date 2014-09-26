@@ -101,4 +101,12 @@ public class Plano {
 		this.id = id;
 		this.descricao = descricao;
 	}
+	
+	public String getCodigo(){
+		return id==null?null:id.toString();
+	}
+	
+	public String getValorMensalFormatado(){
+		return String.valueOf(valorMensal);
+	}
 }

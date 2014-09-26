@@ -384,4 +384,12 @@ public class Assinante implements Comparable<Assinante> {
 		c.setTime(d);
 		setDataInclusao(c);
 	}
+	
+	public String getCnpjFormatado(){
+		return cnpj;
+	}
+	
+	public String getCodigo(){
+		return id==null?null:id.toString();
+	}
 }
