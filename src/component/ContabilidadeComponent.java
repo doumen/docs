@@ -37,6 +37,7 @@ public class ContabilidadeComponent {
 		c.setBairro("Bairro " + i);
 		c.setCep(14586960);
 		c.setInscricaoEstadual("457280558835");
+		c.setComissao(0.1);
 		
 		List<Usuario> listaUsuarios = new ArrayList<>();
 

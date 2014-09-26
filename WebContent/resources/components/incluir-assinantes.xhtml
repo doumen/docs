@@ -13,6 +13,17 @@
 </composite:interface>
 
 <composite:implementation>
+	<script>  
+		function moeda(z){  
+			v = z.value;
+			v = v.replace(/\D/g,"")  //permite digitar apenas números
+			v = v.replace(/[0-9]{12}/,"inválido")   //limita pra máximo 999.999.999,99
+			v = v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos últimos 8 digitos
+			v = v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos últimos 5 digitos
+			v = v.replace(/(\d{1})(\d{1,2})$/,"$1,$2")        //coloca virgula antes dos últimos 2 digitos
+			z.value = 'R$ ' + v;
+		}
+	</script>
 	<p:panel id="pnlAssinantes" styleClass="pnlAssinantes">
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
@@ -87,29 +98,28 @@
 				<h:panelGrid columns="1">
 					<p:fieldset id="fdsUsuarios" legend="Usuários"
 						styleClass="dadosUsuarios">
-						<h:panelGrid columns="7">
+						<h:panelGrid columns="6" styleClass="gridUsuarioAss"
+							columnClasses="gUA_c1,gUA_c2,gUA_c3,gUA_c4,gUA_c5,gUA_c6">
 							<p:outputLabel value="Usuário" for="intUsuario" />
 							<p:inputText id="intUsuario" value="#{bean.login}">
 								<p:ajax event="blur" update="intUsuario" />
 							</p:inputText>
 							<p:outputLabel value="Senha" for="pwdUsuario" />
 							<p:password id="pwdUsuario" value="#{bean.senha}">
-								<p:ajax event="blur" update="pwdUsuario" />
+								<p:ajax event="blur" />
 							</p:password>
 							<p:commandButton id="cbIncluir" value=""
-								styleClass="botaoUsuariosAss"
 								style="background-image: url('resources/images/incluir.gif') !important;">
 								<p:ajax event="click" listener="#{bean.adicionaUsuario}"
 									process="@this" update="dtbUsuarios" />
 							</p:commandButton>
-							<p:tooltip for="cbIncluir" value="Incluir" />
 							<p:commandButton id="cmbExcluir" value=""
-								styleClass="botaoUsuariosAss"
 								style="background-image: url('resources/images/minus.png') !important;">
 								<p:ajax event="click" listener="#{bean.removeUsuario}"
 									process="@this" update="dtbUsuarios" />
 							</p:commandButton>
 							<p:tooltip for="cmbExcluir" value="Excluir" />
+							<p:tooltip for="cbIncluir" value="Incluir" />
 						</h:panelGrid>
 						<p:dataTable id="dtbUsuarios" styleClass="dataTableUsuariosAss"
 							scrollable="true" scrollHeight="100"
@@ -139,11 +149,11 @@
 						value="#{cc.attrs.bean.selected.plano.descricao}"
 						styleClass="descPlanoAss" />
 					<p:outputLabel value="Valor Mensal" for="intValorMensal" />
-					<p:inputMask id="intValorMensal"
-						value="#{cc.attrs.bean.selected.plano.valorMensal}"
+					<p:inputText id="intValorMensal" onkeypress="moeda(this);"
+						maxlength="14" value="#{cc.attrs.bean.selected.plano.valorMensal}"
 						styleClass="vlMensalAss" mask="R$ 9?999,99">
 						<f:convertNumber type="currency" />
-					</p:inputMask>
+					</p:inputText>
 				</h:panelGrid>
 			</p:tab>
 			<p:tab title="Contabilidade">
@@ -213,9 +223,10 @@
 		<div id="botaoIncluirAlterarAss">
 			<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
 				style="background-image: url('resources/images/check.png') !important;"
-				value=" Incluir" action="#{bean.incluir}"
-				styleClass="botaoIncluirAlterarAss"
-				oncomplete="PF('dlgIncluirAssinante').show();" />
+				value=" Incluir" styleClass="botaoIncluirAlterarAss"
+				oncomplete="PF('dlgIncluirAssinante').show();">
+				<p:ajax event="click" listener="#{bean.incluir()}" process="@this" />
+			</p:commandButton>
 			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"
 				styleClass="botaoIncluirAlterarAss" value=" Alterar">

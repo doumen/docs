@@ -38,7 +38,7 @@
 		</p:column>
 		<p:column headerText="CNPJ" sortBy="#{list.cnpj}"
 			styleClass="c_caa_cnpj" filterBy="#{list.cnpj}" filterMatchMode="contains">
-			<h:outputText value="#{list.cnpj}" />
+			<h:outputText value="#{list.cnpjFormatado}" />
 		</p:column>
 		<p:column headerText="Assinante" sortBy="#{list.razaoSocial}"
 			styleClass="c_caa_razaoSocialAss" filterBy="#{list.razaoSocial}" filterMatchMode="contains">
@@ -50,7 +50,7 @@
 		</p:column>
 		<p:column headerText="CNPJ" sortBy="#{list.contabilidade.cnpj}"
 			styleClass="c_caa_cnpjCont" filterBy="#{list.contabilidade.cnpj}" filterMatchMode="contains">
-			<h:outputText value="#{list.contabilidade.cnpj}" />
+			<h:outputText value="#{list.contabilidade.cnpjFormatado}" />
 		</p:column>
 		<p:column headerText="Contabilidade"
 			sortBy="#{list.contabilidade.razaoSocial}"

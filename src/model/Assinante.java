@@ -37,13 +37,13 @@ public class Assinante implements Comparable<Assinante> {
 	private List<SpedFiscal> spedsFiscais;
 	private List<SpedSocial> spedsSociais;
 	private List<SpedContribuicoes> spedsContribuicoes;
-	
+
 	private Integer totalNfe;
 	private Integer totalCte;
 	private Integer totalSpedFiscal;
 	private Integer totalSpedSocial;
 	private Integer totalSpedContribuicoes;
-	
+
 	public Integer getTotalNfe() {
 		return totalNfe;
 	}
@@ -383,5 +383,9 @@ public class Assinante implements Comparable<Assinante> {
 		Calendar c = Calendar.getInstance();
 		c.setTime(d);
 		setDataInclusao(c);
+	}
+
+	public String getCnpjFormatado() {
+		return Util.formatCnpj(cnpj);
 	}
 }

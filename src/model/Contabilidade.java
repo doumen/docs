@@ -209,4 +209,8 @@ public class Contabilidade implements Serializable {
 		this.id = id;
 		this.razaoSocial = razaoSocial;
 	}
+	
+	public String getCnpjFormatado() {
+		return Util.formatCnpj(cnpj);
+	}
 }

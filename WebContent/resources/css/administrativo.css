@@ -538,16 +538,6 @@
 	font-size: 11px;
 }
 
-.botaoUsuarios.ui-button { /* Botões Incluir/Excluir Usuários */
-	background-repeat: no-repeat;
-	background-position: center;
-	width: 30px;
-	height: 28px;
-	background-color: transparent;
-	border-color: transparent;
-	margin-left: 75%;
-}
-
 .dataTableUsuarios.ui-datatable /* DataTable Usuário */ {
 	width: 85%;
 	white-space: normal;
@@ -557,36 +547,6 @@
 
 .dataTableUsuarios .ui-datatable-empty-message {
 	text-align: left;
-}
-
-#comissao { /* Div Comissão */
-	text-align: left;
-	width: 91%;
-}
-
-#comissao .ui-outputlabel { /* Label Comissão */
-	text-align: left;
-	margin-right: 10px;
-}
-
-#comissao .ui-inputfield { /* InputText Comissão */
-	text-align: right;
-	width: 6%;
-}
-
-#botaoIncluirAlterarContabilidade { /* Div Botão Incluir/Alterar */
-	text-align: left;
-	background-color: #FFFFFF;
-}
-
-#botaoIncluirAlterarContabilidade .ui-button {
-	/* Botão Incluir/Alterar */
-	background-color: #008B45;
-	color: #FFFFFF;
-	width: 100px;
-	background-repeat: no-repeat;
-	background-position: left;
-	height: 35px;
 }
 
 /* PopUp - Planos */
@@ -838,11 +798,11 @@
 	text-align: left;
 }
 .c_caa_venc{
-	width: 9.4%;
+	width: 8.2%;
 	text-align: right;
 }
 .c_caa_codPlano{
-	width: 8.9%;
+	width: 5.6%;
 	text-align: right;
 }
 .c_caa_Desc{
@@ -850,15 +810,15 @@
 	text-align: left;
 }
 .c_caa_vlMensal{
-	width: 9.9%;
+	width: 8.5%;
 	text-align: right;
 }
 .c_caa_codAss{
-	width: 8.2%;
+	width: 5.1%;
 	text-align: right;
 }
 .c_caa_cnpj{
-	width: 9.5%;
+	width: 10.5%;
 	text-align: center;
 }
 .c_caa_razaoSocialAss{
@@ -866,11 +826,11 @@
 	text-align: left;
 }
 .c_caa_codCont{
-	width: 8.7%;
+	width: 5.1%;
 	text-align: right;
 }
 .c_caa_cnpjCont{
-	width: 9.5%;
+	width: 10.5%;
 	text-align: center;
 }
 .c_caa_razaoSocialCont{
@@ -882,7 +842,9 @@
 .c_caa_razaoSocialAss .ui-column-filter, .c_caa_codCont .ui-column-filter, .c_caa_cnpjCont .ui-column-filter,
 .c_caa_razaoSocialCont .ui-column-filter,
 .c_cca_codCont .ui-column-filter, .c_cca_cnpj .ui-column-filter, .c_cca_razaoSocialCont .ui-column-filter,
-.c_cca_municipio .ui-column-filter, .c_cca_uf .ui-column-filter{
+.c_cca_municipio .ui-column-filter, .c_cca_uf .ui-column-filter,
+.c_cpa_codPlano .ui-column-filter, .c_cpa_desc .ui-column-filter, .c_cpa_faixaInicial .ui-column-filter,
+.c_cpa_faixaFinal .ui-column-filter, .c_cpa_valorMensal .ui-column-filter, .c_cpa_valorNfe .ui-column-filter{
 	width: 90% !important;
 	text-align: center;
 	margin: auto;
@@ -943,4 +905,98 @@ padding: 10% 0;
 .c_cca_uf{
 	width: 3%;
 	text-align: center;
+}
+
+.gridBotao{
+	width: 100%;
+}
+.gridBotao_c1{
+	width: 5%;
+}
+.grid_Botao_c2{
+	width: 10%;
+}
+.grid_Botao_c2 .ui-inputtext{
+	width: 70%;
+	text-align: right;
+}
+.grid_Botao_c3{
+	float: right;
+}
+.grid_Botao_c3 .ui-button{
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+.gridUsuario{
+	width: 100%;
+}
+.gU_c1, .gU_c6, .gU_c7{
+	width: 7%;
+}
+.gU_c2, .gU_c4, .gU_c5{
+	width: 28%;
+}
+.gU_c3{
+	width: 5%;
+}
+.gU_c6 .ui-button, .gU_c7 .ui-button{
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 18px;
+	height: 28px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.gU_c7 .ui-button, .gUA_c5 .ui-button{
+	float: left;
+}
+
+.gridUsuarioAss{
+	width: 90%;
+}
+
+.gUA_c1, .gUA_c3, .gUA_c5, .gUA_c6{
+	width: 5%;
+}
+.gUA_c2, .gUA_c4{
+	width: 25%;
+}
+.gUA_c5 .ui-button, .gUA_c6 .ui-button{
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 28px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+
+.c_cpa_codPlano{
+	text-align: right;
+	width: 8%;
+}
+.c_cpa_desc{
+	text-align: left;
+	width: 48%;
+}
+.c_cpa_faixaInicial{
+	text-align: left;
+	width: 10%;
+}
+.c_cpa_faixaFinal{
+	text-align: left;
+	width: 10%;
+}
+.c_cpa_valorMensal{
+	text-align: right;
+	width: 12%;
+}
+.c_cpa_valorNfe{
+	text-align: right;
+	width: 12%;
 }

@@ -12,25 +12,36 @@
 	<ui:param name="modulo" value="administrativo" />
 	<ui:param name="bean" value="#{consultaPlanoAdmMB}" />
 	<ui:define name="tableColumns">
-		<p:column headerText="Cod.Plano" sortBy="#{list.id}">
+		<p:column headerText="Cod.Plano" sortBy="#{list.id}"
+			styleClass="c_cpa_codPlano" filterBy="#{list.id}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.id}" />
 		</p:column>
-		<p:column headerText="Descrição" sortBy="#{list.descricao}">
+		<p:column headerText="Descrição" sortBy="#{list.descricao}"
+			styleClass="c_cpa_desc" filterBy="#{list.descricao}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.descricao}" />
 		</p:column>
-		<p:column headerText="Faixa Inicial" sortBy="#{list.faixaInicial}">
+		<p:column headerText="Faixa Inicial" sortBy="#{list.faixaInicial}"
+			styleClass="c_cpa_faixaInicial" filterBy="#{list.faixaInicial}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.faixaInicial}" />
 		</p:column>
-		<p:column headerText="Faixa Final" sortBy="#{list.faixaFinal}">
+		<p:column headerText="Faixa Final" sortBy="#{list.faixaFinal}"
+			styleClass="c_cpa_faixaFinal" filterBy="#{list.faixaFinal}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.faixaFinal}" />
 		</p:column>
-		<p:column headerText="Valor Mensalidade" sortBy="#{list.valorMensal}">
+		<p:column headerText="Valor Mensalidade" sortBy="#{list.valorMensal}"
+			styleClass="c_cpa_valorMensal" filterBy="#{list.valorMensal}"
+			filterMatchMode="contains">
 			<h:outputText value="#{list.valorMensal}">
 				<f:convertNumber currencySymbol="R$" type="currency" />
 			</h:outputText>
 		</p:column>
 		<p:column headerText="Valor NFe Adicional"
-			sortBy="#{list.valorNfeAdicional}">
+			sortBy="#{list.valorNfeAdicional}" styleClass="c_cpa_valorNfe"
+			filterBy="#{list.valorNfeAdicional}" filterMatchMode="contains">
 			<h:outputText value="#{list.valorNfeAdicional}">
 				<f:convertNumber currencySymbol="R$" type="currency" />
 			</h:outputText>

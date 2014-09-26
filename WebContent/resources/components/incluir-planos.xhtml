@@ -11,6 +11,17 @@
 </composite:interface>
 
 <composite:implementation>
+	<script>  
+		function moeda(z){  
+			v = z.value;
+			v = v.replace(/\D/g,"")  //permite digitar apenas números
+			v = v.replace(/[0-9]{12}/,"inválido")   //limita pra máximo 999.999.999,99
+			v = v.replace(/(\d{1})(\d{8})$/,"$1.$2")  //coloca ponto antes dos últimos 8 digitos
+			v = v.replace(/(\d{1})(\d{5})$/,"$1.$2")  //coloca ponto antes dos últimos 5 digitos
+			v = v.replace(/(\d{1})(\d{1,2})$/,"$1,$2")        //coloca virgula antes dos últimos 2 digitos
+			z.value = 'R$ ' + v;
+		}
+	</script>
 	<p:panel id="pnlPlanos" styleClass="pnlAssinantes">
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
@@ -20,14 +31,16 @@
 			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
 				styleClass="oplDtInclusao" />
 			<p:calendar id="intDtInclusao" styleClass="iptDtInclusao"
-				value="#{cc.attrs.bean.selected.dataInclusaoTela}" disabled="true" pattern="dd/MM/yyyy" />
+				value="#{cc.attrs.bean.selected.dataInclusaoTela}" disabled="true"
+				pattern="dd/MM/yyyy" />
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
 				styleClass="oplTpInclusao" />
 			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
 				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="true" />
 		</h:panelGrid>
 
-<h:panelGrid columns="2" styleClass="dadosPlanos" columnClasses="dadosPlanos_c1, dadosPlanos_c2">
+		<h:panelGrid columns="2" styleClass="dadosPlanos"
+			columnClasses="dadosPlanos_c1, dadosPlanos_c2">
 			<p:outputLabel value="Descrição" for="intDescricao" />
 			<p:inputText id="intDescricao"
 				value="#{cc.attrs.bean.selected.descricao}"
@@ -41,21 +54,21 @@
 				value="#{cc.attrs.bean.selected.faixaFinal}"
 				styleClass="planosValores" />
 			<p:outputLabel value="Valor Mensal" for="intValorMensal" />
-			<p:inputText id="intValorMensal"
+			<p:inputText id="intValorMensal" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
 				value="#{cc.attrs.bean.selected.valorMensal}"
 				styleClass="planosValores">
-				<f:convertNumber currencySymbol="R$" type="currency" />
+				<f:convertNumber type="currency" />
 			</p:inputText>
 		</h:panelGrid>
-				<h:panelGrid columns="3">
+		<h:panelGrid columns="3">
 			<p:outputLabel value="Valor NFe Adicional" for="intValorNfeAdicional" />
-			<p:inputText id="intValorNfeAdicional"
+			<p:inputText id="intValorNfeAdicional" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
 				value="#{cc.attrs.bean.selected.valorNfeAdicional}"
 				styleClass="iptValorNfe">
-				<f:convertNumber currencySymbol="R$" type="currency" />
+				<f:convertNumber type="currency" />
 			</p:inputText>
 		</h:panelGrid>
-		
+
 		<br></br>
 		<div id="botaoIncluirAlterarPlano">
 			<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"

@@ -94,8 +94,8 @@ public class ConsultaContabilidadeAdmMB extends
 		u.setDataInclusao(Calendar.getInstance());
 		u.setLogin(login);
 		u.setSenha(senha);
-		u.setPermissaoAreaAssinante(permissaoAreaAssinante);
 		u.setPermissaoAreaContador(permissaoAreaContador);
+		u.setPermissaoAreaAssinante(permissaoAreaAssinante);
 		selected.addUsuario(u);
 	}
 
@@ -283,6 +283,10 @@ public class ConsultaContabilidadeAdmMB extends
 	
 	public void carregarPopUpIncluir(){
 		selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
+		login = "";
+		senha = "";
+		permissaoAreaAssinante = false;
+		permissaoAreaContador = false;
 	}
 	
 	@Override
