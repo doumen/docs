@@ -217,4 +217,5 @@ public class Contabilidade implements Serializable {
 	public String getCnpjFormatado() {
 		return Util.formatCnpj(cnpj);
 	}
-}
+	
+	}

@@ -22,8 +22,7 @@ import component.ContabilidadeComponent;
 
 @ManagedBean
 @ViewScoped
-public class ConsultaContabilidadeAdmMB extends
-		AbstractConsultaMB<Contabilidade> {
+public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade> {
 	private String login;
 	private String senha;
 	private boolean permissaoAreaContador;
@@ -58,7 +57,7 @@ public class ConsultaContabilidadeAdmMB extends
 
 	@Override
 	public String getPdfFileName() {
-		return "assinantes.pdf";
+		return "contabilidades";
 	}
 
 	public void adicionaUsuario() {

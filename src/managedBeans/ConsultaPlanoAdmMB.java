@@ -46,7 +46,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	@Override
 	public String getPdfFileName() {
-		return "assinantes.pdf";
+		return "planos-teste";
 	}
 	
 	public void carregarPopUpAlterar(){

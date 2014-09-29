@@ -149,4 +149,8 @@ public class Util {
 		
 		return "";
 	}
+
+	public static String formatCurrency(double valor) {
+		return "R$ " + String.format("%.2f", valor);
+	}
 }
