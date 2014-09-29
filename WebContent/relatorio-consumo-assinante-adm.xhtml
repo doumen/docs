@@ -14,59 +14,60 @@
 	<ui:define name="conteudoPainel">
 		<golive:datatable-relatorios id="dataTable"
 			value="#{relatorioConsumoAssinanteAdmMB.assinantes}"
-			paginatorPosition="bottom" rows="100" var="list"
+			paginatorPosition="bottom" rows="20" var="list"
 			onSort="#{relatorioConsumoAssinanteAdmMB.onSort}"
 			sortBy="#{list.contabilidade.cnpj}" rowKey="#{list.id}"
-			rendered="true">
+			rendered="true"
+			filteredValue="#{relatorioConsumoAssinanteAdmMB.filteredList}">
 
-			<p:column headerText="Cod. Ass" sortBy="#{list.id}" id="codAss">
+			<p:column headerText="Cód. Ass" sortBy="#{list.id}" id="codAss" styleClass="c_rcad_codAss" filterBy="#{list.id}" filterMatchMode="contains">
 				<h:outputText value="#{list.id}" />
 			</p:column>
-			<p:column headerText="CNPJ" sortBy="#{list.cnpj}" id="cnpjAss">
-				<h:outputText value="#{list.cnpj}" />
+			<p:column headerText="CNPJ" sortBy="#{list.cnpj}" id="cnpjAss" styleClass="c_rcad_cnpj" filterBy="#{list.cnpj}" filterMatchMode="contains">
+				<h:outputText value="#{list.cnpjFormatado}" />
 			</p:column>
 			<p:column headerText="Assinante" sortBy="#{list.nomeFantasia}"
-				id="ass">
+				id="ass" styleClass="c_rcad_assinante" filterBy="#{list.nomeFantasia}" filterMatchMode="contains">
 				<h:outputText value="#{list.nomeFantasia}" />
 			</p:column>
-			<p:column headerText="Cod.plano" sortBy="#{list.plano.id}"
-				id="codPlan">
+			<p:column headerText="Cód. Plano" sortBy="#{list.plano.id}"
+				id="codPlan" styleClass="c_rcad_codPlano" filterBy="#{list.plano.id}" filterMatchMode="contains">
 				<h:outputText value="#{list.plano.id}" />
 			</p:column>
 			<p:column headerText="Plano" sortBy="#{list.plano.descricao}"
-				id="nomPlan">
+				id="nomPlan" styleClass="c_rcad_plano" filterBy="#{list.plano.descricao}" filterMatchMode="contains">
 				<h:outputText value="#{list.plano.descricao}" />
 			</p:column>
 			<p:column headerText="Faixa Início" id="faixaIni"
-				sortBy="#{list.plano.faixaInicial}">
+				sortBy="#{list.plano.faixaInicial}" styleClass="c_rcad_faixaInicial" filterBy="#{list.plano.faixaInicial}" filterMatchMode="contains">
 				<h:outputText value="#{list.plano.faixaInicial}" />
 			</p:column>
 			<p:column headerText="Faixa Fim" id="faixaFim"
-				sortBy="#{list.plano.faixaFinal}">
+				sortBy="#{list.plano.faixaFinal}" styleClass="c_rcad_faixaFinal" filterBy="#{list.plano.faixaFinal}" filterMatchMode="contains">
 				<h:outputText value="#{list.plano.faixaFinal}" />
 			</p:column>
 			<p:column headerText="Valor Mensal" id="valMen"
-				sortBy="#{list.plano.valorMensal}">
+				sortBy="#{list.plano.valorMensal}" styleClass="c_rcad_valorMensal" filterBy="#{list.plano.valorMensal}" filterMatchMode="contains">
 				<h:outputText value="#{list.plano.valorMensal}">
 					<f:convertNumber currencySymbol="R$" type="currency" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="CNPJ" sortBy="#{list.contabilidade.cnpj}"
-				id="cnpjCon">
-				<h:outputText value="#{list.contabilidade.cnpj}" />
+				id="cnpjCon" styleClass="c_rcad_contCnpj" filterBy="#{list.contabilidade.cnpj}" filterMatchMode="contains">
+				<h:outputText value="#{list.contabilidade.cnpjFormatado}" />
 			</p:column>
 			<p:column headerText="Contabilidade"
-				sortBy="#{list.contabilidade.nomeFantasia}" id="con">
+				sortBy="#{list.contabilidade.nomeFantasia}" id="con" styleClass="c_rcad_contabilidade" filterBy="#{list.contabilidade.nomeFantasia}" filterMatchMode="contains">
 				<h:outputText value="#{list.contabilidade.nomeFantasia}" />
 			</p:column>
 			<p:column headerText="%Com" sortBy="#{list.contabilidade.comissao}"
-				id="comissao">
+				id="comissao" styleClass="c_rcad_comissao" filterBy="#{list.contabilidade.comissao}" filterMatchMode="contains">
 				<h:outputText value="#{list.contabilidade.comissao}">
 					<f:convertNumber type="percent" />
 				</h:outputText>
 			</p:column>
 			<p:column headerText="Comissão Mensal" id="comMen"
-				sortBy="#{list.comissaoMensal}">
+				sortBy="#{list.comissaoMensal}" styleClass="c_rcad_comissaoMensal" filterBy="#{list.comissaoMensal}" filterMatchMode="contains">
 				<h:outputText value="#{list.comissaoMensal}">
 					<f:convertNumber currencySymbol="R$" type="currency" />
 				</h:outputText>

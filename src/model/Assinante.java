@@ -20,7 +20,7 @@ public class Assinante implements Comparable<Assinante> {
 	private String bairro;
 	private String municipio;
 	private SiglaEstado uf;
-	private int cep;
+	private String cep;
 	private String emailMaster;
 	private String emailFinanceiro;
 	private Calendar dataInclusao;
@@ -204,11 +204,11 @@ public class Assinante implements Comparable<Assinante> {
 		this.uf = uf;
 	}
 
-	public int getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(int cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 

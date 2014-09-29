@@ -1,6 +1,7 @@
 package managedBeans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,11 +18,8 @@ import component.AssinanteComponent;
 @ManagedBean
 @ViewScoped
 public class RelatorioConsumoAssinanteAdmMB implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private List<Assinante> filteredList = new ArrayList<>();
 
 	@Inject
 	private AssinanteComponent assinanteComponent;
@@ -29,6 +27,7 @@ public class RelatorioConsumoAssinanteAdmMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		assinantes = assinanteComponent.getRelatorioConsumoAssinantes();
+		filteredList = assinanteComponent.getRelatorioConsumoAssinantes();
 	}
 
 	public List<Assinante> getAssinantes() {
@@ -187,6 +186,14 @@ public class RelatorioConsumoAssinanteAdmMB implements Serializable {
 
 	public double getComissaoMedia() {
 		return getTotalValorMensal()!=0?getTotalComissaoMensal() / getTotalValorMensal():0;
+	}
+
+	public List<Assinante> getFilteredList() {
+		return filteredList;
+	}
+
+	public void setFilteredList(List<Assinante> filteredList) {
+		this.filteredList = filteredList;
 	}
 
 }

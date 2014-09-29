@@ -39,14 +39,9 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 		listTable.removeAll(selectedList);
 	}
 
-	public void incluir() {
-		listTable.add(selected);
-		System.out.println("incluiu!!!");
-	}
-
-	public void alterar() {
-		System.out.println("alterou!!!");
-	}
+	public abstract void incluir();
+	
+	public abstract void alterar();
 
 	public boolean isUpdateEmptySelection() {
 		return "alterar".equals(tipo) && selectedList.isEmpty();

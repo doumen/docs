@@ -49,7 +49,7 @@ public class AssinanteComponent {
 			a.setEnderecoNumero(i.toString());
 			a.setEnderecoComplemento("Complemento " + i);
 			a.setBairro("Bairro " + i);
-			a.setCep(12569890);
+			a.setCep("12569890");
 			a.setMunicipio("Município " + i);
 			a.setUf(SiglaEstado.SP);
 			a.setCnpj("00747677000198");
@@ -210,5 +210,8 @@ public class AssinanteComponent {
 		return data;
 	}
 	
+	public void incluir(Assinante a){
+		
+	}
 	
 }

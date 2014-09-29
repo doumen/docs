@@ -54,7 +54,7 @@
 					value="#{bean.listTable}" var="list" id="dataTable"
 					emptyMessage="Nenhum registro encontrado." styleClass="dtConsulta"
 					filteredValue="#{bean.filteredList}">
-					<p:column selectionMode="multiple"
+					<p:column selectionMode="multiple" styleClass="c_select"
 						style="width:16px;text-align:center" />
 					<ui:insert name="tableColumns" />
 				</p:dataTable>

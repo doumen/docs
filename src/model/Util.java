@@ -81,6 +81,72 @@ public class Util {
 	}
 	
 	public static String formatCnpj(String cnpj){
-		return cnpj.substring(0, 2) + "." + cnpj.substring(2, 5) + "." + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-" + cnpj.substring(12, 14);
+		if (cnpj != null)
+			return cnpj.substring(0, 2) + "." + cnpj.substring(2, 5) + "." + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-" + cnpj.substring(12, 14);
+		else
+			return cnpj;
+	}
+	
+	public static String getMascaraCnpj(SiglaEstado uf){
+		if (uf != null) {
+			switch (uf) {
+			case AC:
+				return "99.999.999/999-99";
+			case AL:
+				return "999999999";
+			case AP:
+				return "999999999";
+			case AM:
+				return "99.999.999-9";
+			case BA:
+				return "999.999.99-9";
+			case CE:
+				return"99999999-9";
+			case DF:
+				return "99999999999-99";
+			case ES:
+				return "999.999.99-9";
+			case GO:
+				return "99.999.999-9";
+			case MA:
+				return "999999999";
+			case MT:
+				return "999999999";
+			case MS:
+				return "999999999";
+			case MG:
+				return "999.999.999/9999";
+			case PA:
+				return "99-999999-9";
+			case PB:
+				return "99999999-9";
+			case PR:
+				return "99999999-99";
+			case PE:
+				return"99.9.999.9999999-9";
+			case PI:
+				return "999999999";
+			case RJ:
+				return"99.999.99-9";
+			case RN:
+				return "99.999.999-9";
+			case RS:
+				return "999-9999999";
+			case RO:
+				return "999.99999-9";
+			case RR:
+				return "99999999-9";
+			case SC:
+				return "999.999.999";
+			case SP:
+				return "999.999.999.999";
+			case SE:
+				return "999999999-9";
+			default:
+				break;
+			}
+		}
+		
+		return "";
 	}
 }

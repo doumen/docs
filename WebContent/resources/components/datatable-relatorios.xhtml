@@ -17,13 +17,15 @@
 	<composite:attribute name="sortBy" />
 	<composite:attribute name="rowKey" />
 	<composite:attribute name="var" />
+	<composite:attribute name="filteredValue"/>
 </composite:interface>
 
 <composite:implementation>
 	<p:dataTable value="#{cc.attrs.value}" id="#{cc.attrs.id}"
 		rowKey="#{cc.attrs.rowKey}" sortBy="#{cc.attrs.sortBy}"
 		paginator="true" paginatorPosition="#{cc.attrs.paginatorPosition}"
-		rows="#{cc.attrs.rows}" resizableColumns="true"
+		rows="#{cc.attrs.rows}" 
+		filteredValue="#{cc.attrs.filteredList}"
 		style="font-size:#{relatorioDataTableMB.font}em !important;"
 		styleClass="dataTable" emptyMessage="Nenhum registro encontrado.">
 

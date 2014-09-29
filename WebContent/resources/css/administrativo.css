@@ -216,9 +216,9 @@
 /* Pop-Up Assinantes */
 .Assinantes.ui-dialog { /* Dimensões do Pop-Up */
 	width: 600px !important;
-	height: 630px !important;
+	height: 640px !important;
 	position: absolute !important;
-	top: 30% !important;
+	top: 25% !important;
 	margin-top: -100px !important;
 	left: 45% !important;
 	margin-left: -250px !important;
@@ -445,7 +445,7 @@
 /* Pop-Up Contabilidade */
 .Contabilidade.ui-dialog { /* Dimensões do Pop-Up */
 	width: 770px !important;
-	height: 650px !important;
+	height: 675px !important;
 	position: absolute !important;
 	top: 25% !important;
 	margin-top: -100px !important;
@@ -844,7 +844,12 @@
 .c_cca_codCont .ui-column-filter, .c_cca_cnpj .ui-column-filter, .c_cca_razaoSocialCont .ui-column-filter,
 .c_cca_municipio .ui-column-filter, .c_cca_uf .ui-column-filter,
 .c_cpa_codPlano .ui-column-filter, .c_cpa_desc .ui-column-filter, .c_cpa_faixaInicial .ui-column-filter,
-.c_cpa_faixaFinal .ui-column-filter, .c_cpa_valorMensal .ui-column-filter, .c_cpa_valorNfe .ui-column-filter{
+.c_cpa_faixaFinal .ui-column-filter, .c_cpa_valorMensal .ui-column-filter, .c_cpa_valorNfe .ui-column-filter,
+.c_rcad_codAss .ui-column-filter, .c_rcad_cnpj .ui-column-filter, .c_rcad_assinante .ui-column-filter,
+.c_rcad_codPlano .ui-column-filter, .c_rcad_plano .ui-column-filter, .c_rcad_faixaInicial .ui-column-filter,
+.c_rcad_faixaFinal .ui-column-filter, .c_rcad_valorMensal .ui-column-filter, .c_rcad_contCnpj .ui-column-filter,
+.c_rcad_contabilidade .ui-column-filter, .c_rcad_comissao .ui-column-filter, 
+.c_rcad_comissaoMensal .ui-column-filter{
 	width: 90% !important;
 	text-align: center;
 	margin: auto;
@@ -867,6 +872,7 @@
 }
 .c_cca_municipio{
 	width: 10%;
+	text-align: left;
 }
 .panelGrafico{
 	width: 100%;
@@ -999,4 +1005,63 @@ padding: 10% 0;
 .c_cpa_valorNfe{
 	text-align: right;
 	width: 12%;
+}
+
+.c_select{
+	width: 3% !important;
+}
+
+
+.dataTable{
+	width: 100%;
+	white-space: normal;
+	font-size: 11px !important;
+}
+.c_rcad_codAss{
+	text-align: left;
+	width: 5.3%;
+}
+.c_rcad_cnpj{
+	text-align: center;
+	width: 12%;
+}
+.c_rcad_assinante{
+	text-align: left;
+	width: 11%;
+}
+.c_rcad_codPlano{
+	text-align: left;
+	width: 6.4%;
+}
+.c_rcad_plano{
+	width: 10.5%;
+}
+.c_rcad_faixaInicial{
+	text-align: left;
+	width: 6.2%;
+	text-align: left;
+}
+.c_rcad_faixaFinal{
+	text-align: center;
+	width: 5.4%;
+}
+.c_rcad_valorMensal{
+	text-align: right;
+	width: 7%;
+}
+.c_rcad_contCnpj{
+	text-align: center;
+	width: 12%;
+}
+.c_rcad_contabilidade{
+	text-align: left;
+	width: 11%;
+}
+.c_rcad_comissao{
+	text-align: left;
+	width: 6.7%;
+}
+.c_rcad_comissaoMensal{
+	text-align: left;
+	width: 7%;
 }

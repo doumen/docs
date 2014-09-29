@@ -15,7 +15,9 @@ import model.Contabilidade;
 import model.Plano;
 import model.TipoInclusao;
 import model.Usuario;
+import model.Util;
 
+import org.primefaces.context.RequestContext;
 import org.primefaces.model.UploadedFile;
 
 import component.AssinanteComponent;
@@ -28,10 +30,10 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	private String senha;
 	private UploadedFile file;
 	private String mascara;
-	private String codPlano;
-	private List<Plano> codPlanos;
-	private String codContabilidade;
-	private List<Contabilidade> codContabilidades;
+	private String plano;
+	private List<Plano> planos;
+	private String contabilidade;
+	private List<Contabilidade> contabilidades;
 	private List<Assinante> filteredList = new ArrayList<>();
 
 	public ConsultaAssinantesAdmMB() {
@@ -42,13 +44,13 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		listTable = assinanteComponent.getAssinantes();
 		filteredList = assinanteComponent.getAssinantes();
 
-		codPlanos = new ArrayList<Plano>();
-		codPlanos.add(new Plano((long) 1, "Plano 01"));
-		codPlanos.add(new Plano((long) 2, "Plano 02"));
+		planos = new ArrayList<Plano>();
+		planos.add(new Plano((long) 1, "Plano 01", 99.90));
+		planos.add(new Plano((long) 2, "Plano 02", 59.90));
 
-		codContabilidades = new ArrayList<Contabilidade>();
-		codContabilidades.add(new Contabilidade((long) 1, "Contabilidade 01"));
-		codContabilidades.add(new Contabilidade((long) 2, "Contabilidade 02"));
+		contabilidades = new ArrayList<Contabilidade>();
+		contabilidades.add(new Contabilidade((long) 1, "Contabilidade 01"));
+		contabilidades.add(new Contabilidade((long) 2, "Contabilidade 02"));
 	}
 
 	@Inject
@@ -79,13 +81,13 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	}
 
 	public void adicionaUsuario() {
-		if (validateUsuario()){
-		Usuario u = new Usuario();
-		u.setAssinante(selected);
-		u.setDataInclusao(Calendar.getInstance());
-		u.setLogin(login);
-		u.setSenha(senha);
-		selected.addUsuario(u);
+		if (validateUsuario()) {
+			Usuario u = new Usuario();
+			u.setAssinante(selected);
+			u.setDataInclusao(Calendar.getInstance());
+			u.setLogin(login.trim());
+			u.setSenha(senha.trim());
+			selected.addUsuario(u);
 		}
 	}
 
@@ -131,93 +133,8 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		return "assinantes.pdf";
 	}
 
-
 	public String mascaraInscrEstadual() {
-		if (selected.getUf() != null) {
-			switch (selected.getUf()) {
-			case AC:
-				mascara = "99.999.999/999-99";
-				break;
-			case AL:
-				mascara = "999999999";
-				break;
-			case AP:
-				mascara = "999999999";
-				break;
-			case AM:
-				mascara = "99.999.999-9";
-				break;
-			case BA:
-				mascara = "999.999.99-9";
-				break;
-			case CE:
-				mascara = "99999999-9";
-				break;
-			case DF:
-				mascara = "99999999999-99";
-				break;
-			case ES:
-				mascara = "999.999.99-9";
-				break;
-			case GO:
-				mascara = "99.999.999-9";
-				break;
-			case MA:
-				mascara = "999999999";
-				break;
-			case MT:
-				mascara = "999999999";
-				break;
-			case MS:
-				mascara = "999999999";
-				break;
-			case MG:
-				mascara = "999.999.999/9999";
-				break;
-			case PA:
-				mascara = "99-999999-9";
-				break;
-			case PB:
-				mascara = "99999999-9";
-				break;
-			case PR:
-				mascara = "99999999-99";
-				break;
-			case PE:
-				mascara = "99.9.999.9999999-9";
-				break;
-			case PI:
-				mascara = "999999999";
-				break;
-			case RJ:
-				mascara = "99.999.99-9";
-				break;
-			case RN:
-				mascara = "99.999.999-9";
-				break;
-			case RS:
-				mascara = "999-9999999";
-				break;
-			case RO:
-				mascara = "999.99999-9";
-				break;
-			case RR:
-				mascara = "99999999-9";
-				break;
-			case SC:
-				mascara = "999.999.999";
-				break;
-			case SP:
-				mascara = "999.999.999.999";
-				break;
-			case SE:
-				mascara = "999999999-9";
-				break;
-			default:
-				break;
-			}
-		}
-		return mascara;
+		return Util.getMascaraCnpj(selected.getUf());
 	}
 
 	public String getMascara() {
@@ -237,36 +154,36 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		setMascara(this.mascaraInscrEstadual());
 	}
 
-	public String getCodPlano() {
-		return codPlano;
+	public String getPlano() {
+		return plano;
 	}
 
-	public void setCodPlano(String codPlano) {
-		this.codPlano = codPlano;
+	public void setPlano(String plano) {
+		this.plano = plano;
 	}
 
-	public List<Plano> getCodPlanos() {
-		return codPlanos;
+	public List<Plano> getPlanos() {
+		return planos;
 	}
 
-	public void setCodPlanos(List<Plano> codPlanos) {
-		this.codPlanos = codPlanos;
+	public void setPlanos(List<Plano> planos) {
+		this.planos = planos;
 	}
 
-	public String getCodContabilidade() {
-		return codContabilidade;
+	public String getContabilidade() {
+		return contabilidade;
 	}
 
-	public void setCodContabilidade(String codContabilidade) {
-		this.codContabilidade = codContabilidade;
+	public void setContabilidade(String contabilidade) {
+		this.contabilidade = contabilidade;
 	}
 
-	public List<Contabilidade> getCodContabilidades() {
-		return codContabilidades;
+	public List<Contabilidade> getContabilidades() {
+		return contabilidades;
 	}
 
-	public void setCodContabilidades(List<Contabilidade> codContabilidades) {
-		this.codContabilidades = codContabilidades;
+	public void setContabilidades(List<Contabilidade> contabilidades) {
+		this.contabilidades = contabilidades;
 	}
 
 	public List<Assinante> getFilteredList() {
@@ -278,15 +195,43 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	}
 
 	public boolean validateUsuario() {
-		if (!selected.getUsuarios().isEmpty()) {
-			for (int i = 0; i < selected.getUsuarios().size() - 1; i++) {
-				if (login.equals(selected.getUsuarios().get(i).getLogin().toString())){
-					System.out.println("Usuário já cadastrado");
-					return false;
+		if (login.isEmpty() || senha.isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e Senha são obrigatórios.", ""));
+			return false;
+		} else {
+			if (!selected.getUsuarios().isEmpty()) {
+				for (int i = 0; i < selected.getUsuarios().size(); i++) {
+					if (login.trim()
+							.equals(selected.getUsuarios().get(i).getLogin()
+									.toString())) {
+						FacesMessage message = new FacesMessage(
+								FacesMessage.SEVERITY_WARN, "Atenção!",
+								"Usuário já cadastrado.");
+						RequestContext.getCurrentInstance()
+								.showMessageInDialog(message);
+
+						return false;
+					}
 				}
 			}
 		}
-		
+
 		return true;
 	}
+
+	@Override
+	public void incluir() {
+		/*if(assinanteValido())
+			assinanteComponent.incluir(selected);
+		else
+			mandarMensagemErro();*/
+		System.out.println("Incluiu Assinante!");
+	}
+	
+	@Override
+	public void alterar(){
+		System.out.println("Alterou Assinante!");
+	}
+
 }

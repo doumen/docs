@@ -97,9 +97,11 @@ public class Plano {
 		this.dataInclusao = Calendar.getInstance();
 	}
 
-	public Plano(Long id, String descricao) {
+	public Plano(Long id, String descricao, double vlMensal) {
 		this.id = id;
 		this.descricao = descricao;
+		this.valorMensal = vlMensal;
+		this.dataInclusao = Calendar.getInstance();		
 	}
 	
 	public String getCodigo(){

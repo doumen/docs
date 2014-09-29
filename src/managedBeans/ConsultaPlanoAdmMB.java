@@ -2,7 +2,6 @@ package managedBeans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -74,5 +73,15 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	public void setFilteredList(List<Plano> filteredList) {
 		this.filteredList = filteredList;
+	}
+
+	@Override
+	public void incluir() {
+		System.out.println("Incluiu Planos");	
+	}
+
+	@Override
+	public void alterar() {
+		System.out.println("Alterou Planos");
 	}
 }

@@ -84,8 +84,10 @@
 		</p:fieldset>
 		<br />
 		<p:fieldset id="fdsUsuarios" legend="Usuários" styleClass="dados">
+			<p:messages id="msgs" />
 			<h:panelGrid columns="1">
-				<h:panelGrid columns="7" styleClass="gridUsuario" columnClasses="gU_c1,gU_c2,gU_c3,gU_c4,gU_c5,gU_c6,gU_c7">
+				<h:panelGrid columns="7" styleClass="gridUsuario"
+					columnClasses="gU_c1,gU_c2,gU_c3,gU_c4,gU_c5,gU_c6,gU_c7">
 					<p:outputLabel value="Usuário" for="intUsuario" />
 					<p:inputText id="intUsuario" value="#{bean.login}">
 						<p:ajax event="blur" update="intUsuario" />
@@ -112,10 +114,10 @@
 						<p:outputLabel for="sbcPermAreaAssinante"
 							value="Perm. Área Assinante?" styleClass="usuarioLabel" />
 					</h:panelGrid>
-					<p:commandButton id="cbIncluir" value="" 
+					<p:commandButton id="cbIncluir" value=""
 						style="background-image: url('resources/images/incluir.gif') !important;">
 						<p:ajax event="click" listener="#{bean.adicionaUsuario}"
-							process="@this" update="dtbUsuarios" />
+							process="@this" update="dtbUsuarios,msgs" />
 					</p:commandButton>
 					<p:commandButton id="cmbExcluir" value=""
 						style="background-image: url('resources/images/minus.png') !important;">
