@@ -16,15 +16,18 @@ public class GraficoDoctosAssinanteFactory {
 	public GraficoDoctosAssinanteFactory(){
 		jFreeChartExporter = new JFreeChartExporter();
 	}
-		
-	public GraficoDoctosAssinante createGrafico(Assinante a,Map<Object,Number> historicoAssinante) {
+	
+	public GraficoDoctosAssinante createLabels(Assinante a){
 		GraficoDoctosAssinante g = new GraficoDoctosAssinante();
-				
-		g.setAssinante(a.getCnpj() + " - " + a.getNomeFantasia());
-		g.setContador(a.getCnpj() + " - " + a.getContabilidade().getNomeFantasia());
+		g.setAssinante(a.getCnpjFormatado() + " - " + a.getNomeFantasia());
+		g.setContador(a.getCnpjFormatado() + " - " + a.getContabilidade().getNomeFantasia());
 		g.setPlanoContratado(a.getPlano().getId()+" - Plano " + a.getPlano().getFaixaInicial() + " à " + a.getPlano().getFaixaFinal() + " - R$ " + a.getPlano().getValorMensal() );
-		g.setConsumoRestante(a.getPlano().getFaixaFinal()+" Doctos");
-		
+		g.setConsumoRestante(a.getPlano().getFaixaFinal()+" Doctos");		
+		return g;
+	}
+	
+	public GraficoDoctosAssinante createGrafico(Assinante a,Map<Object,Number> historicoAssinante) {
+		GraficoDoctosAssinante g = createLabels(a);						
 		g.setGraficoLinha(jFreeChartExporter.createLineChart(historicoAssinante,"Histórico Consumo","consumo",null,null));
 		g.setGraficoPizza(jFreeChartExporter.createPieChart(createPieDataSet(a),"Consumo de Recurso Contratado"));
 		return g;

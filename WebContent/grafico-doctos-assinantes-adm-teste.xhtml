@@ -44,11 +44,11 @@
 						<p:graphicImage name="/images/imprimir.gif" width="16" height="16" />
 
 					</h:commandLink>
-					<h:commandLink id="cbExcel" action="#{paginatorMB.excel()}">
+					<h:commandLink id="cbExcel" action="#{graficoDoctosAssinanteAdmMB.excel()}">
 						<p:graphicImage name="/images/excel.gif" width="16" height="16" />
 
 					</h:commandLink>
-					<h:commandLink id="cbPdf" actionListener="#{paginatorMB.pdf()}">
+					<h:commandLink id="cbPdf" actionListener="#{graficoDoctosAssinanteAdmMB.pdf}">
 						<p:graphicImage name="/images/pdf.gif" width="16" height="16" />
 
 					</h:commandLink>
@@ -67,23 +67,23 @@
 							<p:outputLabel value="Assinante: "></p:outputLabel>
 						</h:column>
 						<h:column>
-							<p:outputLabel value="#{paginatorMB.assinante}"></p:outputLabel>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.assinante}"></p:outputLabel>
 						</h:column>
 						<h:column>
 							<p:outputLabel value="Contabilidade: " style="text-align:left;"></p:outputLabel>
 						</h:column>
 						<h:column>
-							<p:outputLabel value="#{paginatorMB.contador}"></p:outputLabel>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.contador}"></p:outputLabel>
 						</h:column>
 					</h:panelGrid>
 					<h:panelGrid columns="2">
 						<h:column>
 							<p:chart type="pie" id="pieChart" widgetVar="pieChart"
-								model="#{paginatorMB.pieChartModel}"
+								model="#{graficoDoctosAssinanteAdmMB.pieChartModel}"
 								style="width:500px;height:400px" />
 						</h:column>
 						<h:column>
-							<p:lineChart value="#{paginatorMB.lineChartModel}" style="width:500px;height:380px" extender="chartExtender"
+							<p:lineChart value="#{graficoDoctosAssinanteAdmMB.lineChartModel}" style="width:500px;height:380px" extender="chartExtender"
 							title="Histórico Consumo" legendPosition="s"/>
 						</h:column>
 					</h:panelGrid>
@@ -92,7 +92,7 @@
 							<p:outputLabel value="Plano Contratado: "></p:outputLabel>
 						</h:column>
 						<h:column>
-							<p:outputLabel value="#{paginatorMB.planoContratado}"></p:outputLabel>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.planoContratado}"></p:outputLabel>
 						</h:column>
 					</h:panelGrid>
 						<h:panelGrid columns="2" columnClasses="pg_c3,pg_c4">
@@ -100,7 +100,7 @@
 							<p:outputLabel value="Consumo Restante: " style="text-align:left;width:450 !important;"></p:outputLabel>
 						</h:column>
 						<h:column>
-							<p:outputLabel value="#{paginatorMB.consumoRestante}" style="width:225 !important;"></p:outputLabel>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.consumoRestante}" style="width:225 !important;"></p:outputLabel>
 						</h:column>
 	</h:panelGrid>
 				</p:panel>
@@ -117,13 +117,13 @@
 			<div class="centerPaginator">
 				<h:commandLink id="ultimaPagina"
 					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
-					actionListener="#{paginatorMB.irParaUltimaPagina}"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaUltimaPagina}"
 					update="paginaAtual">
 					<h:outputText styleClass="ui-icon ui-icon-seek-end" />
 				</h:commandLink>
 				<h:commandLink id="proximaPagina"
 					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
-					actionListener="#{paginatorMB.irParaProximaPagina}"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaProximaPagina}"
 					update="paginaAtual">
 					<h:outputText styleClass="ui-icon ui-icon-seek-next" />
 				</h:commandLink>
@@ -131,18 +131,18 @@
 				<h:commandLink id="paginaAtual"
 					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
 					<h:outputText
-						value="#{paginatorMB.paginaAtual} de #{paginatorMB.totPag}" />
+						value="#{graficoDoctosAssinanteAdmMB.paginaAtual} de #{graficoDoctosAssinanteAdmMB.totPag}" />
 				</h:commandLink>
 
 				<h:commandLink id="paginaAnterior"
 					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default text-align: center;"
-					actionListener="#{paginatorMB.irParaPaginaAnterior}"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaPaginaAnterior}"
 					update="paginaAtual">
 					<h:outputText styleClass="ui-icon ui-icon-seek-prev" />
 				</h:commandLink>
 				<h:commandLink id="primeiraPagina"
 					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
-					actionListener="#{paginatorMB.irParaPrimeiraPagina}"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaPrimeiraPagina}"
 					update="paginaAtual">
 					<h:outputText styleClass="ui-icon ui-icon-seek-first" />
 				</h:commandLink>
@@ -152,7 +152,7 @@
 		<script type="text/javascript">
 		function chartExtender() {        
 			var line = [];
-		     <ui:repeat value="#{paginatorMB.historico.entrySet().toArray()}" var="ponto">
+		     <ui:repeat value="#{graficoDoctosAssinanteAdmMB.historico.entrySet().toArray()}" var="ponto">
 	     		line.push("#{ponto.key}");
 	    	</ui:repeat>
 	    	this.cfg.categories = line;

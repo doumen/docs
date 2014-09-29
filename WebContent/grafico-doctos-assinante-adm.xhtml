@@ -1,89 +1,165 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:golive="http://java.sun.com/jsf/composite/components"
-	template="/templates/_panel-titulo.xhtml">
+	xmlns:h5="http://java.sun.com/jsf/composite/html5">
 
-	<ui:param name="tituloPainel" value="Gráfico - manipulação Doctos X Assinantes" />
-	<ui:param name="help" value="Gráfico - manipulação Doctos X Assinantes" />
+<ui:composition template="/templates/_panel-titulo.xhtml">
+	<ui:param name="tituloPainel"
+		value="Gráfico Manipulação Doctos X Assinantes" />
 	<ui:param name="modulo" value="administrativo" />
-	<ui:param name="bean" value="#{graficoDoctosAssinanteAdmMB}" />
-
 	<ui:define name="conteudoPainel">
-	<h:outputScript library="js" name="printVoucher.js" target="head" />
-			<p:dataGrid value="#{bean.graficosDoctosAssinante}" var="graficoDoctosAssinanteAdm" paginator="true" paginatorPosition="bottom"
-			paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-			currentPageReportTemplate="[{currentPage} de {totalPages} ]" rows="1" columns="1"			
-			id="dataList" widgetVar="dataGrid">
-			
-			<f:facet name="header">
-					<div id="block_container">
-						<div id="icones-zoom">
-							<p:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
-								style="background-image: url('resources/images/zoommais.png') !important;">
-								<p:ajax listener="#{relatorioDataTableMB.aumentaZoom}" render="dataList"
-									execute="@form" update="somZoom"/>
-							</p:commandButton>
-							<p:selectOneMenu id="somZoom" rendered="true"
-								value="#{relatorioDataTableMB.zoom}">
-								<f:selectItem itemLabel=" " itemValue="" />
-								<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
-								<f:ajax render="dataList" event="change"
-									listener="#{relatorioDataTableMB.zoomSelectOneMenu}"></f:ajax>
-							</p:selectOneMenu>
-							<p:commandButton id="cbZoomMenos" styleClass="botoes"
-								style="background-image: url('resources/images/zoommenos.png') !important;">
-								<p:ajax listener="#{relatorioDataTableMB.diminuiZoom}" render="dataList"
-									execute="@form" update="somZoom"/>
-							</p:commandButton>
-						</div>
-						<div id="icones-exportar">
-							<h:commandButton id="cbImprimir" styleClass="botoes"
-								style="background-image: url('resources/images/imprimir.gif') !important;"
-								onclick="print_grafico_doctos_assinantes();">
-							</h:commandButton>
-							<h:commandButton id="cbExcel" styleClass="botoes"
-								style="background-image: url('resources/images/excel.gif') !important;">
-								<p:dataExporter type="xls" target="dataList"
-									fileName="dataTable" />
-							</h:commandButton>
-							<h:commandButton id="cbPdf" styleClass="botoes"
-								style="background-image: url('resources/images/pdf.gif') !important;" actionListener="#{bean.pdf}">
-							</h:commandButton>
-						</div>
-					</div>
-        		</f:facet>
-        		
-        		<div style="font-size:#{relatorioDataTableMB.font}em !important;text-align:center;" >
-					<p:outputLabel value="Gráfico - Manipulação Doctos X Assinantes" style="font-size:2em;"></p:outputLabel>
-					<br></br>
-					<p:panel style="border:1px solid">
-					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">
-						<h:column><p:outputLabel value="Assinante: " ></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.assinante}"></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="Contabilidade: " style="text-align:left;"></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.contador}"></p:outputLabel> </h:column>
+		<div
+			class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all ui-state-default"
+			id="header">
+			<div>
+				<div
+					style="display: inline-block; width 70%; float: left; padding-left: 50%">
+					<p:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+						value=""
+						style="background-image: url('resources/images/zoommais.png') !important;">
+						<p:ajax listener="#{relatorioDataTableMB.aumentaZoom}"
+							execute="@form" update="somZoom,dataList" />
+					</p:commandButton>
+
+					<p:selectOneMenu id="somZoom" rendered="true"
+						value="#{relatorioDataTableMB.zoom}">
+						<f:selectItem itemLabel=" " itemValue="" />
+						<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+						<p:ajax render="dataList" event="change"
+							listener="#{relatorioDataTableMB.zoomSelectOneMenu}"
+							update="dataList"></p:ajax>
+					</p:selectOneMenu>
+					<p:commandButton id="cbZoomMenos" styleClass="botoes" value=""
+						style="background-image: url('resources/images/zoommenos.png') !important;">
+						<p:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+							execute="@form" update="somZoom,dataList" />
+					</p:commandButton>
+				</div>
+				<div
+					style="display: inline-block; text-align: right; width: 20%; float: right; padding-right: 10px">
+					<h:commandLink id="cbImprimir">
+						<p:graphicImage name="/images/imprimir.gif" width="16" height="16" />
+
+					</h:commandLink>
+					<h:commandLink id="cbExcel" action="#{graficoDoctosAssinanteAdmMB.excel()}">
+						<p:graphicImage name="/images/excel.gif" width="16" height="16" />
+
+					</h:commandLink>
+					<h:commandLink id="cbPdf" actionListener="#{graficoDoctosAssinanteAdmMB.pdf}">
+						<p:graphicImage name="/images/pdf.gif" width="16" height="16" />
+
+					</h:commandLink>
+				</div>
+			</div>
+		</div>
+		<p:panel id="dataList" style="width:100%;position: relative;">
+			<div style="font-size:#{relatorioDataTableMB.font}em !important;text-align:center;position:relative;margin:0 auto;">
+
+				<p:outputLabel value="Gráfico - Manipulação Doctos X Assinantes"
+					style="font-size:2em;"></p:outputLabel>
+				<br></br>
+				<p:panel style="border:1px solid; width:100%">
+					<h:panelGrid columns="2" columnClasses="pg_c1,pg_c2">
+						<h:column>
+							<p:outputLabel value="Assinante: "></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.assinante}"></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="Contabilidade: " style="text-align:left;"></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.contador}"></p:outputLabel>
+						</h:column>
 					</h:panelGrid>
 					<h:panelGrid columns="2">
-						<h:column><p:graphicImage value="#{graficoDoctosAssinanteAdm.pieChart}" /></h:column>
-						<h:column><p:graphicImage value="#{graficoDoctosAssinanteAdm.lineChart}" /></h:column>
+						<h:column>
+							<p:chart type="pie" id="pieChart" widgetVar="pieChart"
+								model="#{graficoDoctosAssinanteAdmMB.pieChartModel}"
+								style="width:500px;height:400px" />
+						</h:column>
+						<h:column>
+							<p:lineChart value="#{graficoDoctosAssinanteAdmMB.lineChartModel}" style="width:500px;height:380px" extender="chartExtender"
+							title="Histórico Consumo" legendPosition="s"/>
+						</h:column>
 					</h:panelGrid>
-					<h:panelGrid columns="2" columnClasses="pg_c1, pg_c2">								
-						<h:column><p:outputLabel value="Plano Contratado: " ></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.planoContratado}"></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="Consumo Restante" style="text-align:left;"></p:outputLabel> </h:column>
-						<h:column><p:outputLabel value="#{graficoDoctosAssinanteAdm.consumoRestante}"></p:outputLabel> </h:column>						
+					<h:panelGrid columns="2" columnClasses="pg_c3,pg_c5">
+						<h:column>
+							<p:outputLabel value="Plano Contratado: "></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.planoContratado}"></p:outputLabel>
+						</h:column>
 					</h:panelGrid>
-										
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.assinante}" id="assinante"/>
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.contador}" id="contabilidade"/>
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.planoContratado}" id="plano"/>
-					<h:inputHidden value="#{graficoDoctosAssinanteAdm.consumoRestante}" id="consumo"/>
-					</p:panel>
-				</div>
-			</p:dataGrid>
+						<h:panelGrid columns="2" columnClasses="pg_c3,pg_c4">
+						<h:column>
+							<p:outputLabel value="Consumo Restante: " style="text-align:left;width:450 !important;"></p:outputLabel>
+						</h:column>
+						<h:column>
+							<p:outputLabel value="#{graficoDoctosAssinanteAdmMB.graficoDoctosAssinante.consumoRestante}" style="width:225 !important;"></p:outputLabel>
+						</h:column>
+	</h:panelGrid>
+				</p:panel>
+			</div>
+		</p:panel>
+
+
+
+
+
+		<div
+			class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+			id="footer">
+			<div class="centerPaginator">
+				<h:commandLink id="ultimaPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaUltimaPagina}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-end" />
+				</h:commandLink>
+				<h:commandLink id="proximaPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaProximaPagina}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-next" />
+				</h:commandLink>
+
+				<h:commandLink id="paginaAtual"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:outputText
+						value="#{graficoDoctosAssinanteAdmMB.paginaAtual} de #{graficoDoctosAssinanteAdmMB.totPag}" />
+				</h:commandLink>
+
+				<h:commandLink id="paginaAnterior"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default text-align: center;"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaPaginaAnterior}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-prev" />
+				</h:commandLink>
+				<h:commandLink id="primeiraPagina"
+					styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+					actionListener="#{graficoDoctosAssinanteAdmMB.irParaPrimeiraPagina}"
+					update="paginaAtual">
+					<h:outputText styleClass="ui-icon ui-icon-seek-first" />
+				</h:commandLink>
+
+			</div>
+		</div>
+		<script type="text/javascript">
+		function chartExtender() {        
+			var line = [];
+		     <ui:repeat value="#{graficoDoctosAssinanteAdmMB.historico.entrySet().toArray()}" var="ponto">
+	     		line.push("#{ponto.key}");
+	    	</ui:repeat>
+	    	this.cfg.categories = line;
+	    	this.cfg.axes.xaxis.tickOptions.angle=-90;
+		}
+		</script>
+
 	</ui:define>
 </ui:composition>
+</html>

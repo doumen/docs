@@ -107,6 +107,10 @@ public class Plano {
 	}
 	
 	public String getValorMensalFormatado(){
-		return String.valueOf(valorMensal);
+		return Util.formatCurrency(valorMensal);
+	}
+	
+	public String getValorNfeAdicionalFormatado(){
+		return Util.formatCurrency(getValorNfeAdicional());
 	}
 }

@@ -2,7 +2,6 @@ package managedBeans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -47,7 +46,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	@Override
 	public String getPdfFileName() {
-		return "assinantes.pdf";
+		return "planos-teste";
 	}
 	
 	public void carregarPopUpAlterar(){
