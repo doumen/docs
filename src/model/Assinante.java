@@ -387,6 +387,7 @@ public class Assinante implements Comparable<Assinante> {
 	
 	public String getCodigo(){
 		return id==null?null:id.toString();
+	}
 
 	public String getCnpjFormatado() {
 		return Util.formatCnpj(cnpj);
