@@ -20,7 +20,7 @@ find ../WebContent/WEB-INF/classes -name "*.java" -exec rm -rf {} \;
 find ../WebContent/WEB-INF/classes -name "*~" -exec rm -rf {} \;
 find ../WebContent/WEB-INF/classes -name "deploy.sh" -exec rm -f {} \;
 cd ../WebContent
-jar cvf golivedocs.war 
+jar cvf golivedocs.war .
 rm -rf $JBOSS_HOME/standalone/deployments/*
 cp golivedocs.war $JBOSS_HOME/standalone/deployments/
 
