@@ -25,11 +25,11 @@
 		rowKey="#{cc.attrs.rowKey}" sortBy="#{cc.attrs.sortBy}"
 		paginator="true" paginatorPosition="#{cc.attrs.paginatorPosition}"
 		rows="#{cc.attrs.rows}" 
-		filteredValue="#{cc.attrs.filteredList}"
 		style="font-size:#{relatorioDataTableMB.font}em !important;"
 		styleClass="dataTable" emptyMessage="Nenhum registro encontrado.">
 
 		<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />
+		<c:set target="#{component}" property="filteredValue" value="#{cc.attrs.filteredValue}" />
 
 		<p:ajax event="sort" listener="#{cc.attrs.onSort}" />
 		<f:facet name="header">

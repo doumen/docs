@@ -15,39 +15,48 @@
 
 		<golive:datatable-relatorios id="dataTable"
 			value="#{relatorioContratacaoConsumoAdmMB.assinantes}"
-			paginatorPosition="bottom" rows="10" var="assinante"
+			paginatorPosition="bottom" rows="20" var="assinante"
 			onSort="#{relatorioContratacaoConsumoAdmMB.onSort}"
 			sortBy="#{assinante.plano.faixaFinal}" rowKey="#{assinante.id}"
-			rendered="true">
+			rendered="true"
+			filteredValue="#{relatorioContratacaoConsumoAdmMB.filteredList}">
 
-			<p:column headerText="Cod." sortBy="#{assinante.id}" id="codAss">
+			<p:column headerText="Cód." sortBy="#{assinante.id}" id="codAss" 
+			styleClass="c_rcca_codAss" filterBy="#{assinante.id}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.id}" />
 			</p:column>
-			<p:column headerText="CNPJ" sortBy="#{assinante.cnpj}" id="cnpjAss">
-				<h:outputText value="#{assinante.cnpj}" />
+			<p:column headerText="CNPJ" sortBy="#{assinante.cnpj}" id="cnpjAss"
+			styleClass="c_rcca_cnpj" filterBy="#{assinante.cnpj}" filterMatchMode="contains">
+				<h:outputText value="#{assinante.cnpjFormatado}" />
 			</p:column>
 			<p:column headerText="Assinante" sortBy="#{assinante.nomeFantasia}"
-				id="ass">
+				id="ass"
+				styleClass="c_rcca_assinante" filterBy="#{assinante.nomeFantasia}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.nomeFantasia}" />
 			</p:column>
-			<p:column headerText="Cod." sortBy="#{assinante.plano.id}"
-				id="codPlan">
+			<p:column headerText="Cód." sortBy="#{assinante.plano.id}"
+				id="codPlan"
+				styleClass="c_rcca_codPlano" filterBy="#{assinante.plano.id}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.plano.id}" />
 			</p:column>
 			<p:column headerText="Plano" sortBy="#{assinante.plano.descricao}"
-				id="nomPlan">
+				id="nomPlan"
+				styleClass="c_rcca_plano" filterBy="#{assinante.plano.descricao}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.plano.descricao}" />
 			</p:column>
 			<p:column headerText="Faixa Início" id="faixaIni"
-				sortBy="#{assinante.plano.faixaInicial}">
+				sortBy="#{assinante.plano.faixaInicial}"
+				styleClass="c_rcca_faixaInicial" filterBy="#{assinante.plano.faixaInicial}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.plano.faixaInicial}" />
 			</p:column>
 			<p:column headerText="Faixa Fim" id="faixaFim"
-				sortBy="#{assinante.plano.faixaFinal}">
+				sortBy="#{assinante.plano.faixaFinal}"
+				styleClass="c_rcca_faixaFinal" filterBy="#{assinante.plano.faixaFinal}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.plano.faixaFinal}" />
 			</p:column>
-			<p:column headerText="N Doctos Arm" id="numDoctos"
-				sortBy="#{assinante.totalDoctosArmazenados}">
+			<p:column headerText="Nº Doctos Arm" id="numDoctos"
+				sortBy="#{assinante.totalDoctosArmazenados}"
+				styleClass="c_rcca_numDoctos" filterBy="#{assinante.totalDoctosArmazenados}" filterMatchMode="contains">
 				<h:outputText value="#{assinante.totalDoctosArmazenados}" />
 			</p:column>
 			<p:summaryRow

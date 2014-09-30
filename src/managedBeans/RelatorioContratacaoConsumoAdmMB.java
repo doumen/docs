@@ -10,7 +10,6 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import model.Assinante;
-import model.SiglaEstado;
 
 import org.primefaces.event.data.SortEvent;
 
@@ -20,11 +19,7 @@ import component.AssinanteComponent;
 @ViewScoped
 public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private float font = 0.9f;
-	private int zoom = 100;
-	private List<Integer> selectedZooms;
-	private Integer selectedZoom;
+	private List<Assinante> filteredList = new ArrayList<>();
 
 	@Inject
 	private AssinanteComponent assinanteComponent;
@@ -32,9 +27,7 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		assinantes = assinanteComponent.getRelatorioContratacaoConsumo();
-		selectedZooms = new ArrayList<Integer>();
-		selectedZooms.add(10);
-		selectedZooms.add(100);
+		filteredList = assinanteComponent.getRelatorioContratacaoConsumo();
 	}
 
 	public List<Assinante> getAssinantes() {
@@ -136,60 +129,8 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 		return Integer.valueOf(faixaInicial).equals(o);
 	}
 
-
 	public void setAssinantes(List<Assinante> assinantes) {
 		this.assinantes = assinantes;
-	}
-
-
-	public float getFont() {
-		return font;
-	}
-
-	public void setFont(float font) {
-		this.font = font;
-	}
-
-	public void aumentaZoom() {
-		if (zoom < 200) {
-			zoom += 10;
-			font += 0.1f;
-		}
-	}
-
-	public void diminuiZoom() {
-		if (zoom > 0) {
-			zoom -= 10;
-			font -= 0.1f;
-		}
-	}
-
-	public int getZoom() {
-		return zoom;
-	}
-
-	public void setZoom(int zoom) {
-		this.zoom = zoom;
-	}
-
-	public void setEstados(List<SiglaEstado> estados) {
-	}
-
-	public List<Integer> getSelectedZooms() {
-		return selectedZooms;
-		//Arrays.asList(SiglaEstado.values());
-	}
-
-	public void setSelectedZooms(List<Integer> selectedZooms) {
-		this.selectedZooms = selectedZooms;
-	}
-
-	public Integer getSelectedZoom() {
-		return selectedZoom;
-	}
-
-	public void setSelectedZoom(Integer selectedZoom) {
-		this.selectedZoom = selectedZoom;
 	}
 
 	public int getTotalDocumentos() {
@@ -198,5 +139,13 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 
 	public void setTotalDocumentos(int totalDocumentos) {
 		this.totalDocumentos = totalDocumentos;
+	}
+
+	public List<Assinante> getFilteredList() {
+		return filteredList;
+	}
+
+	public void setFilteredList(List<Assinante> filteredList) {
+		this.filteredList = filteredList;
 	}
 }
