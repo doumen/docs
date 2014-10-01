@@ -13,7 +13,7 @@ import model.TipoInclusao;
 public class PlanoComponent {
 	public List<Plano> getPlanos() {
 		ArrayList<Plano> planos = new ArrayList<>();
-		for (Long i = 0l; i < 10; i++) {
+		for (Long i = 0l; i < 100; i++) {
 			Plano c = new Plano();
 			c.setId(i);
 			c.setDescricao("Plano " + i + 10);

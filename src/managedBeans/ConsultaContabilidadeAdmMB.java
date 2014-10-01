@@ -56,7 +56,7 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 	}
 
 	@Override
-	public String getPdfFileName() {
+	public String getPdfReportName() {
 		return "contabilidades";
 	}
 

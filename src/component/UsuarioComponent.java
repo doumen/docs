@@ -2,12 +2,13 @@ package component;
 
 import javax.ejb.Stateless;
 
+import model.Modulo;
 import model.Usuario;
 
 @Stateless
 public class UsuarioComponent {
 
-	public boolean validar(Usuario usuario,String modulo){
+	public boolean validar(Usuario usuario,Modulo modulo){
 		if(usuario==null)			
 			return false;
 		if(usuario.getLogin()==null)
@@ -21,7 +22,7 @@ public class UsuarioComponent {
 		return false;
 	}
 
-	public boolean existeUsuario(Usuario u,String modulo) {
+	public boolean existeUsuario(Usuario u,Modulo modulo) {
 		return validar(u, modulo);
 	}
 }

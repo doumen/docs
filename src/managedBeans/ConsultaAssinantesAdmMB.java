@@ -122,8 +122,8 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	}
 
 	@Override
-	public String getPdfFileName() {
-		return "assinantes.pdf";
+	public String getPdfReportName() {
+		return "assinantes";
 	}
 
 	public String mascaraInscrEstadual() {

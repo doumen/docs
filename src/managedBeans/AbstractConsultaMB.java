@@ -1,5 +1,7 @@
 package managedBeans;
 
+import javax.faces.bean.ManagedProperty;
+
 import managedBeans.components.RelatorioJasperMB;
 
 public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
@@ -15,12 +17,21 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private boolean showUploadNome;
 	private boolean showUpload;
 
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean loginBean;
+	
+	public void setLoginBean(LoginBean loginBean){
+		this.loginBean = loginBean;
+	}
+	
 	public abstract String getAvisoExcluir();
 
 	public abstract String getAvisoPreExcluir();
 
-	public abstract String getPdfFileName();
+	public abstract String getPdfReportName();
 
+	public abstract String getPdfTemplateName();
+		
 	public void removeSelectedList() {
 		listTable.removeAll(selectedList);
 	}
@@ -92,7 +103,9 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private RelatorioJasperMB<T> createRelatorioJasperMB(){
 		RelatorioJasperMB<T> r = new RelatorioJasperMB<>();
 		r.setBeans(listTable);
-		r.setReport(getPdfFileName());
+		r.setReport(getPdfReportName());
+		r.setTemplate(getPdfTemplateName());
+		r.setModulo(loginBean.getModulo());
 		return r;
 	}
 	

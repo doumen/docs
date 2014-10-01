@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import model.Assinante;
+import model.Modulo;
 import model.Usuario;
 import component.AssinanteComponent;
 import component.UsuarioComponent;
@@ -38,7 +39,7 @@ public class LoginBean {
 	private AssinanteComponent assinanteComponent;
 	
 	public String efetuaLogin(){
-		boolean loginValido = usuarioComponent.validar(usuario,modulo);
+		boolean loginValido = usuarioComponent.validar(usuario,valueOf(getModulo()));
 		if(loginValido){
 			logado = true;
 			return "painel-"+getModulo()+"?faces-redirect=true";			
@@ -56,7 +57,7 @@ public class LoginBean {
 	}
 	
 	public void inputLoginBlurHandler(){
-		if(!usuarioComponent.existeUsuario(getUsuario(),getModulo())){
+		if(!usuarioComponent.existeUsuario(getUsuario(),valueOf(getModulo()))){
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Atenção!",  "Usuário não cadastrado para o módulo " + getModulo()));
 			limpar();
@@ -123,5 +124,18 @@ public class LoginBean {
 	
 	public boolean isAssinantesRendered(){		
 		return !getModulo().equals("administrativo");
+	}
+	
+	private Modulo valueOf(String s){
+		switch (s) {
+		case "administrativo":
+			return Modulo.ADMINISTRATIVO;
+		case "contabilidade":
+			return Modulo.CONTABILIDADE;
+		case "assinante":
+			return Modulo.ASSINANTE;
+		default:
+			return null;
+		}
 	}
 }
