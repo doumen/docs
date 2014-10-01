@@ -243,4 +243,10 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
         // Get information you from the uploaded file
         System.out.println("Uploaded file name : " + file.getFileName());
     }
+
+	@Override
+	public String getPdfTemplateName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
