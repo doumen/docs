@@ -18,6 +18,7 @@ import javax.ejb.Stateless;
 
 import jfreechart.JFreeChartExporter;
 import model.Assinante;
+import model.CertificadoA1;
 import model.Contabilidade;
 import model.Plano;
 import model.SiglaEstado;
@@ -80,7 +81,13 @@ public class AssinanteComponent {
 			}
 			
 			a.setUsuarios(listaUsuarios);
+			
+			CertificadoA1 certificadoA1 = new CertificadoA1();
+			certificadoA1.setNome("Certificado " + i + ".txt");
+			certificadoA1.setDataInclusao(Calendar.getInstance());
 
+			a.setCertificadoA1(certificadoA1);
+			
 			assinantes.add(a);
 			j++;
 			min = 0;

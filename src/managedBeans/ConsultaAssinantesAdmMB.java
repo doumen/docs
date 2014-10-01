@@ -30,9 +30,9 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	private String senha;
 	private UploadedFile file;
 	private String mascara;
-	private String plano;
+	private Plano plano;
 	private List<Plano> planos;
-	private String contabilidade;
+	private Contabilidade contabilidade;
 	private List<Contabilidade> contabilidades;
 	private List<Assinante> filteredList = new ArrayList<>();
 
@@ -154,11 +154,11 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		setMascara(this.mascaraInscrEstadual());
 	}
 
-	public String getPlano() {
+	public Plano getPlano() {
 		return plano;
 	}
 
-	public void setPlano(String plano) {
+	public void setPlano(Plano plano) {
 		this.plano = plano;
 	}
 
@@ -170,11 +170,11 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		this.planos = planos;
 	}
 
-	public String getContabilidade() {
+	public Contabilidade getContabilidade() {
 		return contabilidade;
 	}
 
-	public void setContabilidade(String contabilidade) {
+	public void setContabilidade(Contabilidade contabilidade) {
 		this.contabilidade = contabilidade;
 	}
 
@@ -233,5 +233,4 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public void alterar(){
 		System.out.println("Alterou Assinante!");
 	}
-
 }

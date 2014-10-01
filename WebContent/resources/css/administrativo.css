@@ -649,7 +649,7 @@
 	height: 20px;
 	display: inline;
 	width: 100%;
-	margin-left: 25%;
+	margin-left: 21%;
 }
 
 #icones-exportar { /* Div para organizar os ícones de exportação */
@@ -671,6 +671,7 @@
 
 #block_container { /* Div para alinhar os botões (zoom, exportação) */
 	text-align: center;
+    height: 30px;
 }
 
 .dataTable.ui-datatable .ui-sortable-column { /* Cabeçalho do Grid */
@@ -1101,7 +1102,6 @@
 	margin-top: 1%;
 	margin-left: 40%;
 	width: 15%;
-	
 }
 
 .dataListGrafico{
@@ -1160,11 +1160,25 @@
 	width: 225px;	
 }
 
-.botaoZoom_grafico { /* Configuração dos botões (zoom, exportação) */
-	background-repeat: no-repeat !important;
-	background-position: center;
-	width: 25px;
-	height: 20px;
-	background-color: transparent !important;
-	border-color: transparent !important;
+#botaoInverte{
+	display: inline-block; 
+	text-align: left; 
+	float: left;
+}
+
+.botao_zoomIn{
+	margin-right: 3px;
+}
+.botao_zoomOut{
+	margin-left: 3px;
+}
+.botao_inverte{
+	margin-top: 8px;
+	margin-left: 6px;
+}
+.tamanhoZoom{
+	margin-top: 2px;
+}
+.botaoImprimir_pgConsulta{
+	margin-bottom: 5px;
 }
