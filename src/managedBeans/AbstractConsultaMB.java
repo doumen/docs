@@ -12,6 +12,8 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private String headerInclude;
 	private boolean botaoAlterar;
 	private boolean botaoIncluir;
+	private boolean showUploadNome;
+	private boolean showUpload;
 
 	public abstract String getAvisoExcluir();
 
@@ -41,11 +43,15 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 			setHeaderInclude("Incluir");
 			setBotaoIncluir(true);
 			setBotaoAlterar(false);
+			setShowUpload(true);
+			setShowUploadNome(false);
 		} else if ("alterar".equals(tipo)) {
 			setHeaderInclude("Alterar");
 			selected = listTable.get(0);
 			setBotaoIncluir(false);
 			setBotaoAlterar(true);
+			setShowUpload(false);
+			setShowUploadNome(true);
 		}
 		this.tipo = tipo;
 	}
@@ -96,6 +102,22 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public boolean isShowUploadNome() {
+		return showUploadNome;
+	}
+
+	public void setShowUploadNome(boolean showUploadNome) {
+		this.showUploadNome = showUploadNome;
+	}
+
+	public boolean isShowUpload() {
+		return showUpload;
+	}
+
+	public void setShowUpload(boolean showUpload) {
+		this.showUpload = showUpload;
 	}
 
 

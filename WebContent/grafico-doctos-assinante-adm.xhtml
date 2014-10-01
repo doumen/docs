@@ -10,14 +10,15 @@
 	<ui:param name="tituloPainel"
 		value="Gráfico Manipulação Doctos X Assinantes" />
 	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="help" value="Gráfico Manipulação Doctos X Assinantes" />
 	<ui:define name="conteudoPainel">
 		<div id="headerGrafico">
 				<div id="block_container">
 					<div id="icones-zoom">
-						<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset"
+						<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset" 
 							style="background-image: url('resources/images/zoommais.png') !important;">
-							<f:ajax listener="#{relatorioDataTableMB.aumentaZoom}" event="click"
-								execute="@form" update="somZoom,dataList" />
+							<p:ajax listener="#{relatorioDataTableMB.aumentaZoom}" event="click"
+								execute="@form" update="dataList, somZoom"  />
 						</h:commandButton>
 						<p:selectOneMenu id="somZoom" rendered="true"
 							value="#{relatorioDataTableMB.zoom}">
@@ -29,8 +30,8 @@
 						</p:selectOneMenu>
 						<h:commandButton id="cbZoomMenos" styleClass="botoes"
 							style="background-image: url('resources/images/zoommenos.png') !important;">
-							<f:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
-								render="#{cc.attrs.id}" execute="@form" />
+							<p:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+								execute="@form" update="somZoom, dataList" />
 						</h:commandButton>
 					</div>
 					<div id="icones-exportar">

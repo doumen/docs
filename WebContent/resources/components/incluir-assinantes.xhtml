@@ -145,8 +145,7 @@
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" />
 						<f:selectItems value="#{bean.planos}" />
-						<p:ajax event="change"
-							update="intDescrPlano,intValorMensal" />
+						<p:ajax event="change" update="intDescrPlano,intValorMensal" />
 					</p:selectOneMenu>
 					<p:outputLabel value="Descr.Plano" for="intDescrPlano" />
 					<p:inputText id="intDescrPlano"
@@ -182,13 +181,21 @@
 			<p:tab title="Parametros">
 				<h:panelGrid columns="3" styleClass="pngParametros"
 					columnClasses="pngParametros_c1,pngParametros_c2,pngParametros_c3">
-					<p:outputLabel value="Certificado Digital A1" for="uplCertDigital" />
-					<p:fileUpload id="uplCertDigital"
-						value="#{consultaAssinantesAdmMB.file}" mode="simple"
-						disabled="false" />
-					<p:tooltip for="uplCertDigital"
-						value="Escolha aqui o Arquivo Referente ao Certificado Digital A1" />
-					<p:spacer />
+					<h:column>
+						<p:outputLabel value="Certificado Digital A1" for="uplCertDigital" />
+					</h:column>
+					<h:column>
+						<p:fileUpload id="uplCertDigital"
+							value="#{consultaAssinantesAdmMB.file}" mode="simple"
+							rendered="#{bean.showUpload}" />
+						<p:tooltip for="uplCertDigital"
+							value="Escolha aqui o Arquivo Referente ao Certificado Digital A1" />
+						<p:outputLabel
+							value="#{cc.attrs.bean.selected.certificadoA1.nome}"
+							rendered="#{bean.showUploadNome}" styleClass="uploadNome" />
+					</h:column>
+						<p:spacer />
+						<p:spacer />
 					<h:panelGrid columns="2" styleClass="pngParametrosNotificar"
 						columnClasses="pngParametrosNotificar_c1,pngParametrosNotificar_c2">
 						<p:selectBooleanCheckbox id="ckbNotificar"

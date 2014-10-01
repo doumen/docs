@@ -150,7 +150,7 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 		this.zoom = zoom;
 	}
 	
-    public void aumentaZoom(){
+    public void diminuiZoom(){
     	if(nMaxAssPp>2){
 	    	nMaxAssPp--;
 	    	atualizaZoom();
@@ -158,7 +158,7 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
     	}
     }
     
-    public void diminuiZoom(){
+    public void aumentaZoom(){
     	if(nMaxAssPp<totAss){
 	    	nMaxAssPp++;
 	    	atualizaZoom();
