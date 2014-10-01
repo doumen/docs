@@ -8,7 +8,7 @@
 
 <ui:composition template="/templates/_headerFooter.xhtml">
 	<ui:define name="corpo">
-		<h:form id="formPainel">
+		<h:form id="formPainel" enctype="multipart/form-data">
 			<h:outputStylesheet value="panelTitulo" />
 			<p:panel header="#{tituloPainel}" styleClass="panelConsulta">
 				<f:facet name="actions">

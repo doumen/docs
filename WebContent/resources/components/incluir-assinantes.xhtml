@@ -185,9 +185,12 @@
 						<p:outputLabel value="Certificado Digital A1" for="uplCertDigital" />
 					</h:column>
 					<h:column>
-						<p:fileUpload id="uplCertDigital"
-							value="#{consultaAssinantesAdmMB.file}" mode="simple"
-							rendered="#{bean.showUpload}" />
+					
+					
+<p:fileUpload id="uplCertDigital" value="#{consultaAssinantesAdmMB.file}" mode="simple" rendered="#{bean.showUpload}" />
+<h:commandButton value="Submit" action="#{consultaAssinantesAdmMB.submit()}" />
+
+
 						<p:tooltip for="uplCertDigital"
 							value="Escolha aqui o Arquivo Referente ao Certificado Digital A1" />
 						<p:outputLabel
@@ -232,12 +235,12 @@
 		</p:tabView>
 		<br />
 		<div id="botaoIncluirAlterarAss">
-			<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
+			<h:commandButton value=" Incluir" action="#{consultaAssinantesAdmMB.incluir()}"
+				id="cdbIncluir" rendered="#{bean.botaoIncluir}"
 				style="background-image: url('resources/images/check.png') !important;"
-				value=" Incluir" styleClass="botaoIncluirAlterarAss"
-				oncomplete="PF('dlgIncluirAssinante').show();">
-				<p:ajax event="click" listener="#{bean.incluir()}" process="@this" />
-			</p:commandButton>
+				styleClass="botaoIncluirAlterarAss"
+				oncomplete="PF('dlgIncluirAssinante').show();"/>
+		
 			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"
 				styleClass="botaoIncluirAlterarAss" value=" Alterar">
