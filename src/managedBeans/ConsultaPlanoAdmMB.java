@@ -10,7 +10,6 @@ import javax.inject.Inject;
 
 import model.Plano;
 import model.TipoInclusao;
-
 import component.PlanoComponent;
 
 @ManagedBean
@@ -45,8 +44,8 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	}
 
 	@Override
-	public String getPdfFileName() {
-		return "planos-teste";
+	public String getPdfReportName() {
+		return "planos";
 	}
 	
 	public void carregarPopUpAlterar(){
@@ -83,5 +82,10 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	@Override
 	public void alterar() {
 		System.out.println("Alterou Planos");
+	}
+
+	@Override
+	public String getPdfTemplateName() {		
+		return "template_portrait";
 	}
 }

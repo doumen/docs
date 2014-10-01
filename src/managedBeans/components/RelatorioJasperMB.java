@@ -6,12 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Plano;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -23,15 +22,16 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
-@ViewScoped
-@ManagedBean
+import component.PlanoComponent;
+
+
 public class RelatorioJasperMB<T> {
 
 	private String report;
-
 	private Map<String, Object> parametros;
-
 	private List<T> beans;
+	private String template;
+	private String modulo;
 	
 	public void downloadReport() throws JRException, IOException{
     	final File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+report+".jasper")); 
@@ -69,17 +69,29 @@ public class RelatorioJasperMB<T> {
 		this.beans = beans;
 	}
 
+	private HashMap<String,Object> getParam(){
+		HashMap<String,Object> param = new HashMap<String,Object>();
+    	param.put("report", FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getReport()+".jasper"));		
+    	param.put("estilo", FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getModulo()+".jrtx"));		
+		return param;
+	}
+	
 	public void browserReport()throws JRException, IOException{
-    	final File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/template_portrait.jasper")); 
-    	getParametros().put("report", getReport());
-    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(beans));
+		
+    	final File template = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getTemplate()+".jasper")); 
+
     	
     	final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
     	
+    	HashMap<String,Object> param = getParam(); 
+    	JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(beans);
+    	param.put("data", data);
+    	JasperPrint fillReport = JasperFillManager.fillReport(template.getAbsolutePath(),param,data);
+
     	final JRPdfExporter exporter = new JRPdfExporter();
     	final SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
     	configuration.setPdfJavaScript(PdfExporterConfiguration.PROPERTY_PDF_JAVASCRIPT);
-    	exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+    	exporter.setExporterInput(new SimpleExporterInput(fillReport));
     	exporter.setConfiguration(configuration);
     	
     	final ServletOutputStream stream = response.getOutputStream();
@@ -89,5 +101,56 @@ public class RelatorioJasperMB<T> {
     	stream.flush(); 
     	stream.close(); 
     	FacesContext.getCurrentInstance().responseComplete();	    	
+	}
+		
+	public static void main(String[] args) throws IOException {
+		RelatorioJasperMB<Plano> rj = new RelatorioJasperMB<>();
+		String home = "/home/desenv/reports/template_portrait";
+    	try {
+    		List<Plano> planos = (new PlanoComponent()).getPlanos();
+        	/*
+        	JasperDesign report = JRXmlLoader.load(home+".jrxml");
+        	File f = new File(home+"2.jasper");
+        	f.delete();
+        	f.createNewFile();
+        	JasperCompileManager.compileReportToFile(report,f.getAbsolutePath());
+        	*/
+    		
+        	final File template = new File(home+".jasper"); 
+        	
+        	HashMap<String,Object> param = new HashMap<String,Object>(); 
+        	JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(planos);
+        	param.put("data", data);
+        	param.put("report", "/home/desenv/reports/planos.jasper");
+        	JasperPrint fillReport = JasperFillManager.fillReport(template.getAbsolutePath(),param,data);
+        	
+        	rj.exportToFile(fillReport);
+ 		} catch (JRException e) {
+			e.printStackTrace();
+		}		
+	}
+	
+	private void exportToFile(JasperPrint fillReport) throws IOException, JRException{
+    	File pdf = new File("/home/desenv/reports/template_portrait.pdf");
+    	pdf.delete();
+    	boolean createNewFile = pdf.createNewFile();
+    	System.out.println("Criou novo arquivo " + createNewFile);
+    	JasperExportManager.exportReportToPdfFile(fillReport, pdf.getAbsolutePath());		
+	}
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
+	}
+
+	public String getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(String modulo) {
+		this.modulo = modulo;
 	}
 }
