@@ -21,7 +21,8 @@ import component.ContabilidadeComponent;
 
 @ManagedBean
 @ViewScoped
-public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade> {
+public class ConsultaContabilidadeAdmMB extends
+		AbstractConsultaMB<Contabilidade> {
 	private String login;
 	private String senha;
 	private boolean permissaoAreaContador;
@@ -108,7 +109,7 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 	public void setPermissaoAreaAssinante(boolean permissaoAreaAssinante) {
 		this.permissaoAreaAssinante = permissaoAreaAssinante;
 	}
-	
+
 	public List<Contabilidade> getFilteredList() {
 		return filteredList;
 	}
@@ -118,9 +119,10 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 	}
 
 	public String mascaraInscrEstadual() {
-		return Util.getMascaraCnpj(selected.getUf());		
+		mascara = Util.getMascaraCnpj(selected.getUf());
+		return mascara;
 	}
-	
+
 	public String getMascara() {
 		return mascara;
 	}
@@ -159,26 +161,27 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 	public boolean validateUsuario() {
 		return super.validateUsuario(login, senha, selected.getUsuarios());
 	}
-	
+
 	@Override
 	public void incluir() {
 		System.out.println("Incluiu Contabilidade!");
-		
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"", "Contabilidade inserida com sucesso.");
-		RequestContext.getCurrentInstance().showMessageInDialog(message);
-	}
-	
-	@Override
-	public void alterar(){
-		System.out.println("Alterou Contabilidade!");
-		
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"", "Contabilidade alterada com sucesso.");
+		listTable.add(selected);
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Contabilidade inserida com sucesso.");
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
-	public String getPdfTemplateName() {		
+	@Override
+	public void alterar() {
+		System.out.println("Alterou Contabilidade!");
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Contabilidade alterada com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+	}
+
+	public String getPdfTemplateName() {
 		return "template_portrait";
 	}
 

@@ -42,11 +42,12 @@
 						oncomplete="PF('dlgExcluir').show()" styleClass="botaoConsulta"
 						style="background-image: url('resources/images/excluir.gif') !important;" />
 					<p:tooltip for="cmbExcluir" value="Excluir" />
-										
-					<h:commandLink id="cbImprimir" actionListener="#{bean.print()}" >
-						<p:graphicImage name="/images/imprimir.gif" styleClass="botaoImprimir_pgConsulta" />
+
+					<h:commandLink id="cbImprimir" actionListener="#{bean.print()}">
+						<p:graphicImage name="/images/imprimir.gif"
+							styleClass="botaoImprimir_pgConsulta" />
 					</h:commandLink>
-					
+
 					<p:tooltip for="cbImprimir" value="Imprimir" />
 				</div>
 				<br />
@@ -60,18 +61,21 @@
 					<ui:insert name="tableColumns" />
 				</p:dataTable>
 			</p:panel>
-			<p:confirmDialog message="#{bean.avisoPreExcluir}" severity="alert"
-				widgetVar="dlgExcluir" dynamic="true" id="dlgExcluir"
-				styleClass="popUpExcluir">
+			<p:confirmDialog
+				message="#{bean.selectedList.isEmpty()?'Escolha um item para excluir':bean.avisoPreExcluir}"
+				severity="alert" widgetVar="dlgExcluir" dynamic="true"
+				id="dlgExcluir" styleClass="popUpExcluir">
 				<br />
-				<ui:repeat var="c" value="#{bean.selectedList}">
-					<p:outputLabel value="#{c}" />
-					<br />
-					<br />
-				</ui:repeat>
-				<p:commandButton value="Não" onclick="PF('dlgExcluir').hide();" />
-				<p:commandButton value="Sim"
-					onclick="PF('dlgExcluirConf').show(); PF('dlgExcluir').hide(); return false; " />
+				<c:if test="#{!bean.selectedList.isEmpty()}">
+					<ui:repeat var="c" value="#{bean.selectedList}">
+						<p:outputLabel value="#{c}" />
+						<br />
+						<br />
+					</ui:repeat>
+					<p:commandButton value="Não" onclick="PF('dlgExcluir').hide();" />
+					<p:commandButton value="Sim"
+						onclick="PF('dlgExcluirConf').show(); PF('dlgExcluir').hide(); return false; " />
+				</c:if>
 			</p:confirmDialog>
 			<p:confirmDialog id="dlgExcluirConfirm" styleClass="popUpExcluir"
 				message="#{bean.avisoExcluir}" severity="alert"
@@ -104,10 +108,6 @@
 					Escolha um item para alterar.
 				</c:if>
 				<br />
-				<div id="botaoFechar">
-					<p:commandButton value="Fechar" onclick="PF('dlgIncluir').hide();"
-						rendered="false" />
-				</div>
 			</p:dialog>
 		</h:form>
 	</ui:define>

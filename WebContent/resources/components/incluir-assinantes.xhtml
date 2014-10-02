@@ -25,7 +25,8 @@
 		}
 	</script>
 	<p:panel id="pnlAssinantes" styleClass="pnlAssinantes">
-		<h:messages />
+		<p:messages id="messages" showDetail="true" autoUpdate="true"
+			closable="true" />
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
 			<p:outputLabel value="Cód. Assinante" for="intCodAssinante" />
@@ -141,12 +142,12 @@
 				<h:panelGrid columns="2">
 					<p:outputLabel value="Cód.Plano" for="somCodPlano" />
 					<p:selectOneMenu id="somCodPlano" value="#{bean.plano}"
-						styleClass="codPlanoAss">
+						styleClass="codPlanoAss" converter="planoConverter">
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" />
 						<f:selectItems value="#{bean.planos}" />
 						<f:ajax event="change" listener="#{bean.ajaxPlanos}"
-							render="@this" update="intDescrPlano,intValorMensal"/>
+							update="intDescrPlano,intValorMensal" />
 					</p:selectOneMenu>
 					<p:outputLabel value="Descr.Plano" for="intDescrPlano" />
 					<p:inputText id="intDescrPlano"
@@ -155,7 +156,7 @@
 					<p:outputLabel value="Valor Mensal" for="intValorMensal" />
 					<p:inputText id="intValorMensal" onkeypress="moeda(this);"
 						maxlength="14" value="#{cc.attrs.bean.selected.plano.valorMensal}"
-						styleClass="vlMensalAss" mask="R$ 9?999,99" disabled="true">
+						styleClass="vlMensalAss" disabled="true">
 						<f:convertNumber type="currency" />
 					</p:inputText>
 				</h:panelGrid>
@@ -186,14 +187,19 @@
 						<p:outputLabel value="Certificado Digital A1" for="uplCertDigital" />
 					</h:column>
 					<h:column>
+						<p:outputLabel
+							value="#{cc.attrs.bean.selected.certificadoA1.nome}"
+							rendered="#{bean.showUploadNome}" styleClass="uploadNome" />
+
+						<h:commandButton value="Trocar Certificado" 
+							action="#{consultaAssinantesAdmMB.trocarCertificado()}" id="cdbTrocar"
+							rendered="#{bean.showUploadNome}"/>
+
 						<p:fileUpload id="uplCertDigital"
 							value="#{consultaAssinantesAdmMB.file}" mode="simple"
 							rendered="#{bean.showUpload}" />
 						<p:tooltip for="uplCertDigital"
 							value="Escolha aqui o Arquivo Referente ao Certificado Digital A1" />
-						<p:outputLabel
-							value="#{cc.attrs.bean.selected.certificadoA1.nome}"
-							rendered="#{bean.showUploadNome}" styleClass="uploadNome" />
 					</h:column>
 					<p:spacer />
 					<p:spacer />
@@ -238,12 +244,11 @@
 				rendered="#{bean.botaoIncluir}"
 				style="background-image: url('resources/images/check.png') !important;"
 				styleClass="botao_incluirAss" />
-			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
+			<h:commandButton value=" Alterar"
+				action="#{consultaAssinantesAdmMB.alterar()}" id="cdbAlterar"
+				rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"
-				styleClass="botaoIncluirAlterarAss" value=" Alterar">
-				<p:ajax event="click" listener="#{bean.alterar()}" process="@this"
-					update="@form" />
-			</p:commandButton>
+				styleClass="botao_incluirAss" />
 		</div>
 	</p:panel>
 </composite:implementation>

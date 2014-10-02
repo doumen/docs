@@ -35,7 +35,7 @@ public class ContabilidadeComponent {
 		c.setEnderecoNumero(String.valueOf(i));
 		c.setEnderecoComplemento("Complemento " + i);
 		c.setBairro("Bairro " + i);
-		c.setCep(14586960);
+		c.setCep("14586960");
 		c.setInscricaoEstadual("457280558835");
 		c.setComissao(0.1);
 		

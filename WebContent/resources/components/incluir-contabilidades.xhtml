@@ -163,10 +163,8 @@
 					<p:ajax event="click" listener="#{bean.incluir()}" process="@this" update="@form" />
 				</p:commandButton>
 				<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
-					style="background-image: url('resources/images/check.png') !important;"
-					value=" Alterar">
-					<p:ajax event="click" listener="#{bean.alterar()}" process="@this" update="@form" />
-				</p:commandButton>
+				style="background-image: url('resources/images/check.png') !important;"
+				value=" Alterar" action="#{bean.alterar}" update="@form" />
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:panel>
