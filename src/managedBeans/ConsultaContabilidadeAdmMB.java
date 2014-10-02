@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import model.Contabilidade;
@@ -158,44 +157,29 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 	}
 
 	public boolean validateUsuario() {
-		if (login.isEmpty() || senha.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e Senha são obrigatórios.", ""));
-			return false;
-		} else {
-			if (!selected.getUsuarios().isEmpty()) {
-				for (int i = 0; i < selected.getUsuarios().size(); i++) {
-					if (login.trim()
-							.equals(selected.getUsuarios().get(i).getLogin()
-									.toString())) {
-						FacesMessage message = new FacesMessage(
-								FacesMessage.SEVERITY_WARN, "Atenção!",
-								"Usuário já cadastrado.");
-						RequestContext.getCurrentInstance()
-								.showMessageInDialog(message);
-
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
+		return super.validateUsuario(login, senha, selected.getUsuarios());
 	}
 	
 	@Override
 	public void incluir() {
 		System.out.println("Incluiu Contabilidade!");
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"", "Contabilidade inserida com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 	
 	@Override
 	public void alterar(){
 		System.out.println("Alterou Contabilidade!");
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"", "Contabilidade alterada com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
 	@Override
 	public String getPdfTemplateName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -74,16 +74,12 @@
 			<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
 				styleClass="botaoIncluirAlterarPlano"
 				style="background-image: url('resources/images/check.png') !important;"
-				value=" Incluir" action="#{bean.incluir}"
-				oncomplete="PF('dlgIncluirPlano').show();" />
+				value=" Incluir" action="#{bean.incluir}" update="@form"/>
 			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				styleClass="botaoIncluirAlterarPlano"
 				style="background-image: url('resources/images/check.png') !important;"
-				value=" Alterar" action="#{bean.alterar}" />
+				value=" Alterar" action="#{bean.alterar}" update="@form" />
 		</div>
-		<p:dialog widgetVar="dlgIncluirPlano" id="dlgIncluirPlano">
-			<p:outputLabel value="Plano inserido com sucesso" />
-		</p:dialog>
 	</p:panel>
 </composite:implementation>
 </html>

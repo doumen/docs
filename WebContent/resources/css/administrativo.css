@@ -952,7 +952,7 @@
 }
 .c_cpa_desc{
 	text-align: left;
-	width: 48%;
+	width: 47%;
 }
 .c_cpa_faixaInicial{
 	text-align: left;
@@ -968,7 +968,7 @@
 }
 .c_cpa_valorNfe{
 	text-align: right;
-	width: 12%;
+	width: 13%;
 }
 
 .c_select{
@@ -1184,4 +1184,13 @@
 }
 .uploadFile.ui-fileupload{
 	width: 90%;
+}
+.botao_incluirAss{
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+	font-weight: bold;
 }

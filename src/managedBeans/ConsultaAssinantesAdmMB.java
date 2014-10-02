@@ -7,7 +7,6 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import model.Assinante;
@@ -18,7 +17,6 @@ import model.Usuario;
 import model.Util;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import component.AssinanteComponent;
@@ -188,65 +186,42 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	}
 
 	public boolean validateUsuario() {
-		if (login.isEmpty() || senha.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário e Senha são obrigatórios.", ""));
-			return false;
-		} else {
-			if (!selected.getUsuarios().isEmpty()) {
-				for (int i = 0; i < selected.getUsuarios().size(); i++) {
-					if (login.trim()
-							.equals(selected.getUsuarios().get(i).getLogin()
-									.toString())) {
-						FacesMessage message = new FacesMessage(
-								FacesMessage.SEVERITY_WARN, "Atenção!",
-								"Usuário já cadastrado.");
-						RequestContext.getCurrentInstance()
-								.showMessageInDialog(message);
-
-						return false;
-					}
-				}
-			}
-		}
-
-		return true;
+		return super.validateUsuario(login, senha, selected.getUsuarios());
 	}
 
 	@Override
 	public void incluir() {
-		/*if(assinanteValido())
-			assinanteComponent.incluir(selected);
-		else
-			mandarMensagemErro();*/
-		submit();
+		/*
+		 * if(assinanteValido()) assinanteComponent.incluir(selected); else
+		 * mandarMensagemErro();
+		 */
+		upload();
 		System.out.println("Incluiu Assinante!");
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"", "Assinante inserido com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
-	
+
 	@Override
-	public void alterar(){
+	public void alterar() {
 		System.out.println("Alterou Assinante!");
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"", "Assinante alterado com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
-	
-	public void handleFileUpload(FileUploadEvent event){
-		file = event.getFile();	
-	}
-	
+
 	public void upload() {
-        if(file != null) {
-            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        }
-    }
-	
-	public void submit() {    
-        // Get information you from the uploaded file
-        System.out.println("Uploaded file name : " + file.getFileName());
-    }
+		System.out.println("Uploaded file name : " + file.getFileName());
+	}
 
 	@Override
 	public String getPdfTemplateName() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void ajaxPlanos(){
+		selected.setPlano(plano);
 	}
 }

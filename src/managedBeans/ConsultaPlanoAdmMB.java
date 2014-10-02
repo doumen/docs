@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
+
+import org.primefaces.context.RequestContext;
 
 import model.Plano;
 import model.TipoInclusao;
@@ -16,7 +19,6 @@ import component.PlanoComponent;
 @ViewScoped
 public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	private List<Plano> filteredList = new ArrayList<>();
-
 	
 	public ConsultaPlanoAdmMB() throws InstantiationException,
 			IllegalAccessException {
@@ -77,11 +79,19 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	@Override
 	public void incluir() {
 		System.out.println("Incluiu Planos");	
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"", "Plano inserido com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
 	@Override
 	public void alterar() {
 		System.out.println("Alterou Planos");
+		
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				"", "Plano alterado com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
 	@Override

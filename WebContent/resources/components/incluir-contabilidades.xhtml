@@ -159,20 +159,16 @@
 			<h:panelGrid columns="2">
 				<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
 					style="background-image: url('resources/images/check.png') !important;"
-					value=" Incluir" oncomplete="PF('dlgIncluirAssinante').show();">
-					<p:ajax event="click" listener="#{bean.incluir()}" process="@this" />
+					value=" Incluir" >
+					<p:ajax event="click" listener="#{bean.incluir()}" process="@this" update="@form" />
 				</p:commandButton>
 				<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 					style="background-image: url('resources/images/check.png') !important;"
 					value=" Alterar">
-					<p:ajax event="click" listener="#{bean.alterar()}" process="@this" />
+					<p:ajax event="click" listener="#{bean.alterar()}" process="@this" update="@form" />
 				</p:commandButton>
 			</h:panelGrid>
 		</h:panelGrid>
 	</p:panel>
-	<p:dialog widgetVar="dlgIncluirContabilidade"
-		id="dlgIncluirContabilidade">
-		<p:outputLabel value="Contabilidade inserida com sucesso" />
-	</p:dialog>
 </composite:implementation>
 </html>

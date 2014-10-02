@@ -1,8 +1,15 @@
 package managedBeans;
 
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import managedBeans.components.RelatorioJasperMB;
+import model.Usuario;
+
+import org.primefaces.context.RequestContext;
 
 public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 
@@ -132,6 +139,33 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	public void setShowUpload(boolean showUpload) {
 		this.showUpload = showUpload;
 	}
+	
+	public boolean validateUsuario(String login, String senha, List<Usuario> usuarios) {
+		if (login.isEmpty() || senha.isEmpty()) {
+			FacesContext.getCurrentInstance().addMessage(
+					null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR,
+							"Usuário e Senha são obrigatórios.", ""));
+			return false;
+		} else {
+			if (!usuarios.isEmpty()) {
+				for (int i = 0; i < usuarios.size(); i++) {
+					if (login.trim()
+							.equals(usuarios.get(i).getLogin()
+									.toString())) {
+						FacesMessage message = new FacesMessage(
+								FacesMessage.SEVERITY_WARN, "Atenção!",
+								"Usuário já cadastrado.");
+						RequestContext.getCurrentInstance()
+								.showMessageInDialog(message);
 
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
 
 }

@@ -13,7 +13,7 @@
 </composite:interface>
 
 <composite:implementation>
-	<script>  
+	<script type="text/javascript">  
 		function moeda(z){  
 			v = z.value;
 			v = v.replace(/\D/g,"")  //permite digitar apenas números
@@ -145,7 +145,8 @@
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" />
 						<f:selectItems value="#{bean.planos}" />
-						<p:ajax event="change" update="intDescrPlano,intValorMensal" />
+						<f:ajax event="change" listener="#{bean.ajaxPlanos}"
+							render="@this" update="intDescrPlano,intValorMensal"/>
 					</p:selectOneMenu>
 					<p:outputLabel value="Descr.Plano" for="intDescrPlano" />
 					<p:inputText id="intDescrPlano"
@@ -185,20 +186,17 @@
 						<p:outputLabel value="Certificado Digital A1" for="uplCertDigital" />
 					</h:column>
 					<h:column>
-					
-					
-<p:fileUpload id="uplCertDigital" value="#{consultaAssinantesAdmMB.file}" mode="simple" rendered="#{bean.showUpload}" />
-<h:commandButton value="Submit" action="#{consultaAssinantesAdmMB.submit()}" />
-
-
+						<p:fileUpload id="uplCertDigital"
+							value="#{consultaAssinantesAdmMB.file}" mode="simple"
+							rendered="#{bean.showUpload}" />
 						<p:tooltip for="uplCertDigital"
 							value="Escolha aqui o Arquivo Referente ao Certificado Digital A1" />
 						<p:outputLabel
 							value="#{cc.attrs.bean.selected.certificadoA1.nome}"
 							rendered="#{bean.showUploadNome}" styleClass="uploadNome" />
 					</h:column>
-						<p:spacer />
-						<p:spacer />
+					<p:spacer />
+					<p:spacer />
 					<h:panelGrid columns="2" styleClass="pngParametrosNotificar"
 						columnClasses="pngParametrosNotificar_c1,pngParametrosNotificar_c2">
 						<p:selectBooleanCheckbox id="ckbNotificar"
@@ -235,21 +233,18 @@
 		</p:tabView>
 		<br />
 		<div id="botaoIncluirAlterarAss">
-			<h:commandButton value=" Incluir" action="#{consultaAssinantesAdmMB.incluir()}"
-				id="cdbIncluir" rendered="#{bean.botaoIncluir}"
+			<h:commandButton value=" Incluir"
+				action="#{consultaAssinantesAdmMB.incluir()}" id="cdbIncluir"
+				rendered="#{bean.botaoIncluir}"
 				style="background-image: url('resources/images/check.png') !important;"
-				styleClass="botaoIncluirAlterarAss"
-				oncomplete="PF('dlgIncluirAssinante').show();"/>
-		
+				styleClass="botao_incluirAss" />
 			<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"
 				styleClass="botaoIncluirAlterarAss" value=" Alterar">
-				<p:ajax event="click" listener="#{bean.alterar()}" process="@this" />
+				<p:ajax event="click" listener="#{bean.alterar()}" process="@this"
+					update="@form" />
 			</p:commandButton>
 		</div>
 	</p:panel>
-	<p:dialog widgetVar="dlgIncluirAssinante" id="dlgIncluirAssinante">
-		<p:outputLabel value="Assinante inserido com sucesso" />
-	</p:dialog>
 </composite:implementation>
 </html>
