@@ -79,6 +79,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	@Override
 	public void incluir() {
 		System.out.println("Incluiu Planos");	
+		listTable.add(selected);
 		
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"", "Plano inserido com sucesso.");

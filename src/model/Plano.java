@@ -104,6 +104,10 @@ public class Plano {
 		this.dataInclusao = Calendar.getInstance();		
 	}
 	
+	public Plano(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public String getCodigo(){
 		return id==null?null:id.toString();
 	}
@@ -114,5 +118,22 @@ public class Plano {
 	
 	public String getValorNfeAdicionalFormatado(){
 		return Util.formatCurrency(getValorNfeAdicional());
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this)
+			return true;
+		if (!(obj instanceof Plano))
+			return false;
+		Plano p = (Plano) obj;
+		return getDescricao().equals(p.getDescricao());
+	}
+
+	@Override
+	public int hashCode() {
+		int i = 17;
+		i = 31 * i + descricao.hashCode();
+		return i;
 	}
 }

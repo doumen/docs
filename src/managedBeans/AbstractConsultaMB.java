@@ -47,12 +47,12 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	
 	public abstract void alterar();
 
-	public boolean isUpdateEmptySelection() {
-		return "alterar".equals(tipo) && selectedList.isEmpty();
-	}
-
 	public String getTipo() {
 		return tipo;
+	}
+	
+	public boolean isUpdateEmptySelection() {
+		return "alterar".equals(tipo) && selectedList.isEmpty();
 	}
 
 	public void setTipo(String tipo) {
@@ -68,7 +68,7 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 			selected = listTable.get(0);
 			setBotaoIncluir(false);
 			setBotaoAlterar(true);
-			setShowUpload(false);
+			setShowUpload(true);
 			setShowUploadNome(true);
 		}
 		this.tipo = tipo;

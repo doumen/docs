@@ -20,7 +20,7 @@ public class Contabilidade implements Serializable {
 	private String enderecoNumero;
 	private String enderecoComplemento;
 	private String bairro;
-	private int cep;
+	private String cep;
 	private double comissao;
 	private Calendar dataInclusao;
 	private TipoInclusao tipoInclusao;
@@ -116,11 +116,11 @@ public class Contabilidade implements Serializable {
 		this.bairro = bairro;
 	}
 
-	public int getCep() {
+	public String getCep() {
 		return cep;
 	}
 
-	public void setCep(int cep) {
+	public void setCep(String cep) {
 		this.cep = cep;
 	}
 

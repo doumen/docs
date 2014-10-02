@@ -125,7 +125,8 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	}
 
 	public String mascaraInscrEstadual() {
-		return Util.getMascaraCnpj(selected.getUf());
+		mascara = Util.getMascaraCnpj(selected.getUf());
+		return mascara;
 	}
 
 	public String getMascara() {
@@ -197,32 +198,40 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		 */
 		upload();
 		System.out.println("Incluiu Assinante!");
-		
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"", "Assinante inserido com sucesso.");
+		listTable.add(selected);
+
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Assinante inserido com sucesso.");
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
 	@Override
 	public void alterar() {
+		upload();
 		System.out.println("Alterou Assinante!");
 
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				"", "Assinante alterado com sucesso.");
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Assinante alterado com sucesso.");
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
 	public void upload() {
 		System.out.println("Uploaded file name : " + file.getFileName());
+		selected.getCertificadoA1().setNome(file.getFileName());
 	}
-	
-	public void ajaxPlanos(){
+
+	public void ajaxPlanos() {
 		selected.setPlano(plano);
 	}
-	
+
 	@Override
-	public String getPdfTemplateName() {		
+	public String getPdfTemplateName() {
 		return "template_landscape";
 	}
 	
+	public void trocarCertificado(){
+		super.setShowUpload(true);
+		super.setShowUploadNome(false);
+	}
+
 }
