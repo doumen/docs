@@ -178,9 +178,8 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
 	}
 
-	@Override
-	public String getPdfTemplateName() {
-		return null;
+	public String getPdfTemplateName() {		
+		return "template_portrait";
 	}
 
 }

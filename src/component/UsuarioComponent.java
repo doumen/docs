@@ -13,11 +13,11 @@ public class UsuarioComponent {
 			return false;
 		if(usuario.getLogin()==null)
 			return false;
-		if(usuario.getLogin().equals("contador") && "contabilidade".equals(modulo))
+		if(usuario.getLogin().equals("contador") && Modulo.CONTABILIDADE.equals(modulo))
 			return true;
-		if(usuario.getLogin().equals("assinante") && "assinante".equals(modulo))
+		if(usuario.getLogin().equals("assinante") && Modulo.ASSINANTE.equals(modulo))
 			return true;
-		if(usuario.getLogin().equals("administrador") && "administrativo".equals(modulo))			
+		if(usuario.getLogin().equals("administrador") && Modulo.ADMINISTRATIVO.equals(modulo))			
 			return true;
 		return false;
 	}

@@ -215,13 +215,14 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public void upload() {
 		System.out.println("Uploaded file name : " + file.getFileName());
 	}
-
-	@Override
-	public String getPdfTemplateName() {
-		return null;
-	}
 	
 	public void ajaxPlanos(){
 		selected.setPlano(plano);
 	}
+	
+	@Override
+	public String getPdfTemplateName() {		
+		return "template_landscape";
+	}
+	
 }
