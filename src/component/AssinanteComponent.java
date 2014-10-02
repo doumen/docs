@@ -1,5 +1,6 @@
 package component;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,6 +34,18 @@ import excel.ExcelExporter;
 
 @Stateless
 public class AssinanteComponent {
+
+	private String labelTitle = "Assinantes";
+	private String dataTitle = "Total Doctos";
+	private String sheetName = "Dados";
+	private String chartTitle = "Gráfico de Interação por Assinante";
+	
+	private Method getLabelMethod() throws NoSuchMethodException, SecurityException{
+		return Assinante.class.getMethod("getNomeFantasia");
+	}	
+	private Method getDataMethod() throws NoSuchMethodException, SecurityException{
+		return Assinante.class.getMethod("getTotalDoctosArmazenados");
+	}
 
 	public List<Assinante> getAssinantes() {
 		ArrayList<Assinante> assinantes = new ArrayList<>();
@@ -184,19 +197,12 @@ public class AssinanteComponent {
 	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		
 		String filePath = "/home/desenv/grafico-interacao-assinante.xls";
-		String labelTitle = "Assinantes";
-		String dataTitle = "Total Doctos";
-		String sheetName = "Dados";
-		String chartTitle = "Gráfico de Interação por Assinante";
-		Method getLabelMethod = Assinante.class.getMethod("getNomeFantasia");
-		Method getDataMethod = Assinante.class
-				.getMethod("getTotalDoctosArmazenados");
 
 		HSSFWorkbook workbook = excelExporter
-				.createHSSFWorkbook(totalBarras, getLabelMethod, getDataMethod,
+				.createHSSFWorkbook(totalBarras, getLabelMethod(), getDataMethod(),
 						labelTitle, dataTitle, sheetName);
 		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
-				getLabelMethod, getDataMethod, dataTitle, labelTitle,
+				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
 				chartTitle);
 
 		excelExporter.writeJFreeChartOnHSSFWorkbook(barChart, workbook,
@@ -219,6 +225,13 @@ public class AssinanteComponent {
 	
 	public void incluir(Assinante a){
 		
+	}
+
+	public BufferedImage createReportImage(List<Assinante> totalBarras) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
+				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
+				chartTitle);
+		return barChart.createBufferedImage(802, 425);
 	}
 	
 }

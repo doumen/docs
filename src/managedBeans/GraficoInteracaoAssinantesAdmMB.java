@@ -1,5 +1,6 @@
 package managedBeans;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
@@ -61,4 +62,13 @@ public class GraficoInteracaoAssinantesAdmMB extends AbstractGraficoInteracaoAss
 		}
 	}
 	
+	@Override
+	public BufferedImage createReportImage() {
+		try {
+			return assinanteComponent.createReportImage(totalBarras);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
+}

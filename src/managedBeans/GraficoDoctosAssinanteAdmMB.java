@@ -2,7 +2,6 @@ package managedBeans;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,8 +96,8 @@ public class GraficoDoctosAssinanteAdmMB extends PaginatorMB {
 	
 	private RelatorioJasperMB<GraficoDoctosAssinante> createAndloadRelatorioJasperParameters(){
 		RelatorioJasperMB<GraficoDoctosAssinante> r = new RelatorioJasperMB<GraficoDoctosAssinante>();
-    	Map<String, Object> parametros = new HashMap<String, Object>();
-    	parametros.put("total",Integer.valueOf(assinantes.size()));
+//    	Map<String, Object> parametros = new HashMap<String, Object>();
+//    	parametros.put("total",Integer.valueOf(assinantes.size()));
     	List<GraficoDoctosAssinante> graficosDoctosAssinante = new ArrayList<>();
     	Calendar c = Calendar.getInstance();
     	c.set(Calendar.MONTH, 0);
@@ -107,7 +106,7 @@ public class GraficoDoctosAssinanteAdmMB extends PaginatorMB {
     		graficosDoctosAssinante.add(graficoDoctosAssinanteAdmFactory.createGrafico(as, assinanteComponent.getHistoricoConsumoTotalDoAssinante(as, c, Calendar.getInstance())));
     	}	    	
     	r.setBeans(graficosDoctosAssinante);
-    	r.setParametros(parametros);
+ //   	r.setParametros(parametros);
     	r.setReport("grafico-doctos-assinantes");
 		return r;
 	}

@@ -1,5 +1,6 @@
 package managedBeans.component;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+
+import managedBeans.components.RelatorioJasperMB;
+import net.sf.jasperreports.engine.JRException;
 
 import org.omnifaces.util.Faces;
 
@@ -245,7 +249,16 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	    Faces.sendFile(createAndPopulateCsvFile(), true);
 	    f.delete();
 	}
-
+	
 	public abstract File createAndPopulateCsvFile();
 	
+	public void downloadPdf() throws JRException, IOException{
+		RelatorioJasperMB<BufferedImage> rj = new RelatorioJasperMB<>();
+		List<BufferedImage> b = new ArrayList<>();
+		b.add(createReportImage());
+		rj.setBeans(b);
+		rj.downloadReport();
+	}
+	
+	public abstract BufferedImage createReportImage();
 }
