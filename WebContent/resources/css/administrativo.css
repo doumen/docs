@@ -1182,3 +1182,6 @@
 .botaoImprimir_pgConsulta{
 	margin-bottom: 5px;
 }
+.uploadFile.ui-fileupload{
+	width: 90%;
+}

@@ -196,6 +196,7 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 	@Override
 	public String getPdfTemplateName() {		
 		return "template_portrait";
+
 	}
 
 }

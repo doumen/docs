@@ -18,6 +18,7 @@ import model.Usuario;
 import model.Util;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import component.AssinanteComponent;
@@ -120,14 +121,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		this.file = file;
 	}
 
-	public void upload() {
-		if (file != null) {
-			FacesMessage message = new FacesMessage("Succesful",
-					file.getFileName() + " is uploaded.");
-			FacesContext.getCurrentInstance().addMessage(null, message);
-		}
-	}
-
 	@Override
 	public String getPdfReportName() {
 		return "assinantes";
@@ -226,6 +219,7 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 			assinanteComponent.incluir(selected);
 		else
 			mandarMensagemErro();*/
+		submit();
 		System.out.println("Incluiu Assinante!");
 	}
 	
@@ -238,4 +232,21 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public String getPdfTemplateName() {		
 		return "template_landscape";
 	}
+	
+	public void handleFileUpload(FileUploadEvent event){
+		file = event.getFile();	
+	}
+	
+	public void upload() {
+        if(file != null) {
+            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+	}
+	
+	public void submit() {    
+        // Get information you from the uploaded file
+        System.out.println("Uploaded file name : " + file.getFileName());
+    }
+
 }
