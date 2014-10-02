@@ -44,7 +44,7 @@
 				</div>
 				<div id="icones-exportar">
 					<h:commandButton id="cbImprimir" styleClass="botoes"
-						onclick="print_voucher('chart');"
+						onclick="print_pdf('chart');"
 						style="background-image: url('resources/images/imprimir.gif') !important;">
 					</h:commandButton>
 
@@ -54,7 +54,7 @@
 						</h:commandButton>
 					
 					<h:commandButton id="cbPdf" styleClass="botoes"
-							onclick="print_pdf('chart');"
+							actionListener="#{bean.downloadPdf}"
 							style="background-image: url('resources/images/pdf.gif') !important;">
 						</h:commandButton>
 				</div>

@@ -70,5 +70,5 @@ public class GraficoInteracaoAssinantesAdmMB extends AbstractGraficoInteracaoAss
 			e.printStackTrace();
 			return null;
 		}
-	}
+	}	
 }

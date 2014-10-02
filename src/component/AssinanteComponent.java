@@ -211,7 +211,7 @@ public class AssinanteComponent {
 		FileOutputStream out = new FileOutputStream(new File(filePath));
 		workbook.write(out);
 		out.close();
-		return null;
+		return new File(filePath);
 	}
 
 	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(

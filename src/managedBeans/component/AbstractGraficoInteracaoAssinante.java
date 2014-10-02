@@ -255,8 +255,13 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	public void downloadPdf() throws JRException, IOException{
 		RelatorioJasperMB<BufferedImage> rj = new RelatorioJasperMB<>();
 		List<BufferedImage> b = new ArrayList<>();
-		b.add(createReportImage());
+		BufferedImage image = createReportImage();
+		b.add(image);
 		rj.setBeans(b);
+		Map<String, Object> parametros = new HashMap<>();
+		parametros.put("grafico", createReportImage());
+		rj.setParametros(parametros);
+		rj.setReport("grafico-interacao-assinante");
 		rj.downloadReport();
 	}
 	

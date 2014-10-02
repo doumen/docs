@@ -104,7 +104,8 @@ public class GraficoDoctosAssinanteAdmMB extends PaginatorMB {
     	
     	for(Assinante as:assinantes){
     		graficosDoctosAssinante.add(graficoDoctosAssinanteAdmFactory.createGrafico(as, assinanteComponent.getHistoricoConsumoTotalDoAssinante(as, c, Calendar.getInstance())));
-    	}	    	
+    	}
+    	r.setTemplate("template_landscape");
     	r.setBeans(graficosDoctosAssinante);
  //   	r.setParametros(parametros);
     	r.setReport("grafico-doctos-assinantes");
