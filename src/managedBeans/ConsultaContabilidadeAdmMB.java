@@ -193,4 +193,9 @@ public class ConsultaContabilidadeAdmMB extends AbstractConsultaMB<Contabilidade
 		System.out.println("Alterou Contabilidade!");
 	}
 
+	@Override
+	public String getPdfTemplateName() {		
+		return "template_portrait";
+	}
+
 }

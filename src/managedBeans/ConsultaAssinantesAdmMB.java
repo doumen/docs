@@ -233,4 +233,9 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	public void alterar(){
 		System.out.println("Alterou Assinante!");
 	}
+
+	@Override
+	public String getPdfTemplateName() {		
+		return "template_landscape";
+	}
 }

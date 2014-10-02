@@ -3,5 +3,5 @@
 
 <jasperTemplate>
 	<style name="background" forecolor="#FFA400" backcolor="#FFA400"/>
-	<style name="titulo" forecolor="#FFA400" backcolor="#FFA400"/>
+	<style name="infoColor" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 </jasperTemplate>
