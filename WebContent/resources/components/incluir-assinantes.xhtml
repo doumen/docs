@@ -25,8 +25,6 @@
 		}
 	</script>
 	<p:panel id="pnlAssinantes" styleClass="pnlAssinantes">
-		<p:messages id="messages" showDetail="true" autoUpdate="true"
-			closable="true" />
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
 			<p:outputLabel value="Cód. Assinante" for="intCodAssinante" />
@@ -181,7 +179,7 @@
 				</h:panelGrid>
 			</p:tab>
 			<p:tab title="Parametros">
-				<h:panelGrid columns="3" styleClass="pngParametros"
+				<h:panelGrid columns="3" styleClass="pngParametros" id="pngParametros"
 					columnClasses="pngParametros_c1,pngParametros_c2,pngParametros_c3">
 					<h:column>
 						<p:outputLabel value="Certificado Digital A1" for="uplCertDigital" />
@@ -191,9 +189,11 @@
 							value="#{cc.attrs.bean.selected.certificadoA1.nome}"
 							rendered="#{bean.showUploadNome}" styleClass="uploadNome" />
 
-						<h:commandButton value="Trocar Certificado" 
-							action="#{consultaAssinantesAdmMB.trocarCertificado()}" id="cdbTrocar"
-							rendered="#{bean.showUploadNome}"/>
+						<h:commandButton value="Trocar Certificado"
+							id="cdbTrocar" rendered="#{bean.showUploadNome}">
+							<p:ajax event="click" listener="#{consultaAssinantesAdmMB.trocarCertificado()}"
+								process="@this" update="pngParametros"   />
+						</h:commandButton>
 
 						<p:fileUpload id="uplCertDigital"
 							value="#{consultaAssinantesAdmMB.file}" mode="simple"

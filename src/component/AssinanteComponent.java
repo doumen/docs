@@ -233,5 +233,8 @@ public class AssinanteComponent {
 				chartTitle);
 		return barChart.createBufferedImage(802, 425);
 	}
+	public List<Assinante> getAssinantes(Contabilidade contabilidade) {
+		return getAssinantes();
+	}
 	
 }

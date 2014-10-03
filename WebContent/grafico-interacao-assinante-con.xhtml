@@ -4,8 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition template="/templates/_crud.xhtml">
-	<ui:param name="tituloConfig" value="Contabilidade" />
-	<ui:param name="modulo" value="administrativo" />
+<ui:composition template="/templates/_grafico-interacao-assinante.xhtml">
+	<ui:param name="tituloPainel" value="Gráfico Interação X Assinante" />
+	<ui:param name="modulo" value="contabilidade" />
+	<ui:param name="bean" value="#{graficoInteracaoAssinantesConMB}" />
+	<ui:param name="help" value="Gráfico Interação X Assinante" />
+	<ui:param name="coresGrafico"
+		value="#FFEFDB,#CAE1FF,#C1CDCD,#B0E0E6,#D2B48C" />
 </ui:composition>
 </html>

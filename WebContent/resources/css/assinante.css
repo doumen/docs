@@ -1,66 +1,102 @@
-@import url("base.css");
-
-/** cabecalho **/
-#cabecalho{
-	background-color:#21e121;
+#cabecalho {
+	background-color: #21E121;
 	height: 114px;
 }
 
 #logoCompany {
-	float:left;
+	float: left;
 	position: absolute;
 }
 
-/** rodape **/
-#rodape { 
-	background-color:#21e121;
-	width:100%;
-	position:fixed;
+/* rodape */
+#rodape {
+	background-color: #21E121;
+	background-image: none;
+	width: 100%;
+	position: fixed;
 	bottom: 0;
 	text-align: center;
-	font-size:10px; 
-	color:#FFF;
+	font-size: 10px;
+	color: #FFFFFF;
 	display: block;
-}
-@import url("base.css");
-
-/** cabecalho **/
-#cabecalho{
-	background-color:#21e121;
-	height: 114px;
+	background-image: none;
 }
 
-#logoCompany {
-	float:left;
-	position: absolute;
-}
-
-/** rodape **/
-#rodape { 
-	background-color:#21e121;
-	width:100%;
-	position:fixed;
-	bottom: 0;
-	text-align: center;
-	font-size:10px; 
-	color:#FFF;
-	display: block;
-}
-#logoutLabel{
+#logoutLabel {
 	position: absolute;
 	right: 14px;
 	top: 100px;
 }
-#logoutLink{
+
+#logoutLink {
 	position: absolute;
 	right: 14px;
 	top: 86px;
 }
-#logout{
+
+#logout {
 	position: absolute;
 	right: 14px;
 	top: 86px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em;
+	color: #FFFFFF;
 }
-.myPanelStyle1.ui-panel .ui-panel-titlebar {
-	background-color:green;
+
+#conteudo {
+	width: 100%;
 }
+
+
+/* Padrão */
+.panelTitulo.ui-panel .ui-panel-titlebar { /* Painel de título */
+	background-color: #21E121;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
+
+.panelTitulo.ui-panel .ui-panel-title {
+	margin: auto;
+}
+
+.ui-widget { /* Tamanho da letra para o site */
+	 font-size: 13px;
+}
+
+/* Página de Login */
+#formLogin {
+	width: 500px;
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+	left: 50%;
+	margin-left: -250px;
+}
+
+#formLogin .ui-widget-header { /* Título do form de login*/
+	color: #FFFFFF;
+	height: 25px;
+}
+
+#formLogin .ui-inputtext { /* Caixa de texto do form */
+	width: 170%;
+}
+
+#formLogin .ui-password { /* Passaword do form */
+	width: 65%;
+}
+
+#formLogin .ui-icon { /* Ícone no título do form */
+	background-color: #FFFFFF;
+}
+
+#botaoLogin { /* Botões Conectar e Limpar */
+	text-align: right;
+}
+
+#formLogin .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent !important;
+}
+

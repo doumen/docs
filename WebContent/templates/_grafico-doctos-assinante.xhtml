@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h5="http://java.sun.com/jsf/composite/html5">
+
+<ui:composition template="/templates/_panel-titulo.xhtml">
+	<ui:define name="conteudoPainel">
+		<div id="headerGrafico">
+				<div id="block_container">
+					<div id="icones-zoom">
+						<h:commandButton id="cbZoomMais" styleClass="botoes" type="reset" 
+							style="background-image: url('resources/images/zoommais.png') !important;">
+							<p:ajax listener="#{relatorioDataTableMB.aumentaZoom}" event="click"
+								execute="@form" update="dataList, somZoom"  />
+						</h:commandButton>
+						<p:selectOneMenu id="somZoom" rendered="true"
+							value="#{relatorioDataTableMB.zoom}">
+							<f:selectItem itemLabel=" " itemValue="" />
+							<f:selectItems value="#{relatorioDataTableMB.selectedZooms}" />
+							<p:ajax render="dataList" event="change"
+								listener="#{relatorioDataTableMB.zoomSelectOneMenu}"
+								update="dataList" />
+						</p:selectOneMenu>
+						<h:commandButton id="cbZoomMenos" styleClass="botoes"
+							style="background-image: url('resources/images/zoommenos.png') !important;">
+							<p:ajax listener="#{relatorioDataTableMB.diminuiZoom}"
+								execute="@form" update="somZoom, dataList" />
+						</h:commandButton>
+					</div>
+					<div id="icones-exportar">
+						<h:commandButton id="cbImprimir" styleClass="botoes"
+							style="background-image: url('resources/images/imprimir.gif') !important;">
+							<p:printer target="#{cc.attrs.id}" />
+						</h:commandButton>
+						<h:commandButton id="cbExcel" styleClass="botoes"
+							action="#{bean.excel()}"
+							style="background-image: url('resources/images/excel.gif') !important;">
+						</h:commandButton>
+						<h:commandButton id="cbPdf" styleClass="botoes"
+							actionListener="#{bean.pdf}"
+							style="background-image: url('resources/images/pdf.gif') !important;">
+						</h:commandButton>
+					</div>
+				</div>
+			</div>
+			<p:panel id="dataList" styleClass="dataListGrafico">
+				<div style="font-size:#{relatorioDataTableMB.font}em !important;">
+					<p:outputLabel value="Gráfico - Manipulação Doctos X Assinantes"
+						styleClass="tituloGrafico" />
+					<br /> <br />
+					<p:panel styleClass="panelGraficos">
+						<h:panelGrid columns="2" columnClasses="pg_c1,pg_c2">
+							<p:outputLabel value="Assinante: " />
+							<p:outputLabel
+								value="#{bean.graficoDoctosAssinante.assinante}" />
+							<p:outputLabel value="Contabilidade: " />
+							<p:outputLabel
+								value="#{bean.graficoDoctosAssinante.contador}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" styleClass="pngGraficos"
+							columnClasses="pg_c3,pg_c4">
+							<p:chart type="pie" id="pieChart" widgetVar="pieChart"
+								model="#{bean.pieChartModel}"
+								style="width:500px;height:400px;" />
+							<p:lineChart
+								value="#{bean.lineChartModel}"
+								style="width:500px;height:400px;" extender="chartExtender"
+								title="Histórico Consumo" legendPosition="s" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" columnClasses="pg_c5,pg_c6">
+							<p:outputLabel value="Plano Contratado: " />
+							<p:outputLabel
+								value="#{bean.graficoDoctosAssinante.planoContratado}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2" columnClasses="pg_c7,pg_c8">
+							<p:outputLabel value="Consumo Restante: "
+								style="text-align:left;width:450 !important;" />
+							<p:outputLabel
+								value="#{bean.graficoDoctosAssinante.consumoRestante}"
+								style="width:225 !important;" />
+						</h:panelGrid>
+					</p:panel>
+				</div>
+			</p:panel>
+			<div id="footerGrafico">
+				<div id="centerPaginator">
+					<h:commandLink id="ultimaPagina"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						actionListener="#{bean.irParaUltimaPagina}"
+						update="paginaAtual">
+						<h:outputText styleClass="ui-icon ui-icon-seek-end" />
+					</h:commandLink>
+					<h:commandLink id="proximaPagina"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						actionListener="#{bean.irParaProximaPagina}"
+						update="paginaAtual">
+						<h:outputText styleClass="ui-icon ui-icon-seek-next" />
+					</h:commandLink>
+					<h:commandLink id="paginaAtual"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText
+							value="#{bean.paginaAtual} de #{bean.totPag}" />
+					</h:commandLink>
+					<h:commandLink id="paginaAnterior"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default text-align: center;"
+						actionListener="#{bean.irParaPaginaAnterior}"
+						update="paginaAtual">
+						<h:outputText styleClass="ui-icon ui-icon-seek-prev" />
+					</h:commandLink>
+					<h:commandLink id="primeiraPagina"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						actionListener="#{bean.irParaPrimeiraPagina}"
+						update="paginaAtual">
+						<h:outputText styleClass="ui-icon ui-icon-seek-first" />
+					</h:commandLink>
+				</div>
+			</div>
+			<script type="text/javascript">
+		function chartExtender() {        
+			var line = [];
+		     <ui:repeat value="#{bean.historico.entrySet().toArray()}" var="ponto">
+	     		line.push("#{ponto.key}");
+	    	</ui:repeat>
+	    	this.cfg.categories = line;
+	    	this.cfg.axes.xaxis.tickOptions.angle=-90;
+		}
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

@@ -68,7 +68,7 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 			selected = listTable.get(0);
 			setBotaoIncluir(false);
 			setBotaoAlterar(true);
-			setShowUpload(true);
+			setShowUpload(false);
 			setShowUploadNome(true);
 		}
 		this.tipo = tipo;

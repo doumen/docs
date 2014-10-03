@@ -1,76 +1,103 @@
-@import url("base.css");
-/** cabecalho **/
-#cabecalho{
-	background-color:#436EEE;
+#cabecalho {
+	background-color: #436EEE;
 	height: 114px;
 }
 
 #logoCompany {
-	float:left;
+	float: left;
 	position: absolute;
 }
 
-/** rodape **/
-#rodape { 
-	background-color:#436EEE;
-	width:100%;
-	position:fixed;
+/* rodape */
+#rodape {
+	background-color: #436EEE;
+	background-image: none;
+	width: 100%;
+	position: fixed;
 	bottom: 0;
 	text-align: center;
-	font-size:10px; 
-	color:#FFF;
+	font-size: 10px;
+	color: #FFFFFF;
 	display: block;
+	background-image: none;
 }
 
-#cmbExcluir {
-background-image: url('resources/images/excluir.gif') !important;
-background-repeat: no-repeat;
-background-position: center;
-width: 16px;height: 16px;	
-}
-@import url("base.css");
-/** cabecalho **/
-#cabecalho{
-	background-color:#436EEE;
-	height: 114px;
-}
-
-#logoCompany {
-	float:left;
-	position: absolute;
-}
-
-/** rodape **/
-#rodape { 
-	background-color:#436EEE;
-	width:100%;
-	position:fixed;
-	bottom: 0;
-	text-align: center;
-	font-size:10px; 
-	color:#FFF;
-	display: block;
-}
-#logoutLabel{
+#logoutLabel {
 	position: absolute;
 	right: 14px;
 	top: 100px;
 }
-#logoutLink{
+
+#logoutLink {
 	position: absolute;
 	right: 14px;
 	top: 86px;
 }
-#logout{
+
+#logout {
 	position: absolute;
 	right: 14px;
 	top: 86px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.0em;
+	color: #FFFFFF;
+}
+
+#conteudo {
+	width: 100%;
 }
 
 
+/* Padrão */
+.panelTitulo.ui-panel .ui-panel-titlebar { /* Painel de título */
+	background-color: #436EEE;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
 
-.myPanelStyle1.ui-panel .ui-panel-titlebar {
-	background-color:blue;
+.panelTitulo.ui-panel .ui-panel-title {
+	margin: auto;
+}
+
+.ui-widget { /* Tamanho da letra para o site */
+	 font-size: 13px;
+}
+
+/* Página de Login */
+#formLogin {
+	width: 500px;
+	height: 200px;
+	position: absolute;
+	top: 50%;
+	margin-top: -100px;
+	left: 50%;
+	margin-left: -250px;
+}
+
+#formLogin .ui-widget-header { /* Título do form de login*/
+	color: #FFFFFF;
+	height: 25px;
+}
+
+#formLogin .ui-inputtext { /* Caixa de texto do form */
+	width: 170%;
+}
+
+#formLogin .ui-password { /* Passaword do form */
+	width: 65%;
+}
+
+#formLogin .ui-icon { /* Ícone no título do form */
+	background-color: #FFFFFF;
+}
+
+#botaoLogin { /* Botões Conectar e Limpar */
+	text-align: right;
+}
+
+#formLogin .ui-selectonemenu .ui-selectonemenu-trigger .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent !important;
 }
 
 #cmbExcluir {
@@ -78,4 +105,149 @@ background-image: url('resources/images/excluir.gif') !important;
 background-repeat: no-repeat;
 background-position: center;
 width: 16px;height: 16px;	
+}
+
+
+/*Gráfico Interação X Assinante*/
+.botao_inverte{
+	margin-top: 8px;
+	margin-left: 6px;
+}
+.botao_zoomIn{
+	margin-right: 3px;
+}
+.tamanhoZoom{
+	margin-top: 2px;
+}
+.botao_zoomOut{
+	margin-left: 3px;
+}
+.botoes { /* Configuração dos botões (zoom, exportação) */
+	background-repeat: no-repeat !important;
+	background-position: center;
+	width: 25px;
+	height: 20px;
+	background-color: transparent !important;
+	border-color: transparent !important;
+}
+#headerGrafico{
+	background-color: #C4C4C4;
+	border-radius: 0px;
+	border: 0 none;
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+}
+#block_container { /* Div para alinhar os botões (zoom, exportação) */
+	text-align: center;
+    height: 30px;
+}
+#botaoInverte{
+	display: inline-block; 
+	text-align: left; 
+	float: left;
+}
+#icones-zoom { /* Div para organizar os ícones de zoom */
+	text-align: center;
+	height: 20px;
+	display: inline;
+	width: 100%;
+	margin-left: 21%;
+}
+#icones-exportar { /* Div para organizar os ícones de exportação */
+	text-align: right;
+	display: inline;
+	width: 20%;
+	float: right;
+	margin-top: 0.5%;
+}
+#footerGrafico{
+	background-color: #C4C4C4;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+	border: 0 none;
+	width: 100%;
+	text-align: center;
+	display: inline-block;
+	height: 35px !important;
+}
+#centerPaginator {
+	margin-top: 1%;
+	margin-left: 40%;
+	width: 15%;
+} 
+
+/* Gráfico Manipulação Doctos X Assinantes */
+.dataListGrafico .ui-datalist-header { /* Título do Gráfico */
+	background-color: #FFFFFF;
+	border: 0px;
+	font-size: 17px;
+}
+
+.dataListGrafico .ui-datalist-content { /* border interno datalist */
+	border: 0px;
+}
+
+.dataListGrafico .ui-datalist-item { /* Itens do datalist */
+	color: #FFFFFF;
+}
+.dataListGrafico .ui-paginator.ui-paginator-bottom {
+	/* Paginação do DataList */
+	border-top: 1px solid #A8A8A8 !important;
+	margin-left: -0.9%;
+	margin-right: -0.7%;
+}
+.dataListGrafico{
+	width:99.5%;
+	border: 0 none;
+}
+.tituloGrafico.ui-outputlabel{
+	font-size:2em;
+	margin-left: 30%;
+}
+.panelGraficos{
+	border:1px solid; 
+	width:100%;
+}
+.pngGraficos{
+	width: 100%;
+}
+.pg_c1{
+	width: 90px;
+	text-align:left;
+}
+.pg_c2{
+	border: 1px solid;
+	text-align:left;
+	width: 98%
+}
+.pg_c3{
+	text-align:left;
+	padding-left: 3%;
+	padding-right: 3%;
+	padding-top: 1%;
+}
+.pg_c4{
+	text-align:left;
+	padding-left: 5%;
+	padding-right: 3%;
+	padding-top: 1%;
+}
+.pg_c5{
+	text-align:left;
+	width: 120px;
+}.pg_c6{
+	border: 1px solid;
+	text-align:left;
+	width: 	450px;
+}
+.pg_c7{
+	text-align:left;
+	width: 120px;
+}
+.pg_c8{
+	border: 1px solid;
+	text-align:left;
+	width: 225px;	
 }
