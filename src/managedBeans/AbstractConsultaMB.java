@@ -1,5 +1,6 @@
 package managedBeans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -24,11 +25,25 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private boolean showUploadNome;
 	private boolean showUpload;
 
+	List<T> filteredList = new ArrayList<>();
+
+	public List<T> getFilteredList() {
+		return filteredList;
+	}
+
+	public void setFilteredList(List<T> filteredList) {
+		this.filteredList = filteredList;
+	}
+
 	@ManagedProperty(value="#{loginBean}")
 	private LoginBean loginBean;
 	
 	public void setLoginBean(LoginBean loginBean){
 		this.loginBean = loginBean;
+	}
+	
+	public LoginBean getLoginBean(){
+		return this.loginBean;
 	}
 	
 	public abstract String getAvisoExcluir();

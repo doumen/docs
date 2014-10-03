@@ -57,4 +57,9 @@ public class ContabilidadeComponent {
 
 		return c;
 	}
+
+	public void alterar(Contabilidade selected) {
+		// TODO Auto-generated method stub
+		
+	}
 }

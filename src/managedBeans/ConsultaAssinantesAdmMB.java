@@ -23,7 +23,7 @@ import component.AssinanteComponent;
 
 @ManagedBean
 @ViewScoped
-public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
+public class ConsultaAssinantesAdmMB extends AbstractConsultaAssinantesMB {
 
 	private String login;
 	private String senha;
@@ -33,11 +33,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	private List<Plano> planos;
 	private Contabilidade contabilidade;
 	private List<Contabilidade> contabilidades;
-	private List<Assinante> filteredList = new ArrayList<>();
-
-	public ConsultaAssinantesAdmMB() {
-		super(Assinante.class);
-	}
 
 	public void init() {
 		listTable = assinanteComponent.getAssinantes();
@@ -54,16 +49,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 
 	@Inject
 	private AssinanteComponent assinanteComponent;
-
-	@Override
-	public String getAvisoExcluir() {
-		return "os itens serão excluídos tem certeza disso?";
-	}
-
-	@Override
-	public String getAvisoPreExcluir() {
-		return "Os itens serão excluídos";
-	}
 
 	public void carregarPopUpAlterar() {
 		if ((selectedList != null) && (!selectedList.isEmpty())) {
@@ -117,11 +102,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
-	}
-
-	@Override
-	public String getPdfReportName() {
-		return "assinantes";
 	}
 
 	public String mascaraInscrEstadual() {
@@ -178,14 +158,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		this.contabilidades = contabilidades;
 	}
 
-	public List<Assinante> getFilteredList() {
-		return filteredList;
-	}
-
-	public void setFilteredList(List<Assinante> filteredList) {
-		this.filteredList = filteredList;
-	}
-
 	public boolean validateUsuario() {
 		return super.validateUsuario(login, senha, selected.getUsuarios());
 	}
@@ -224,10 +196,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 		selected.setPlano(plano);
 	}
 
-	@Override
-	public String getPdfTemplateName() {
-		return "template_landscape";
-	}
 	
 	public void trocarCertificado(){
 		super.setShowUpload(true);
