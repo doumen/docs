@@ -38,7 +38,7 @@ public class JFreeChartExporter {
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
 		
-//		domainAxis.setTickLabelFont(new Font(Font.SANS_SERIF,Font.PLAIN,calculaFont(domainAxis.getFixedDimension()/totalBarras.size())));
+		domainAxis.setTickLabelFont(new Font(Font.SANS_SERIF,Font.PLAIN,8));
 		
 		return barChartObject;
 	}

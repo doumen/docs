@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/_panel-consulta.xhtml"
+	xmlns:golive="http://java.sun.com/jsf/composite/components">
+
+	<ui:define name="tableColumns">
+		<p:column headerText="Vencimento" sortBy="#{list.dataInclusao.time}"
+			styleClass="c_caa_venc" filterBy="#{list.dataInclusao.time}" filterMatchMode="contains" >
+			<h:outputText value="#{list.dataInclusao.time}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Cód. Plano" sortBy="#{list.plano.id}"
+			styleClass="c_caa_codPlano" filterBy="#{list.plano.id}" filterMatchMode="contains">
+			<h:outputText value="#{list.plano.id}" />
+		</p:column>
+		<p:column headerText="Descrição" sortBy="#{list.plano.descricao}"
+			styleClass="c_caa_Desc" filterBy="#{list.plano.descricao}" filterMatchMode="contains">
+			<h:outputText value="#{list.plano.descricao}" />
+		</p:column>
+		<p:column headerText="Valor Mensal" sortBy="#{list.plano.valorMensal}"
+			styleClass="c_caa_vlMensal" filterBy="#{list.plano.valorMensal}" filterMatchMode="contains">
+			<h:outputText value="#{list.plano.valorMensal}">
+				<f:convertNumber currencySymbol="R$" type="currency" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Cód. Ass." sortBy="#{list.id}"
+			styleClass="c_caa_codAss" filterBy="#{list.id}" filterMatchMode="contains">
+			<h:outputText value="#{list.id}" />
+		</p:column>
+		<p:column headerText="CNPJ" sortBy="#{list.cnpj}"
+			styleClass="c_caa_cnpj" filterBy="#{list.cnpj}" filterMatchMode="contains">
+			<h:outputText value="#{list.cnpjFormatado}" />
+		</p:column>
+		<p:column headerText="Assinante" sortBy="#{list.nomeFantasia}"
+			styleClass="c_caa_razaoSocialAss" filterBy="#{list.nomeFantasia}" filterMatchMode="contains">
+			<h:outputText value="#{list.nomeFantasia}" />
+		</p:column>
+		<p:column headerText="Cód. Cont." sortBy="#{list.contabilidade.id}"
+			styleClass="c_caa_codCont" filterBy="#{list.contabilidade.id}" filterMatchMode="contains">
+			<h:outputText value="#{list.contabilidade.id}" />
+		</p:column>
+		<p:column headerText="CNPJ" sortBy="#{list.contabilidade.cnpj}"
+			styleClass="c_caa_cnpjCont" filterBy="#{list.contabilidade.cnpj}" filterMatchMode="contains">
+			<h:outputText value="#{list.contabilidade.cnpjFormatado}" />
+		</p:column>
+		<p:column headerText="Contabilidade"
+			sortBy="#{list.contabilidade.razaoSocial}"
+			styleClass="c_caa_razaoSocialCont" filterBy="#{list.contabilidade.razaoSocial}" filterMatchMode="contains">
+			<h:outputText value="#{list.contabilidade.razaoSocial}" />
+		</p:column>
+	</ui:define>
+	<ui:define name="popup-incluir">
+		<golive:incluir-assinantes bean="#{consultaAssinantesAdmMB}" />
+	</ui:define>
+</ui:composition>

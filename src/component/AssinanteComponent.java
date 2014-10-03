@@ -238,4 +238,8 @@ public class AssinanteComponent {
 		return getAssinantes();
 	}
 	
+	public List<Assinante> getAssinantes(Contabilidade contabilidade) {
+		return getAssinantes();
+	}
+	
 }

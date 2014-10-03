@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedProperty;
 
 import managedBeans.LoginBean;
 import managedBeans.components.RelatorioJasperMB;
+import model.GraficoInteracaAssinante;
 import net.sf.jasperreports.engine.JRException;
 
 import org.omnifaces.util.Faces;
@@ -262,15 +263,18 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	public abstract File createAndPopulateCsvFile();
 	
 	public void downloadPdf() throws JRException, IOException{
-		RelatorioJasperMB<BufferedImage> rj = new RelatorioJasperMB<>();
-		List<BufferedImage> b = new ArrayList<>();
+		RelatorioJasperMB<GraficoInteracaAssinante> rj = new RelatorioJasperMB<>();
+		List<GraficoInteracaAssinante> b = new ArrayList<>();
 		BufferedImage image = createReportImage();
-		b.add(image);
+		GraficoInteracaAssinante g = new GraficoInteracaAssinante();
+		g.setGrafico(image);
+		b.add(g);
 		rj.setBeans(b);
 		Map<String, Object> parametros = new HashMap<>();
-		parametros.put("grafico", createReportImage());
+		parametros.put("grafico", image);
 		rj.setParametros(parametros);
 		rj.setReport("grafico-interacao-assinante");
+//		rj.setTemplate(rj.getReport());
 		rj.setTemplate("template_landscape");
 		rj.setModulo(loginBean.getModulo());
 		rj.downloadReport();

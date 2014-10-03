@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Plano;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -72,6 +74,8 @@ public class RelatorioJasperMB<T> {
 		HashMap<String,Object> param = new HashMap<String,Object>();
     	param.put("report", FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getReport()+".jasper"));		
     	param.put("estilo", FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getModulo()+".jrtx"));		
+    	Locale locale = new Locale("pt", "BR");
+    	param.put(JRParameter.REPORT_LOCALE, locale);
 		return param;
 	}
 	
