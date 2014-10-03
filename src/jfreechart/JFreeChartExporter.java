@@ -26,7 +26,6 @@ public class JFreeChartExporter {
 			Method getLabelMethod, Method getDataMethod,String dataTitle,String labelTitle,String chartTitle) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		DefaultCategoryDataset my_bar_chart_dataset = new DefaultCategoryDataset();
 		for(T t:totalBarras){
-
 			String label = (String) getLabelMethod.invoke(t);
 			Number data = (Number) getDataMethod.invoke(t);
 			my_bar_chart_dataset.addValue(data.doubleValue(), dataTitle,label);			
@@ -38,7 +37,14 @@ public class JFreeChartExporter {
 		CategoryPlot plot = (CategoryPlot) barChartObject.getPlot();
 		CategoryAxis domainAxis = plot.getDomainAxis();
 		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+		
+//		domainAxis.setTickLabelFont(new Font(Font.SANS_SERIF,Font.PLAIN,calculaFont(domainAxis.getFixedDimension()/totalBarras.size())));
+		
 		return barChartObject;
+	}
+
+	public int calculaFont(Number barWidth) {
+		return Math.min(16, barWidth.intValue() / 2);
 	}
 
 	public JFreeChart createLineChart(Map<Object, Number> data,String chartTitle,String dataLabel,String xLabel,String yLabel) {

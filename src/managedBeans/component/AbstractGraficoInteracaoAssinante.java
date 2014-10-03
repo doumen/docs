@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
 
+import managedBeans.LoginBean;
 import managedBeans.components.RelatorioJasperMB;
 import net.sf.jasperreports.engine.JRException;
 
@@ -30,7 +32,14 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	private int maiorBarra;
 	
 	private int ordem;
+
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean loginBean;
 	
+	public void setLoginBean(LoginBean loginBean){
+		this.loginBean = loginBean;
+	}
+
 	@PostConstruct
 	public void init(){
 		nMaxAssPp =10;
@@ -262,6 +271,8 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 		parametros.put("grafico", createReportImage());
 		rj.setParametros(parametros);
 		rj.setReport("grafico-interacao-assinante");
+		rj.setTemplate("template_landscape");
+		rj.setModulo(loginBean.getModulo());
 		rj.downloadReport();
 	}
 	

@@ -34,8 +34,7 @@ public class RelatorioJasperMB<T> {
 	private String modulo;
 	
 	public void downloadReport() throws JRException, IOException{
-    	final File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+report+".jasper")); 
-    	final JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, new JRBeanCollectionDataSource(beans)); 
+    	final JasperPrint jasperPrint = getJasperPrint(); 
     	final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
     	response.addHeader("Content-disposition", "attachment; filename="+report+".pdf"); 
     	final ServletOutputStream stream = response.getOutputStream(); 
@@ -76,17 +75,22 @@ public class RelatorioJasperMB<T> {
 		return param;
 	}
 	
+	
+	private JasperPrint getJasperPrint() throws JRException{
+    	final File template = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getTemplate()+".jasper")); 
+    	HashMap<String,Object> param = getParam(); 
+    	JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(beans);
+    	param.put("data", data);		
+		return JasperFillManager.fillReport(template.getAbsolutePath(),param,data);
+	}
+	
 	public void browserReport()throws JRException, IOException{
 		
-    	final File template = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getTemplate()+".jasper")); 
 
     	
     	final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
     	
-    	HashMap<String,Object> param = getParam(); 
-    	JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(beans);
-    	param.put("data", data);
-    	JasperPrint fillReport = JasperFillManager.fillReport(template.getAbsolutePath(),param,data);
+    	JasperPrint fillReport = getJasperPrint();
 
     	final JRPdfExporter exporter = new JRPdfExporter();
     	final SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();

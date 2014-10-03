@@ -39,7 +39,11 @@ public class Util {
 	
 	public static Number getMaiorNumber(Map<Object,Number> dados){
 		List<Number> list = new ArrayList<Number>(dados.values());
-		Collections.sort(list, new Comparator<Number>() {
+		return getMaiorNumber(list);
+	}
+	
+	public static Number getMaiorNumber(List<Number> dados){
+		Collections.sort(dados, new Comparator<Number>() {
 	        @Override
 	        public int compare(Number o1, Number o2) {
 	            Double d1 = o1.doubleValue();
@@ -48,7 +52,7 @@ public class Util {
 
 	        }
 	    });		
-		return list.get(dados.size()-1);
+		return dados.get(dados.size()-1);		
 	}
 	
 	public static Number getMenorNumber(Map<Object,Number> dados){
