@@ -7,6 +7,7 @@ import java.util.Comparator;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 
 import managedBeans.component.AbstractGraficoInteracaoAssinante;
@@ -65,7 +66,11 @@ public class GraficoInteracaoAssinantesAdmMB extends AbstractGraficoInteracaoAss
 	@Override
 	public BufferedImage createReportImage() {
 		try {
-			return assinanteComponent.createReportImage(totalBarras);
+			BufferedImage createReportImage = assinanteComponent.createReportImage(totalBarras);
+			File f = new File("/home/desenv/createReportImage.png");
+			ImageIO.write(createReportImage, "png", f);
+			f.createNewFile();
+			return createReportImage;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

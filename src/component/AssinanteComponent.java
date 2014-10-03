@@ -228,6 +228,7 @@ public class AssinanteComponent {
 	}
 
 	public BufferedImage createReportImage(List<Assinante> totalBarras) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+			
 		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
 				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
 				chartTitle);
