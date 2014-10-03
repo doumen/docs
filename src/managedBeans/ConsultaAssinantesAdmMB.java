@@ -216,8 +216,10 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaMB<Assinante> {
 	}
 
 	public void upload() {
-		System.out.println("Uploaded file name : " + file.getFileName());
-		selected.getCertificadoA1().setNome(file.getFileName());
+		if (file != null){
+			System.out.println("Uploaded file name : " + file.getFileName());
+			selected.getCertificadoA1().setNome(file.getFileName());
+		}
 	}
 
 	public void ajaxPlanos() {

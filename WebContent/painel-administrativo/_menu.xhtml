@@ -4,28 +4,28 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:menu styleClass="painel">
-		<p:submenu label="Processos" styleClass="iconesMenu"
+	<p:menu styleClass="painel" id="painelMenu">
+		<p:submenu label="Processos" styleClass="iconesMenu" id="submenuPainel"
 			style="background-image: url('resources/images/processo.png') !important;">
-			<p:menuitem value="Assinantes"
+			<p:menuitem value="Assinantes" id="menuitemAss"
 				action="consulta-assinantes-adm?faces-redirect=true" />
-			<p:menuitem value="Contabilidade"
+			<p:menuitem value="Contabilidade" id="menuitemCont"
 				action="consulta-contabilidades-adm?faces-redirect=true" />
-			<p:menuitem value="Planos"
+			<p:menuitem value="Planos" id="menuitemPlanos"
 				action="consulta-planos-adm?faces-redirect=true" />
 		</p:submenu>
-		<p:submenu label="Relatórios" styleClass="iconesMenu"
+		<p:submenu label="Relatórios" styleClass="iconesMenu" id="submenuRelatorios"
 			style="background-image: url('resources/images/relatorio.gif') !important;">
-			<p:menuitem value="Consumo por Assinante"
+			<p:menuitem value="Consumo por Assinante" id="menuitemConsumo"
 				action="relatorio-consumo-assinante-adm?faces-redirect=true" />
-			<p:menuitem value="Contratação X Consumo"
+			<p:menuitem value="Contratação X Consumo" id="menuitemContratacao"
 				action="relatorio-contratacao-consumo-adm?faces-redirect=true" />
 		</p:submenu>
-		<p:submenu label="Gráficos" styleClass="iconesMenu"
+		<p:submenu label="Gráficos" styleClass="iconesMenu" id="submenuGraficos"
 			style="background-image: url('resources/images/grafico.gif') !important;">
-			<p:menuitem value="Interação X Assinante"
+			<p:menuitem value="Interação X Assinante" id="menuitemInteracao"
 				action="grafico-interacao-assinante-adm?faces-redirect=true" />
-			<p:menuitem value="Manipulação Doctos X Assinantes"
+			<p:menuitem value="Manipulação Doctos X Assinantes" id="menuitemManipulacao"
 				action="grafico-doctos-assinante-adm?faces-redirect=true" />
 		</p:submenu>
 	</p:menu>

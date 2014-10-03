@@ -12,7 +12,7 @@
 #rodape {
 	background-color: #21E121;
 	background-image: none;
-	width: 100%;
+	width: 99%;
 	position: fixed;
 	bottom: 0;
 	text-align: center;
@@ -49,6 +49,10 @@
 
 
 /* Padrão */
+.panelTitulo{
+	width: 99.5%;
+	height: 700px;
+}
 .panelTitulo.ui-panel .ui-panel-titlebar { /* Painel de título */
 	background-color: #21E121;
 	background-image: none;
@@ -65,6 +69,19 @@
 }
 
 /* Página de Login */
+.panelTituloLogin{
+	width: 99.5%;
+}
+.panelTituloLogin.ui-panel .ui-panel-titlebar { /* Painel de título */
+	background-color: #21E121;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
+
+.panelTituloLogin.ui-panel .ui-panel-title {
+	margin: auto;
+}
 #formLogin {
 	width: 500px;
 	height: 200px;
@@ -100,3 +117,71 @@
 	background-color: transparent !important;
 }
 
+.panelTituloRelatorio{
+	width: 99.5%;
+	height: 100% !important;
+}
+.panelTituloRelatorio.ui-panel .ui-panel-titlebar {
+	background-color: #21E121;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
+.panelTituloRelatorio.ui-panel .ui-panel-title {
+	margin: auto;
+}
+
+/*Painel*/
+#panelgridPainelMenu{
+	width: 100% !important;
+}
+#panelgridMenu{
+	position: relative;
+	width: 25%;
+	float: left;
+	margin-left: -10px;
+}
+#panelgridGraficos{
+	position: relative !important;
+	float:right;
+	width: 75% !important;
+}
+.grafico { /* Gráficos da Tela */
+	width: 100%;
+	margin: auto !important;
+	font-size: 13px;
+}
+.g_c1{
+	width: 50%;
+}
+.g_c2{
+	width: 50%;
+}
+
+.painel.ui-menu { /* Menu */
+	border-radius: 0px;
+	width: 97%;
+	font-size: 13px;
+	background-image: none;
+}
+
+.painel.ui-menu .ui-widget-header { /* Título SubMenu */
+	background-color: #21E121;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.painel.ui-menu .ui-menu-list { /* Tamanho título Submenu */
+	width: 93%;
+}
+
+.painel .ui-menu .ui-menuitem-link { /* Itens do menu */
+	color: #FFFFFF;
+	font-weight: bold;
+	text-align: center;
+}
+
+.iconesMenu { /* Ícones do SubMenu */
+	background: no-repeat 2%;
+	padding-left: 20px !important;
+}

@@ -20,7 +20,7 @@
 						<p:tooltip for="cmlHelp" value="#{help}" />
 					</c:if>
 				</f:facet>
-				<div style="float: right;">
+				<div id="consulta_botoes">
 					<p:commandButton id="cbIncluir" value="" update="dlgIncluir"
 						styleClass="botaoConsulta" action="#{bean.carregarPopUpIncluir}"
 						style="background-image: url('resources/images/incluir.gif') !important;"
@@ -43,10 +43,10 @@
 						style="background-image: url('resources/images/excluir.gif') !important;" />
 					<p:tooltip for="cmbExcluir" value="Excluir" />
 
-					<h:commandLink id="cbImprimir" actionListener="#{bean.print()}">
-						<p:graphicImage name="/images/imprimir.gif"
-							styleClass="botaoImprimir_pgConsulta" />
-					</h:commandLink>
+					<h:commandButton id="cbImprimir" actionListener="#{bean.print()}"
+					style="background-image: url('resources/images/imprimir.gif') !important;"
+							styleClass="botaoImprimir" >
+					</h:commandButton>
 
 					<p:tooltip for="cbImprimir" value="Imprimir" />
 				</div>

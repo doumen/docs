@@ -4,20 +4,23 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 
-	<p:menu>
-		<p:submenu label="Cadastro">
-			<p:menuitem value="Assinante" action="cadastro-assinante-ass?faces-redirect=true"></p:menuitem>
+	<p:menu styleClass="painel" id="painelMenu">
+		<p:submenu label="Cadastro" styleClass="iconesMenu" id="submenuCadastro"
+			style="background-image: url('resources/images/pencil.png') !important;">
+			<p:menuitem value="Assinante" action="cadastro-assinante-ass?faces-redirect=true"/>
 		</p:submenu>
-		<p:submenu label="Processos">
-			<p:menuitem value="NF-e" action="consulta-nfe-ass?faces-redirect=true"></p:menuitem>
-			<p:menuitem value="CT-e" action="consulta-cte-ass?faces-redirect=true"></p:menuitem>
-			<p:menuitem value="Sped Fiscal" action="consulta-speed-fiscal-ass?faces-redirect=true"></p:menuitem>
-			<p:menuitem value="Sped Contribuições" action="consulta-speed-contribuicoes-ass?faces-redirect=true"></p:menuitem>
-			<p:menuitem value="Sped Social" action="consulta-speed-social-ass?faces-redirect=true"></p:menuitem>			
+		<p:submenu label="Processos" styleClass="iconesMenu" id="submenuProcessos"
+			style="background-image: url('resources/images/processo.png') !important;">
+			<p:menuitem value="NF-e" action="consulta-nfe-ass?faces-redirect=true"/>
+			<p:menuitem value="CT-e" action="consulta-cte-ass?faces-redirect=true"/>
+			<p:menuitem value="Sped Fiscal" action="consulta-speed-fiscal-ass?faces-redirect=true"/>
+			<p:menuitem value="Sped Contribuições" action="consulta-speed-contribuicoes-ass?faces-redirect=true"/>
+			<p:menuitem value="Sped Social" action="consulta-speed-social-ass?faces-redirect=true"/>			
 		</p:submenu>
-		<p:submenu label="Gerencial">
-			<p:menuitem value="Produtos" action="consulta-produtos-ass?faces-redirect=true"></p:menuitem>
-			<p:menuitem value="Faturas" action="consulta-faturas-ass?faces-redirect=true"></p:menuitem>
+		<p:submenu label="Gerencial" styleClass="iconesMenu" id="submenuGerencial"
+			style="background-image: url('resources/images/reports.png') !important;">
+			<p:menuitem value="Produtos" action="consulta-produtos-ass?faces-redirect=true"/>
+			<p:menuitem value="Faturas" action="consulta-faturas-ass?faces-redirect=true"/>
 		</p:submenu>
 	</p:menu>
 </ui:fragment>

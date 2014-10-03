@@ -12,7 +12,7 @@
 #rodape {
 	background-color: #FF7F24;
 	background-image: none;
-	width: 100%;
+	width: 99%;
 	position: fixed;
 	bottom: 0;
 	text-align: center;
@@ -48,6 +48,10 @@
 }
 
 /* Padrão */
+.panelTitulo{
+	width: 99.5%;
+	height: 600px;
+}
 .panelTitulo.ui-panel .ui-panel-titlebar { /* Painel de título */
 	background-color: #FF7F24;
 	background-image: none;
@@ -64,6 +68,21 @@
 }
 
 /* Página de Login */
+.panelTituloLogin{
+	width: 99.5%;
+}
+.panelTituloLogin.ui-panel .ui-panel-titlebar { /* Painel de título */
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
+
+.panelTituloLogin.ui-panel .ui-panel-title {
+	margin: auto;
+}
+
+
 #formLogin {
 	width: 500px;
 	height: 200px;
@@ -98,10 +117,8 @@
 
 /* Painel */
 .painel.ui-menu { /* Menu */
-	margin-left: -8%;
-	margin-top: -50.4%;
 	border-radius: 0px;
-	width: 120%;
+	width: 97%;
 	font-size: 13px;
 	background-image: none;
 }
@@ -118,13 +135,11 @@
 
 .painel.ui-inputfield {
 	/* Caixa de texto de informação de evolução de vendas */
-	margin-left: -8%;
-	margin-top: -2.5%;
 	font-size: 12px;
 	box-shadow: none;
 	border-radius: 0;
 	text-align: center;
-	width: 119.5%;
+	width: 97%;
 	padding-top: 15px;
 }
 
@@ -152,8 +167,8 @@
 }
 .pa1{
 	position: relative !important;
-	width: 480px !important;
-	height: 300px !important;
+	width: 350px !important;
+	height: 250px !important;
 	top: 35% !important;
 	margin-top: 0px !important;
 	left: 52% !important;
@@ -161,8 +176,8 @@
 }
 .pa2{
 	position: relative !important;
-	width: 480px !important;
-	height: 300px !important;
+	width: 350px !important;
+	height: 250px !important;
 	top: 25% !important;
 	margin-top: 0px !important;
 	left: 52% !important;
@@ -170,8 +185,8 @@
 }
 .pa3{
 	position: relative !important;
-	width: 480px !important;
-	height: 300px !important;
+	width: 350px !important;
+	height: 250px !important;
 	top: 50% !important;
 	margin-top: 0px !important;
 	left: 52% !important;
@@ -179,8 +194,8 @@
 }
 .pa4{
 	position: relative !important;
-	width: 480px !important;
-	height: 300px !important;
+	width: 350px !important;
+	height: 250px !important;
 	top: 50% !important;
 	margin-top: 0px !important;
 	left: 52% !important;
@@ -188,6 +203,7 @@
 }
 
 .menu{
+	position: relative;
 	width: 100%;
 }
 .m_c1{
@@ -212,6 +228,16 @@
 	background-color: #FFFFFF;
 	border-color: #FFFFFF;
 }
+.botaoImprimir { /* Botões de Crud e Impressão */
+	background-repeat: no-repeat !important;
+	background-position: center;
+	width: 30px;
+	height: 28px;
+	background-color: transparent !important;
+	border-color: transparent !important;
+
+}
+
 
 /* Pop-Up Assinantes */
 .Assinantes.ui-dialog { /* Dimensões do Pop-Up */
@@ -1179,9 +1205,6 @@
 .tamanhoZoom{
 	margin-top: 2px;
 }
-.botaoImprimir_pgConsulta{
-	margin-bottom: 5px;
-}
 .uploadFile.ui-fileupload{
 	width: 90%;
 }
@@ -1193,4 +1216,36 @@
 	background-position: left;
 	height: 35px;
 	font-weight: bold;
+}
+
+#panelgridPainelMenu{
+	width: 100% !important;
+}
+#panelgridMenu{
+	position: relative;
+	width: 25%;
+	float: left;
+	margin-left: -10px;
+}
+#panelgridGraficos{
+	position: relative !important;
+	float:right;
+	width: 65% !important;
+}
+#consulta_botoes{
+	float: right;
+}
+
+.panelTituloRelatorio{
+	width: 99.5%;
+	height: 100% !important;
+}
+.panelTituloRelatorio.ui-panel .ui-panel-titlebar {
+	background-color: #FF7F24;
+	background-image: none;
+	color: #FFFFFF;
+	border-radius: 0px;
+}
+.panelTituloRelatorio.ui-panel .ui-panel-title {
+	margin: auto;
 }

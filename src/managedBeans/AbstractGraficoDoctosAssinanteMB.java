@@ -22,7 +22,7 @@ import factory.GraficoDoctosAssinanteFactory;
 public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
 
 	@ManagedProperty(value="#{loginBean}")
-	private LoginBean loginBean;
+	protected LoginBean loginBean;
 	
 	public void setLoginBean(LoginBean loginBean){
 		this.loginBean = loginBean;
