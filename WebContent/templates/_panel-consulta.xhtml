@@ -40,7 +40,7 @@
 					<p:commandButton id="cmbExcluir" value="" process="dataTable"
 						update="dlgExcluir,dlgExcluirConfirm"
 						oncomplete="PF('dlgExcluir').show()" styleClass="botaoConsulta"
-						style="background-image: url('resources/images/excluir.gif') !important;" />
+						style="background-image: url('resources/images/excluir.gif') !important;" rendered="#{loginBean.moduloAdministrativo}"/>
 					<p:tooltip for="cmbExcluir" value="Excluir" />
 
 					<h:commandButton id="cbImprimir" actionListener="#{bean.print()}"

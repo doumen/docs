@@ -7,7 +7,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import model.Contabilidade;
-
+import model.TipoInclusao;
 import component.ContabilidadeComponent;
 
 @ManagedBean
@@ -17,6 +17,7 @@ public class CadastroContabilidadeConMB {
 	private Contabilidade selected;
 	
 	public void alterar(){
+		selected.setTipoInclusao(TipoInclusao.MODULO_CONTABILIDADE);
 		contabilidadeComponent.alterar(selected);
 	}
 	
@@ -32,7 +33,7 @@ public class CadastroContabilidadeConMB {
 
 	@PostConstruct
 	public void init(){
-		setSelected(loginBean.getAssinante().getContabilidade());
+		setSelected(loginBean.getUsuario().getAssinante().getContabilidade());		
 	}
 
 	public Contabilidade getSelected() {

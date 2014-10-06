@@ -71,7 +71,15 @@ public class Util {
 		
 
 	public static String getLabelTipoInclusao(TipoInclusao inclusao){
-		return inclusao==TipoInclusao.MODULO_ADMINISTRATIVO?"Módulo Administrativo":null;
+		if(TipoInclusao.MODULO_ADMINISTRATIVO.equals(inclusao)) {		
+			return "Módulo Administrativo";
+		}	
+		else if(TipoInclusao.MODULO_CONTABILIDADE.equals(inclusao)){			
+			return "Módulo Contabilidade";
+		}
+		else{
+			return "";
+		}
 	}
 	
 	public static StreamedContent convertToStreamedContent(JFreeChart chart,int width,int height) throws IOException{

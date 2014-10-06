@@ -2,6 +2,6 @@
 <!DOCTYPE jasperTemplate PUBLIC "-//JasperReports//DTD Template//EN" "http://jasperreports.sourceforge.net/dtds/jaspertemplate.dtd">
 
 <jasperTemplate>
-	<style name="background" forecolor="#FFA400" backcolor="#FFA400"/>
+	<style name="background" forecolor="#436EEE" backcolor="#436EEE"/>
 	<style name="infoColor" forecolor="#FFFFFF" backcolor="#FFFFFF"/>
 </jasperTemplate>

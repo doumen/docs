@@ -23,9 +23,7 @@ public class LoginBean {
 	private Usuario usuario  = new Usuario();
 	
 	private List<Assinante> assinantes;
-	
-	private Assinante assinante;
-	
+		
 	private String modulo;
 	
 	private String ultimaUrl;
@@ -42,6 +40,8 @@ public class LoginBean {
 		boolean loginValido = usuarioComponent.validar(usuario,valueOf(getModulo()));
 		if(loginValido){
 			logado = true;
+			if(!valueOf(modulo).equals(Modulo.ADMINISTRATIVO))
+				usuario = usuarioComponent.getUsuario(usuario);
 			return "painel-"+getModulo()+"?faces-redirect=true";			
 		}else{
 			limpar();
@@ -77,14 +77,6 @@ public class LoginBean {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Assinante getAssinante() {
-		return assinante==null?new Assinante():assinante;
-	}
-
-	public void setAssinante(Assinante assinante) {
-		this.assinante = assinante;
 	}
 
 	public List<Assinante> getAssinantes() {
@@ -137,5 +129,9 @@ public class LoginBean {
 		default:
 			return null;
 		}
+	}
+	
+	public boolean isModuloAdministrativo(){
+		return Modulo.ADMINISTRATIVO.equals(valueOf(modulo));
 	}
 }

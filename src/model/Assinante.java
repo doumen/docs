@@ -289,7 +289,7 @@ public class Assinante implements Comparable<Assinante> {
 
 	@Override
 	public String toString() {
-		return razaoSocial;
+		return nomeFantasia==null?razaoSocial:nomeFantasia;
 	}
 
 	@Override

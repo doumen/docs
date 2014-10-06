@@ -1,23 +1,17 @@
 package managedBeans;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import model.Assinante;
 import model.Contabilidade;
 import model.Plano;
 import model.TipoInclusao;
-import model.Usuario;
-import model.Util;
 
 import org.primefaces.context.RequestContext;
-import org.primefaces.model.UploadedFile;
 
 import component.AssinanteComponent;
 
@@ -25,14 +19,6 @@ import component.AssinanteComponent;
 @ViewScoped
 public class ConsultaAssinantesAdmMB extends AbstractConsultaAssinantesMB {
 
-	private String login;
-	private String senha;
-	private UploadedFile file;
-	private String mascara;
-	private Plano plano;
-	private List<Plano> planos;
-	private Contabilidade contabilidade;
-	private List<Contabilidade> contabilidades;
 
 	public void init() {
 		listTable = assinanteComponent.getAssinantes();
@@ -53,6 +39,7 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaAssinantesMB {
 	public void carregarPopUpAlterar() {
 		if ((selectedList != null) && (!selectedList.isEmpty())) {
 			selected = selectedList.get(0);
+			selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
 			login = "";
 			senha = "";
 		}
@@ -64,103 +51,6 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaAssinantesMB {
 		senha = "";
 	}
 
-	public void adicionaUsuario() {
-		if (validateUsuario()) {
-			Usuario u = new Usuario();
-			u.setAssinante(selected);
-			u.setDataInclusao(Calendar.getInstance());
-			u.setLogin(login.trim());
-			u.setSenha(senha.trim());
-			selected.addUsuario(u);
-		}
-	}
-
-	public void removeUsuario() {
-		selected.removeUsuario(selected.getUsuarios().get(
-				selected.getUsuarios().size() - 1));
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public UploadedFile getFile() {
-		return file;
-	}
-
-	public void setFile(UploadedFile file) {
-		this.file = file;
-	}
-
-	public String mascaraInscrEstadual() {
-		mascara = Util.getMascaraCnpj(selected.getUf());
-		return mascara;
-	}
-
-	public String getMascara() {
-		return mascara;
-	}
-
-	public void setMascara(String mascara) {
-		this.mascara = mascara;
-	}
-
-	@Override
-	public void setSelected(Assinante selected) {
-		if (selected != null && selected.getUf() != null)
-			this.selected = selected;
-		else if (selectedList != null && !selectedList.isEmpty())
-			this.selected = selectedList.get(0);
-		setMascara(this.mascaraInscrEstadual());
-	}
-
-	public Plano getPlano() {
-		return plano;
-	}
-
-	public void setPlano(Plano plano) {
-		this.plano = plano;
-	}
-
-	public List<Plano> getPlanos() {
-		return planos;
-	}
-
-	public void setPlanos(List<Plano> planos) {
-		this.planos = planos;
-	}
-
-	public Contabilidade getContabilidade() {
-		return contabilidade;
-	}
-
-	public void setContabilidade(Contabilidade contabilidade) {
-		this.contabilidade = contabilidade;
-	}
-
-	public List<Contabilidade> getContabilidades() {
-		return contabilidades;
-	}
-
-	public void setContabilidades(List<Contabilidade> contabilidades) {
-		this.contabilidades = contabilidades;
-	}
-
-	public boolean validateUsuario() {
-		return super.validateUsuario(login, senha, selected.getUsuarios());
-	}
 
 	@Override
 	public void incluir() {

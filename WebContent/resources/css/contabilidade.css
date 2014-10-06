@@ -339,3 +339,503 @@ width: 16px;height: 16px;
 	background: no-repeat 2%;
 	padding-left: 20px !important;
 }
+
+#consulta_botoes{
+	float: right;
+}
+.botaoConsulta.ui-button { /* Botões de Crud e Impressão */
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+	height: 28px;
+	background-color: #FFFFFF;
+	border-color: #FFFFFF;
+}
+/* Pop-Up Assinantes */
+.Assinantes.ui-dialog { /* Dimensões do Pop-Up */
+	width: 600px !important;
+	height: 640px !important;
+	position: absolute !important;
+	top: 25% !important;
+	margin-top: -100px !important;
+	left: 45% !important;
+	margin-left: -250px !important;
+}
+
+.Assinantes .ui-dialog-titlebar { /* Título do Pop-Up */
+	background-color: #436EEE;
+	background-image: none;
+	color: #FFFFFF;
+}
+
+.Assinantes .ui-icon { /* Ícone de fechar */
+	background-color: #FFFFFF;
+}
+
+.Assinantes .ui-panel-content { /* Alinhamento painel interno */
+	padding: 0 !important;
+	font-size: 13px;
+}
+/* Tabs */
+.tabDados .ui-tabs-panel { /* TabView */
+	padding: 0 !important;
+}
+
+.dadosAssinantes {
+	border-radius: 0;
+	border: 0 none;
+	padding: 0 !important;
+}
+
+.pnlgInformacao {
+	color: #9C9C9C;
+}
+
+.pnlgInformacao_c1, .pnlgInformacao_c2, .pnlgInformacao_c3,
+	.pnlgInformacao_c4, .pnlgInformacao_c5, .pnlgInformacao_c6 {
+	font-size: 12px;
+}
+
+.pnlgInformacao_c3 {
+	width: 17%;
+	text-align: left;
+}
+
+.pnlgInformacao_c1 {
+	width: 6.5%;
+}
+
+.pnlgInformacao_c2 {
+	width: 17%;
+	text-align: left;
+}
+.pnlgInformacao_c4{
+	width: 5%;
+}
+.pnlgInformacao_c6 {
+	width: 10%;
+}
+
+.iptCodAss {
+	width: 60%;
+	text-align: center;
+}
+
+.oplDtInclusao, .oplTpInclusao, .oplNumero {
+	float: right;
+}
+
+.iptDtInclusao .ui-inputfield {
+	width: 90%;
+	text-align: center;
+}
+
+.iptTpInclusao {
+	width: 94%;
+}
+
+.iptDadosAssinantes {
+	position: relative;
+	left: 0.6%;
+	width: 96%;
+}
+
+.pnlgEndereco_c1 {
+	width: 80%;
+}
+
+.iptEndereco {
+	width: 97%;
+}
+
+.pnlgEndereco_c2 {
+	width: 5%;
+}
+
+.pnlgEndereco_c3 {
+	width: 11%;
+}
+
+.iptNumero {
+	width: 72%;
+}
+
+.iptBairro {
+	position: relative;
+	left: 0.6%;
+}
+
+.iptCep {
+	position: relative;
+	left: 0.6%;
+	width: 40%;
+}
+
+.selectUf{
+	margin-left: 20%;
+}
+
+.selectUf .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent !important;
+}
+
+.selectUf .ui-icon, .codPlanoAss .ui-icon, .codContAss .ui-icon { /* Ícone do selectOneMenu */
+	background-color: transparent !important;
+}
+
+.dataTableUsuariosAss.ui-datatable /* DataTable Usuário */ {
+	width: 90%;
+	white-space: normal !important;
+}
+
+.dadosUsuarios .ui-fieldset-legend { /* Título do fieldset */
+	background-color: transparent;
+	border: 0 solid #A8A8A8;
+}
+
+.dadosUsuarios.ui-fieldset { /* fieldset */
+	padding-top: 0px;
+	padding-left: 7px;
+	width: 95%;
+}
+
+.botaoUsuariosAss.ui-button { /* Botões Incluir/Excluir Usuários */
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px !important;
+	height: 28px !important;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.pnlgEndereco, .pngParametrosNotificar, .pnlgInformacao {
+	/*panelGrid Endereço/ParametrosNotificar/Informação*/
+	width: 100%;
+}
+
+/* Tab Plano Contratação */
+.codPlanoAss.ui-inputfield { /* InputText Cód. Plano */
+	text-align: right;
+	width: 30%;
+}
+
+.descPlanoAss.ui-inputfield { /* InputText Descr. Plano */
+	width: 200%;
+}
+
+.vlMensalAss.ui-inputfield { /* InputText Valor Mensal */
+	text-align: right;
+	width: 70%
+}
+
+/* Tab Contabilidade */
+.codContAss.ui-inputfield { /* InputText Cód. Cont. */
+	text-align: right;
+	width: 30%;
+}
+
+.razaoSocialAss.ui-inputfield { /* InputText Razão Social */
+	width: 200%;
+}
+
+/* Tab Parametros */
+.pngParametros {
+	white-space: nowrap;
+}
+
+.pngParametrosNotificar_c2 {
+	font-size: 11px;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.chkNotificar .ui-chkbox-box, .chkNotificar .ui-chkbox-icon {
+	width: 13px !important;
+	height: 13px !important;
+}
+
+.iptEmailMaster, .iptEmailFinanceiro {
+	width: 95%;
+}
+
+.oplAviso, .oplAviso2 {
+	font-size: 9.5px !important;
+	white-space: nowrap;
+}
+
+#botaoIncluirAlterarAss { /* Div Botão Incluir/Alterar */
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarAss .ui-button {
+	/* Botão Incluir/Alterar */
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+.dataListGrafico .ui-paginator.ui-paginator-bottom {
+	/* Paginação do DataList */
+	border-top: 1px solid #A8A8A8 !important;
+	margin-left: -0.9%;
+	margin-right: -0.7%;
+}
+
+
+.dtConsulta{
+	width: 100%;
+	text-align: center;
+	font-size: 11px !important;
+}
+.dtConsulta .ui-datatable-empty-message{
+	text-align: left;
+}
+.c_caa_venc{
+	width: 8.2%;
+	text-align: right;
+}
+.c_caa_codPlano{
+	width: 5.6%;
+	text-align: right;
+}
+.c_caa_Desc{
+	width: 11%;
+	text-align: left;
+}
+.c_caa_vlMensal{
+	width: 8.5%;
+	text-align: right;
+}
+.c_caa_codAss{
+	width: 5.1%;
+	text-align: right;
+}
+.c_caa_cnpj{
+	width: 10.5%;
+	text-align: center;
+}
+.c_caa_razaoSocialAss{
+	width: 11%;
+	text-align: left;
+}
+.c_caa_codCont{
+	width: 5.1%;
+	text-align: right;
+}
+.c_caa_cnpjCont{
+	width: 10.5%;
+	text-align: center;
+}
+.c_caa_razaoSocialCont{
+	width: 11%;
+	text-align: left;
+}
+.c_caa_venc .ui-column-filter, .c_caa_codPlano .ui-column-filter, .c_caa_Desc .ui-column-filter,
+.c_caa_vlMensal .ui-column-filter, .c_caa_codAss .ui-column-filter, .c_caa_cnpj .ui-column-filter,
+.c_caa_razaoSocialAss .ui-column-filter, .c_caa_codCont .ui-column-filter, .c_caa_cnpjCont .ui-column-filter,
+.c_caa_razaoSocialCont .ui-column-filter,
+.c_cca_codCont .ui-column-filter, .c_cca_cnpj .ui-column-filter, .c_cca_razaoSocialCont .ui-column-filter,
+.c_cca_municipio .ui-column-filter, .c_cca_uf .ui-column-filter,
+.c_cpa_codPlano .ui-column-filter, .c_cpa_desc .ui-column-filter, .c_cpa_faixaInicial .ui-column-filter,
+.c_cpa_faixaFinal .ui-column-filter, .c_cpa_valorMensal .ui-column-filter, .c_cpa_valorNfe .ui-column-filter,
+.c_rcad_codAss .ui-column-filter, .c_rcad_cnpj .ui-column-filter, .c_rcad_assinante .ui-column-filter,
+.c_rcad_codPlano .ui-column-filter, .c_rcad_plano .ui-column-filter, .c_rcad_faixaInicial .ui-column-filter,
+.c_rcad_faixaFinal .ui-column-filter, .c_rcad_valorMensal .ui-column-filter, .c_rcad_contCnpj .ui-column-filter,
+.c_rcad_contabilidade .ui-column-filter, .c_rcad_comissao .ui-column-filter, 
+.c_rcad_comissaoMensal .ui-column-filter,
+.c_rcca_codAss .ui-column-filter, .c_rcca_cnpj .ui-column-filter, .c_rcca_assinante .ui-column-filter,
+.c_rcca_codPlano .ui-column-filter, .c_rcca_plano .ui-column-filter, .c_rcca_faixaInicial .ui-column-filter,
+.c_rcca_faixaFinal .ui-column-filter, .c_rcca_numDoctos .ui-column-filter{
+	width: 90% !important;
+	text-align: center;
+	margin: auto;
+}
+
+
+
+
+.c_cca_codCont{
+	width: 5%;
+	text-align: right;
+}
+.c_cca_cnpj{
+	width: 6%;
+	text-align: center;
+}
+.c_cca_razaoSocialCont{
+	width: 30%;
+	text-align: left;
+}
+.c_cca_municipio{
+	width: 10%;
+	text-align: left;
+}
+.c_cca_uf{
+	width: 3%;
+	text-align: center;
+}
+
+.gridBotao{
+	width: 100%;
+}
+.gridBotao_c1{
+	width: 5%;
+}
+.grid_Botao_c2{
+	width: 10%;
+}
+.grid_Botao_c2 .ui-inputtext{
+	width: 70%;
+	text-align: right;
+}
+.grid_Botao_c3{
+	float: right;
+}
+.grid_Botao_c3 .ui-button{
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+
+.gridUsuario{
+	width: 100%;
+}
+.gU_c1, .gU_c6, .gU_c7{
+	width: 4%;
+}
+.gU_c2, .gU_c4, .gU_c5{
+	width: 28%;
+}
+.gU_c3{
+	width: 5%;
+}
+.gU_c6 .ui-button, .gU_c7 .ui-button{
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 18px;
+	height: 28px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.gU_c7 .ui-button, .gUA_c5 .ui-button{
+	float: left;
+}
+
+.gridUsuarioAss{
+	width: 90%;
+}
+
+.gUA_c1, .gUA_c3, .gUA_c5, .gUA_c6{
+	width: 5%;
+}
+.gUA_c2, .gUA_c4{
+	width: 25%;
+}
+.gUA_c5 .ui-button, .gUA_c6 .ui-button{
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 28px;
+	background-color: transparent;
+	border-color: transparent;
+}
+
+
+.c_cpa_codPlano{
+	text-align: right;
+	width: 9%;
+}
+.c_cpa_desc{
+	text-align: left;
+	width: 46%;
+}
+.c_cpa_faixaInicial{
+	text-align: left;
+	width: 10%;
+}
+.c_cpa_faixaFinal{
+	text-align: left;
+	width: 10%;
+}
+.c_cpa_valorMensal{
+	text-align: right;
+	width: 12%;
+}
+.c_cpa_valorNfe{
+	text-align: right;
+	width: 13%;
+}
+
+.c_select{
+	width: 3% !important;
+}
+
+
+.dataTable{
+	width: 100%;
+	white-space: normal;
+	font-size: 11px !important;
+}
+.c_rcad_codAss{
+	text-align: left;
+	width: 5.3%;
+}
+.c_rcad_cnpj{
+	text-align: center;
+	width: 12%;
+}
+.c_rcad_assinante{
+	text-align: left;
+	width: 11%;
+}
+.c_rcad_codPlano{
+	text-align: left;
+	width: 6.4%;
+}
+.c_rcad_plano{
+	width: 10.5%;
+}
+.c_rcad_faixaInicial{
+	text-align: left;
+	width: 6.2%;
+	text-align: left;
+}
+.c_rcad_faixaFinal{
+	text-align: center;
+	width: 5.4%;
+}
+.c_rcad_valorMensal{
+	text-align: right;
+	width: 7%;
+}
+.c_rcad_contCnpj{
+	text-align: center;
+	width: 12%;
+}
+.c_rcad_contabilidade{
+	text-align: left;
+	width: 11%;
+}
+.c_rcad_comissao{
+	text-align: left;
+	width: 6.7%;
+}
+.c_rcad_comissaoMensal{
+	text-align: left;
+	width: 7%;
+}
+.botao_incluirAss{
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+	font-weight: bold;
+}

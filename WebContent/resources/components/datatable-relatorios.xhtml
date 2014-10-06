@@ -18,6 +18,8 @@
 	<composite:attribute name="rowKey" />
 	<composite:attribute name="var" />
 	<composite:attribute name="filteredValue"/>
+	<composite:attribute name="exportPdf" method-signature="void exportPdf(javax.faces.event.ActionEvent)"/>
+	<composite:attribute name="printPdf" method-signature="void printPdf(javax.faces.event.ActionEvent)"/>
 </composite:interface>
 
 <composite:implementation>
@@ -26,7 +28,9 @@
 		paginator="true" paginatorPosition="#{cc.attrs.paginatorPosition}"
 		rows="#{cc.attrs.rows}" 
 		style="font-size:#{relatorioDataTableMB.font}em !important;"
-		styleClass="dataTable" emptyMessage="Nenhum registro encontrado.">
+		styleClass="dataTable" emptyMessage="Nenhum registro encontrado."
+		paginatorTemplate="{FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
+		currentPageReportTemplate="{currentPage} de {totalPages}">
 
 		<c:set target="#{component}" property="var" value="#{cc.attrs.var}" />
 		<c:set target="#{component}" property="filteredValue" value="#{cc.attrs.filteredValue}" />
@@ -54,19 +58,16 @@
 					</h:commandButton>
 				</div>
 				<div id="icones-exportar">
-					<h:commandButton id="cbImprimir" styleClass="botoes"
+					<h:commandButton id="cbImprimir" styleClass="botoes" actionListener="#{cc.attrs.printPdf}"
 						style="background-image: url('resources/images/imprimir.gif') !important;">
-						<p:printer target="#{cc.attrs.id}" />
 					</h:commandButton>
 					<h:commandButton id="cbExcel" styleClass="botoes"
 						style="background-image: url('resources/images/excel.gif') !important;">
 						<p:dataExporter type="xls" target="#{cc.attrs.id}"
 							fileName="dataTable" />
 					</h:commandButton>
-					<h:commandButton id="cbPdf" styleClass="botoes"
-						style="background-image: url('resources/images/pdf.gif') !important;">
-						<p:dataExporter type="pdf" target="#{cc.attrs.id}"
-							fileName="dataTable" />
+					<h:commandButton id="cbPdf" styleClass="botoes" actionListener="#{cc.attrs.exportPdf}"
+						style="background-image: url('resources/images/pdf.gif') !important;">					
 					</h:commandButton>
 				</div>
 			</div>

@@ -1,7 +1,11 @@
 package component;
 
+import java.util.Calendar;
+
 import javax.ejb.Stateless;
 
+import model.Assinante;
+import model.Contabilidade;
 import model.Modulo;
 import model.Usuario;
 
@@ -24,5 +28,20 @@ public class UsuarioComponent {
 
 	public boolean existeUsuario(Usuario u,Modulo modulo) {
 		return validar(u, modulo);
+	}
+
+	public Usuario getUsuario(Usuario usuario) {
+		//select * from usuario where login = usuario.login and senha = usuario.senha and id_assinante = usuario.assinante.id
+		Usuario u = new Usuario();
+		Assinante a = usuario.getAssinante();
+		Contabilidade c = new Contabilidade();
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR,2012);
+		c.setDataInclusao(cal);
+		a.setContabilidade(c);
+		u.setAssinante(a);
+		u.setLogin(usuario.getLogin());
+		
+		return u;
 	}
 }

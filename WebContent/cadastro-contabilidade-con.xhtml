@@ -6,11 +6,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/_panel-titulo.xhtml"
 	xmlns:golive="http://java.sun.com/jsf/composite/components">
-<ui:define name="conteudoPainel">
 	<ui:param name="tituloPainel" value="Cadastro da Contabilidade" />
 	<ui:param name="help" value="Cadastro da Contabilidade" />
 	<ui:param name="modulo" value="contabilidade" />
-	<ui:param name="bean" value="#{consultaContabilidadeAdmMB}" />
+	<ui:param name="bean" value="#{consultaContabilidadeConMB}" />
+
+<ui:define name="conteudoPainel">
 
 		<golive:incluir-contabilidades bean="#{cadastroContabilidadeConMB}" />
 	<h:commandButton action="#{cadastroContabilidadeConMB.alterar}" value="alterar" />			
