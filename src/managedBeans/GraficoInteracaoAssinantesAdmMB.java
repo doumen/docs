@@ -1,13 +1,10 @@
 package managedBeans;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 
 import managedBeans.component.AbstractGraficoInteracaoAssinante;
@@ -53,27 +50,4 @@ public class GraficoInteracaoAssinantesAdmMB extends AbstractGraficoInteracaoAss
 		setMaiorBarra(totalBarras.get(0).getTotalDoctosArmazenados());				
 	}
 
-	@Override
-	public File createAndPopulateCsvFile() {
-		try {
-			return assinanteComponent.createExcelFileGraficoInteracaoAssinantes(totalBarras);					 					  
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	@Override
-	public BufferedImage createReportImage() {
-		try {
-			BufferedImage createReportImage = assinanteComponent.createReportImage(totalBarras);
-			File f = new File("/home/desenv/createReportImage.png");
-			ImageIO.write(createReportImage, "png", f);
-			f.createNewFile();
-			return createReportImage;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}	
 }

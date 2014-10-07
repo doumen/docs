@@ -6,20 +6,20 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import model.Plano;
+import model.Contabilidade;
 
-import component.PlanoComponent;
+import component.ContabilidadeComponent;
 
-@FacesConverter(value = "planoConverter", forClass = Plano.class)
-public class PlanoConverter implements Converter{
-	
+@FacesConverter(value = "contabilidadeConverter", forClass = Contabilidade.class)
+
+public class ContabilidadeConverter implements Converter{
 	@Inject
-	private PlanoComponent planoComponent;
+	private ContabilidadeComponent contabilidadeComponent;
 	
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1,
 			String descricao) {
-		return planoComponent.getPlanoById(descricao);
+		return contabilidadeComponent.getContabilidadeById(descricao);
 	}
 
 	@Override

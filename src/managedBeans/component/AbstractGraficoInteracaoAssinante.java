@@ -2,7 +2,10 @@ package managedBeans.component;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -11,13 +14,20 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
+import jfreechart.JFreeChartExporter;
 import managedBeans.LoginBean;
 import managedBeans.components.RelatorioJasperMB;
+import model.Assinante;
 import model.GraficoInteracaAssinante;
 import net.sf.jasperreports.engine.JRException;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.jfree.chart.JFreeChart;
 import org.omnifaces.util.Faces;
+
+import excel.ExcelExporter;
 
 public abstract class AbstractGraficoInteracaoAssinante<T> {
 
@@ -41,6 +51,10 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 		this.loginBean = loginBean;
 	}
 
+	public LoginBean getLoginBean(){
+		return this.loginBean;		
+	}
+	
 	@PostConstruct
 	public void init(){
 		nMaxAssPp =10;
@@ -55,6 +69,8 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 		ordeneTotalBarrasCrescenteEajusteAmaiorBarra();
 		setOrdem(-1);
 		popularBarras();
+		jFreeChartExporter = new JFreeChartExporter();
+		excelExporter = new ExcelExporter();
 	}
 
 	public abstract void ordeneTotalBarrasCrescenteEajusteAmaiorBarra();
@@ -259,26 +275,109 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	    Faces.sendFile(createAndPopulateCsvFile(), true);
 	    f.delete();
 	}
-	
-	public abstract File createAndPopulateCsvFile();
-	
+		
 	public void downloadPdf() throws JRException, IOException{
-		RelatorioJasperMB<GraficoInteracaAssinante> rj = new RelatorioJasperMB<>();
-		List<GraficoInteracaAssinante> b = new ArrayList<>();
-		BufferedImage image = createReportImage();
-		GraficoInteracaAssinante g = new GraficoInteracaAssinante();
-		g.setGrafico(image);
-		b.add(g);
-		rj.setBeans(b);
-		Map<String, Object> parametros = new HashMap<>();
-		parametros.put("grafico", image);
-		rj.setParametros(parametros);
-		rj.setReport("grafico-interacao-assinante");
-//		rj.setTemplate(rj.getReport());
-		rj.setTemplate("template_landscape");
-		rj.setModulo(loginBean.getModulo());
-		rj.downloadReport();
+		try{
+			RelatorioJasperMB<GraficoInteracaAssinante> rj = createAndloadRelatorioJasperParameters();
+			rj.downloadReport();	    	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	private RelatorioJasperMB<GraficoInteracaAssinante> createAndloadRelatorioJasperParameters(){
+		RelatorioJasperMB<GraficoInteracaAssinante> r = new RelatorioJasperMB<GraficoInteracaAssinante>();
+    	List<GraficoInteracaAssinante> graficosInteracaAssinante = new ArrayList<>();
+    	GraficoInteracaAssinante g = new GraficoInteracaAssinante();
+    	g.setGrafico(createReportImage());
+    	graficosInteracaAssinante.add(new GraficoInteracaAssinante());
+    	graficosInteracaAssinante.add(g);    	
+    	r.setTemplate("template_landscape");//
+    	r.setBeans(graficosInteracaAssinante);
+    	r.setReport("grafico-interacao-assinante");
+    	r.setModulo(loginBean.getModulo());
+		return r;
 	}
 	
-	public abstract BufferedImage createReportImage();
+	public void pdf(){
+		try{
+			RelatorioJasperMB<GraficoInteracaAssinante> rj = createAndloadRelatorioJasperParameters();
+			File f = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+rj.getReport()+".jasper"));
+			System.out.println("O relatório" + rj.getReport() + " foi encontrado ? " + f.exists());
+			rj.downloadReport();	    	
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}	
+	
+	private String labelTitle = "Assinantes";
+	private String dataTitle = "Total Doctos";
+	private String sheetName = "Dados";
+	private String chartTitle = "Gráfico de Interação por Assinante";
+	
+	private Method getLabelMethod() throws NoSuchMethodException, SecurityException{
+		return Assinante.class.getMethod("getNomeFantasia");
+	}	
+	private Method getDataMethod() throws NoSuchMethodException, SecurityException{
+		return Assinante.class.getMethod("getTotalDoctosArmazenados");
+	}
+
+	private JFreeChartExporter jFreeChartExporter;
+
+	public File createExcelFileGraficoInteracaoAssinantes(List<T> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		
+		String filePath = "/home/desenv/grafico-interacao-assinante.xls";
+
+		HSSFWorkbook workbook = excelExporter
+				.createHSSFWorkbook(totalBarras, getLabelMethod(), getDataMethod(),
+						labelTitle, dataTitle, sheetName);
+		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
+				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
+				chartTitle);
+
+		excelExporter.writeJFreeChartOnHSSFWorkbook(barChart, workbook,
+				sheetName, 15 * totalBarras.size(), 480, 4, 5);
+
+		FileOutputStream out = new FileOutputStream(new File(filePath));
+		workbook.write(out);
+		out.close();
+		return new File(filePath);
+	}
+	
+	public BufferedImage createReportImage(List<T> totalBarras) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return createGraficoInteracaoAssinantes(totalBarras).createBufferedImage(802, 425);
+	}
+	
+	public JFreeChart createGraficoInteracaoAssinantes(List<T> totalBarras) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+		return jFreeChartExporter.createBarChart(totalBarras,
+				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
+				chartTitle);
+	}
+	private ExcelExporter excelExporter;
+	
+	
+	public File createAndPopulateCsvFile() {
+		try {
+			return createExcelFileGraficoInteracaoAssinantes(totalBarras);					 					  
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	public JFreeChart createReportImage() {
+		try {
+			/*
+			BufferedImage createReportImage = assinanteComponent.createReportImage(totalBarras);
+			File f = new File("/home/desenv/createReportImage.png");
+			ImageIO.write(createReportImage, "png", f);
+			f.createNewFile();
+			*/
+			return createGraficoInteracaoAssinantes(totalBarras);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}	
 }

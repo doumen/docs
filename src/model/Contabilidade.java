@@ -48,7 +48,7 @@ public class Contabilidade implements Serializable {
 	}
 
 	public String getRazaoSocial() {
-		return razaoSocial;
+		return razaoSocial==null?"":razaoSocial;
 	}
 
 	public void setRazaoSocial(String razaoSocial) {
@@ -216,6 +216,23 @@ public class Contabilidade implements Serializable {
 
 	public String getCnpjFormatado() {
 		return Util.formatCnpj(cnpj);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this==obj)
+			return true;
+		if(!(obj instanceof Contabilidade))
+			return false;
+		Contabilidade c = (Contabilidade) obj;
+		return getRazaoSocial().equals(c.getRazaoSocial());		
+	}
+	
+	@Override
+	public int hashCode() {
+		int r = 17;
+		r = 31*r + getRazaoSocial().hashCode();
+		return r;
 	}
 	
 	}

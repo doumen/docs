@@ -1,19 +1,17 @@
 package managedBeans;
 
-import java.util.ArrayList;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import model.Contabilidade;
-import model.Plano;
 import model.TipoInclusao;
 
 import org.primefaces.context.RequestContext;
 
 import component.AssinanteComponent;
+import component.ContabilidadeComponent;
+import component.PlanoComponent;
 
 @ManagedBean
 @ViewScoped
@@ -24,18 +22,19 @@ public class ConsultaAssinantesAdmMB extends AbstractConsultaAssinantesMB {
 		listTable = assinanteComponent.getAssinantes();
 		filteredList = assinanteComponent.getAssinantes();
 
-		planos = new ArrayList<Plano>();
-		planos.add(new Plano((long) 1, "Plano 01", 99.90));
-		planos.add(new Plano((long) 2, "Plano 02", 59.90));
-
-		contabilidades = new ArrayList<Contabilidade>();
-		contabilidades.add(new Contabilidade((long) 1, "Contabilidade 01"));
-		contabilidades.add(new Contabilidade((long) 2, "Contabilidade 02"));
+		planos = planoComponent.getPlanos();
+		contabilidades = contabilidadeComponent.getContabilidades();
 	}
 
 	@Inject
 	private AssinanteComponent assinanteComponent;
 
+	@Inject
+	private PlanoComponent planoComponent;
+	
+	@Inject
+	private ContabilidadeComponent contabilidadeComponent;
+	
 	public void carregarPopUpAlterar() {
 		if ((selectedList != null) && (!selectedList.isEmpty())) {
 			selected = selectedList.get(0);

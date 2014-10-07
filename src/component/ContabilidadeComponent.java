@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 
 import model.Contabilidade;
 import model.SiglaEstado;
-import model.TipoInclusao;
 import model.Usuario;
 
 @Stateless
@@ -28,8 +27,8 @@ public class ContabilidadeComponent {
 		c.setCnpj("26879634000150");
 		c.setMunicipio("municipio " + i);
 		c.setUf(SiglaEstado.SP);
-		c.setRazaoSocial("Contabilidade " + i);
-		c.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
+		c.setRazaoSocial("RZS Contabilidade " + i);
+		c.setNomeFantasia("Contabildiade " + i);
 		c.setDataInclusao(Calendar.getInstance());
 		c.setEndereco("Endereço " + i);
 		c.setEnderecoNumero(String.valueOf(i));
@@ -61,5 +60,14 @@ public class ContabilidadeComponent {
 	public void alterar(Contabilidade selected) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Object getContabilidadeById(String descricao) {
+		for(Contabilidade c :getContabilidades()){
+			if(c.getRazaoSocial().equals(descricao)){
+				return c;
+			}
+		}
+		return null;
 	}
 }

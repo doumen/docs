@@ -1,17 +1,15 @@
 package managedBeans;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import managedBeans.component.AbstractGraficoInteracaoAssinante;
 import model.Assinante;
+
 import component.AssinanteComponent;
 
 @ManagedBean
@@ -21,16 +19,9 @@ public class GraficoInteracaoAssinantesConMB extends AbstractGraficoInteracaoAss
 	@Inject
 	private AssinanteComponent assinanteComponent;
 	
-	@ManagedProperty(value="#{loginBean}")
-	private LoginBean loginBean;
-	
-	public void setLoginBean(LoginBean loginBean){
-		this.loginBean = loginBean;
-	}
-
 	@Override
 	public void loadTotalBarras() {
-		totalBarras = assinanteComponent.getAssinantes(loginBean.getUsuario().getContabilidade());		
+		totalBarras = assinanteComponent.getAssinantes(getLoginBean().getUsuario().getContabilidade());		
 	}
 
 	@Override
@@ -58,24 +49,5 @@ public class GraficoInteracaoAssinantesConMB extends AbstractGraficoInteracaoAss
 		});
 		setMaiorBarra(totalBarras.get(0).getTotalDoctosArmazenados());				
 	}
-
-	@Override
-	public File createAndPopulateCsvFile() {
-		try {
-			return assinanteComponent.createExcelFileGraficoInteracaoAssinantes(totalBarras);					 					  
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
 	
-	@Override
-	public BufferedImage createReportImage() {
-		try {
-			return assinanteComponent.createReportImage(totalBarras);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}	
 }

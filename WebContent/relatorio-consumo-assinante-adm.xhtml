@@ -18,7 +18,11 @@
 			onSort="#{relatorioConsumoAssinanteAdmMB.onSort}"
 			sortBy="#{list.contabilidade.cnpj}" rowKey="#{list.id}"
 			rendered="true"
-			filteredValue="#{relatorioConsumoAssinanteAdmMB.filteredList}">
+			filteredValue="#{relatorioConsumoAssinanteAdmMB.filteredList}"
+			exportExcel="#{relatorioConsumoAssinanteAdmMB.exportExcel}"
+			exportPdf="#{relatorioConsumoAssinanteAdmMB.exportPdf}"
+			printPdf="#{relatorioConsumoAssinanteAdmMB.printPdf}">
+			
 
 			<p:column headerText="Cód. Ass" sortBy="#{list.id}" id="codAss" styleClass="c_rcad_codAss" filterBy="#{list.id}" filterMatchMode="contains">
 				<h:outputText value="#{list.id}" />

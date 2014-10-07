@@ -7,7 +7,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 
 import model.Plano;
-import model.TipoInclusao;
 
 @Stateless
 public class PlanoComponent {
@@ -22,10 +21,18 @@ public class PlanoComponent {
 			c.setValorMensal(i * 1.2);
 			c.setValorNfeAdicional(i * 1.5);
 			c.setDataInclusao(Calendar.getInstance());
-			c.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
 
 			planos.add(c);
 		}
 		return planos;
+	}
+
+	public Plano getPlanoById(String descricao) {
+		for(Plano p : getPlanos()){
+			if(p.getDescricao().equals(descricao)){
+				return p;
+			}
+		}
+		return null;
 	}
 }

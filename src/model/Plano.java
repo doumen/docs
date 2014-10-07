@@ -23,7 +23,7 @@ public class Plano {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return descricao==null?"":descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -113,7 +113,7 @@ public class Plano {
 	}
 	
 	public String getValorMensalFormatado(){
-		return Util.formatCurrency(valorMensal);
+		return valorMensal==0.0d?null:Util.formatCurrency(valorMensal);
 	}
 	
 	public String getValorNfeAdicionalFormatado(){

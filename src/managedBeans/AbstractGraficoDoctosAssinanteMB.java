@@ -65,7 +65,6 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
     	List<GraficoDoctosAssinante> graficosDoctosAssinante = new ArrayList<>();
     	Calendar c = Calendar.getInstance();
     	c.set(Calendar.MONTH, 0);
-    	
     	for(Assinante as:assinantes){
     		graficosDoctosAssinante.add(graficoDoctosAssinanteAdmFactory.createGrafico(as, assinanteComponent.getHistoricoConsumoTotalDoAssinante(as, c, Calendar.getInstance())));
     	}

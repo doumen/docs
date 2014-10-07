@@ -19,6 +19,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.export.PdfExporterConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
@@ -41,6 +42,20 @@ public class RelatorioJasperMB<T> {
     	response.addHeader("Content-disposition", "attachment; filename="+report+".pdf"); 
     	final ServletOutputStream stream = response.getOutputStream(); 
     	JasperExportManager.exportReportToPdfStream(jasperPrint, stream); 
+    	stream.flush(); 
+    	stream.close(); 
+    	FacesContext.getCurrentInstance().responseComplete();	    	
+	}
+	
+	public void downloadXls() throws JRException, IOException{
+    	final JasperPrint jasperPrint = getJasperPrint(); 
+    	final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
+    	response.addHeader("Content-disposition", "attachment; filename="+report+".xls"); 
+    	final ServletOutputStream stream = response.getOutputStream(); 
+    	final JRXlsxExporter exporter = new JRXlsxExporter();
+    	exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+    	exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(stream));
+    	exporter.exportReport();
     	stream.flush(); 
     	stream.close(); 
     	FacesContext.getCurrentInstance().responseComplete();	    	

@@ -17,7 +17,7 @@ import component.AssinanteComponent;
 
 @ManagedBean
 @ViewScoped
-public class RelatorioConsumoAssinanteAdmMB implements Serializable {
+public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Assinante> filteredList = new ArrayList<>();
 
@@ -194,6 +194,22 @@ public class RelatorioConsumoAssinanteAdmMB implements Serializable {
 
 	public void setFilteredList(List<Assinante> filteredList) {
 		this.filteredList = filteredList;
+	}
+
+	@Override
+	public List<Assinante> getReportList() {
+		
+		return getAssinantes();
+	}
+
+	@Override
+	public String getTemplateReport() {
+		return "template_landscape";
+	}
+
+	@Override
+	public String getReport() {
+		return "relatorio-consumo-assinante";
 	}
 
 }

@@ -1,11 +1,5 @@
 package component;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -17,7 +11,6 @@ import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 
-import jfreechart.JFreeChartExporter;
 import model.Assinante;
 import model.CertificadoA1;
 import model.Contabilidade;
@@ -27,25 +20,9 @@ import model.TipoInclusao;
 import model.Usuario;
 import model.Util;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.jfree.chart.JFreeChart;
-
-import excel.ExcelExporter;
-
 @Stateless
 public class AssinanteComponent {
 
-	private String labelTitle = "Assinantes";
-	private String dataTitle = "Total Doctos";
-	private String sheetName = "Dados";
-	private String chartTitle = "Gráfico de Interação por Assinante";
-	
-	private Method getLabelMethod() throws NoSuchMethodException, SecurityException{
-		return Assinante.class.getMethod("getNomeFantasia");
-	}	
-	private Method getDataMethod() throws NoSuchMethodException, SecurityException{
-		return Assinante.class.getMethod("getTotalDoctosArmazenados");
-	}
 
 	public List<Assinante> getAssinantes() {
 		ArrayList<Assinante> assinantes = new ArrayList<>();
@@ -117,10 +94,7 @@ public class AssinanteComponent {
 
 		return assinantes;
 	}
-
-	private ExcelExporter excelExporter;
-	
-	
+		
 	private Contabilidade[] contabilidades = new Contabilidade[3];
 	private Plano[] planos = new Plano[4];
 
@@ -140,8 +114,6 @@ public class AssinanteComponent {
 			planos[j] = createPlano(i);
 			j++;
 		}
-		jFreeChartExporter = new JFreeChartExporter();
-		excelExporter = new ExcelExporter();
 	}
 
 	private Contabilidade createContabilidade(long i) {
@@ -192,28 +164,6 @@ public class AssinanteComponent {
 		return as;
 	}
 
-	private JFreeChartExporter jFreeChartExporter;
-
-	public File createExcelFileGraficoInteracaoAssinantes(List<Assinante> totalBarras) throws IOException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		
-		String filePath = "/home/desenv/grafico-interacao-assinante.xls";
-
-		HSSFWorkbook workbook = excelExporter
-				.createHSSFWorkbook(totalBarras, getLabelMethod(), getDataMethod(),
-						labelTitle, dataTitle, sheetName);
-		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
-				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
-				chartTitle);
-
-		excelExporter.writeJFreeChartOnHSSFWorkbook(barChart, workbook,
-				sheetName, 15 * totalBarras.size(), 480, 4, 5);
-
-		FileOutputStream out = new FileOutputStream(new File(filePath));
-		workbook.write(out);
-		out.close();
-		return new File(filePath);
-	}
-
 	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(
 			Assinante a, Calendar inicio, Calendar fim) {
         Map<Object,Number> data = new LinkedHashMap<Object, Number>();
@@ -227,14 +177,6 @@ public class AssinanteComponent {
 		
 	}
 
-	public BufferedImage createReportImage(List<Assinante> totalBarras) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-			
-		JFreeChart barChart = jFreeChartExporter.createBarChart(totalBarras,
-				getLabelMethod(), getDataMethod(), dataTitle, labelTitle,
-				chartTitle);
-		return barChart.createBufferedImage(802, 425);
-	}
-		
 	public List<Assinante> getAssinantes(Contabilidade contabilidade) {
 		return getAssinantes();
 	}

@@ -20,6 +20,7 @@
 	<composite:attribute name="filteredValue"/>
 	<composite:attribute name="exportPdf" method-signature="void exportPdf(javax.faces.event.ActionEvent)"/>
 	<composite:attribute name="printPdf" method-signature="void printPdf(javax.faces.event.ActionEvent)"/>
+	<composite:attribute name="exportExcel" method-signature="void exportExcel(javax.faces.event.ActionEvent)"/>
 </composite:interface>
 
 <composite:implementation>
@@ -62,9 +63,7 @@
 						style="background-image: url('resources/images/imprimir.gif') !important;">
 					</h:commandButton>
 					<h:commandButton id="cbExcel" styleClass="botoes"
-						style="background-image: url('resources/images/excel.gif') !important;">
-						<p:dataExporter type="xls" target="#{cc.attrs.id}"
-							fileName="dataTable" />
+						style="background-image: url('resources/images/excel.gif') !important;" actionListener="#{cc.attrs.exportExcel}">
 					</h:commandButton>
 					<h:commandButton id="cbPdf" styleClass="botoes" actionListener="#{cc.attrs.exportPdf}"
 						style="background-image: url('resources/images/pdf.gif') !important;">					
