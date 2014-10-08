@@ -165,4 +165,8 @@ public class Util {
 	public static String formatCurrency(double valor) {
 		return "R$ " + String.format("%.2f", valor);
 	}
+
+	public static String formatPercent(double comissao) {
+		return String.format("%.1f", comissao) + "%";
+	}
 }

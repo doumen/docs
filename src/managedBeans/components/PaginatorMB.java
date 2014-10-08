@@ -2,7 +2,10 @@ package managedBeans.components;
 
 import javax.annotation.PostConstruct;
 
-public abstract class PaginatorMB {
+import managedBeans.AbstractExporterMB;
+import model.GraficoDoctosAssinante;
+
+public abstract class PaginatorMB extends AbstractExporterMB<GraficoDoctosAssinante>{
 
 	private int pgAtual;
 	private int totalPg;

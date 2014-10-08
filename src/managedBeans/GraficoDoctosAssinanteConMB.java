@@ -11,7 +11,7 @@ public class GraficoDoctosAssinanteConMB extends AbstractGraficoDoctosAssinanteM
 		
 	@Override
 	public void postConstructAndLoadTotPag() {
-		assinantes = assinanteComponent.getAssinantes(loginBean.getUsuario().getContabilidade());
+		assinantes = assinanteComponent.getAssinantes(getLoginBean().getUsuario().getContabilidade());
 		setTotPag(assinantes.size());
 		graficoDoctosAssinanteAdmFactory = new GraficoDoctosAssinanteFactory();
 	}

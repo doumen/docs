@@ -128,6 +128,14 @@ public class Contabilidade implements Serializable {
 		return comissao;
 	}
 
+	public String getComissaoPercent(){
+		return Util.formatPercent(comissao);
+	}
+	
+	public String getComissaoValor(){
+		return Util.formatCurrency(comissao);
+	}
+	
 	public void setComissao(double comissao) {
 		this.comissao = comissao;
 	}

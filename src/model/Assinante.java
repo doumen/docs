@@ -329,6 +329,10 @@ public class Assinante implements Comparable<Assinante> {
 		return getContabilidade().getComissao() * getPlano().getValorMensal();
 	}
 
+	public String getComissaoMensalFormatada(){
+		return Util.formatCurrency(getComissaoMensal());
+	}
+	
 	@Override
 	public int compareTo(Assinante o) {
 		// TODO Auto-generated method stub

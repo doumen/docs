@@ -25,7 +25,7 @@
 			
 
 			<p:column headerText="Cód. Ass" sortBy="#{list.id}" id="codAss" styleClass="c_rcad_codAss" filterBy="#{list.id}" filterMatchMode="contains">
-				<h:outputText value="#{list.id}" />
+				<h:outputText value="#{list.codigo}" />
 			</p:column>
 			<p:column headerText="CNPJ" sortBy="#{list.cnpj}" id="cnpjAss" styleClass="c_rcad_cnpj" filterBy="#{list.cnpj}" filterMatchMode="contains">
 				<h:outputText value="#{list.cnpjFormatado}" />
@@ -36,7 +36,7 @@
 			</p:column>
 			<p:column headerText="Cód. Plano" sortBy="#{list.plano.id}"
 				id="codPlan" styleClass="c_rcad_codPlano" filterBy="#{list.plano.id}" filterMatchMode="contains">
-				<h:outputText value="#{list.plano.id}" />
+				<h:outputText value="#{list.plano.codigo}" />
 			</p:column>
 			<p:column headerText="Plano" sortBy="#{list.plano.descricao}"
 				id="nomPlan" styleClass="c_rcad_plano" filterBy="#{list.plano.descricao}" filterMatchMode="contains">

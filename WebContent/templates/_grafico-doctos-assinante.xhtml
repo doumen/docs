@@ -33,16 +33,16 @@
 						</h:commandButton>
 					</div>
 					<div id="icones-exportar">
-						<h:commandButton id="cbImprimir" styleClass="botoes"
+						<h:commandButton id="cbImprimir" styleClass="botoes" actionListener="#{bean.printPdf}"
 							style="background-image: url('resources/images/imprimir.gif') !important;">
-							<p:printer target="#{cc.attrs.id}" />
+							
 						</h:commandButton>
 						<h:commandButton id="cbExcel" styleClass="botoes"
-							action="#{bean.excel()}"
+							actionListener="#{bean.exportExcel}"
 							style="background-image: url('resources/images/excel.gif') !important;">
 						</h:commandButton>
 						<h:commandButton id="cbPdf" styleClass="botoes"
-							actionListener="#{bean.pdf}"
+							actionListener="#{bean.exportPdf}"
 							style="background-image: url('resources/images/pdf.gif') !important;">
 						</h:commandButton>
 					</div>

@@ -13,15 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
 
 import jfreechart.JFreeChartExporter;
-import managedBeans.LoginBean;
-import managedBeans.components.RelatorioJasperMB;
+import managedBeans.AbstractExporterMB;
 import model.Assinante;
 import model.GraficoInteracaAssinante;
-import net.sf.jasperreports.engine.JRException;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.jfree.chart.JFreeChart;
@@ -29,7 +25,7 @@ import org.omnifaces.util.Faces;
 
 import excel.ExcelExporter;
 
-public abstract class AbstractGraficoInteracaoAssinante<T> {
+public abstract class AbstractGraficoInteracaoAssinante<T> extends AbstractExporterMB<GraficoInteracaAssinante>{
 
 	private List<T> barras;
 	
@@ -43,17 +39,6 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	private int maiorBarra;
 	
 	private int ordem;
-
-	@ManagedProperty(value="#{loginBean}")
-	private LoginBean loginBean;
-	
-	public void setLoginBean(LoginBean loginBean){
-		this.loginBean = loginBean;
-	}
-
-	public LoginBean getLoginBean(){
-		return this.loginBean;		
-	}
 	
 	@PostConstruct
 	public void init(){
@@ -276,39 +261,6 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 	    f.delete();
 	}
 		
-	public void downloadPdf() throws JRException, IOException{
-		try{
-			RelatorioJasperMB<GraficoInteracaAssinante> rj = createAndloadRelatorioJasperParameters();
-			rj.downloadReport();	    	
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-
-	private RelatorioJasperMB<GraficoInteracaAssinante> createAndloadRelatorioJasperParameters(){
-		RelatorioJasperMB<GraficoInteracaAssinante> r = new RelatorioJasperMB<GraficoInteracaAssinante>();
-    	List<GraficoInteracaAssinante> graficosInteracaAssinante = new ArrayList<>();
-    	GraficoInteracaAssinante g = new GraficoInteracaAssinante();
-    	g.setGrafico(createReportImage());
-    	graficosInteracaAssinante.add(new GraficoInteracaAssinante());
-    	graficosInteracaAssinante.add(g);    	
-    	r.setTemplate("template_landscape");//
-    	r.setBeans(graficosInteracaAssinante);
-    	r.setReport("grafico-interacao-assinante");
-    	r.setModulo(loginBean.getModulo());
-		return r;
-	}
-	
-	public void pdf(){
-		try{
-			RelatorioJasperMB<GraficoInteracaAssinante> rj = createAndloadRelatorioJasperParameters();
-			File f = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+rj.getReport()+".jasper"));
-			System.out.println("O relatório" + rj.getReport() + " foi encontrado ? " + f.exists());
-			rj.downloadReport();	    	
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}	
 	
 	private String labelTitle = "Assinantes";
 	private String dataTitle = "Total Doctos";
@@ -379,5 +331,25 @@ public abstract class AbstractGraficoInteracaoAssinante<T> {
 			e.printStackTrace();
 			return null;
 		}
-	}	
+	}
+	@Override
+	public List<GraficoInteracaAssinante> getReportList() {
+		List<GraficoInteracaAssinante> graficoInteracaAssinante = new ArrayList<>();
+		graficoInteracaAssinante.add(new GraficoInteracaAssinante());
+		GraficoInteracaAssinante g = new GraficoInteracaAssinante();
+		g.setGrafico(createReportImage());
+		graficoInteracaAssinante.add(g);
+		return graficoInteracaAssinante;
+	}
+
+	@Override
+	public String getTemplateReport() {
+		return "template_landscape";
+	}
+
+	@Override
+	public String getReport() {
+		return "grafico-interacao-assinante";
+	}
+
 }

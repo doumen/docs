@@ -5,28 +5,21 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
+
+import managedBeans.components.PaginatorMB;
+import model.Assinante;
+import model.GraficoDoctosAssinante;
 
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
-import managedBeans.components.PaginatorMB;
-import managedBeans.components.RelatorioJasperMB;
-import model.Assinante;
-import model.GraficoDoctosAssinante;
 import component.AssinanteComponent;
+
 import factory.GraficoDoctosAssinanteFactory;
 
 public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
-
-	@ManagedProperty(value="#{loginBean}")
-	protected LoginBean loginBean;
-	
-	public void setLoginBean(LoginBean loginBean){
-		this.loginBean = loginBean;
-	}
 	
 	protected GraficoDoctosAssinante graficoDoctosAssinante;
 	
@@ -58,10 +51,9 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
 	@Inject
 	protected AssinanteComponent assinanteComponent;
 	
+	/*
 	private RelatorioJasperMB<GraficoDoctosAssinante> createAndloadRelatorioJasperParameters(){
 		RelatorioJasperMB<GraficoDoctosAssinante> r = new RelatorioJasperMB<GraficoDoctosAssinante>();
-//    	Map<String, Object> parametros = new HashMap<String, Object>();
-//    	parametros.put("total",Integer.valueOf(assinantes.size()));
     	List<GraficoDoctosAssinante> graficosDoctosAssinante = new ArrayList<>();
     	Calendar c = Calendar.getInstance();
     	c.set(Calendar.MONTH, 0);
@@ -70,9 +62,8 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
     	}
     	r.setTemplate("template_landscape");
     	r.setBeans(graficosDoctosAssinante);
- //   	r.setParametros(parametros);
     	r.setReport("grafico-doctos-assinantes");
-    	r.setModulo(loginBean.getModulo());
+    	r.setModulo(getLoginBean().getModulo());
 		return r;
 	}
 	
@@ -83,7 +74,8 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
 			e.printStackTrace();
 		}
 	}
-
+	*/
+	
 	@Override
 	public void carregaPagina(){
 		a = assinantes.get(super.getPaginaAtual()-1);
@@ -123,6 +115,26 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
 	
 	public void excel(){
 		
+	}
+	@Override
+	public List<GraficoDoctosAssinante> getReportList() {
+    	List<GraficoDoctosAssinante> graficosDoctosAssinante = new ArrayList<>();
+    	Calendar c = Calendar.getInstance();
+    	c.set(Calendar.MONTH, 0);
+    	for(Assinante as:assinantes){
+    		graficosDoctosAssinante.add(graficoDoctosAssinanteAdmFactory.createGrafico(as, assinanteComponent.getHistoricoConsumoTotalDoAssinante(as, c, Calendar.getInstance())));
+    	}
+		return graficosDoctosAssinante;
+	}
+
+	@Override
+	public String getTemplateReport() {
+		return "template_landscape";
+	}
+
+	@Override
+	public String getReport() {
+		return "grafico-doctos-assinantes";
 	}
 
 }

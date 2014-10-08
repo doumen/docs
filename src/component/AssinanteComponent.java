@@ -119,7 +119,7 @@ public class AssinanteComponent {
 	private Contabilidade createContabilidade(long i) {
 		Contabilidade c = new Contabilidade();
 		c.setId(i + 10);
-		c.setCnpj("11101662000174");
+		c.setCnpj("1110166200017"+i);
 		c.setNomeFantasia("Contabilidade " + i);
 		c.setRazaoSocial("Razão Social Cont " + i);
 		c.setComissao(0.1d);

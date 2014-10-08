@@ -2,6 +2,8 @@ package managedBeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +29,14 @@ public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante
 	@PostConstruct
 	public void init() {
 		assinantes = assinanteComponent.getRelatorioConsumoAssinantes();
+		Collections.sort(assinantes, new Comparator<Assinante>() {
+
+			@Override
+			public int compare(Assinante o1, Assinante o2) {
+				// TODO Auto-generated method stub
+				return o1.getContabilidade().getNomeFantasia().compareTo(o2.getContabilidade().getNomeFantasia());
+			}
+		});
 		filteredList = assinanteComponent.getRelatorioConsumoAssinantes();
 	}
 

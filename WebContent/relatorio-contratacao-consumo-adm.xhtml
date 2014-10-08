@@ -19,7 +19,11 @@
 			onSort="#{relatorioContratacaoConsumoAdmMB.onSort}"
 			sortBy="#{assinante.plano.faixaFinal}" rowKey="#{assinante.id}"
 			rendered="true"
-			filteredValue="#{relatorioContratacaoConsumoAdmMB.filteredList}">
+			filteredValue="#{relatorioContratacaoConsumoAdmMB.filteredList}"
+			exportExcel="#{relatorioContratacaoConsumoAdmMB.exportExcel}"
+			exportPdf="#{relatorioContratacaoConsumoAdmMB.exportPdf}"
+			printPdf="#{relatorioContratacaoConsumoAdmMB.printPdf}">
+			
 
 			<p:column headerText="Cód." sortBy="#{assinante.id}" id="codAss" 
 			styleClass="c_rcca_codAss" filterBy="#{assinante.id}" filterMatchMode="contains">

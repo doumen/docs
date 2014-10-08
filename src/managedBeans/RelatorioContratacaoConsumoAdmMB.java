@@ -2,6 +2,8 @@ package managedBeans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +19,7 @@ import component.AssinanteComponent;
 
 @ManagedBean
 @ViewScoped
-public class RelatorioContratacaoConsumoAdmMB implements Serializable {
+public class RelatorioContratacaoConsumoAdmMB extends AbstractExporterMB<Assinante> implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Assinante> filteredList = new ArrayList<>();
 
@@ -27,6 +29,15 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 	@PostConstruct
 	public void init() {
 		assinantes = assinanteComponent.getRelatorioContratacaoConsumo();
+		Collections.sort(assinantes, new Comparator<Assinante>() {
+
+			@Override
+			public int compare(Assinante o1, Assinante o2) {
+				// TODO Auto-generated method stub
+				return o1.getPlano().getId().compareTo(o2.getPlano().getId());
+			}
+		});
+
 		filteredList = assinanteComponent.getRelatorioContratacaoConsumo();
 	}
 
@@ -147,5 +158,21 @@ public class RelatorioContratacaoConsumoAdmMB implements Serializable {
 
 	public void setFilteredList(List<Assinante> filteredList) {
 		this.filteredList = filteredList;
+	}
+
+	@Override
+	public List<Assinante> getReportList() {
+		
+		return getAssinantes();
+	}
+
+	@Override
+	public String getTemplateReport() {
+		return "template_portrait";
+	}
+
+	@Override
+	public String getReport() {
+		return "relatorio-contratacao-consumo";
 	}
 }
