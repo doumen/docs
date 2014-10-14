@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import model.SiglaEstado;
 import model.TipoInclusao;
+import model.Util;
 
 /**
  *
@@ -105,7 +106,7 @@ public class Contabilidade implements Serializable {
     private Date dataInclusao;
     @OneToMany(mappedBy = "tbContabilidadeId", fetch = FetchType.LAZY)
     private List<Usuario> usuariosList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbContabilidadeId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "contabilidade", fetch = FetchType.LAZY)
     private List<Assinante> assinantesList;
     @Column(name = "TipoInclusao")
     @Enumerated(EnumType.STRING)
@@ -293,12 +294,28 @@ public class Contabilidade implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication2.Contabilidade[ id=" + id + " ]";
+        return nomeFantasia;
     }
 
 	public void setComissao(double d) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void addUsuario(Usuario u) {
+		this.usuariosList.add(u);
+	}
+
+	public void removeUsuario(Usuario usuario) {
+		this.usuariosList.remove(usuario);
+	}
+
+	public double getComissaoDouble() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public String getCnpjFormatado() {
+		return Util.formatCnpj(cnpj);
 	}
     
 }

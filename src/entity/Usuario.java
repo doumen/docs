@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
-    @NamedQuery(name = "Usuario.findByUsuario", query = "SELECT u FROM Usuario u WHERE u.usuario = :usuario"),
+    @NamedQuery(name = "Usuario.findByLogin", query = "SELECT u FROM Usuario u WHERE u.login = :login"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
     @NamedQuery(name = "Usuario.findByPermissaoAreaUsuario", query = "SELECT u FROM Usuario u WHERE u.permissaoAreaUsuario = :permissaoAreaUsuario"),
     @NamedQuery(name = "Usuario.findByPermissaoAreaContador", query = "SELECT u FROM Usuario u WHERE u.permissaoAreaContador = :permissaoAreaContador"),
@@ -71,7 +71,7 @@ public class Usuario implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    @ManyToMany(mappedBy = "usuariosList", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     private List<Assinante> assinantesList;
     @JoinColumn(name = "tbContabilidade_Id", referencedColumnName = "Id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -162,11 +162,11 @@ public class Usuario implements Serializable {
         this.assinantesList = assinantesList;
     }
 
-    public Contabilidade getTbContabilidadeId() {
+    public Contabilidade getContabilidade() {
         return tbContabilidadeId;
     }
 
-    public void setTbContabilidadeId(Contabilidade tbContabilidadeId) {
+    public void setContabilidade(Contabilidade tbContabilidadeId) {
         this.tbContabilidadeId = tbContabilidadeId;
     }
 

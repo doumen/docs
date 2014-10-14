@@ -16,6 +16,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +30,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import model.TipoInclusao;
+import model.Util;
 
 /**
  *
@@ -69,14 +74,17 @@ public class Plano implements Serializable {
     @Basic(optional = false)
     @Column(name = "ValorDoctoAdicional")
     private BigDecimal valorDoctoAdicional;
+    
     @Basic(optional = false)
     @Column(name = "TipoInclusao")
-    private String tipoInclusao;
+    @Enumerated(EnumType.STRING)
+    private TipoInclusao tipoInclusao;
+    
     @Basic(optional = false)
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbPlanosId", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "plano", fetch = FetchType.LAZY)
     private List<Assinante> assinantesList;
 
     public Plano() {
@@ -86,7 +94,7 @@ public class Plano implements Serializable {
         this.id = id;
     }
 
-    public Plano(Long id, String descricao, int faixaInicial, int faixaFinal, BigDecimal valorMensal, BigDecimal valorDoctoAdicional, String tipoInclusao, Date dataInclusao) {
+    public Plano(Long id, String descricao, int faixaInicial, int faixaFinal, BigDecimal valorMensal, BigDecimal valorDoctoAdicional, TipoInclusao tipoInclusao, Date dataInclusao) {
         this.id = id;
         this.descricao = descricao;
         this.faixaInicial = faixaInicial;
@@ -145,12 +153,12 @@ public class Plano implements Serializable {
         this.valorDoctoAdicional = valorDoctoAdicional;
     }
 
-    public String getTipoInclusao() {
+    public TipoInclusao getTipoInclusao() {
         return tipoInclusao;
     }
 
-    public void setTipoInclusao(String tipoInclusao) {
-        this.tipoInclusao = tipoInclusao;
+    public void setTipoInclusao(TipoInclusao moduloAdministrativo) {
+        this.tipoInclusao = moduloAdministrativo;
     }
 
     public Date getDataInclusao() {
@@ -192,7 +200,7 @@ public class Plano implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication2.Planos[ id=" + id + " ]";
+        return descricao;
     }
 
 	public void setValorMensal(double d) {
@@ -209,5 +217,13 @@ public class Plano implements Serializable {
 		// TODO Auto-generated method stub
 		
 	}
-    
+
+	public double getValorMensalDouble() {
+		return 0;
+	}
+	
+	public String getValorMensalFormatado(){
+		return Util.formatCurrency(valorMensal);
+	}
+
 }

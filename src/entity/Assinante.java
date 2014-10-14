@@ -7,6 +7,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +29,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,8 +36,17 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import entity.CTe;
+import entity.CertificadoA1;
+import entity.Contabilidade;
+import entity.NFe;
+import entity.Plano;
 import model.SiglaEstado;
+import entity.SpedContribuicoes;
+import entity.SpedFiscal;
+import entity.SpedSocial;
 import model.TipoInclusao;
+import entity.Usuario;
 import model.Util;
 
 /**
@@ -69,7 +79,7 @@ public class Assinante implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @Column(name = "Cnpj")
     private String cnpj;
@@ -120,46 +130,60 @@ public class Assinante implements Serializable {
         @JoinColumn(name = "tbUsuarios_Id", referencedColumnName = "Id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Usuario> usuarios;
-    
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="tbAssinantesId")
-    private SpedSocialConfiguracoes spedSocialConfiguracoesList;
 
+    @Transient
+    private SpedSocialConfiguracoes spedSocialConfiguracoes;
+
+    @Transient
+    private ProdutosConfiguracoes produtosConfiguracoes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<ProdutosConfiguracoes> produtosConfiguracoesList;
+    private List<SpedContribuicoes> spedsContribuicoes;
+
+    @Transient
+    private NFeConfiguracoes nFeConfiguracoes;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedContribuicoes> spedContribuicoesList;
+    private List<SpedSocial> spedsSociais;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<NFeConfiguracoes> nFeConfiguracoesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedSocial> spedSocialList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedFiscal> spedFiscalList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
+    private List<SpedFiscal> spedsFiscais;
+    
+    @Transient
     private CTeConfiguracoes cTeConfiguracoes;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<NFe> nFeList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
+    private List<NFe> nFes;
+
+    @Transient
     private SpedFiscalConfiguracoes spedFiscalConfiguracoes;
+    
+    @Transient
+    private CertificadoA1 certificadoA1;
+        
+    @Transient
+    private FaturasConfiguracoes faturasConfiguracoes;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<CertificadoA1> certificadoA1List;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<FaturasConfiguracoes> faturasConfiguracoesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<CTe> cTeList;	
-    @JoinColumn(name = "tbContabilidade_Id", referencedColumnName = "Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Contabilidade tbContabilidadeId;
+    private List<CTe> cTes;
+    
+    @JoinColumn(name = "tbContabilidade_Id", referencedColumnName = "Id")    
+    @ManyToOne
+    private Contabilidade contabilidade;
+    
     @JoinColumn(name = "tbPlanos_Id", referencedColumnName = "Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Plano tbPlanosId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedContribuicoesConfiguracoes> spedContribuicoesConfiguracoesList;
+    @ManyToOne
+    private Plano plano;
+    
+    @Transient
+    private SpedContribuicoesConfiguracoes spedContribuicoesConfiguracoes;
     
     @Column(name = "TipoInclusao")
     @Enumerated(EnumType.STRING)
     private TipoInclusao tipoInclusao;
+    
+    @Transient
+	private Integer totalDoctosArmazenados;
 
     public TipoInclusao getTipoInclusao() {
 		return tipoInclusao;
@@ -221,13 +245,23 @@ public class Assinante implements Serializable {
 	private Integer totalSpedContribuicoes;
 
     public Assinante() {
+		this.plano = new Plano();
+		this.certificadoA1 = new CertificadoA1();
+		this.contabilidade = new Contabilidade();
+		this.usuarios = new ArrayList<>();
+		this.nFes = new ArrayList<NFe>();
+		this.cTes = new ArrayList<CTe>();
+		this.spedsFiscais = new ArrayList<SpedFiscal>();
+		this.spedsSociais = new ArrayList<SpedSocial>();
+		this.spedsContribuicoes = new ArrayList<SpedContribuicoes>();
+		this.dataInclusao = new Date();
     }
 
-    public Assinante(Integer id) {
+    public Assinante(Long id) {
         this.id = id;
     }
 
-    public Assinante(Integer id, String cnpj, String inscricaoEstadual, String nomeFantasia, String razaoSocial, String endereco, String enderecoNumero, String bairro, String municipio, SiglaEstado uf, int cep, String emailMaster, String emailFinanceiro, Date dataInclusao) {
+    public Assinante(Long id, String cnpj, String inscricaoEstadual, String nomeFantasia, String razaoSocial, String endereco, String enderecoNumero, String bairro, String municipio, SiglaEstado uf, int cep, String emailMaster, String emailFinanceiro, Date dataInclusao) {
         this.id = id;
         this.cnpj = cnpj;
         this.inscricaoEstadual = inscricaoEstadual;
@@ -244,11 +278,11 @@ public class Assinante implements Serializable {
         this.dataInclusao = dataInclusao;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -374,57 +408,57 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public SpedSocialConfiguracoes getSpedSocialConfiguracoesList() {
-        return spedSocialConfiguracoesList;
+    public SpedSocialConfiguracoes getSpedSocialConfiguracoes() {
+        return spedSocialConfiguracoes;
     }
 
-    public void setSpedSocialConfiguracoesList(SpedSocialConfiguracoes spedSocialConfiguracoesList) {
-        this.spedSocialConfiguracoesList = spedSocialConfiguracoesList;
-    }
-
-    @XmlTransient
-    public List<ProdutosConfiguracoes> getProdutosConfiguracoesList() {
-        return produtosConfiguracoesList;
-    }
-
-    public void setProdutosConfiguracoesList(List<ProdutosConfiguracoes> produtosConfiguracoesList) {
-        this.produtosConfiguracoesList = produtosConfiguracoesList;
+    public void setSpedSocialConfiguracoes(SpedSocialConfiguracoes spedSocialConfiguracoes) {
+        this.spedSocialConfiguracoes = spedSocialConfiguracoes;
     }
 
     @XmlTransient
-    public List<SpedContribuicoes> getSpedContribuicoesList() {
-        return spedContribuicoesList;
+    public ProdutosConfiguracoes getProdutosConfiguracoes() {
+        return produtosConfiguracoes;
     }
 
-    public void setSpedContribuicoesList(List<SpedContribuicoes> spedContribuicoesList) {
-        this.spedContribuicoesList = spedContribuicoesList;
-    }
-
-    @XmlTransient
-    public List<NFeConfiguracoes> getNFeConfiguracoesList() {
-        return nFeConfiguracoesList;
-    }
-
-    public void setNFeConfiguracoesList(List<NFeConfiguracoes> nFeConfiguracoesList) {
-        this.nFeConfiguracoesList = nFeConfiguracoesList;
+    public void setProdutosConfiguracoes(ProdutosConfiguracoes produtosConfiguracoes) {
+        this.produtosConfiguracoes = produtosConfiguracoes;
     }
 
     @XmlTransient
-    public List<SpedSocial> getSpedSocialList() {
-        return spedSocialList;
+    public List<SpedContribuicoes> getSpedContribuicoes() {
+        return spedsContribuicoes;
     }
 
-    public void setSpedSocialList(List<SpedSocial> spedSocialList) {
-        this.spedSocialList = spedSocialList;
+    public void setSpedContribuicoes(List<SpedContribuicoes> spedContribuicoesList) {
+        this.spedsContribuicoes = spedContribuicoesList;
     }
 
     @XmlTransient
-    public List<SpedFiscal> getSpedFiscalList() {
-        return spedFiscalList;
+    public NFeConfiguracoes getNFeConfiguracoes() {
+        return nFeConfiguracoes;
     }
 
-    public void setSpedFiscalList(List<SpedFiscal> spedFiscalList) {
-        this.spedFiscalList = spedFiscalList;
+    public void setNFeConfiguracoes(NFeConfiguracoes nFeConfiguracoesList) {
+        this.nFeConfiguracoes = nFeConfiguracoesList;
+    }
+
+    @XmlTransient
+    public List<SpedSocial> getSpedsSociais() {
+        return spedsSociais;
+    }
+
+    public void setSpedsSociais(List<SpedSocial> spedSocialList) {
+        this.spedsSociais = spedSocialList;
+    }
+
+    @XmlTransient
+    public List<SpedFiscal> getSpedsFiscais() {
+        return spedsFiscais;
+    }
+
+    public void setSpedsFiscais(List<SpedFiscal> spedFiscalList) {
+        this.spedsFiscais = spedFiscalList;
     }
 
     public CTeConfiguracoes getCTeConfiguracoes() {
@@ -436,12 +470,12 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public List<NFe> getNFeList() {
-        return nFeList;
+    public List<NFe> getNFes() {
+        return nFes;
     }
 
-    public void setNFeList(List<NFe> nFeList) {
-        this.nFeList = nFeList;
+    public void setNFes(List<NFe> nFeList) {
+        this.nFes = nFeList;
     }
 
     public SpedFiscalConfiguracoes getSpedFiscalConfiguracoes() {
@@ -453,55 +487,47 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public List<CertificadoA1> getCertificadoA1List() {
-        return certificadoA1List;
+    public CertificadoA1 getCertificadoA1() {
+        return certificadoA1;
     }
 
-    public void setCertificadoA1List(List<CertificadoA1> certificadoA1List) {
-        this.certificadoA1List = certificadoA1List;
-    }
-
-    @XmlTransient
-    public List<FaturasConfiguracoes> getFaturasConfiguracoesList() {
-        return faturasConfiguracoesList;
-    }
-
-    public void setFaturasConfiguracoesList(List<FaturasConfiguracoes> faturasConfiguracoesList) {
-        this.faturasConfiguracoesList = faturasConfiguracoesList;
+    public void setCertificadoA1(CertificadoA1 certificadoA1List) {
+        this.certificadoA1 = certificadoA1List;
     }
 
     @XmlTransient
-    public List<CTe> getCTeList() {
-        return cTeList;
+    public FaturasConfiguracoes getFaturasConfiguracoes() {
+        return faturasConfiguracoes;
     }
 
-    public void setCTeList(List<CTe> cTeList) {
-        this.cTeList = cTeList;
+    public void setFaturasConfiguracoes(FaturasConfiguracoes faturasConfiguracoesList) {
+        this.faturasConfiguracoes = faturasConfiguracoesList;
     }
 
-    public Contabilidade getContabilidade() {
-        return tbContabilidadeId;
+    @XmlTransient
+    public List<CTe> getCTes() {
+        return cTes;
     }
 
-    public void setContabilidade(Contabilidade tbContabilidadeId) {
-        this.tbContabilidadeId = tbContabilidadeId;
+    public void setCTes(List<CTe> cTeList) {
+        this.cTes = cTeList;
     }
 
     public Plano getPlano() {
-        return tbPlanosId;
+        return plano;
     }
 
     public void setPlano(Plano tbPlanosId) {
-        this.tbPlanosId = tbPlanosId;
+        this.plano = tbPlanosId;
     }
 
     @XmlTransient
-    public List<SpedContribuicoesConfiguracoes> getSpedContribuicoesConfiguracoesList() {
-        return spedContribuicoesConfiguracoesList;
+    public SpedContribuicoesConfiguracoes getSpedContribuicoesConfiguracoes() {
+        return spedContribuicoesConfiguracoes;
     }
 
-    public void setSpedContribuicoesConfiguracoesList(List<SpedContribuicoesConfiguracoes> spedContribuicoesConfiguracoesList) {
-        this.spedContribuicoesConfiguracoesList = spedContribuicoesConfiguracoesList;
+    public void setSpedContribuicoesConfiguracoes(SpedContribuicoesConfiguracoes spedContribuicoesConfiguracoes) {
+        this.spedContribuicoesConfiguracoes = spedContribuicoesConfiguracoes;
     }
 
     @Override
@@ -526,7 +552,7 @@ public class Assinante implements Serializable {
 
     @Override
     public String toString() {
-        return "Assinante[ id=" + id + " ]";
+        return nomeFantasia;
     }
 
 	public void addUsuario(Usuario u) {
@@ -542,6 +568,27 @@ public class Assinante implements Serializable {
 
 	public String getCnpjFormatado() {
 		return Util.formatCnpj(cnpj);
+	}
+
+	public Contabilidade getContabilidade() {
+		return contabilidade;
+	}
+
+	public void setContabilidade(Contabilidade tbContabilidadeId) {
+		this.contabilidade = tbContabilidadeId;
+	}
+
+	public Integer getTotalDoctosArmazenados() {
+		return totalDoctosArmazenados;
+	}
+
+	public void setTotalDoctosArmazenados(Integer totalDoctosArmazenados) {
+		this.totalDoctosArmazenados = totalDoctosArmazenados;
+	}
+
+	public double getComissaoMensalDouble() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
    
 }

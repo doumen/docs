@@ -8,21 +8,20 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -43,7 +42,7 @@ public class CertificadoA1 implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Id")
-    private Integer id;
+    private Long id;
     @Basic(optional = false)
     @Lob
     @Column(name = "ArquivoPFX_CertificadoA1")
@@ -55,29 +54,35 @@ public class CertificadoA1 implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Assinante tbAssinantesId;
+    
+    @Column(name = "nomeArquivo")    
+    private String nome;
+    
+    @Transient
+    private Assinante assinante;
 
+    @Column(name = "tbAssinantes_Id")
+    private Long assinanteId;
+    
     public CertificadoA1() {
     }
 
-    public CertificadoA1(Integer id) {
+    public CertificadoA1(Long id) {
         this.id = id;
     }
 
-    public CertificadoA1(Integer id, byte[] arquivoPFXCertificadoA1, boolean notificarExpiracaoCertificado, Date dataInclusao) {
+    public CertificadoA1(Long id, byte[] arquivoPFXCertificadoA1, boolean notificarExpiracaoCertificado, Date dataInclusao) {
         this.id = id;
         this.arquivoPFXCertificadoA1 = arquivoPFXCertificadoA1;
         this.notificarExpiracaoCertificado = notificarExpiracaoCertificado;
         this.dataInclusao = dataInclusao;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -105,12 +110,12 @@ public class CertificadoA1 implements Serializable {
         this.dataInclusao = dataInclusao;
     }
 
-    public Assinante getTbAssinantesId() {
-        return tbAssinantesId;
+    public Assinante getAssinante() {
+        return assinante;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
-        this.tbAssinantesId = tbAssinantesId;
+    public void setAssinante(Assinante tbAssinantesId) {
+        this.assinante = tbAssinantesId;
     }
 
     @Override
@@ -137,5 +142,21 @@ public class CertificadoA1 implements Serializable {
     public String toString() {
         return "javaapplication2.CertificadoA1[ id=" + id + " ]";
     }
+
+	public Long getAssinanteId() {
+		return assinanteId;
+	}
+
+	public void setAssinanteId(Long assinanteId) {
+		this.assinanteId = assinanteId;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
     
 }
