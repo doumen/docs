@@ -31,6 +31,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import converter.ConvertByField;
 import model.TipoInclusao;
 import model.Util;
 
@@ -58,8 +59,10 @@ public class Plano implements Serializable {
     @Basic(optional = false)
     @Column(name = "Id")
     private Long id;
+    
     @Basic(optional = false)
     @Column(name = "Descricao")
+    @ConvertByField
     private String descricao;
     @Basic(optional = false)
     @Column(name = "FaixaInicial")

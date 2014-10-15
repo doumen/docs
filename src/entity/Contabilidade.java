@@ -30,6 +30,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import converter.ConvertByField;
 import model.SiglaEstado;
 import model.TipoInclusao;
 import model.Util;
@@ -71,6 +72,7 @@ public class Contabilidade implements Serializable {
     private String inscricaoEstadual;
     @Basic(optional = false)
     @Column(name = "NomeFantasia")
+    @ConvertByField
     private String nomeFantasia;
     @Basic(optional = false)
     @Column(name = "RazaoSocial")

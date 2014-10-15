@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+ <datasource jndi-name="java:jboss/datasources/New_Generic_JDBC_0" enabled="true" 
+     use-java-context="true" pool-name="New_Generic_JDBC_0">
+  <connection-url>jdbc:mysql://127.0.0.1:3306/dbGoliveDocs</connection-url>
+  <driver>mysql-connector-java-5.1.33-bin.jar</driver>
+  <pool></pool>
+  <security>
+   <user-name>root</user-name>
+   <password>admin</password>
+  </security>
+ </datasource>
+</datasources>

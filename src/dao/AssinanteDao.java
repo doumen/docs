@@ -4,7 +4,7 @@ import java.util.List;
 
 import entity.Assinante;
 
-public interface AssinanteDao{
+public interface AssinanteDao extends GenericDao<Assinante>{
 
 	public List<Assinante> getAssinantes();
 }

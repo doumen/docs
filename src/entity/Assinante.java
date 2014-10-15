@@ -36,6 +36,7 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import converter.ConvertByField;
 import entity.CTe;
 import entity.CertificadoA1;
 import entity.Contabilidade;
@@ -88,6 +89,7 @@ public class Assinante implements Serializable {
     private String inscricaoEstadual;
     @Basic(optional = false)
     @Column(name = "NomeFantasia")
+    @ConvertByField
     private String nomeFantasia;
     @Basic(optional = false)
     @Column(name = "RazaoSocial")

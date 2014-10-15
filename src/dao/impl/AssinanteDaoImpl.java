@@ -1,4 +1,4 @@
-package dao;
+package dao.impl;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import dao.AssinanteDao;
 import entity.Assinante;
 
 @Stateless

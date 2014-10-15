@@ -1,5 +1,7 @@
-package dao;
+package dao.impl;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -7,8 +9,12 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 
-public class GenericDAOImpl<T> {
+import converter.ConvertByField;
+import dao.GenericDao;
+
+public class GenericDAOImpl<T> implements GenericDao<T>{
 	@PersistenceContext
     protected EntityManager em;
 
@@ -76,7 +82,6 @@ public class GenericDAOImpl<T> {
      * @throws TransactionRequiredException
      */
     public boolean remove(T t) throws Exception {
-
         try {
             em.remove(t);
             return true;
@@ -103,7 +108,7 @@ public class GenericDAOImpl<T> {
         }
     }
 
-    public T find(String id) throws NumberFormatException, Exception{
+    public T find(String id) throws Exception{
     	return find(Long.valueOf(id));
     }
     
@@ -115,7 +120,7 @@ public class GenericDAOImpl<T> {
      */
     @SuppressWarnings("unchecked")
     public List<T> list() throws Exception {
-
+    	
         try {
             return em.createQuery("from " +
                     this.persistentClass.getSimpleName()).getResultList();
@@ -123,5 +128,24 @@ public class GenericDAOImpl<T> {
             throw e;
         }
     }
-
+    /*
+     * Método que reconstrói o objeto pelo resultado do seu método toString
+     */
+	@SuppressWarnings("unchecked")
+	public T findByToAnnotadedField(String toString){
+    	for(Field f : this.persistentClass.getDeclaredFields()){
+    		if(f.isAnnotationPresent(ConvertByField.class)){
+    			return (T) em.createQuery("from " + this.persistentClass.getSimpleName() + " where " + f.getName() + "=:toString").setParameter("toString", toString).getSingleResult();
+    		}
+    	}
+    	return null;
+    }
+	
+	public static void main(String[] args) {
+		for(Field f : entity.Plano.class.getDeclaredFields()){
+			for(Annotation a : f.getAnnotations())
+			System.out.println(f.getName() + ":" + a + " " + f.isAnnotationPresent(ConvertByField.class));
+			
+		}
+	}
 }

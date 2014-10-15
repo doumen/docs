@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CertificadoA1.findById", query = "SELECT c FROM CertificadoA1 c WHERE c.id = :id"),
     @NamedQuery(name = "CertificadoA1.findByNotificarExpiracaoCertificado", query = "SELECT c FROM CertificadoA1 c WHERE c.notificarExpiracaoCertificado = :notificarExpiracaoCertificado"),
     @NamedQuery(name = "CertificadoA1.findByDataInclusao", query = "SELECT c FROM CertificadoA1 c WHERE c.dataInclusao = :dataInclusao")})
+	@NamedQuery(name = "CertificadoA1.findByAssinanteId", query = "SELECT c FROM CertificadoA1 c WHERE c.assinanteId = :id")
 public class CertificadoA1 implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,6 +64,9 @@ public class CertificadoA1 implements Serializable {
 
     @Column(name = "tbAssinantes_Id")
     private Long assinanteId;
+
+    @Column(name="senha")
+    private String senha;
     
     public CertificadoA1() {
     }
@@ -157,6 +161,14 @@ public class CertificadoA1 implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
     
 }
