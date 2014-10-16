@@ -8,7 +8,6 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -36,19 +35,11 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import converter.ConvertByField;
-import entity.CTe;
-import entity.CertificadoA1;
-import entity.Contabilidade;
-import entity.NFe;
-import entity.Plano;
 import model.SiglaEstado;
-import entity.SpedContribuicoes;
-import entity.SpedFiscal;
-import entity.SpedSocial;
 import model.TipoInclusao;
-import entity.Usuario;
 import model.Util;
+import converter.ConvertByField;
+import dao.RemoveMask;
 
 /**
  *
@@ -83,6 +74,7 @@ public class Assinante implements Serializable {
     private Long id;
     @Basic(optional = false)
     @Column(name = "Cnpj")
+    @RemoveMask
     private String cnpj;
     @Basic(optional = false)
     @Column(name = "InscricaoEstadual")
@@ -291,7 +283,8 @@ public class Assinante implements Serializable {
     public String getCnpj() {
         return cnpj;
     }
-
+    
+    
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }

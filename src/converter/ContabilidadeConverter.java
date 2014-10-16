@@ -1,31 +1,21 @@
 package converter;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-import model.Contabilidade;
-
-import component.ContabilidadeComponent;
+import dao.ContabilidadeDao;
+import dao.GenericDao;
+import entity.Contabilidade;
 
 @FacesConverter(value = "contabilidadeConverter", forClass = Contabilidade.class)
 
-public class ContabilidadeConverter implements Converter{
+public class ContabilidadeConverter extends GenericConverter<Contabilidade>{
+
 	@Inject
-	private ContabilidadeComponent contabilidadeComponent;
+	private ContabilidadeDao dao;
 	
 	@Override
-	public Object getAsObject(FacesContext arg0, UIComponent arg1,
-			String descricao) {
-		return contabilidadeComponent.getContabilidadeById(descricao);
-	}
-
-	@Override
-	public String getAsString(FacesContext arg0, UIComponent arg1,
-			Object plano) {
-
-		return plano == null ? "" : plano.toString();
+	public GenericDao<Contabilidade> getDao() {
+		return dao;
 	}
 }

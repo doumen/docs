@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 public class Assinante implements Comparable<Assinante> {
-
+	
 	private Long id;
+	
 	private String cnpj;
 
 	private String inscricaoEstadual;
@@ -289,7 +290,7 @@ public class Assinante implements Comparable<Assinante> {
 
 	@Override
 	public String toString() {
-		return nomeFantasia==null?razaoSocial:nomeFantasia;
+		return nomeFantasia == null ? razaoSocial : nomeFantasia;
 	}
 
 	@Override
@@ -329,10 +330,10 @@ public class Assinante implements Comparable<Assinante> {
 		return getContabilidade().getComissao() * getPlano().getValorMensal();
 	}
 
-	public String getComissaoMensalFormatada(){
+	public String getComissaoMensalFormatada() {
 		return Util.formatCurrency(getComissaoMensal());
 	}
-	
+
 	@Override
 	public int compareTo(Assinante o) {
 		// TODO Auto-generated method stub
@@ -388,9 +389,9 @@ public class Assinante implements Comparable<Assinante> {
 		c.setTime(d);
 		setDataInclusao(c);
 	}
-	
-	public String getCodigo(){
-		return id==null?null:id.toString();
+
+	public String getCodigo() {
+		return id == null ? null : id.toString();
 	}
 
 	public String getCnpjFormatado() {

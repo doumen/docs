@@ -1,10 +1,15 @@
 package model;
 
+import java.beans.Expression;
+import java.beans.Statement;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -12,11 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 
+import org.apache.commons.lang.WordUtils;
 import org.jfree.chart.JFreeChart;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+
+import dao.RemoveMask;
 
 public class Util {
 	
@@ -31,12 +38,7 @@ public class Util {
 		c.set(Calendar.MONTH, i);
 		return c;
 	}
-	
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setVisible(true);		
-	}
-	
+		
 	public static Number getMaiorNumber(Map<Object,Number> dados){
 		List<Number> list = new ArrayList<Number>(dados.values());
 		return getMaiorNumber(list);
@@ -169,4 +171,47 @@ public class Util {
 	public static String formatPercent(double comissao) {
 		return String.format("%.1f", comissao) + "%";
 	}
+	
+	public static List<SiglaEstado> getEstados() {
+		return Arrays.asList(SiglaEstado.values());
+	}
+
+	public static String formatCurrency(BigDecimal valorMensal) {
+		return valorMensal==null?"":"R$ " + String.format("%.2f", valorMensal);
+	}
+	public static String removeMask(String m){		 		
+		return m.replaceAll("\\.|\\?|\\/|\\-", "");
+	}
+	
+	public static <T> void removeMask(T t){
+		for(Field f : entity.Assinante.class.getDeclaredFields()){			
+			if(f.isAnnotationPresent(RemoveMask.class)){								
+				if(f.getType().getSimpleName().equals("String")){					
+					try {
+						Expression expr = new Expression(t, "get" + WordUtils.capitalize(f.getName()), new Object[0]);
+					    expr.execute();
+						Statement statement = new Statement(t, "set"+WordUtils.capitalize(f.getName()), new Object[]{Util.removeMask((String) expr.getValue())});
+						statement.execute();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}					
+				}
+			}
+		}	
+	}
+	
+	public static void main(String[] args) {
+//		JFrame f = new JFrame();
+//		f.setVisible(true);
+		entity.Assinante a = new entity.Assinante();
+		a.setCnpj("302.421.548-40");
+		System.out.println("antes: " + a.getCnpj());
+		long  inicio = Calendar.getInstance().getTimeInMillis();
+		Util.removeMask(a);
+		long tempo = Calendar.getInstance().getTimeInMillis() - inicio;
+		System.out.println("Tempo total: " + tempo);
+		
+	}
+
+	
 }

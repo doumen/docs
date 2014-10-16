@@ -1,6 +1,5 @@
 package dao.impl;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -11,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TransactionRequiredException;
 
+import model.Util;
 import converter.ConvertByField;
 import dao.GenericDao;
 
@@ -45,6 +45,7 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
     public boolean persist(T t) throws Exception {
 
         try {
+        	Util.removeMask(t);
             em.persist(t);
             return true;
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
         }
     }
 
-    /**
+	/**
      * Método responsável pela atualização de uma instância da classe
      * persistente.
      * 
@@ -65,6 +66,7 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
     public boolean merge(T t) throws Exception {
 
         try {
+        	Util.removeMask(t);
             em.merge(t);
             return true;
         } catch (Exception e) {
@@ -139,13 +141,5 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
     		}
     	}
     	return null;
-    }
-	
-	public static void main(String[] args) {
-		for(Field f : entity.Plano.class.getDeclaredFields()){
-			for(Annotation a : f.getAnnotations())
-			System.out.println(f.getName() + ":" + a + " " + f.isAnnotationPresent(ConvertByField.class));
-			
-		}
-	}
+    }	
 }
