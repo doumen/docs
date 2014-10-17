@@ -95,7 +95,7 @@ public class Util {
 	}
 	
 	public static String formatCnpj(String cnpj){
-		if (cnpj != null)
+		if (cnpj != null && cnpj.length()==14)
 			return cnpj.substring(0, 2) + "." + cnpj.substring(2, 5) + "." + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-" + cnpj.substring(12, 14);
 		else
 			return cnpj;
@@ -184,7 +184,7 @@ public class Util {
 	}
 	
 	public static <T> void removeMask(T t){
-		for(Field f : entity.Assinante.class.getDeclaredFields()){			
+		for(Field f : t.getClass().getDeclaredFields()){			
 			if(f.isAnnotationPresent(RemoveMask.class)){								
 				if(f.getType().getSimpleName().equals("String")){					
 					try {
