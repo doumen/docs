@@ -14,7 +14,7 @@ public class CertificadoA1DaoImpl extends GenericDAOImpl<CertificadoA1> implemen
 		CertificadoA1 certificadoA1 = null;
 		 try {
 			 certificadoA1 = (CertificadoA1) em.createNamedQuery("CertificadoA1.findByAssinanteId")
-		   .setParameter("assinanteId", a.getId())
+		   .setParameter("id", a.getId())
 		   .getSingleResult();
 		 } catch (Exception e) {
 		  e.printStackTrace();

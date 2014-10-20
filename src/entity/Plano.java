@@ -228,5 +228,8 @@ public class Plano implements Serializable {
 	public String getValorMensalFormatado(){
 		return Util.formatCurrency(valorMensal);
 	}
+	public String getCodigo() {
+		return id == null ? null : id.toString();
+	}
 
 }

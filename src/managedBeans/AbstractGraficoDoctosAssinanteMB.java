@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import managedBeans.components.PaginatorMB;
-import model.Assinante;
+import entity.Assinante;
 import model.GraficoDoctosAssinante;
 
 import org.primefaces.model.chart.CartesianChartModel;

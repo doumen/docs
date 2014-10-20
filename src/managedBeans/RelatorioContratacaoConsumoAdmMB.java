@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import model.Assinante;
+import entity.Assinante;
 
 import org.primefaces.event.data.SortEvent;
 

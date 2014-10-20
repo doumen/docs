@@ -17,11 +17,6 @@ public class ConsultaAssinantesConMB extends AbstractConsultaAssinantesMB{
 		// TODO Auto-generated method stub		
 	}
 
-	@Override
-	public void alterar() {
-		// TODO Auto-generated method stub		
-	}
-
 	@Inject
 	AssinanteComponent assinanteComponent;
 	

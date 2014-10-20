@@ -46,33 +46,43 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByPermissaoAreaAdministrador", query = "SELECT u FROM Usuario u WHERE u.permissaoAreaAdministrador = :permissaoAreaAdministrador"),
     @NamedQuery(name = "Usuario.findByDataInclusao", query = "SELECT u FROM Usuario u WHERE u.dataInclusao = :dataInclusao")})
 public class Usuario implements Serializable {
+	
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Id")
     private Long id;
+    
     @Basic(optional = false)
     @Column(name = "Usuario")
     private String login;
+    
     @Basic(optional = false)
     @Column(name = "Senha")
     private String senha;
+    
     @Basic(optional = false)
     @Column(name = "PermissaoAreaUsuario")
     private boolean permissaoAreaUsuario;
+    
     @Basic(optional = false)
     @Column(name = "PermissaoAreaContador")
     private boolean permissaoAreaContador;
+    
     @Basic(optional = false)
     @Column(name = "PermissaoAreaAdministrador")
     private boolean permissaoAreaAdministrador;
+    
     @Basic(optional = false)
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     private List<Assinante> assinantesList;
+    
     @JoinColumn(name = "tbContabilidade_Id", referencedColumnName = "Id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Contabilidade tbContabilidadeId;

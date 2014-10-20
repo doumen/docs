@@ -5,7 +5,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 
 import component.AssinanteComponent;
-import model.Assinante;
+import entity.Assinante;
 
 @ManagedBean
 public class LoginAssinanteManagedBean {

@@ -4,8 +4,6 @@ import javax.ejb.Stateless;
 
 import dao.ContabilidadeDao;
 import entity.Contabilidade;
-import entity.Plano;
-
 @Stateless
 public class ContabilidadeDaoImpl extends GenericDAOImpl<Contabilidade> implements ContabilidadeDao{
 

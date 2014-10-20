@@ -3,14 +3,13 @@ package factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
 
 import model.Assinante;
 import model.Contabilidade;
 import model.GraficoDoctosAssinanteAdm;
 import model.Plano;
 
-@Stateless
 public class GraficoDoctosAssinanteAdmFactory {
 	public GraficoDoctosAssinanteAdm createGraficoDoctosAssinanteAdm(Assinante assinante, Contabilidade contabilidade, int[] pieGrafico, int[] lineGrafico) {
 		GraficoDoctosAssinanteAdm g = new GraficoDoctosAssinanteAdm();
@@ -19,6 +18,11 @@ public class GraficoDoctosAssinanteAdmFactory {
 		g.createPieModel(pieGrafico);
 		g.createLineModels(lineGrafico);
 		return g;
+	}
+
+	@Produces
+	public GraficoDoctosAssinanteAdmFactory createGraficoDoctosAssinanteAdmFactory(){
+		return new GraficoDoctosAssinanteAdmFactory();
 	}
 	
 	public List<GraficoDoctosAssinanteAdm> createGraficos(int size) {

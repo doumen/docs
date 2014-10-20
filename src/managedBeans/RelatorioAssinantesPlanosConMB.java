@@ -10,7 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import managedBeans.components.RelatorioJasperMB;
-import model.Assinante;
+import entity.Assinante;
 import component.AssinanteComponent;
 
 @ManagedBean

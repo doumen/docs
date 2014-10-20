@@ -3,9 +3,6 @@ package dao.impl;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import dao.AssinanteDao;
 import entity.Assinante;
@@ -14,8 +11,6 @@ import entity.Assinante;
 public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements AssinanteDao{
 	
 	public List<Assinante> getAssinantes(){
-		Query createNamedQuery = em.createNamedQuery("Assinante.findAll");
-		List<Assinante> resultList = createNamedQuery.getResultList();
-		 return resultList;		 
+		 return em.createQuery("from Assinante a join fetch a.plano Plano join fetch a.contabilidade Contabilidade",Assinante.class).getResultList();		 
 	}
 }

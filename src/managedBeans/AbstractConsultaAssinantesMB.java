@@ -1,26 +1,63 @@
 package managedBeans;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-import org.primefaces.model.UploadedFile;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.inject.Inject;
+import javax.servlet.http.Part;
 
-import model.Assinante;
-import model.Contabilidade;
-import model.Plano;
-import model.Usuario;
+import model.SiglaEstado;
 import model.Util;
 
-public abstract class AbstractConsultaAssinantesMB extends AbstractConsultaMB<Assinante>{
-	
+import org.apache.commons.io.IOUtils;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
+import component.AssinanteComponent;
+import component.CertificadoA1Component;
+import component.ContabilidadeComponent;
+import component.PlanoComponent;
+import component.UsuarioComponent;
+
+import entity.Assinante;
+import entity.CertificadoA1;
+import entity.Contabilidade;
+import entity.Plano;
+import entity.Usuario;
+
+public abstract class AbstractConsultaAssinantesMB extends
+		AbstractConsultaMB<Assinante> {
+
 	protected String login;
 	protected String senha;
-	protected UploadedFile file;
+	protected UploadedFile fileP;
 	protected String mascara;
 	protected Plano plano;
 	protected List<Plano> planos;
 	protected Contabilidade contabilidade;
 	protected List<Contabilidade> contabilidades;
+	protected CertificadoA1 certificadoA1 = new CertificadoA1();
+	private String script;
+
+	@Inject
+	protected AssinanteComponent assinanteComponent;
+
+	@Inject
+	protected PlanoComponent planoComponent;
+
+	@Inject
+	protected ContabilidadeComponent contabilidadeComponent;
+
+	@Inject
+	private CertificadoA1Component certificadoA1Component;
+
+	@Inject
+	private UsuarioComponent usuarioComponent;
 
 	public AbstractConsultaAssinantesMB() {
 		super(Assinante.class);
@@ -35,7 +72,7 @@ public abstract class AbstractConsultaAssinantesMB extends AbstractConsultaMB<As
 	public String getAvisoPreExcluir() {
 		return "Os itens serão excluídos";
 	}
-	
+
 	@Override
 	public String getPdfTemplateName() {
 		return "template_landscape";
@@ -50,12 +87,11 @@ public abstract class AbstractConsultaAssinantesMB extends AbstractConsultaMB<As
 		return super.validateUsuario(login, senha, selected.getUsuarios());
 	}
 
-	
 	public void adicionaUsuario() {
 		if (validateUsuario()) {
 			Usuario u = new Usuario();
 			u.setAssinante(selected);
-			u.setDataInclusao(Calendar.getInstance());
+			u.setDataInclusao(Calendar.getInstance().getTime());
 			u.setLogin(login.trim());
 			u.setSenha(senha.trim());
 			selected.addUsuario(u);
@@ -83,17 +119,23 @@ public abstract class AbstractConsultaAssinantesMB extends AbstractConsultaMB<As
 		this.senha = senha;
 	}
 
-	public UploadedFile getFile() {
-		return file;
+	public UploadedFile getFileP() {
+		return fileP;
 	}
 
 	public void setFile(UploadedFile file) {
-		this.file = file;
+		this.fileP = file;
 	}
 
 	public String mascaraInscrEstadual() {
 		mascara = Util.getMascaraCnpj(selected.getUf());
 		return mascara;
+	}
+
+	public void changeUfEvent(AjaxBehaviorEvent ev) {
+		mascara = Util.getMascaraCnpj(selected.getUf());
+		script = "function mascara(id){jQuery(id).mask('" + mascara + "');}";
+		System.out.println(script);
 	}
 
 	public String getMascara() {
@@ -136,7 +178,7 @@ public abstract class AbstractConsultaAssinantesMB extends AbstractConsultaMB<As
 	public void setContabilidade(Contabilidade contabilidade) {
 		this.contabilidade = contabilidade;
 	}
-			
+
 	public List<Contabilidade> getContabilidades() {
 		return contabilidades;
 	}
@@ -145,4 +187,136 @@ public abstract class AbstractConsultaAssinantesMB extends AbstractConsultaMB<As
 		this.contabilidades = contabilidades;
 	}
 
+	public List<SiglaEstado> getEstados() {
+		return Util.getEstados();
+	}
+
+	public CertificadoA1 getCertificadoA1() {
+		return certificadoA1;
+	}
+
+	public void setCertificadoA1(CertificadoA1 certificadoA1) {
+		this.certificadoA1 = certificadoA1;
+	}
+
+	public void carregarPopUpAlterar() {
+		if ((selectedList != null) && (!selectedList.isEmpty())) {
+			file = null;
+			carregaPlanosContabilidades();
+			selected = selectedList.get(0);
+			selected.setTipoInclusao(getTipoInclusao());
+			selected.setUsuariosList(usuarioComponent.getUsuarios(selected));
+			certificadoA1 = certificadoA1Component.getCertificadoA1(selected);
+			setShowUpload(certificadoA1 == null);
+			login = "";
+			senha = "";
+		}
+	}
+
+	public void carregarPopUpIncluir() {
+		carregaPlanosContabilidades();
+		selected = new Assinante();
+		selected.setTipoInclusao(getTipoInclusao());
+		certificadoA1 = new CertificadoA1();
+		login = "";
+		senha = "";
+	}
+
+	private void carregaPlanosContabilidades() {
+		planos = planoComponent.getPlanos();
+		contabilidades = contabilidadeComponent.getContabilidades();
+	}
+
+	@Override
+	public void incluir() {
+		upload();
+		selected.setNomeFantasia(selected.getRazaoSocial());
+		assinanteComponent.incluirNovoAssinante(selected, certificadoA1);
+		listTable.add(selected);
+		setShowUpload(true);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Assinante inserido com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		RequestContext.getCurrentInstance().execute("PF('dlgIncluir').hide()");
+	}
+
+	@Override
+	public void alterar() {
+		upload();
+		assinanteComponent.alterarAssinante(selected, certificadoA1);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+				"Assinante alterado com sucesso.");
+		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		RequestContext.getCurrentInstance().execute("PF('dlgIncluir').hide()");
+	}
+
+	public void uploadP() {
+		if (fileP != null) {
+			System.out.println("Uploaded file name : " + fileP.getFileName());
+			certificadoA1.setArquivoPFXCertificadoA1(fileP.getContents());
+			certificadoA1.setNome(fileP.getFileName());
+		}
+	}
+
+	public void ajaxPlanos() {
+		script = "alert('olá');";
+		System.out.println(script);
+		mascara += "1";
+		System.out.println(mascara);
+		// FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("script");
+		// System.out.println("Chamou AJAX");
+	}
+
+	public void trocarCertificado() {
+		super.setShowUpload(true);
+		super.setShowUploadNome(false);
+		FacesContext.getCurrentInstance().getPartialViewContext()
+				.getRenderIds().add("pngParametros");
+	}
+
+	private Part file;
+
+	public void upload() {
+		try {
+			if (file != null) {
+				certificadoA1.setArquivoPFXCertificadoA1(IOUtils
+						.toByteArray(file.getInputStream()));
+				certificadoA1.setNome(file.getSubmittedFileName());
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public Part getFile() {
+		return file;
+	}
+
+	public void setFile(Part file) {
+		this.file = file;
+	}
+
+	public void handleFileUpload(FileUploadEvent event) {
+		System.out.println(event.getFile().getFileName());
+	}
+
+	public String getScript() {
+		return script;
+	}
+
+	public void setScript(String script) {
+		this.script = script;
+	}
+
+	@Override
+	public void removeSelectedList() {
+		listTable.removeAll(selectedList);
+		for (Assinante t : selectedList) {
+			try {
+				assinanteComponent.remove(t);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

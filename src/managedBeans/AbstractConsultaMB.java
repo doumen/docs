@@ -8,9 +8,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import managedBeans.components.RelatorioJasperMB;
-import model.Usuario;
+import model.Modulo;
+import model.TipoInclusao;
 
 import org.primefaces.context.RequestContext;
+
+import entity.Usuario;
 
 public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 
@@ -25,6 +28,7 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private boolean showUploadNome;
 	private boolean showUpload;
 
+	
 	List<T> filteredList = new ArrayList<>();
 
 	public List<T> getFilteredList() {
@@ -46,6 +50,17 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 		return this.loginBean;
 	}
 	
+	public model.TipoInclusao getTipoInclusao(){
+		model.Modulo m = this.loginBean.valueOf(loginBean.getModulo());
+		if(m.equals(Modulo.ADMINISTRATIVO)){
+			return TipoInclusao.MODULO_ADMINISTRATIVO;
+		}
+		else if(m.equals(Modulo.CONTABILIDADE)){
+			return TipoInclusao.MODULO_CONTABILIDADE;
+		}
+		return null;
+	}
+	
 	public abstract String getAvisoExcluir();
 
 	public abstract String getAvisoPreExcluir();
@@ -54,9 +69,7 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 
 	public abstract String getPdfTemplateName();
 		
-	public void removeSelectedList() {
-		listTable.removeAll(selectedList);
-	}
+	public abstract void removeSelectedList(); 
 
 	public abstract void incluir();
 	

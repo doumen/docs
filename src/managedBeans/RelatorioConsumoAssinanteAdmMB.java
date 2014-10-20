@@ -11,7 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import model.Assinante;
+import entity.Assinante;
 
 import org.primefaces.event.data.SortEvent;
 
@@ -102,8 +102,8 @@ public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante
 	}
 
 	private void acumulaDados(Assinante p) {
-		this.totalValorMensal += p.getPlano().getValorMensal();
-		this.totalComissaoMensal += p.getComissaoMensal();
+		this.totalValorMensal += p.getPlano().getValorMensalDouble();
+		this.totalComissaoMensal += p.getComissaoMensalDouble();
 	}
 
 	public void calculateTotal(Object o) {
@@ -140,7 +140,7 @@ public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante
 						acumulaDados(p);
 					break;
 				case 7:
-					if (ehIgual(p.getPlano().getValorMensal(),o))
+					if (ehIgual(p.getPlano().getValorMensalDouble(),o))
 						acumulaDados(p);
 					break;
 				case 8:
@@ -152,11 +152,11 @@ public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante
 						acumulaDados(p);
 					break;
 				case 10:
-					if (ehIgual(p.getContabilidade().getComissao(),o))
+					if (ehIgual(p.getContabilidade().getComissaoDouble(),o))
 						acumulaDados(p);
 					break;
 				case 11:
-					if (ehIgual(p.getComissaoMensal(),o))
+					if (ehIgual(p.getComissaoMensalDouble(),o))
 						acumulaDados(p);
 					break;
 				default:

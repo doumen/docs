@@ -10,9 +10,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import model.Contabilidade;
+import entity.Contabilidade;
 import model.TipoInclusao;
-import model.Usuario;
+import entity.Usuario;
 import model.Util;
 
 import org.primefaces.context.RequestContext;
@@ -64,11 +64,11 @@ public class ConsultaContabilidadeAdmMB extends
 		if (validateUsuario()) {
 			Usuario u = new Usuario();
 			u.setContabilidade(selected);
-			u.setDataInclusao(Calendar.getInstance());
+			u.setDataInclusao(Calendar.getInstance().getTime());
 			u.setLogin(login.trim());
 			u.setSenha(senha.trim());
 			u.setPermissaoAreaContador(permissaoAreaContador);
-			u.setPermissaoAreaAssinante(permissaoAreaAssinante);
+			u.setPermissaoAreaAdministrador(permissaoAreaAssinante);
 			selected.addUsuario(u);
 		}
 	}
@@ -183,6 +183,12 @@ public class ConsultaContabilidadeAdmMB extends
 
 	public String getPdfTemplateName() {
 		return "template_portrait";
+	}
+
+	@Override
+	public void removeSelectedList() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

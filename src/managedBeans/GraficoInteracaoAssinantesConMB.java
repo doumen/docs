@@ -8,7 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import managedBeans.component.AbstractGraficoInteracaoAssinante;
-import model.Assinante;
+import entity.Assinante;
 
 import component.AssinanteComponent;
 

@@ -1,17 +1,23 @@
 package component;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import model.Assinante;
-import model.Contabilidade;
 import model.Modulo;
-import model.Usuario;
+import dao.UsuarioDao;
+import entity.Assinante;
+import entity.Contabilidade;
+import entity.Usuario;
 
 @Stateless
 public class UsuarioComponent {
 
+	@EJB
+	private UsuarioDao usuarioDao;
+	
 	public boolean validar(Usuario usuario,Modulo modulo){
 		if(usuario==null)			
 			return false;
@@ -37,11 +43,23 @@ public class UsuarioComponent {
 		Contabilidade c = new Contabilidade();
 		Calendar cal = Calendar.getInstance();
 		cal.set(Calendar.YEAR,2012);
-		c.setDataInclusao(cal);
+		c.setDataInclusao(cal.getTime());
 		a.setContabilidade(c);
 		u.setAssinante(a);
 		u.setLogin(usuario.getLogin());
 		
 		return u;
+	}
+
+	public void incluirUsuario(Usuario u) {
+		try {
+			usuarioDao.persist(u);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<Usuario> getUsuarios(Assinante selected) {
+		return usuarioDao.findUsuariosFromAssinante(selected);
 	}
 }

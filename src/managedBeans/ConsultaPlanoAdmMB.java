@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 import org.primefaces.context.RequestContext;
 
-import model.Plano;
+import entity.Plano;
 import model.TipoInclusao;
 import component.PlanoComponent;
 
@@ -98,5 +98,11 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	@Override
 	public String getPdfTemplateName() {		
 		return "template_portrait";
+	}
+
+	@Override
+	public void removeSelectedList() {
+		// TODO Auto-generated method stub
+		
 	}
 }

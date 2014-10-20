@@ -14,6 +14,7 @@ import model.Util;
 import converter.ConvertByField;
 import dao.GenericDao;
 
+
 public class GenericDAOImpl<T> implements GenericDao<T>{
 	@PersistenceContext
     protected EntityManager em;
@@ -42,11 +43,12 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
      * @throws TransactionRequiredException
      * @throws PersistenceException
      */
-    public boolean persist(T t) throws Exception {
 
+    public boolean persist(T t) throws Exception {
         try {
         	Util.removeMask(t);
             em.persist(t);
+            em.flush();
             return true;
         } catch (Exception e) {
             throw e;
@@ -68,6 +70,7 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
         try {
         	Util.removeMask(t);
             em.merge(t);
+            em.flush();
             return true;
         } catch (Exception e) {
             throw e;
@@ -85,7 +88,9 @@ public class GenericDAOImpl<T> implements GenericDao<T>{
      */
     public boolean remove(T t) throws Exception {
         try {
-            em.remove(t);
+        	T m = em.merge(t);
+            em.remove(m);
+            em.flush();
             return true;
         } catch (Exception e) {
             throw e;

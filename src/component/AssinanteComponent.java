@@ -2,34 +2,73 @@ package component;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import model.Assinante;
-import model.CertificadoA1;
-import model.Contabilidade;
-import model.Plano;
-import model.SiglaEstado;
-import model.TipoInclusao;
-import model.Usuario;
 import model.Util;
+import dao.AssinanteDao;
+import entity.Assinante;
+import entity.CertificadoA1;
+import entity.Contabilidade;
+import entity.Plano;
+import entity.Usuario;
 
 @Stateless
 public class AssinanteComponent {
 
+	@EJB
+	private UsuarioComponent usuarioComponent;
 
+	@EJB
+	private AssinanteDao assinanteDao;
+	
+	@EJB
+	private CertificadoA1Component certificadoA1Component;
+	
+	@EJB
+	private NFeComponent nfeComponent;
+	
+	@EJB
+	private NFeConfiguracoesComponent nFeConfiguracoesComponent; 
+	
+	@EJB
+	private CTeComponent cTeComponent;
+	
+	@EJB
+	private CTeConfiguracoesComponent cTeConfiguracoesComponent;
+		
+	
+	@EJB
+	private SpedFiscalComponent spedFiscalComponent; 
+
+	@EJB
+	private SpedFiscalConfiguracoesComponent spedFiscalConfiguracoesComponent;
+
+	@EJB
+	private SpedContribuicoesComponent spedContribuicoesComponent; 
+
+	@EJB
+	private SpedContribuicoesConfiguracoesComponent spedContribuicoesConfiguracoesComponent;
+
+	@EJB
+	private SpedSocialComponent spedSocialComponent;
+	
+	@EJB
+	private SpedSocialConfiguracoesComponent spedSocialConfiguracoesComponent;
+		
 	public List<Assinante> getAssinantes() {
+		/*
 		ArrayList<Assinante> assinantes = new ArrayList<>();
 		int j = 0;
 		for (Long i = 0l; i < 100; i++) {
 			Assinante a = new Assinante();
-			a.setDataInclusao(Calendar.getInstance());
+			a.setDataInclusao(new Date());
 			a.setId(i);
 			a.setCnpj("CNPJ " + i);
 			a.setNomeFantasia("Nome Assinante " + i);
@@ -40,7 +79,7 @@ public class AssinanteComponent {
 			a.setEnderecoNumero(i.toString());
 			a.setEnderecoComplemento("Complemento " + i);
 			a.setBairro("Bairro " + i);
-			a.setCep("12569890");
+			a.setCep(12569890);
 			a.setMunicipio("Município " + i);
 			a.setUf(SiglaEstado.SP);
 			a.setCnpj("00747677000198");
@@ -70,11 +109,11 @@ public class AssinanteComponent {
 				listaUsuarios.add(u);
 			}
 			
-			a.setUsuarios(listaUsuarios);
+			a.setUsuariosList(listaUsuarios);
 			
 			CertificadoA1 certificadoA1 = new CertificadoA1();
 			certificadoA1.setNome("Certificado " + i + ".txt");
-			certificadoA1.setDataInclusao(Calendar.getInstance());
+			certificadoA1.setDataInclusao(new Date());
 
 			a.setCertificadoA1(certificadoA1);
 			
@@ -91,7 +130,9 @@ public class AssinanteComponent {
 			max = max - a.getTotalSpedFiscal();
 			a.setTotalSpedSocial(randomNum = rand.nextInt((max - min) + 1) + min);
 		}
-
+		return assinantes;
+		*/
+		List<Assinante> assinantes = assinanteDao.getAssinantes();
 		return assinantes;
 	}
 		
@@ -137,7 +178,8 @@ public class AssinanteComponent {
 		return p;
 	}
 
-	public List<Assinante> getAssinantes(Usuario usuario) {
+	public List<Assinante> getAssinantes(entity.Usuario usuario) {
+		/*
 		ArrayList<Assinante> assinantes = new ArrayList<>();
 		if ("contador".equals(usuario.getLogin())) {
 			assinantes.add(new Assinante("assinante 1 do contador"));
@@ -147,6 +189,8 @@ public class AssinanteComponent {
 			assinantes.add(new Assinante("assinante 2 do usuario assinante"));
 		}
 		return assinantes;
+		*/
+		return new ArrayList<>();
 	}
 
 	public List<Assinante> getRelatorioConsumoAssinantes() {
@@ -155,7 +199,7 @@ public class AssinanteComponent {
 
 	public List<Assinante> getAssinantesOrdenadosPorInteracao() {
 		List<Assinante> a = getAssinantes();
-		Collections.sort(a);
+		//Collections.sort(a);
 		return a;
 	}
 
@@ -184,6 +228,60 @@ public class AssinanteComponent {
 	public List<Assinante> getRelatorioAssinantesPlanos(
 			Contabilidade contabilidade) {
 		return getAssinantes();
+	}
+
+	public void incluirNovoAssinante(Assinante selected, CertificadoA1 certificadoA1) {
+		try {
+			 List<Usuario> usuarios = selected.getUsuarios();
+			 for(Usuario u:usuarios){
+				 u.setDataInclusao(selected.getDataInclusao());
+				 List<Assinante> assinantes = new ArrayList<>();
+				 assinantes.add(selected);
+				 u.setAssinantesList(assinantes);
+				 u.setPermissaoAreaAdministrador(false);
+				 u.setPermissaoAreaContador(false);
+				 u.setPermissaoAreaUsuario(true);
+			 }
+			 selected.setUsuariosList(usuarios);
+			assinanteDao.persist(selected);
+			certificadoA1.setAssinanteId(selected.getId());
+			certificadoA1.setDataInclusao(new Date());
+			certificadoA1Component.salvar(certificadoA1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void alterarAssinante(Assinante selected, CertificadoA1 certificadoA1) {
+		try {
+			 List<Usuario> usuarios = selected.getUsuarios();
+			 for(Usuario u:usuarios){
+				 u.setDataInclusao(selected.getDataInclusao());
+				 List<Assinante> assinantes = new ArrayList<>();
+				 assinantes.add(selected);
+				 u.setAssinantesList(assinantes);
+				 u.setPermissaoAreaAdministrador(false);
+				 u.setPermissaoAreaContador(false);
+				 u.setPermissaoAreaUsuario(true);
+			 }
+			 selected.setUsuariosList(usuarios);
+			assinanteDao.merge(selected);
+			certificadoA1.setAssinanteId(selected.getId());
+			certificadoA1.setDataInclusao(new Date());
+			certificadoA1Component.merge(certificadoA1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	public void remove(Assinante t) {
+		try {
+			certificadoA1Component.remove(t);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

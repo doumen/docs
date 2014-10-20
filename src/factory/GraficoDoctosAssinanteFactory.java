@@ -3,7 +3,7 @@ package factory;
 import java.util.Map;
 
 import jfreechart.JFreeChartExporter;
-import model.Assinante;
+import entity.Assinante;
 import model.GraficoDoctosAssinante;
 
 import org.jfree.data.general.DefaultPieDataset;

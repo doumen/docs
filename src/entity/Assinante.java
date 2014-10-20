@@ -72,31 +72,41 @@ public class Assinante implements Serializable {
     @Basic(optional = false)
     @Column(name = "Id")
     private Long id;
+    
     @Basic(optional = false)
     @Column(name = "Cnpj")
     @RemoveMask
     private String cnpj;
+    
+    @RemoveMask
     @Basic(optional = false)
     @Column(name = "InscricaoEstadual")
     private String inscricaoEstadual;
+    
     @Basic(optional = false)
     @Column(name = "NomeFantasia")
     @ConvertByField
     private String nomeFantasia;
+    
     @Basic(optional = false)
     @Column(name = "RazaoSocial")
     private String razaoSocial;
+    
     @Basic(optional = false)
     @Column(name = "Endereco")
     private String endereco;
+    
     @Basic(optional = false)
     @Column(name = "EnderecoNumero")
     private String enderecoNumero;
+    
     @Column(name = "EnderecoComplemento")
     private String enderecoComplemento;
+    
     @Basic(optional = false)
     @Column(name = "Bairro")
     private String bairro;
+    
     @Basic(optional = false)
     @Column(name = "Municipio")
     private String municipio;
@@ -108,21 +118,26 @@ public class Assinante implements Serializable {
     
     @Basic(optional = false)
     @Column(name = "Cep")
-    private int cep;
+    @RemoveMask
+    private Integer cep;
+    
     @Basic(optional = false)
     @Column(name = "EmailMaster")
     private String emailMaster;
+    
     @Basic(optional = false)
     @Column(name = "EmailFinanceiro")
     private String emailFinanceiro;
+    
     @Basic(optional = false)
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    
     @JoinTable(name = "tbAssinantes_tbUsuarios", joinColumns = {
         @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "tbUsuarios_Id", referencedColumnName = "Id")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Usuario> usuarios;
 
     @Transient
@@ -361,11 +376,11 @@ public class Assinante implements Serializable {
         this.uf = uf;
     }
 
-    public int getCep() {
+    public Integer getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(Integer cep) {
         this.cep = cep;
     }
 
@@ -586,4 +601,15 @@ public class Assinante implements Serializable {
 		return 0;
 	}
    
+	public void setCepFormat(String cep){
+		this.cep = Integer.valueOf(Util.removeMask(cep));
+	}
+	
+	public String getCepFormat(){
+		return this.cep==null?null:this.cep.toString();
+	}
+	
+	public Date getDataInclusaoTela(){
+		return this.dataInclusao;
+	}
 }

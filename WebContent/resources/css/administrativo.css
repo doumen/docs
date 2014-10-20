@@ -355,12 +355,6 @@
 	left: 0.6%;
 }
 
-.iptCep {
-	position: relative;
-	left: 0.6%;
-	width: 40%;
-}
-
 .selectUf{
 	margin-left: 20%;
 }
@@ -538,12 +532,6 @@
 .iptContBairro {
 	position: relative;
 	left: 0.6%;
-}
-
-.iptContCep {
-	position: relative;
-	left: 0.6%;
-	width: 40%;
 }
 
 .pnlDadosCont_c2 {

@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 
 import dao.PlanoDao;
 import entity.Plano;
-
 @Stateless
 public class PlanoDaoImpl extends GenericDAOImpl<Plano> implements PlanoDao{
 

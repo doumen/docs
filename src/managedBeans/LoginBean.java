@@ -9,9 +9,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import model.Assinante;
+import entity.Assinante;
 import model.Modulo;
-import model.Usuario;
+import entity.Usuario;
 import component.AssinanteComponent;
 import component.UsuarioComponent;
 
@@ -118,7 +118,7 @@ public class LoginBean {
 		return !getModulo().equals("administrativo");
 	}
 	
-	private Modulo valueOf(String s){
+	public Modulo valueOf(String s){
 		switch (s) {
 		case "administrativo":
 			return Modulo.ADMINISTRATIVO;

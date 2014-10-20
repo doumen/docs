@@ -8,9 +8,9 @@
 	xmlns:golive="http://java.sun.com/jsf/composite/components">
 
 	<ui:define name="tableColumns">
-		<p:column headerText="Vencimento" sortBy="#{list.dataInclusao.time}"
-			styleClass="c_caa_venc" filterBy="#{list.dataInclusao.time}" filterMatchMode="contains" >
-			<h:outputText value="#{list.dataInclusao.time}">
+		<p:column headerText="Vencimento" sortBy="#{list.dataInclusao}"
+			styleClass="c_caa_venc" filterBy="#{list.dataInclusao}" filterMatchMode="contains" >
+			<h:outputText value="#{list.dataInclusao}">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</h:outputText>
 		</p:column>

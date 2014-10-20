@@ -1,16 +1,21 @@
 package component;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import model.Plano;
+import dao.PlanoDao;
+import entity.Plano;
 
 @Stateless
 public class PlanoComponent {
+	
+	@EJB
+	private PlanoDao planoDao;
+	
 	public List<Plano> getPlanos() {
+		/*
 		ArrayList<Plano> planos = new ArrayList<>();
 		for (Long i = 0l; i < 100; i++) {
 			Plano c = new Plano();
@@ -25,14 +30,22 @@ public class PlanoComponent {
 			planos.add(c);
 		}
 		return planos;
+		*/
+		try {
+			return planoDao.getPlanos();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
-	public Plano getPlanoById(String descricao) {
-		for(Plano p : getPlanos()){
-			if(p.getDescricao().equals(descricao)){
-				return p;
-			}
-		}
-		return null;
+	public Plano getPlanoById(String id) throws NumberFormatException, Exception {
+		return planoDao.getPlanoById(Long.valueOf(id));
 	}
+	
+	public Plano getPlanoByDescricao(String descricao){
+		return planoDao.getPlanoByDescricao(descricao);
+	}
+	
+	
 }

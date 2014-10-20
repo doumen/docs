@@ -26,7 +26,7 @@
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
 			<p:outputLabel value="Cód. Plano" for="intCodPlano" />
-			<p:inputText id="intCodPlano" styleClass="iptCodAss"
+			<h:inputText id="intCodPlano" styleClass="iptCodAss"
 				value="#{cc.attrs.bean.selected.id}" disabled="true" />
 			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
 				styleClass="oplDtInclusao" />
@@ -35,38 +35,38 @@
 				pattern="dd/MM/yyyy" />
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
 				styleClass="oplTpInclusao" />
-			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
+			<h:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
 				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="true" />
 		</h:panelGrid>
 
 		<h:panelGrid columns="2" styleClass="dadosPlanos"
 			columnClasses="dadosPlanos_c1, dadosPlanos_c2">
 			<p:outputLabel value="Descrição" for="intDescricao" />
-			<p:inputText id="intDescricao"
+			<h:inputText id="intDescricao"
 				value="#{cc.attrs.bean.selected.descricao}"
 				styleClass="popUpDescricao" />
 			<p:outputLabel value="Faixa Inicial" for="intFaixaInicial" />
-			<p:inputText id="intFaixaInicial"
+			<h:inputText id="intFaixaInicial"
 				value="#{cc.attrs.bean.selected.faixaInicial}"
 				styleClass="planosValores" />
 			<p:outputLabel value="Faixa Final" for="intFaixaFinal" />
-			<p:inputText id="intFaixaFinal"
+			<h:inputText id="intFaixaFinal"
 				value="#{cc.attrs.bean.selected.faixaFinal}"
 				styleClass="planosValores" />
 			<p:outputLabel value="Valor Mensal" for="intValorMensal" />
-			<p:inputText id="intValorMensal" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
+			<h:inputText id="intValorMensal" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
 				value="#{cc.attrs.bean.selected.valorMensal}"
 				styleClass="planosValores">
 				<f:convertNumber type="currency" />
-			</p:inputText>
+			</h:inputText>
 		</h:panelGrid>
 		<h:panelGrid columns="3">
 			<p:outputLabel value="Valor NFe Adicional" for="intValorNfeAdicional" />
-			<p:inputText id="intValorNfeAdicional" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
+			<h:inputText id="intValorNfeAdicional" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
 				value="#{cc.attrs.bean.selected.valorNfeAdicional}"
 				styleClass="iptValorNfe">
 				<f:convertNumber type="currency" />
-			</p:inputText>
+			</h:inputText>
 		</h:panelGrid>
 
 		<br></br>

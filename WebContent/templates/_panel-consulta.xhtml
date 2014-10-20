@@ -8,7 +8,7 @@
 
 <ui:composition template="/templates/_headerFooter.xhtml">
 	<ui:define name="corpo">
-		<h:form id="formPainel" enctype="multipart/form-data">
+		<h:form id="formPainel">
 			<h:outputStylesheet value="panelTitulo" />
 			<p:panel header="#{tituloPainel}" styleClass="panelConsulta">
 				<f:facet name="actions">
@@ -21,15 +21,15 @@
 					</c:if>
 				</f:facet>
 				<div id="consulta_botoes">
-					<p:commandButton id="cbIncluir" value="" update="dlgIncluir"
-						styleClass="botaoConsulta" action="#{bean.carregarPopUpIncluir}"
+					<p:commandButton id="cbIncluir" value="" update=":formIncluir:dlgIncluir"
+						styleClass="botaoConsulta" actionListener="#{bean.carregarPopUpIncluir}"
 						style="background-image: url('resources/images/incluir.gif') !important;"
 						oncomplete="PF('dlgIncluir').show();">
 						<f:setPropertyActionListener target="#{bean.tipo}" value="incluir" />
 					</p:commandButton>
 					<p:tooltip for="cbIncluir" value="Incluir" />
-					<p:commandButton id="cbAlterar" update="dlgIncluir"
-						styleClass="botaoConsulta" action="#{bean.carregarPopUpAlterar}"
+					<p:commandButton id="cbAlterar" update=":formIncluir:dlgIncluir"
+						styleClass="botaoConsulta" actionListener="#{bean.carregarPopUpAlterar}"
 						style="background-image: url('resources/images/alterar.gif') !important;"
 						oncomplete="PF('dlgIncluir').show();" value="">
 						<f:setPropertyActionListener target="#{bean.tipo}" value="alterar" />
@@ -38,7 +38,7 @@
 					</p:commandButton>
 					<p:tooltip for="cbAlterar" value="Alterar" />
 					<p:commandButton id="cmbExcluir" value="" process="dataTable"
-						update="dlgExcluir,dlgExcluirConfirm"
+						update=":formDlgExcluir:dlgExcluir,:formDlgExcluir:dlgExcluirConfirm"
 						oncomplete="PF('dlgExcluir').show()" styleClass="botaoConsulta"
 						style="background-image: url('resources/images/excluir.gif') !important;" rendered="#{loginBean.moduloAdministrativo}"/>
 					<p:tooltip for="cmbExcluir" value="Excluir" />
@@ -61,6 +61,8 @@
 					<ui:insert name="tableColumns" />
 				</p:dataTable>
 			</p:panel>
+			</h:form>
+			<h:form id="formDlgExcluir">
 			<p:confirmDialog
 				message="#{bean.selectedList.isEmpty()?'Escolha um item para excluir':bean.avisoPreExcluir}"
 				severity="alert" widgetVar="dlgExcluir" dynamic="true"
@@ -89,14 +91,10 @@
 				<p:commandButton value="Não" onclick="PF('dlgExcluirConf').hide();" />
 				<p:commandButton value="Sim"
 					onclick="PF('dlgExcluirConf').hide();PF('dlgExcluirExcluir').show()"
-					action="#{bean.removeSelectedList}" update="@all" />
+					actionListener="#{bean.removeSelectedList}" update="@all" />
 			</p:confirmDialog>
-			<p:dialog header="Incluir" widgetVar="dlgIncluir" modal="true"
-				styleClass="#{tituloPainel}">
-				<ui:insert name="dlgForm" />
-				<p:commandButton value="incluir" onclick="dlgIncluir.hide();"
-					style="float: center;" action="#{bean.incluir}" update="@all" />
-			</p:dialog>
+			</h:form>			
+			<h:form id="formIncluir" enctype="multipart/form-data">
 			<p:dialog header="#{tituloPainel} | #{bean.headerInclude}"
 				styleClass="#{tituloPainel}" widgetVar="dlgIncluir" id="dlgIncluir"
 				modal="true">
@@ -109,7 +107,7 @@
 				</c:if>
 				<br />
 			</p:dialog>
-		</h:form>
+			</h:form>		
 	</ui:define>
 </ui:composition>
 </html>
