@@ -11,7 +11,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import entity.Plano;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -27,6 +26,8 @@ import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 import component.PlanoComponent;
 
+import entity.Plano;
+
 
 public class RelatorioJasperMB<T> {
 
@@ -36,6 +37,11 @@ public class RelatorioJasperMB<T> {
 	private String template;
 	private String modulo;
 	
+
+    /**
+     * Método responsável pela instanciação e extração da classe persistente.
+     */
+    
 	public void downloadReport() throws JRException, IOException{
     	final JasperPrint jasperPrint = getJasperPrint(); 
     	final HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse(); 
@@ -97,7 +103,7 @@ public class RelatorioJasperMB<T> {
 	
 	private JasperPrint getJasperPrint() throws JRException{
     	final File template = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/reports/"+this.getTemplate()+".jasper")); 
-    	HashMap<String,Object> param = getParam(); 
+    	HashMap<String,Object> param = getParam();     	
     	JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(beans);
     	param.put("data", data);		
 		return JasperFillManager.fillReport(template.getAbsolutePath(),param,data);

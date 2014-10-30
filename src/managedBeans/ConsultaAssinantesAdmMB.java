@@ -9,10 +9,11 @@ import model.TipoInclusao;
 @ViewScoped
 public class ConsultaAssinantesAdmMB extends AbstractConsultaAssinantesMB {
 
-	public void init() {
-		listTable = assinanteComponent.getAssinantes();
-		filteredList.addAll(listTable);
-		selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
+	public void init() {		
+		listTable.addAll(assinanteComponent.getAssinantes());
+		System.out.println("listTable = " + listTable);
+		//filteredList.addAll(listTable);
+		selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);		
 	}
 
 }

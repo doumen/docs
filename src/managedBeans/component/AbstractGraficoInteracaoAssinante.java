@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 
 import jfreechart.JFreeChartExporter;
 import managedBeans.AbstractExporterMB;
-import model.Assinante;
+import entity.Assinante;
 import model.GraficoInteracaAssinante;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;

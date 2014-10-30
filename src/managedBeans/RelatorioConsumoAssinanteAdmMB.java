@@ -103,7 +103,7 @@ public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante
 
 	private void acumulaDados(Assinante p) {
 		this.totalValorMensal += p.getPlano().getValorMensalDouble();
-		this.totalComissaoMensal += p.getComissaoMensalDouble();
+		this.totalComissaoMensal += p.getComissaoMensal();
 	}
 
 	public void calculateTotal(Object o) {
@@ -208,8 +208,10 @@ public class RelatorioConsumoAssinanteAdmMB extends AbstractExporterMB<Assinante
 
 	@Override
 	public List<Assinante> getReportList() {
-		
-		return getAssinantes();
+		List<Assinante> c = new ArrayList<>();
+		c.add(new Assinante());
+		c.addAll(getAssinantes());
+		return c;
 	}
 
 	@Override

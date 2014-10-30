@@ -11,11 +11,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import entity.Assinante;
-
 import org.primefaces.event.data.SortEvent;
 
-import component.AssinanteComponent;
+import dao.AssinanteDao;
+import entity.Assinante;
 
 @ManagedBean
 @ViewScoped
@@ -24,11 +23,11 @@ public class RelatorioContratacaoConsumoAdmMB extends AbstractExporterMB<Assinan
 	private List<Assinante> filteredList = new ArrayList<>();
 
 	@Inject
-	private AssinanteComponent assinanteComponent;
+	private AssinanteDao assinanteDao;
 
 	@PostConstruct
 	public void init() {
-		assinantes = assinanteComponent.getRelatorioContratacaoConsumo();
+		assinantes = assinanteDao.getAssinantesAtivosComTodosOsDoctos();
 		Collections.sort(assinantes, new Comparator<Assinante>() {
 
 			@Override
@@ -38,7 +37,7 @@ public class RelatorioContratacaoConsumoAdmMB extends AbstractExporterMB<Assinan
 			}
 		});
 
-		filteredList = assinanteComponent.getRelatorioContratacaoConsumo();
+//		filteredList.addAll(assinantes);
 	}
 
 	public List<Assinante> getAssinantes() {
@@ -162,8 +161,10 @@ public class RelatorioContratacaoConsumoAdmMB extends AbstractExporterMB<Assinan
 
 	@Override
 	public List<Assinante> getReportList() {
-		
-		return getAssinantes();
+		List<Assinante> c = new ArrayList<>();
+		c.add(new Assinante());
+		c.addAll(getAssinantes());
+		return c;
 	}
 
 	@Override

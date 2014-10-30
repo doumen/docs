@@ -81,7 +81,7 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
 		a = assinantes.get(super.getPaginaAtual()-1);
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.MONTH,0);
-		setHistorico(assinanteComponent.getHistoricoConsumoTotalDoAssinante(a, c, Calendar.getInstance()));
+		setHistorico(a.getHistoricoConsumoTotalDoAssinante(Calendar.MONTH,12));
 		graficoDoctosAssinante = graficoDoctosAssinanteAdmFactory.createLabels(a);
 	}
 		
@@ -119,10 +119,11 @@ public abstract class AbstractGraficoDoctosAssinanteMB extends PaginatorMB{
 	@Override
 	public List<GraficoDoctosAssinante> getReportList() {
     	List<GraficoDoctosAssinante> graficosDoctosAssinante = new ArrayList<>();
+    	graficosDoctosAssinante.add(new GraficoDoctosAssinante());
     	Calendar c = Calendar.getInstance();
     	c.set(Calendar.MONTH, 0);
     	for(Assinante as:assinantes){
-    		graficosDoctosAssinante.add(graficoDoctosAssinanteAdmFactory.createGrafico(as, assinanteComponent.getHistoricoConsumoTotalDoAssinante(as, c, Calendar.getInstance())));
+    		graficosDoctosAssinante.add(graficoDoctosAssinanteAdmFactory.createGrafico(as, as.getHistoricoConsumoTotalDoAssinante(Calendar.MONTH,12)));
     	}
 		return graficosDoctosAssinante;
 	}

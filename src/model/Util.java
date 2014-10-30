@@ -13,10 +13,17 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.WordUtils;
 import org.jfree.chart.JFreeChart;
@@ -180,7 +187,10 @@ public class Util {
 		return valorMensal==null?"":"R$ " + String.format("%.2f", valorMensal);
 	}
 	public static String removeMask(String m){		 		
-		return m.replaceAll("\\.|\\?|\\/|\\-", "");
+		return m==null?null:m.replaceAll("\\.|\\?|\\/|\\-", "");
+	}
+	public static String removeMaskPercent(String s){
+		return s.replaceAll("\\%", "").replaceAll("\\,", ".");
 	}
 	
 	public static <T> void removeMask(T t){
@@ -203,6 +213,87 @@ public class Util {
 	public static void main(String[] args) {
 //		JFrame f = new JFrame();
 //		f.setVisible(true);
+		Calendar c = Calendar.getInstance();
+		System.out.println(c.getTime());
+		c.set(Calendar.DAY_OF_MONTH, 20);
+		System.out.println(Util.daysBetween(c,Calendar.getInstance()));
+	}
+	
+	public static void refresh(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		String viewId = context.getViewRoot().getViewId();
+		ViewHandler handler = context.getApplication().getViewHandler();
+		UIViewRoot root = handler.createView(context, viewId);
+		root.setViewId(viewId);
+		context.setViewRoot(root);
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+	}
+
+	public static String formatPercent(String comissao) {
+		return comissao.replaceAll("\\.", ",")+"%";
+	}
+
+	public static int comparaMesAno(Date antes,Date depois){
+		Calendar c_antes = new GregorianCalendar();
+		c_antes.setTime(antes);
+		Calendar c_depois = new GregorianCalendar();
+		c_depois.setTime(depois);
+		return Util.comparaMesAno(c_antes, c_depois);
+	}
+	public static int comparaMesAno(Calendar antes,Calendar depois){
+		int compara = Util.comparaDatasPorCampo(Calendar.YEAR, antes, depois);
+		if(compara!=0)
+			return compara;
+		return Util.comparaDatasPorCampo(Calendar.MONTH, antes, depois);
+	}
+	
+	public static int comparaDiaMesAno(Calendar antes,Calendar depois){
+		int compara = Util.comparaDatasPorCampo(Calendar.YEAR, antes, depois);
+		if(compara!=0)
+			return compara;
+		compara = Util.comparaDatasPorCampo(Calendar.MONTH, antes, depois);
+		if(compara!=0)
+			return compara;
+		return Util.comparaDatasPorCampo(Calendar.DAY_OF_MONTH, antes, depois);
+	}
+	
+	public static int comparaDiaMesAno(Date antes,Date depois){
+		Calendar c_antes = Calendar.getInstance();
+		Calendar c_depois = Calendar.getInstance();
+		if(antes!=null)
+			c_antes.setTime(antes);
+		if(depois!=null)
+			c_depois.setTime(depois);
+		return comparaDiaMesAno(c_antes, c_depois);
+	}
+	
+	public static int comparaDatasPorCampo(int campo,Calendar antes,Calendar depois){
+		if(antes !=null && depois !=null){
+			int dif = depois.get(campo) - antes.get(campo);
+			return dif==0?0:dif/Math.abs(dif);
+		}
+		return -2;
+	}
+
+	public static int comparaDatasPorCampo(int campo,Date antes,Date depois){
+		Calendar c_antes = new GregorianCalendar();
+		c_antes.setTime(antes);
+		Calendar c_depois = new GregorianCalendar();
+		c_depois.setTime(depois);
+		System.out.println("comparaDatasPorCampo(" + campo + "," + antes + "," + depois + ") = " + comparaDatasPorCampo(campo, c_antes, c_depois));
+		return comparaDatasPorCampo(campo, c_antes, c_depois);
+	}
+	
+	public static long daysBetween(Calendar startDate, Calendar endDate) {
+	    long end = endDate.getTimeInMillis();
+	    long start = startDate.getTimeInMillis();
+	    return TimeUnit.MILLISECONDS.toDays(Math.abs(end - start));
+	}
+	
+	private void testMascara(){
 		entity.Assinante a = new entity.Assinante();
 		a.setCnpj("302.421.548-40");
 		System.out.println("antes: " + a.getCnpj());
@@ -210,8 +301,5 @@ public class Util {
 		Util.removeMask(a);
 		long tempo = Calendar.getInstance().getTimeInMillis() - inicio;
 		System.out.println("Tempo total: " + tempo);
-		
 	}
-
-	
 }

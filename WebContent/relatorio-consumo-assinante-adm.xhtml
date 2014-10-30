@@ -66,7 +66,7 @@
 			</p:column>
 			<p:column headerText="%Com" sortBy="#{list.contabilidade.comissao}"
 				id="comissao" styleClass="c_rcad_comissao" filterBy="#{list.contabilidade.comissao}" filterMatchMode="contains">
-				<h:outputText value="#{list.contabilidade.comissao}">
+				<h:outputText value="#{list.contabilidade.comissaoDouble}">
 					<f:convertNumber type="percent" />
 				</h:outputText>
 			</p:column>

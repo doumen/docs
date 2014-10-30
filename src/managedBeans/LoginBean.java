@@ -37,17 +37,20 @@ public class LoginBean {
 	private AssinanteComponent assinanteComponent;
 	
 	public String efetuaLogin(){
-		boolean loginValido = usuarioComponent.validar(usuario,valueOf(getModulo()));
-		if(loginValido){
+		Usuario u = null;
+		try {
+			u = usuarioComponent.getUsuarioComSenhaValida(usuario, valueOf(modulo));
 			logado = true;
-			if(!valueOf(modulo).equals(Modulo.ADMINISTRATIVO))
-				usuario = usuarioComponent.getUsuario(usuario);
+			usuario = u;
+			assinantes = null;
 			return "painel-"+getModulo()+"?faces-redirect=true";			
-		}else{
+		} catch (Exception e) {
 			limpar();
 			logado = false;
-			return "login-"+getModulo()+"?faces-redirect=true";
-		}
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, new FacesMessage("Atenção!",  "Senha inválida "));
+			return null;//"login-"+getModulo()+"?faces-redirect=true";
+		}		
 	}
 	
 	public String efetuaLogout(){
@@ -57,12 +60,13 @@ public class LoginBean {
 	}
 	
 	public void inputLoginBlurHandler(){
-		if(!usuarioComponent.existeUsuario(getUsuario(),valueOf(getModulo()))){
+		List<Assinante> ass = assinanteComponent.getAssinantesDoUsuario(getUsuario(),valueOf(getModulo()));
+		if(ass==null || ass.size()==0){
 			FacesContext context = FacesContext.getCurrentInstance();
 			context.addMessage(null, new FacesMessage("Atenção!",  "Usuário não cadastrado para o módulo " + getModulo()));
 			limpar();
 		}else{
-			assinantes = assinanteComponent.getAssinantes(getUsuario());
+			assinantes = ass;
 		}
 	}
 
@@ -133,5 +137,13 @@ public class LoginBean {
 	
 	public boolean isModuloAdministrativo(){
 		return Modulo.ADMINISTRATIVO.equals(valueOf(modulo));
+	}
+	
+	public Modulo getMod(){
+		return valueOf(modulo);
+	}
+	
+	public Assinante getAssinante(){
+		return usuario==null?null:usuario.getAssinante();
 	}
 }

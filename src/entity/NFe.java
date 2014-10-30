@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,10 +25,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -65,7 +66,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "NFe.findBySistemaUploadLocalOrigemXml", query = "SELECT n FROM NFe n WHERE n.sistemaUploadLocalOrigemXml = :sistemaUploadLocalOrigemXml"),
     @NamedQuery(name = "NFe.findBySistemaUploadLocalDestinoXml", query = "SELECT n FROM NFe n WHERE n.sistemaUploadLocalDestinoXml = :sistemaUploadLocalDestinoXml"),
     @NamedQuery(name = "NFe.findByDataInclusao", query = "SELECT n FROM NFe n WHERE n.dataInclusao = :dataInclusao")})
-public class NFe implements Serializable {
+public class NFe implements Serializable,Docto {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,13 +79,13 @@ public class NFe implements Serializable {
     private Date emissaoNFe;
     @Basic(optional = false)
     @Column(name = "ChaveNFe")
-    private int chaveNFe;
+    private String chaveNFe;
     @Column(name = "AutorizacaoDataHoraNFe")
     @Temporal(TemporalType.TIMESTAMP)
     private Date autorizacaoDataHoraNFe;
     @Basic(optional = false)
     @Column(name = "AutorizacaoProtocoloNFe")
-    private int autorizacaoProtocoloNFe;
+    private String autorizacaoProtocoloNFe;
     @Basic(optional = false)
     @Column(name = "EntradaSaidaNFe")
     private Character entradaSaidaNFe;
@@ -104,7 +105,7 @@ public class NFe implements Serializable {
     private String manifestoJustificativa;
     @Basic(optional = false)
     @Column(name = "NumeroNFe")
-    private int numeroNFe;
+    private String numeroNFe;
     @Basic(optional = false)
     @Column(name = "SerieNFe")
     private int serieNFe;
@@ -150,7 +151,10 @@ public class NFe implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    /*
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "tbNFeId", fetch = FetchType.LAZY)
+    */
+    @Transient
     private NFeArquivos nFeArquivos;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbNFeId", fetch = FetchType.LAZY)
     private List<Fatura> faturasList;
@@ -176,7 +180,7 @@ public class NFe implements Serializable {
         this.id = id;
     }
 
-    public NFe(Integer id, Date emissaoNFe, int chaveNFe, int autorizacaoProtocoloNFe, Character entradaSaidaNFe, String statusNFe, boolean manifestoRealizado, Date manifestoDataHora, int numeroNFe, int serieNFe, String cnpjEmitente, String emitenteRazaoSocial, String cnpjDestinatario, String destinatarioRazaoSocial, BigDecimal valorTotalNFe, String sistemaUploadStatusXml, String sistemaTipoRecepcaoNFe, String sistemaNomeArquivoNFe, Date sistemaUploadXmlDataHora, String sistemaUploadLocalOrigemXml, String sistemaUploadObservacaoXml, Date dataInclusao) {
+    public NFe(Integer id, Date emissaoNFe, String chaveNFe, String autorizacaoProtocoloNFe, Character entradaSaidaNFe, String statusNFe, boolean manifestoRealizado, Date manifestoDataHora, String numeroNFe, int serieNFe, String cnpjEmitente, String emitenteRazaoSocial, String cnpjDestinatario, String destinatarioRazaoSocial, BigDecimal valorTotalNFe, String sistemaUploadStatusXml, String sistemaTipoRecepcaoNFe, String sistemaNomeArquivoNFe, Date sistemaUploadXmlDataHora, String sistemaUploadLocalOrigemXml, String sistemaUploadObservacaoXml, Date dataInclusao) {
         this.id = id;
         this.emissaoNFe = emissaoNFe;
         this.chaveNFe = chaveNFe;
@@ -217,11 +221,11 @@ public class NFe implements Serializable {
         this.emissaoNFe = emissaoNFe;
     }
 
-    public int getChaveNFe() {
+    public String getChaveNFe() {
         return chaveNFe;
     }
 
-    public void setChaveNFe(int chaveNFe) {
+    public void setChaveNFe(String chaveNFe) {
         this.chaveNFe = chaveNFe;
     }
 
@@ -233,11 +237,11 @@ public class NFe implements Serializable {
         this.autorizacaoDataHoraNFe = autorizacaoDataHoraNFe;
     }
 
-    public int getAutorizacaoProtocoloNFe() {
+    public String getAutorizacaoProtocoloNFe() {
         return autorizacaoProtocoloNFe;
     }
 
-    public void setAutorizacaoProtocoloNFe(int autorizacaoProtocoloNFe) {
+    public void setAutorizacaoProtocoloNFe(String autorizacaoProtocoloNFe) {
         this.autorizacaoProtocoloNFe = autorizacaoProtocoloNFe;
     }
 
@@ -289,11 +293,11 @@ public class NFe implements Serializable {
         this.manifestoJustificativa = manifestoJustificativa;
     }
 
-    public int getNumeroNFe() {
+    public String getNumeroNFe() {
         return numeroNFe;
     }
 
-    public void setNumeroNFe(int numeroNFe) {
+    public void setNumeroNFe(String numeroNFe) {
         this.numeroNFe = numeroNFe;
     }
 
@@ -426,11 +430,11 @@ public class NFe implements Serializable {
         this.faturasList = faturasList;
     }
 
-    public Assinante getTbAssinantesId() {
+    public Assinante getAssinante() {
         return tbAssinantesId;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
+    public void setAssinante(Assinante tbAssinantesId) {
         this.tbAssinantesId = tbAssinantesId;
     }
 
@@ -491,5 +495,15 @@ public class NFe implements Serializable {
     public String toString() {
         return "javaapplication2.NFe[ id=" + id + " ]";
     }
+
+	@Override
+	public void setArquivoXml(Arquivo a) {
+		setNFeArquivos((NFeArquivos) a);
+	}
+
+	@Override
+	public Arquivo getArquivoXml() {
+		return getNFeArquivos();
+	}
     
 }

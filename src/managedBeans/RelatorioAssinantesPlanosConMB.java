@@ -36,7 +36,8 @@ public class RelatorioAssinantesPlanosConMB {
 	@PostConstruct
 	public void init() {
 		assinantes = assinanteComponent.getRelatorioAssinantesPlanos(loginBean.getUsuario().getContabilidade());
-		filteredList = assinanteComponent.getRelatorioAssinantesPlanos(loginBean.getUsuario().getContabilidade());
+		filteredList = new ArrayList<>();
+		filteredList.addAll(assinantes);
 		rj = createRelatorioJasperMB();
 	}
 
@@ -54,7 +55,10 @@ public class RelatorioAssinantesPlanosConMB {
 
 	private RelatorioJasperMB<Assinante> createRelatorioJasperMB(){
 		RelatorioJasperMB<Assinante> r = new RelatorioJasperMB<>();
-		r.setBeans(assinantes);
+		List<Assinante> ass = new ArrayList<>();
+		ass.add(new Assinante());
+		ass.addAll(assinantes);
+		r.setBeans(ass);
 		r.setReport("relatorio-assinantes-planos");
 		r.setTemplate("template_landscape");
 		r.setModulo(loginBean.getModulo());

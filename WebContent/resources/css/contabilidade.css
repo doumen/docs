@@ -802,16 +802,16 @@ width: 16px;height: 16px;
 	width: 10.5%;
 }
 .c_rcad_faixaInicial{
-	text-align: left;
+	text-align: right;
 	width: 6.2%;
 	text-align: left;
 }
 .c_rcad_faixaFinal{
-	text-align: center;
+	text-align: left;
 	width: 5.4%;
 }
 .c_rcad_valorMensal{
-	text-align: right;
+	text-align: left;
 	width: 7%;
 }
 .c_rcad_contCnpj{
@@ -838,4 +838,65 @@ width: 16px;height: 16px;
 	background-position: left;
 	height: 35px;
 	font-weight: bold;
+}
+.pa1{
+	position: relative !important;
+	width: 350px !important;
+	height: 250px !important;
+	top: 35% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pa2{
+	position: relative !important;
+	width: 350px !important;
+	height: 250px !important;
+	top: 25% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pa3{
+	position: relative !important;
+	width: 350px !important;
+	height: 250px !important;
+	top: 50% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pa4{
+	position: relative !important;
+	width: 350px !important;
+	height: 250px !important;
+	top: 50% !important;
+	margin-top: 0px !important;
+	left: 52% !important;
+	margin-left: -250px !important;
+}
+.pnlgInformacao {
+	color: #9C9C9C;
+}
+
+.pnlgInformacao_c1, .pnlgInformacao_c2, .pnlgInformacao_c3,
+	.pnlgInformacao_c4, .pnlgInformacao_c5, .pnlgInformacao_c6 {
+	font-size: 12px;
+}
+
+.pnlgInformacao_c3, .pnlgInformacao_c4 {
+	width: 17%;
+}
+
+.pnlgInformacao_c1 {
+	width: 15.25%;
+}
+
+.pnlgInformacao_c2 {
+	width: 9%;
+	text-align: center;
+}
+
+.pnlgInformacao_c6 {
+	width: 27%;
 }

@@ -33,89 +33,92 @@
 	</script>
 	<p:panel id="pnlAssinantes" styleClass="pnlAssinantes">
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
-			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
-			<p:outputLabel value="Cód. Assinante" for="intCodAssinante" />
+			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6" id="p1">
+			<p:outputLabel value="Cód. Assinante" for="intCodAssinante" id="o1"/>
 			<p:inputText id="intCodAssinante" styleClass="iptCodAss"
 				value="#{cc.attrs.bean.selected.id}" disabled="true" />
 			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
-				styleClass="oplDtInclusao" />
+				styleClass="oplDtInclusao" id="o2"/>
 			<p:calendar id="intDtInclusao" styleClass="iptDtInclusao"
 				value="#{cc.attrs.bean.selected.dataInclusao}" disabled="true"
 				pattern="dd/MM/yyyy" />
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
-				styleClass="oplTpInclusao" />
+				styleClass="oplTpInclusao" id="o3"/>
 			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
 				value="#{cc.attrs.bean.tipoInclusao}" disabled="true" />
 		</h:panelGrid>
-		<p:tabView styleClass="tabDados">
-			<p:tab title="Dados Assinantes">			
+		<p:tabView styleClass="tabDados" id="t1">
+			<p:tab title="Dados Assinantes" id="tv1">			
 				<p:fieldset id="fdsDadosAssinantes" styleClass="dadosAssinantes">
-						<h:panelGroup id="scriptMask"><h:outputScript>#{bean.script}</h:outputScript></h:panelGroup>												
-					<h:panelGrid columns="2">
-						<p:outputLabel value="Razão Social" for="intRazaoSocial" />
+						<h:panelGroup id="scriptMask"><h:outputScript id="s1">#{bean.script}</h:outputScript></h:panelGroup>												
+					<h:panelGrid columns="2" id="pp1">
+						<p:outputLabel value="Nome Fantasia" for="intNomeFantasia" id="o4"/>
+						<h:inputText id="intNomeFantasia" styleClass="iptDadosAssinantes"
+							value="#{cc.attrs.bean.selected.nomeFantasia}" />
+						<p:outputLabel value="Razão Social" for="intRazaoSocial" id="o6"/>
 						<h:inputText id="intRazaoSocial" styleClass="iptDadosAssinantes"
 							value="#{cc.attrs.bean.selected.razaoSocial}" />
-						<p:outputLabel value="Endereço" for="intEndereco" />
+						<p:outputLabel value="Endereço" for="intEndereco" id="o7"/>
 						<h:panelGrid columns="3" styleClass="pnlgEndereco"
-							columnClasses="pnlgEndereco_c1,pnlgEndereco_c2,pnlgEndereco_c3">
+							columnClasses="pnlgEndereco_c1,pnlgEndereco_c2,pnlgEndereco_c3" id="p3">
 							<h:inputText id="intEndereco"
 								value="#{cc.attrs.bean.selected.endereco}"
-								styleClass="iptEndereco" />
-							<p:outputLabel value="Nº " for="intNumero" styleClass="oplNumero" />
+								styleClass="iptEndereco"/>
+							<p:outputLabel value="Nº " for="intNumero" styleClass="oplNumero" id="o8"/>
 							<h:inputText id="intNumero"
 								value="#{cc.attrs.bean.selected.enderecoNumero}"
-								styleClass="iptNumero" mask="9?9999" />
+								styleClass="iptNumero" mask="9?9999"/>
 						</h:panelGrid>
-						<p:outputLabel value="Complemento" for="intComplemento" />
+						<p:outputLabel value="Complemento" for="intComplemento" id="o9"/>
 						<h:inputText id="intComplemento" styleClass="iptDadosAssinantes"
 							value="#{cc.attrs.bean.selected.enderecoComplemento}" />
-						<p:outputLabel value="Bairro" for="intBairro" />
-						<h:panelGrid columns="3">
+						<p:outputLabel value="Bairro" for="intBairro" id="o10"/>
+						<h:panelGrid columns="3" id="p2">
 							<p:inputText id="intBairro" styleClass="iptBairro"
 								value="#{cc.attrs.bean.selected.bairro}" />
-							<p:outputLabel value="CEP" for="intCep" />
+							<p:outputLabel value="CEP" for="intCep" id="o11"/>
 							<h:inputText id="intCep" value="#{cc.attrs.bean.selected.cepFormat}"
 								onfocus="mascaraCep(this)" style="position:relative;left:0.6%;width:40%;"/>
 						</h:panelGrid>
-						<p:outputLabel value="Município" for="intMunicipio" />
-						<h:panelGrid columns="3">
+						<p:outputLabel value="Município" for="intMunicipio" id="o12"/>
+						<h:panelGrid columns="3" id="p4">
 							<p:inputText id="intMunicipio"
 								value="#{cc.attrs.bean.selected.municipio}" />
-							<p:outputLabel value="UF" for="somUf" />
+							<p:outputLabel value="UF" for="somUf" id="o5"/>
 							<h:selectOneMenu id="somUf" value="#{cc.attrs.bean.selected.uf}"
 								styleClass="selectUf">
 								<f:selectItem itemLabel="" itemValue="#{null}"
-									noSelectionOption="true" />
-								<f:selectItems value="#{cc.attrs.bean.estados}" />
+									noSelectionOption="true" id="f1"/>
+								<f:selectItems value="#{cc.attrs.bean.estados}" id="f2"/>
 								<f:ajax event="change"
 									listener="#{cc.attrs.bean.changeUfEvent}"
 									render="intInscEst scriptMask" />
 							</h:selectOneMenu>
 						</h:panelGrid>
-						<p:outputLabel value="CNPJ" for="intCnpj" />
-						<h:panelGrid columns="3">
+						<p:outputLabel value="CNPJ" for="intCnpj" id="o13"/>
+						<h:panelGrid columns="3" id="p5">
 							<h:inputText id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
 								 onfocus="mascaraCnpj(this)"/>
-							<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
+							<p:outputLabel value="Inscr.Estadual" for="intInscEst" id="o15"/>
 							<h:inputText id="intInscEst" onfocus="mascara(this)"
 								value="#{bean.selected.inscricaoEstadual}">							
 								 </h:inputText>
 						</h:panelGrid>
 					</h:panelGrid>
 				</p:fieldset>
-				<h:panelGrid columns="1">
+				<h:panelGrid columns="1" id="p7">
 					<p:fieldset id="fdsUsuarios" legend="Usuários"
 						styleClass="dadosUsuarios">
 						<p:messages id="msgs" />
 						<h:panelGrid columns="6" styleClass="gridUsuarioAss"
-							columnClasses="gUA_c1,gUA_c2,gUA_c3,gUA_c4,gUA_c5,gUA_c6">
-							<p:outputLabel value="Usuário" for="intUsuario" />
-							<p:inputText id="intUsuario" value="#{bean.login}">
+							columnClasses="gUA_c1,gUA_c2,gUA_c3,gUA_c4,gUA_c5,gUA_c6" id="p8">
+							<p:outputLabel value="Usuário" for="intUsuario" id="o19"/>
+							<p:inputText id="intUsuario" value="#{bean.login}" >
 								<p:ajax event="blur" update="intUsuario" />
 							</p:inputText>
-							<p:outputLabel value="Senha" for="pwdUsuario" />
-							<p:password id="pwdUsuario" value="#{bean.senha}">
-								<p:ajax event="blur" />
+							<p:outputLabel value="Senha" for="pwdUsuario" id="o20"/>
+							<p:password id="pwdUsuario" value="#{bean.senha}" >
+								<p:ajax event="blur"/>
 							</p:password>
 							<h:commandButton id="cbIncluir" value=""
 								style="background-image: url('resources/images/incluir.gif') !important;">
@@ -127,74 +130,71 @@
 								<f:ajax event="click" listener="#{bean.removeUsuario}"
 									 render="dtbUsuarios" />
 							</h:commandButton>
-							<p:tooltip for="cmbExcluir" value="Excluir" />
-							<p:tooltip for="cbIncluir" value="Incluir" />
+							<p:tooltip for="cmbExcluir" value="Excluir" id="t1"/>
+							<p:tooltip for="cbIncluir" value="Incluir" id="t2"/>
 						</h:panelGrid>
 						<h:dataTable id="dtbUsuarios" styleClass="dataTableUsuariosAss"
 							scrollable="true" scrollHeight="100"
 							value="#{cc.attrs.bean.selected.usuarios}" var="usuario"
 							emptyMessage="Nenhum registro encontrado.">
-							<h:column headerText="ID">
-								<h:outputText value="#{usuario.id}" />
-							</h:column>
-							<h:column headerText="Usuário">
-								<h:outputText value="#{usuario.login}" />
+							<h:column headerText="Usuário" id="c1">
+								<h:outputText value="#{usuario.login}" id="o21"/>
 							</h:column>
 						</h:dataTable>
 					</p:fieldset>
 				</h:panelGrid>
 			</p:tab>
-			<p:tab title="Plano Contratação">
-				<h:panelGrid columns="2">
-					<p:outputLabel value="Cód.Plano" for="somCodPlano" />
+			<p:tab title="Plano Contratação" id="tt1">
+				<h:panelGrid columns="2" id="p12">
+					<p:outputLabel value="Cód.Plano" for="somCodPlano" id="o21"/>
 					<h:selectOneMenu id="somCodPlano" value="#{bean.selected.plano}"
 						styleClass="codPlanoAss" converter="planoConverter">
 						<f:selectItem itemLabel="" itemValue="#{null}"
-							noSelectionOption="true" />
-						<f:selectItems value="#{bean.planos}" />
-						<f:ajax event="change" render="intDescrPlano intValorMensal" />
+							noSelectionOption="true" id="s2"/>
+						<f:selectItems value="#{bean.planos}" id="ss1"/>
+						<f:ajax event="change" render="intDescrPlano intValorMensal"/>
 					</h:selectOneMenu>
-					<p:outputLabel value="Descr.Plano" for="intDescrPlano" />
+					<p:outputLabel value="Descr.Plano" for="intDescrPlano" id="o24"/>
 					<p:inputText id="intDescrPlano"
 						value="#{cc.attrs.bean.selected.plano.descricao}" disabled="true"
 						styleClass="descPlanoAss" />
-					<p:outputLabel value="Valor Mensal" for="intValorMensal" />
+					<p:outputLabel value="Valor Mensal" for="intValorMensal" id="o31"/>
 					<p:inputText id="intValorMensal"
 						value="#{cc.attrs.bean.selected.plano.valorMensalFormatado}"
-						styleClass="vlMensalAss" disabled="true">
+						styleClass="vlMensalAss" disabled="true" >
 					</p:inputText>
 				</h:panelGrid>
 			</p:tab>
-			<p:tab title="Contabilidade">
-				<h:panelGrid columns="2">
-					<p:outputLabel value="Cód.Cont." for="somCodCont" />
+			<p:tab title="Contabilidade" id="tt2">
+				<h:panelGrid columns="2" id="p11">
+					<p:outputLabel value="Cód.Cont." for="somCodCont" id="oo1"/>
 					<h:selectOneMenu id="somCodCont"
 						value="#{bean.selected.contabilidade}" styleClass="codContAss"
-						converter="contabilidadeConverter">
+						converter="contabilidadeConverter" disabled="#{!loginBean.moduloAdministrativo}">
 						<f:selectItem itemLabel="" itemValue="#{null}"
-							noSelectionOption="true" />
-						<f:selectItems value="#{bean.contabilidades}" />
+							noSelectionOption="true" id="ss11"/>
+						<f:selectItems value="#{bean.contabilidades}" id="a1"/>
 						<f:ajax event="change" render="intContCnpj intContRazaoSocial" />
 					</h:selectOneMenu>
-					<p:outputLabel value="CNPJ" for="intContCnpj" />
+					<p:outputLabel value="CNPJ" for="intContCnpj" id="ooo1"/>
 					<h:inputText id="intContCnpj" disabled="true"
-						value="#{cc.attrs.bean.selected.contabilidade.cnpjFormatado}" onfocus="mascaraCnpj(this)"/>
-					<p:outputLabel value="Razão Social" for="intContRazaoSocial" />
+						value="#{cc.attrs.bean.selected.contabilidade.cnpjFormatado}" onfocus="mascaraCnpj(this)" />
+					<p:outputLabel value="Razão Social" for="intContRazaoSocial" id="ooo2"/>
 					<p:inputText id="intContRazaoSocial" disabled="true"
 						value="#{cc.attrs.bean.selected.contabilidade.razaoSocial}"
 						styleClass="razaoSocialAss" />
 				</h:panelGrid>
 			</p:tab>
-			<p:tab title="Parametros">
+			<p:tab title="Parametros" id="ttt1">
 				<h:panelGrid columns="3" styleClass="pngParametros"
 					id="pngParametros"
 					columnClasses="pngParametros_c1,pngParametros_c2,pngParametros_c3">
-					<h:column>
-						<p:outputLabel value="Certificado Digital A1"  />
+					<h:column id="cc11">
+						<p:outputLabel value="Certificado Digital A1"  id="o111"/>
 					</h:column>
-					<h:column>
+					<h:column id="cc12">
 						<p:outputLabel value="#{cc.attrs.bean.certificadoA1.nome}"
-							rendered="#{bean.showUploadNome}" styleClass="uploadNome" />
+							rendered="#{bean.showUploadNome}" styleClass="uploadNome" id="oo12" />
 
 						<h:commandButton value="Trocar Certificado" id="cdbTrocar"
 							rendered="#{bean.showUploadNome}">
@@ -204,43 +204,43 @@
 						</h:commandButton>
   						<h:panelGrid rendered="#{bean.showUpload}"><h:inputFile id="file" value="#{bean.file}" ></h:inputFile></h:panelGrid>
   					</h:column>
-					<p:spacer />
-					<h:outputLabel value="Senha" />
+					<p:spacer id="sp1"/>
+					<h:outputLabel value="Senha" id="ooo12"/>
 					<p:inputText styleClass="iptEmailMaster"
 						value="#{bean.certificadoA1.senha}" />
-					<p:spacer />
-					<p:spacer />
+					<p:spacer id="sp2"/>
+					<p:spacer id="sp3"/>
 					<h:panelGrid columns="2" styleClass="pngParametrosNotificar"
-						columnClasses="pngParametrosNotificar_c1,pngParametrosNotificar_c2">
+						columnClasses="pngParametrosNotificar_c1,pngParametrosNotificar_c2" id="ppp1">
 						<p:selectBooleanCheckbox id="ckbNotificar"
 							value="#{cc.attrs.bean.certificadoA1.notificarExpiracaoCertificado}"
 							styleClass="chkNotificar" />
 						<p:outputLabel
 							value="Notificar por e-mail quando o Certificado estiver próximo de expirar?"
-							styleClass="oplNotificar" for="ckbNotificar" />
+							styleClass="oplNotificar" for="ckbNotificar" id="ooo1223"/>
 					</h:panelGrid>
-					<p:spacer />
-					<p:outputLabel value="E-mail Master" for="intEmailMaster" />
+					<p:spacer id="sp5"/>
+					<p:outputLabel value="E-mail Master" for="intEmailMaster" id="o90"/>
 					<p:inputText id="intEmailMaster"
 						value="#{cc.attrs.bean.selected.emailMaster}"
 						styleClass="iptEmailMaster" />
 					<p:tooltip for="intEmailMaster"
-						value="Digite aqui o endereço de e-mail do responsável pelo Serviço no Assinante" />
-					<p:spacer />
+						value="Digite aqui o endereço de e-mail do responsável pelo Serviço no Assinante" id="ttt6"/>
+					<p:spacer id="sp10"/>
 					<p:outputLabel
 						value="Todas as atualizações, revisões, melhorias e notificações técnicas serão enviadas para este e-mail."
-						styleClass="oplAviso" />
-					<p:spacer />
-					<p:outputLabel value="E-mail Financeiro" for="intEmailFinanceiro" />
+						styleClass="oplAviso" id="sdfsd"/>
+					<p:spacer id="xsgsdr"/>
+					<p:outputLabel value="E-mail Financeiro" for="intEmailFinanceiro" id="aeff"/>
 					<p:inputText id="intEmailFinanceiro"
 						value="#{cc.attrs.bean.selected.emailFinanceiro}"
 						styleClass="iptEmailFinanceiro" />
 					<p:tooltip for="intEmailFinanceiro"
-						value="Digite aqui o endereço de e-mail do Assinante responsável pelo Financeiro/Contas a Pagar" />
-					<p:spacer />
+						value="Digite aqui o endereço de e-mail do Assinante responsável pelo Financeiro/Contas a Pagar" id="awerar"/>
+					<p:spacer id="aexar"/>
 					<p:outputLabel
 						value="Este endereço de e-mail receberá os Boletos e Notas Fiscais Referente a Assinatura Mensal"
-						styleClass="oplAviso2" />
+						styleClass="oplAviso2" id="aserxcg"/>
 				</h:panelGrid>
 			</p:tab>
 		</p:tabView>
@@ -249,7 +249,7 @@
 			<h:commandButton value=" Incluir" action="#{bean.incluir}"
 				id="cdbIncluir" rendered="#{bean.botaoIncluir}"
 				style="background-image: url('resources/images/check.png') !important;"
-				styleClass="botao_incluirAss" />
+				styleClass="botao_incluirAss"/>
 			<h:commandButton value=" Alterar" action="#{bean.alterar}"
 				id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"

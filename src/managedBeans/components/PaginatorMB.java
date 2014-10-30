@@ -1,7 +1,5 @@
 package managedBeans.components;
 
-import javax.annotation.PostConstruct;
-
 import managedBeans.AbstractExporterMB;
 import model.GraficoDoctosAssinante;
 
@@ -38,7 +36,6 @@ public abstract class PaginatorMB extends AbstractExporterMB<GraficoDoctosAssina
 	
 	public abstract void postConstructAndLoadTotPag();
 			
-	@PostConstruct
 	public void init(){
 		postConstructAndLoadTotPag();
 		pgAtual = 1;

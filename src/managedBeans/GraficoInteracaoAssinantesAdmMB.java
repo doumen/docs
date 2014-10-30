@@ -8,20 +8,19 @@ import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import managedBeans.component.AbstractGraficoInteracaoAssinante;
+import dao.AssinanteDao;
 import entity.Assinante;
-
-import component.AssinanteComponent;
 
 @ManagedBean
 @ViewScoped
 public class GraficoInteracaoAssinantesAdmMB extends AbstractGraficoInteracaoAssinante<Assinante>{
 
 	@Inject
-	private AssinanteComponent assinanteComponent;
+	private AssinanteDao assinanteDao;
 	
 	@Override
 	public void loadTotalBarras() {
-		totalBarras = assinanteComponent.getAssinantes();
+		totalBarras = assinanteDao.getAssinantesAtivosComTodosOsDoctos();
 	}
 
 	@Override

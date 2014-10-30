@@ -1,15 +1,18 @@
 package managedBeans;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.servlet.http.Part;
 
+import model.Modulo;
 import model.SiglaEstado;
 import model.Util;
 
@@ -23,7 +26,6 @@ import component.CertificadoA1Component;
 import component.ContabilidadeComponent;
 import component.PlanoComponent;
 import component.UsuarioComponent;
-
 import entity.Assinante;
 import entity.CertificadoA1;
 import entity.Contabilidade;
@@ -99,8 +101,17 @@ public abstract class AbstractConsultaAssinantesMB extends
 	}
 
 	public void removeUsuario() {
-		selected.removeUsuario(selected.getUsuarios().get(
-				selected.getUsuarios().size() - 1));
+		if(selected.getUsuarios()!=null){
+			int u = selected.getUsuarios().size(); 
+			if(u>0){
+				try {
+					usuarioComponent.remove(selected.getUsuarios().get(u-1));
+					selected.getUsuarios().remove(u-1);				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public String getLogin() {
@@ -204,12 +215,14 @@ public abstract class AbstractConsultaAssinantesMB extends
 			file = null;
 			carregaPlanosContabilidades();
 			selected = selectedList.get(0);
-			selected.setTipoInclusao(getTipoInclusao());
+			selected.setTipoInclusao(getTipoInclusao());			
 			selected.setUsuariosList(usuarioComponent.getUsuarios(selected));
 			certificadoA1 = certificadoA1Component.getCertificadoA1(selected);
 			setShowUpload(certificadoA1 == null);
 			login = "";
 			senha = "";
+			mascara = Util.getMascaraCnpj(selected.getUf());
+			FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().addAll(Arrays.asList(new String[]{":formIncluir:intCep"}));
 		}
 	}
 
@@ -217,27 +230,36 @@ public abstract class AbstractConsultaAssinantesMB extends
 		carregaPlanosContabilidades();
 		selected = new Assinante();
 		selected.setTipoInclusao(getTipoInclusao());
+		if(Modulo.CONTABILIDADE.equals(getLoginBean().getMod())){
+			selected.setContabilidade(contabilidade);
+		}
 		certificadoA1 = new CertificadoA1();
 		login = "";
 		senha = "";
+		setShowUpload(true);
 	}
 
 	private void carregaPlanosContabilidades() {
 		planos = planoComponent.getPlanos();
-		contabilidades = contabilidadeComponent.getContabilidades();
+		contabilidades = contabilidadeComponent.getContabilidades(false);
 	}
 
 	@Override
-	public void incluir() {
-		upload();
-		selected.setNomeFantasia(selected.getRazaoSocial());
-		assinanteComponent.incluirNovoAssinante(selected, certificadoA1);
-		listTable.add(selected);
-		setShowUpload(true);
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-				"Assinante inserido com sucesso.");
+	public void incluir() {		
+		FacesMessage message;
+		if(Modulo.CONTABILIDADE.equals(getLoginBean().valueOf(getLoginBean().getModulo()))){
+			selected.setContabilidade(getLoginBean().getUsuario().getContabilidade());
+		}
+
+		if(upload() && assinanteComponent.incluirNovoAssinante(this.selected, certificadoA1)){
+			selected = assinanteComponent.getAssinanteByCnpj(selected);
+			listTable.add(this.selected);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Assinante inserido com sucesso.");			
+		}else{
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "O assinante não foi inserido");						
+		}
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
-		RequestContext.getCurrentInstance().execute("PF('dlgIncluir').hide()");
+		RequestContext.getCurrentInstance().update("formPainel:dataTable");
 	}
 
 	@Override
@@ -258,15 +280,6 @@ public abstract class AbstractConsultaAssinantesMB extends
 		}
 	}
 
-	public void ajaxPlanos() {
-		script = "alert('olá');";
-		System.out.println(script);
-		mascara += "1";
-		System.out.println(mascara);
-		// FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("script");
-		// System.out.println("Chamou AJAX");
-	}
-
 	public void trocarCertificado() {
 		super.setShowUpload(true);
 		super.setShowUploadNome(false);
@@ -276,15 +289,18 @@ public abstract class AbstractConsultaAssinantesMB extends
 
 	private Part file;
 
-	public void upload() {
+	private boolean upload() {
 		try {
 			if (file != null) {
 				certificadoA1.setArquivoPFXCertificadoA1(IOUtils
 						.toByteArray(file.getInputStream()));
 				certificadoA1.setNome(file.getSubmittedFileName());
+				return true;
 			}
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 
@@ -310,7 +326,10 @@ public abstract class AbstractConsultaAssinantesMB extends
 
 	@Override
 	public void removeSelectedList() {
-		listTable.removeAll(selectedList);
+		System.out.println("Chamou o void");
+	}
+	
+	public void removeSelectedList(ActionEvent ev) {
 		for (Assinante t : selectedList) {
 			try {
 				assinanteComponent.remove(t);
@@ -318,5 +337,11 @@ public abstract class AbstractConsultaAssinantesMB extends
 				e.printStackTrace();
 			}
 		}
+		listTable = assinanteComponent.getAssinantes();	
+		selectedList = assinanteComponent.getAssinantes();
+		 RequestContext.getCurrentInstance().update(":formPainel:dataTable");
+		 RequestContext.getCurrentInstance().update("dataTable");
+		 FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formPainel");		 
+		 System.out.println("render 8");
 	}
 }

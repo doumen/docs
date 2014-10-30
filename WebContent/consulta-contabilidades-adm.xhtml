@@ -4,40 +4,12 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="/templates/_panel-consulta.xhtml"
+	template="/templates/_colunas-consulta-contabilidades.xhtml"
 	xmlns:golive="http://java.sun.com/jsf/composite/components">
 
 	<ui:param name="tituloPainel" value="Contabilidade" />
 	<ui:param name="help" value="Contabilidade" />
 	<ui:param name="modulo" value="administrativo" />
 	<ui:param name="bean" value="#{consultaContabilidadeAdmMB}" />
-	<ui:define name="tableColumns">
-		<p:column headerText="Cód. Cont." sortBy="#{list.id}"
-			styleClass="c_cca_codCont" filterBy="#{list.id}"
-			filterMatchMode="contains">
-			<h:outputText value="#{list.id}" />
-		</p:column>
-		<p:column headerText="CNPJ" sortBy="#{list.cnpj}"
-			styleClass="c_cca_cnpj" filterBy="#{list.cnpj}"
-			filterMatchMode="contains">
-			<h:outputText value="#{list.cnpjFormatado}" />
-		</p:column>
-		<p:column headerText="Contabilidade" sortBy="#{list.razaoSocial}"
-			styleClass="c_cca_razaoSocialCont" filterBy="#{list.razaoSocial}"
-			filterMatchMode="contains">
-			<h:outputText value="#{list.razaoSocial}" />
-		</p:column>
-		<p:column headerText="Município" sortBy="#{list.municipio}"
-			styleClass="c_cca_municipio" filterBy="#{list.municipio}"
-			filterMatchMode="contains">
-			<h:outputText value="#{list.municipio}" />
-		</p:column>
-		<p:column headerText="UF" sortBy="#{list.uf}" styleClass="c_cca_uf"
-			filterBy="#{list.uf}" filterMatchMode="contains">
-			<h:outputText value="#{list.uf}" />
-		</p:column>
-	</ui:define>
-	<ui:define name="popup-incluir">
-		<golive:incluir-contabilidades bean="#{consultaContabilidadeAdmMB}" />
-	</ui:define>
+
 </ui:composition>

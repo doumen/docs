@@ -29,7 +29,7 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private boolean showUpload;
 
 	
-	List<T> filteredList = new ArrayList<>();
+	List<T> filteredList; //= new ArrayList<>();
 
 	public List<T> getFilteredList() {
 		return filteredList;
@@ -85,7 +85,6 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 
 	public void setTipo(String tipo) {
 		if ("incluir".equals(tipo)) {
-			super.limpar();
 			setHeaderInclude("Incluir");
 			setBotaoIncluir(true);
 			setBotaoAlterar(false);
@@ -136,8 +135,11 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	}
 	
 	private RelatorioJasperMB<T> createRelatorioJasperMB(){
-		RelatorioJasperMB<T> r = new RelatorioJasperMB<>();
-		r.setBeans(listTable);
+		RelatorioJasperMB<T> r = new RelatorioJasperMB<T>();
+		List<T> beans = new ArrayList<>();
+		beans.add(selected);
+		beans.addAll(listTable);
+		r.setBeans(beans);
 		r.setReport(getPdfReportName());
 		r.setTemplate(getPdfTemplateName());
 		r.setModulo(loginBean.getModulo());
@@ -169,25 +171,27 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	}
 	
 	public boolean validateUsuario(String login, String senha, List<Usuario> usuarios) {
-		if (login.isEmpty() || senha.isEmpty()) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Usuário e Senha são obrigatórios.", ""));
-			return false;
-		} else {
-			if (!usuarios.isEmpty()) {
-				for (int i = 0; i < usuarios.size(); i++) {
-					if (login.trim()
-							.equals(usuarios.get(i).getLogin()
-									.toString())) {
-						FacesMessage message = new FacesMessage(
-								FacesMessage.SEVERITY_WARN, "Atenção!",
-								"Usuário já cadastrado.");
-						RequestContext.getCurrentInstance()
-								.showMessageInDialog(message);
-
-						return false;
+		if(usuarios!=null){
+			if (login.isEmpty() || senha.isEmpty()) {
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_ERROR,
+								"Usuário e Senha são obrigatórios.", ""));
+				return false;
+			} else {
+				if (!usuarios.isEmpty()) {
+					for (int i = 0; i < usuarios.size(); i++) {
+						if (login.trim()
+								.equals(usuarios.get(i).getLogin()
+										.toString())) {
+							FacesMessage message = new FacesMessage(
+									FacesMessage.SEVERITY_WARN, "Atenção!",
+									"Usuário já cadastrado.");
+							RequestContext.getCurrentInstance()
+									.showMessageInDialog(message);
+	
+							return false;
+						}
 					}
 				}
 			}

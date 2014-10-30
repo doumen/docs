@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/_panel-consulta.xhtml"
+	xmlns:golive="http://java.sun.com/jsf/composite/components">
+
+	<ui:define name="tableColumns">
+		<p:column headerText="Cód. Cont." sortBy="#{list.id}"
+			styleClass="c_cca_codCont" filterBy="#{list.id}"
+			filterMatchMode="contains">
+			<h:outputText value="#{list.id}" />
+		</p:column>
+		<p:column headerText="CNPJ" sortBy="#{list.cnpj}"
+			styleClass="c_cca_cnpj" filterBy="#{list.cnpj}"
+			filterMatchMode="contains">
+			<h:outputText value="#{list.cnpjFormatado}" />
+		</p:column>
+		<p:column headerText="Contabilidade" sortBy="#{list.razaoSocial}"
+			styleClass="c_cca_razaoSocialCont" filterBy="#{list.razaoSocial}"
+			filterMatchMode="contains">
+			<h:outputText value="#{list.razaoSocial}" />
+		</p:column>
+		<p:column headerText="Município" sortBy="#{list.municipio}"
+			styleClass="c_cca_municipio" filterBy="#{list.municipio}"
+			filterMatchMode="contains">
+			<h:outputText value="#{list.municipio}" />
+		</p:column>
+		<p:column headerText="UF" sortBy="#{list.uf}" styleClass="c_cca_uf"
+			filterBy="#{list.uf}" filterMatchMode="contains">
+			<h:outputText value="#{list.uf}" />
+		</p:column>
+	</ui:define>
+	<ui:define name="popup-incluir">
+		<golive:incluir-contabilidades />
+	</ui:define>
+</ui:composition>

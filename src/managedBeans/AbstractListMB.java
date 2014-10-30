@@ -20,7 +20,7 @@ public abstract class AbstractListMB<T> {
 
 	@PostConstruct
 	public void iniciar() {
-		this.init();
+		this.init();		
 	}
 
 	protected List<T> selectedList = new ArrayList<>();
@@ -43,9 +43,8 @@ public abstract class AbstractListMB<T> {
 
 	public abstract void init();
 
-	public T getSelected() throws InstantiationException,
-			IllegalAccessException {
-		return selected == null ? selectedClass.newInstance() : selected;
+	public T getSelected() {
+		return selected;
 	}
 
 	public void setSelected(T selected) {

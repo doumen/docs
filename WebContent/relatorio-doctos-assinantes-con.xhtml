@@ -1,11 +1,75 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	template="/templates/_panel-titulo.xhtml">
 
-<ui:composition template="/templates/_crud.xhtml">
-	<ui:param name="tituloConfig" value="Contabilidade" />
-	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="modulo" value="contabilidade" />
+	<ui:param name="help" value="Relatório - Nº Doctos Armazenados X Assinante" />
+	<ui:param name="tituloPainel" value="Relatório - Nº Doctos Armazenados X Assinante" />
+
+	<ui:define name="conteudoPainel">
+		<golive:datatable-relatorios id="dataTable"
+			value="#{relatorioDoctosAssinantesConMB.assinantes}"
+			paginatorPosition="bottom" rows="20" var="list"
+			onSort="#{relatorioDoctosAssinantesConMB.onSort}"
+			sortBy="#{list.plano.id}" rowKey="#{list.id}"
+			rendered="true"
+			filteredValue="#{relatorioDoctosAssinantesConMB.filteredList}"
+			exportExcel="#{relatorioDoctosAssinantesConMB.exportExcel}"
+			exportPdf="#{relatorioDoctosAssinantesConMB.exportPdf}"
+			printPdf="#{relatorioDoctosAssinantesConMB.printPdf}">
+			
+
+			<p:column headerText="Cód. Ass" sortBy="#{list.id}" id="codAss" styleClass="c_rcad_codAss" filterBy="#{list.id}" filterMatchMode="contains">
+				<h:outputText value="#{list.codigo}" />
+			</p:column>
+			<p:column headerText="CNPJ" sortBy="#{list.cnpj}" id="cnpjAss" styleClass="c_rcad_cnpj" filterBy="#{list.cnpj}" filterMatchMode="contains">
+				<h:outputText value="#{list.cnpjFormatado}" />
+			</p:column>
+			<p:column headerText="Assinante" sortBy="#{list.nomeFantasia}"
+				id="ass" styleClass="c_rcad_assinante" filterBy="#{list.nomeFantasia}" filterMatchMode="contains">
+				<h:outputText value="#{list.nomeFantasia}" />
+			</p:column>
+			<p:column headerText="Cód. Plano" sortBy="#{list.plano.id}"
+				id="codPlan" styleClass="c_rcad_codPlano" filterBy="#{list.plano.id}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.codigo}" />
+			</p:column>
+			<p:column headerText="Plano" sortBy="#{list.plano.descricao}"
+				id="nomPlan" styleClass="c_rcad_plano" filterBy="#{list.plano.descricao}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.descricao}" />
+			</p:column>
+			<p:column headerText="Faixa Início" id="faixaIni"
+				sortBy="#{list.plano.faixaInicial}" styleClass="c_rcad_faixaInicial" filterBy="#{list.plano.faixaInicial}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.faixaInicial}" />
+			</p:column>
+			<p:column headerText="Faixa Fim" id="faixaFim"
+				sortBy="#{list.plano.faixaFinal}" styleClass="c_rcad_faixaFinal" filterBy="#{list.plano.faixaFinal}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.faixaFinal}" />
+			</p:column>
+			<p:column headerText="Nº Dctos Arm." id="valMen"
+				sortBy="#{list.totalDoctosArmazenados}" styleClass="c_rcad_valorMensal" filterBy="#{list.totalDoctosArmazenados}" filterMatchMode="contains">
+				<h:outputText value="#{list.totalDoctosArmazenados}">
+				</h:outputText>
+			</p:column>
+			<p:summaryRow
+				listener="#{relatorioDoctosAssinantesConMB.calculateTotal}">
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioDoctosAssinantesConMB.totalValorMensal}">
+					</h:outputText>
+				</p:column>
+			</p:summaryRow>
+		</golive:datatable-relatorios>
+	</ui:define>
 </ui:composition>
-</html>

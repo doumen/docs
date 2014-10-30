@@ -1,9 +1,19 @@
 package dao;
 
+import java.util.List;
+
 import entity.Contabilidade;
 
 public interface ContabilidadeDao extends GenericDao<Contabilidade>{
 
 	Contabilidade getContabilidadeByNomeFantasia(String nomeFantasia);
+
+	List<Contabilidade> getContabilidadesFetch();
+
+	Contabilidade findByIdFetch(Contabilidade contabilidade);
+
+	List<Contabilidade> getContabilidadesNaoFetch();
+
+	Contabilidade findByCnpjFetch(Contabilidade contabilidade);
 
 }

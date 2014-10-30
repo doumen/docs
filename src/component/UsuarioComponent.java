@@ -22,20 +22,20 @@ public class UsuarioComponent {
 		if(usuario==null)			
 			return false;
 		if(usuario.getLogin()==null)
+			return false;		
+		try {
+			usuarioDao.getUsuarioComSenhaValida(usuario,modulo);
+			return true;
+		} catch (Exception e) {			
+			e.printStackTrace();
 			return false;
-		if(usuario.getLogin().equals("contador") && Modulo.CONTABILIDADE.equals(modulo))
-			return true;
-		if(usuario.getLogin().equals("assinante") && Modulo.ASSINANTE.equals(modulo))
-			return true;
-		if(usuario.getLogin().equals("administrador") && Modulo.ADMINISTRATIVO.equals(modulo))			
-			return true;
-		return false;
+		}
 	}
 
-	public boolean existeUsuario(Usuario u,Modulo modulo) {
-		return validar(u, modulo);
+	public Usuario getUsuarioComSenhaValida(Usuario usuario,Modulo modulo) throws Exception{
+		return usuarioDao.getUsuarioComSenhaValida(usuario,modulo);
 	}
-
+	
 	public Usuario getUsuario(Usuario usuario) {
 		//select * from usuario where login = usuario.login and senha = usuario.senha and id_assinante = usuario.assinante.id
 		Usuario u = new Usuario();
@@ -61,5 +61,21 @@ public class UsuarioComponent {
 
 	public List<Usuario> getUsuarios(Assinante selected) {
 		return usuarioDao.findUsuariosFromAssinante(selected);
+	}
+
+	public void save(Contabilidade c) throws Exception {
+		for(Usuario u:c.getUsuarios()){
+			usuarioDao.persist(u);
+		}
+	}
+	
+	public boolean remove(Usuario u) throws Exception{
+		return usuarioDao.remove(u);
+	}
+
+	public void remove(List<Usuario> usuariosRemovidos) throws Exception {
+		for(Usuario u:usuariosRemovidos){
+			remove(u);
+		}		
 	}
 }

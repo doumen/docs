@@ -2,22 +2,22 @@ package managedBeans;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import entity.Contabilidade;
 import model.TipoInclusao;
-import entity.Usuario;
 import model.Util;
 
 import org.primefaces.context.RequestContext;
 
 import component.ContabilidadeComponent;
+import entity.Contabilidade;
+import entity.Usuario;
 
 @ManagedBean
 @ViewScoped
@@ -27,19 +27,17 @@ public class ConsultaContabilidadeAdmMB extends
 	private String senha;
 	private boolean permissaoAreaContador;
 	private boolean permissaoAreaAssinante;
-	private List<Contabilidade> filteredList = new ArrayList<>();
 	private String mascara;
-
-	public ConsultaContabilidadeAdmMB() throws InstantiationException,
-			IllegalAccessException {
+	
+	public ConsultaContabilidadeAdmMB(){
 		super(Contabilidade.class);
 		System.out.println("Instanciou o ConsultaContabiliadeAdmMB!!");
 	}
-
-	@PostConstruct
+	
+	@Override
 	public void init() {
-		listTable = contabilidadeComponent.getContabilidades();
-		filteredList = contabilidadeComponent.getContabilidades();
+		listTable = contabilidadeComponent.getContabilidades(true);
+		System.out.println("listTable = " + listTable);
 	}
 
 	@Inject
@@ -68,14 +66,23 @@ public class ConsultaContabilidadeAdmMB extends
 			u.setLogin(login.trim());
 			u.setSenha(senha.trim());
 			u.setPermissaoAreaContador(permissaoAreaContador);
-			u.setPermissaoAreaAdministrador(permissaoAreaAssinante);
+			u.setPermissaoAreaUsuario(permissaoAreaAssinante);
 			selected.addUsuario(u);
+			clean();
 		}
 	}
 
+	private void clean(){
+		this.login = "";
+		this.senha = "";
+		this.permissaoAreaAssinante = false;
+		this.permissaoAreaContador = false;
+	}
+	
 	public void removeUsuario() {
-		selected.removeUsuario(selected.getUsuarios().get(
-				selected.getUsuarios().size() - 1));
+		if(selected.removeUltimoUsuario()){
+			clean();	
+		}
 	}
 
 	public String getLogin() {
@@ -131,24 +138,27 @@ public class ConsultaContabilidadeAdmMB extends
 		this.mascara = mascara;
 	}
 
-	public void carregarPopUpAlterar() {
-		if ((selectedList != null) && (!selectedList.isEmpty())) {
-			selected = selectedList.get(0);
-			login = "";
-			senha = "";
-			permissaoAreaAssinante = false;
-			permissaoAreaContador = false;
-		}
-	}
-
-	public void carregarPopUpIncluir() {
-		selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
+	private void carrega(){
 		login = "";
 		senha = "";
 		permissaoAreaAssinante = false;
 		permissaoAreaContador = false;
+		
+	}
+	public void carregarPopUpAlterar() {
+		if ((selectedList != null) && (!selectedList.isEmpty())) {
+			selected = selectedList.get(0);
+			mascara = Util.getMascaraCnpj(selected.getUf());
+			carrega();
+		}
 	}
 
+	public void carregarPopUpIncluir() {
+		this.selected = new Contabilidade(TipoInclusao.MODULO_ADMINISTRATIVO,new Date());
+		carrega();
+	}
+
+	/*
 	@Override
 	public void setSelected(Contabilidade selected) {
 		if (selected != null && selected.getUf() != null)
@@ -157,28 +167,42 @@ public class ConsultaContabilidadeAdmMB extends
 			this.selected = selectedList.get(0);
 		setMascara(this.mascaraInscrEstadual());
 	}
-
+	*/
+	
 	public boolean validateUsuario() {
 		return super.validateUsuario(login, senha, selected.getUsuarios());
 	}
-
+	
+	
 	@Override
 	public void incluir() {
 		System.out.println("Incluiu Contabilidade!");
-		listTable.add(selected);
-
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-				"Contabilidade inserida com sucesso.");
+		FacesMessage message; 
+		if(contabilidadeComponent.inserirContabilidade(this.selected)){
+			selected = contabilidadeComponent.getContabilidadeByCnpj(selected);
+			listTable.add(this.selected);
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Contabilidade inserida com sucesso.");			
+		}else{
+			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "A contabilidade não foi inserida");						
+		}
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		RequestContext.getCurrentInstance().update("formPainel:dataTable");
 	}
 
 	@Override
 	public void alterar() {
-		System.out.println("Alterou Contabilidade!");
-
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
-				"Contabilidade alterada com sucesso.");
+		FacesMessage message;
+		try {
+			contabilidadeComponent.alterar(selected);;
+			 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+					"Contabilidade alterada com sucesso.");
+		} catch (Exception e) {
+			 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Não foi possível alterar a Contabilidade");			
+			e.printStackTrace();
+		}
 		RequestContext.getCurrentInstance().showMessageInDialog(message);
+		RequestContext.getCurrentInstance().update("formPainel:dataTable");
 	}
 
 	public String getPdfTemplateName() {
@@ -187,8 +211,24 @@ public class ConsultaContabilidadeAdmMB extends
 
 	@Override
 	public void removeSelectedList() {
-		// TODO Auto-generated method stub
-		
+		FacesMessage message;
+		ArrayList<Contabilidade> r = new ArrayList<>();
+		for(Contabilidade c : selectedList){
+			try {
+				c.setAtivo(false);
+				contabilidadeComponent.alterar(c);
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Contabilidade " + c.getNomeFantasia() + " excluída com sucesso.");
+				r.add(c);
+			} catch (Exception e) {
+				message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
+						"Não foi possível excluir a contabiliade " + c.getNomeFantasia());
+				e.printStackTrace();
+			}			
+			RequestContext.getCurrentInstance().showMessageInDialog(message);			
+		}
+		selectedList.removeAll(r);
+		RequestContext.getCurrentInstance().update("formPainel:dataTable");
 	}
 
 }

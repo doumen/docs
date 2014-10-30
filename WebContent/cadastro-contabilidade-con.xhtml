@@ -9,11 +9,10 @@
 	<ui:param name="tituloPainel" value="Cadastro da Contabilidade" />
 	<ui:param name="help" value="Cadastro da Contabilidade" />
 	<ui:param name="modulo" value="contabilidade" />
-	<ui:param name="bean" value="#{consultaContabilidadeConMB}" />
+	<ui:param name="bean" value="#{cadastroContabilidadeConMB}" />
 
 <ui:define name="conteudoPainel">
 
-		<golive:incluir-contabilidades bean="#{cadastroContabilidadeConMB}" />
-	<h:commandButton action="#{cadastroContabilidadeConMB.alterar}" value="alterar" />			
+		<golive:incluir-contabilidades/>
 </ui:define>
 </ui:composition>

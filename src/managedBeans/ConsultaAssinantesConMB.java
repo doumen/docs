@@ -4,18 +4,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import model.TipoInclusao;
 import component.AssinanteComponent;
 
 @ViewScoped
 @ManagedBean
 public class ConsultaAssinantesConMB extends AbstractConsultaAssinantesMB{
-
-	
-	@Override
-	public void incluir() {
-		// TODO Auto-generated method stub		
-	}
 
 	@Inject
 	AssinanteComponent assinanteComponent;
@@ -23,10 +16,20 @@ public class ConsultaAssinantesConMB extends AbstractConsultaAssinantesMB{
 	@Override
 	public void init() {
 		listTable = assinanteComponent.getAssinantes(getLoginBean().getUsuario().getContabilidade());
-		filteredList = assinanteComponent.getAssinantes();
+		//filteredList = assinanteComponent.getAssinantes();
 		this.contabilidade = getLoginBean().getUsuario().getContabilidade(); 
 	}
+	
+	@Override
+	public String getPdfTemplateName() {
+		return "template_portrait";
+	}
 
+	@Override
+	public String getPdfReportName() {
+		return "assinantes-con";
+	}	
+	/*
 	public void carregarPopUpIncluir() {
 		selected.setTipoInclusao(TipoInclusao.MODULO_CONTABILIDADE);
 		login = "";
@@ -41,5 +44,5 @@ public class ConsultaAssinantesConMB extends AbstractConsultaAssinantesMB{
 			senha = "";
 		}
 	}
-
+	*/
 }

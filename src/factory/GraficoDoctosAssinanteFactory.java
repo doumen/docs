@@ -22,7 +22,7 @@ public class GraficoDoctosAssinanteFactory {
 		g.setAssinante(a.getCnpjFormatado() + " - " + a.getNomeFantasia());
 		g.setContador(a.getCnpjFormatado() + " - " + a.getContabilidade().getNomeFantasia());
 		g.setPlanoContratado(a.getPlano().getId()+" - Plano " + a.getPlano().getFaixaInicial() + " à " + a.getPlano().getFaixaFinal() + " - R$ " + a.getPlano().getValorMensal() );
-		g.setConsumoRestante(a.getPlano().getFaixaFinal()+" Doctos");		
+		g.setConsumoRestante(a.getPlano().getFaixaFinal() - a.getTotalDoctosArmazenados() +" Doctos");		
 		return g;
 	}
 	

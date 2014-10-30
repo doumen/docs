@@ -41,16 +41,16 @@
 			<h:outputText value="#{list.nomeFantasia}" />
 		</p:column>
 		<p:column headerText="Cód. Cont." sortBy="#{list.contabilidade.id}"
-			styleClass="c_caa_codCont" filterBy="#{list.contabilidade.id}" filterMatchMode="contains">
+			styleClass="c_caa_codCont" filterBy="#{list.contabilidade.id}" filterMatchMode="contains" rendered="#{loginBean.moduloAdministrativo}">
 			<h:outputText value="#{list.contabilidade.id}" />
 		</p:column>
 		<p:column headerText="CNPJ" sortBy="#{list.contabilidade.cnpj}"
-			styleClass="c_caa_cnpjCont" filterBy="#{list.contabilidade.cnpj}" filterMatchMode="contains">
+			styleClass="c_caa_cnpjCont" filterBy="#{list.contabilidade.cnpj}" filterMatchMode="contains" rendered="#{loginBean.moduloAdministrativo}">
 			<h:outputText value="#{list.contabilidade.cnpjFormatado}" />
 		</p:column>
 		<p:column headerText="Contabilidade"
 			sortBy="#{list.contabilidade.razaoSocial}"
-			styleClass="c_caa_razaoSocialCont" filterBy="#{list.contabilidade.razaoSocial}" filterMatchMode="contains">
+			styleClass="c_caa_razaoSocialCont" filterBy="#{list.contabilidade.razaoSocial}" filterMatchMode="contains" rendered="#{loginBean.moduloAdministrativo}">
 			<h:outputText value="#{list.contabilidade.razaoSocial}" />
 		</p:column>
 	</ui:define>

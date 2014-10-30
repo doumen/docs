@@ -84,7 +84,7 @@ public class Usuario implements Serializable {
     private List<Assinante> assinantesList;
     
     @JoinColumn(name = "tbContabilidade_Id", referencedColumnName = "Id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Contabilidade tbContabilidadeId;
 
     @Transient

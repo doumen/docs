@@ -1,11 +1,101 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	template="/templates/_panel-titulo.xhtml">
 
-<ui:composition template="/templates/_crud.xhtml">
-	<ui:param name="tituloConfig" value="Contabilidade" />
-	<ui:param name="modulo" value="administrativo" />
+	<ui:param name="modulo" value="contabilidade" />
+	<ui:param name="help" value="Relatório - Participação em Assinaturas X Assinante" />
+	<ui:param name="tituloPainel" value="Relatório - Participação em Assinaturas X Assinante" />
+
+	<ui:define name="conteudoPainel">
+		<golive:datatable-relatorios id="dataTable"
+			value="#{relatorioAssinaturasAssinantesConMB.assinantes}"
+			paginatorPosition="bottom" rows="20" var="list"
+			onSort="#{relatorioAssinaturasAssinantesConMB.onSort}"
+			sortBy="#{list.plano.id}" rowKey="#{list.id}"
+			rendered="true"
+			filteredValue="#{relatorioAssinaturasAssinantesConMB.filteredList}"
+			exportExcel="#{relatorioAssinaturasAssinantesConMB.exportExcel}"
+			exportPdf="#{relatorioAssinaturasAssinantesConMB.exportPdf}"
+			printPdf="#{relatorioAssinaturasAssinantesConMB.printPdf}">
+			
+
+			<p:column headerText="Cód. Ass" sortBy="#{list.id}" id="codAss" styleClass="c_rcad_codAss" filterBy="#{list.id}" filterMatchMode="contains">
+				<h:outputText value="#{list.codigo}" />
+			</p:column>
+			<p:column headerText="CNPJ" sortBy="#{list.cnpj}" id="cnpjAss" styleClass="c_rcad_cnpj" filterBy="#{list.cnpj}" filterMatchMode="contains">
+				<h:outputText value="#{list.cnpjFormatado}" />
+			</p:column>
+			<p:column headerText="Assinante" sortBy="#{list.nomeFantasia}"
+				id="ass" styleClass="c_rcad_assinante" filterBy="#{list.nomeFantasia}" filterMatchMode="contains">
+				<h:outputText value="#{list.nomeFantasia}" />
+			</p:column>
+			<p:column headerText="Cód. Plano" sortBy="#{list.plano.id}"
+				id="codPlan" styleClass="c_rcad_codPlano" filterBy="#{list.plano.id}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.codigo}" />
+			</p:column>
+			<p:column headerText="Plano" sortBy="#{list.plano.descricao}"
+				id="nomPlan" styleClass="c_rcad_plano" filterBy="#{list.plano.descricao}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.descricao}" />
+			</p:column>
+			<p:column headerText="Faixa Início" id="faixaIni"
+				sortBy="#{list.plano.faixaInicial}" styleClass="c_rcad_faixaInicial" filterBy="#{list.plano.faixaInicial}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.faixaInicial}" />
+			</p:column>
+			<p:column headerText="Faixa Fim" id="faixaFim"
+				sortBy="#{list.plano.faixaFinal}" styleClass="c_rcad_faixaFinal" filterBy="#{list.plano.faixaFinal}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.faixaFinal}" />
+			</p:column>
+			<p:column headerText="Valor Mensal" id="valMen"
+				sortBy="#{list.plano.valorMensal}" styleClass="c_rcad_valorMensal" filterBy="#{list.plano.valorMensal}" filterMatchMode="contains">
+				<h:outputText value="#{list.plano.valorMensal}">
+					<f:convertNumber currencySymbol="R$" type="currency" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="%Com" sortBy="#{list.contabilidade.comissao}"
+				id="comissao" styleClass="c_rcad_comissao" filterBy="#{list.contabilidade.comissao}" filterMatchMode="contains">
+				<h:outputText value="#{list.contabilidade.comissaoDouble}">
+					<f:convertNumber type="percent" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Comissão Mensal" id="comMen"
+				sortBy="#{list.comissaoMensal}" styleClass="c_rcad_comissaoMensal" filterBy="#{list.comissaoMensal}" filterMatchMode="contains">
+				<h:outputText value="#{list.comissaoMensal}">
+					<f:convertNumber currencySymbol="R$" type="currency" />
+				</h:outputText>
+			</p:column>
+			<p:summaryRow
+				listener="#{relatorioAssinaturasAssinantesConMB.calculateTotal}">
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column></p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioAssinaturasAssinantesConMB.totalValorMensal}">
+						<f:convertNumber currencySymbol="R$" type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioAssinaturasAssinantesConMB.comissaoMedia}">
+						<f:convertNumber type="percent" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText
+						value="#{relatorioAssinaturasAssinantesConMB.totalComissaoMensal}">
+						<f:convertNumber currencySymbol="R$" type="currency" />
+					</h:outputText>
+				</p:column>
+			</p:summaryRow>
+		</golive:datatable-relatorios>
+	</ui:define>
 </ui:composition>
-</html>

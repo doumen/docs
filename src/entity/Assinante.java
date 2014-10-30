@@ -7,9 +7,14 @@
 package entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -65,6 +70,7 @@ import dao.RemoveMask;
     @NamedQuery(name = "Assinante.findByEmailMaster", query = "SELECT a FROM Assinante a WHERE a.emailMaster = :emailMaster"),
     @NamedQuery(name = "Assinante.findByEmailFinanceiro", query = "SELECT a FROM Assinante a WHERE a.emailFinanceiro = :emailFinanceiro"),
     @NamedQuery(name = "Assinante.findByDataInclusao", query = "SELECT a FROM Assinante a WHERE a.dataInclusao = :dataInclusao")})
+
 public class Assinante implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -137,7 +143,7 @@ public class Assinante implements Serializable {
     @JoinTable(name = "tbAssinantes_tbUsuarios", joinColumns = {
         @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "tbUsuarios_Id", referencedColumnName = "Id")})
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)    
     private List<Usuario> usuarios;
 
     @Transient
@@ -147,22 +153,22 @@ public class Assinante implements Serializable {
     private ProdutosConfiguracoes produtosConfiguracoes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedContribuicoes> spedsContribuicoes;
+    private Set<SpedContribuicoes> spedsContribuicoes;
 
     @Transient
     private NFeConfiguracoes nFeConfiguracoes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedSocial> spedsSociais;
+    private Set<SpedSocial> spedsSociais;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<SpedFiscal> spedsFiscais;
+    private Set<SpedFiscal> spedsFiscais;
     
     @Transient
     private CTeConfiguracoes cTeConfiguracoes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<NFe> nFes;
+    private Set<NFe> nFes;
 
     @Transient
     private SpedFiscalConfiguracoes spedFiscalConfiguracoes;
@@ -174,7 +180,7 @@ public class Assinante implements Serializable {
     private FaturasConfiguracoes faturasConfiguracoes;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbAssinantesId", fetch = FetchType.LAZY)
-    private List<CTe> cTes;
+    private Set<CTe> cTes;
     
     @JoinColumn(name = "tbContabilidade_Id", referencedColumnName = "Id")    
     @ManyToOne
@@ -191,6 +197,12 @@ public class Assinante implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoInclusao tipoInclusao;
     
+    @Column(name = "ativo")
+    private boolean ativo;
+    
+    @Column(name ="DataExclusao")
+    private Date dataExclusao;
+    
     @Transient
 	private Integer totalDoctosArmazenados;
 
@@ -204,8 +216,9 @@ public class Assinante implements Serializable {
 
 	@Transient
 	private Integer totalNfe;
+	
     public Integer getTotalNfe() {
-		return totalNfe;
+		return nFes==null?totalNfe:nFes.size();
 	}
 
 	public void setTotalNfe(Integer totalNfe) {
@@ -213,7 +226,7 @@ public class Assinante implements Serializable {
 	}
 
 	public Integer getTotalCte() {
-		return totalCte;
+		return cTes==null?totalCte:cTes.size();
 	}
 
 	public void setTotalCte(Integer totalCte) {
@@ -221,7 +234,7 @@ public class Assinante implements Serializable {
 	}
 
 	public Integer getTotalSpedFiscal() {
-		return totalSpedFiscal;
+		return spedsFiscais==null?totalSpedFiscal:spedsFiscais.size();
 	}
 
 	public void setTotalSpedFiscal(Integer totalSpedFiscal) {
@@ -229,7 +242,7 @@ public class Assinante implements Serializable {
 	}
 
 	public Integer getTotalSpedSocial() {
-		return totalSpedSocial;
+		return spedsSociais==null?totalSpedSocial:spedsSociais.size();
 	}
 
 	public void setTotalSpedSocial(Integer totalSpedSocial) {
@@ -237,7 +250,7 @@ public class Assinante implements Serializable {
 	}
 
 	public Integer getTotalSpedContribuicoes() {
-		return totalSpedContribuicoes;
+		return spedsContribuicoes==null?totalSpedContribuicoes:spedsContribuicoes.size();
 	}
 
 	public void setTotalSpedContribuicoes(Integer totalSpedContribuicoes) {
@@ -258,11 +271,6 @@ public class Assinante implements Serializable {
 		this.certificadoA1 = new CertificadoA1();
 		this.contabilidade = new Contabilidade();
 		this.usuarios = new ArrayList<>();
-		this.nFes = new ArrayList<NFe>();
-		this.cTes = new ArrayList<CTe>();
-		this.spedsFiscais = new ArrayList<SpedFiscal>();
-		this.spedsSociais = new ArrayList<SpedSocial>();
-		this.spedsContribuicoes = new ArrayList<SpedContribuicoes>();
 		this.dataInclusao = new Date();
     }
 
@@ -436,11 +444,11 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public List<SpedContribuicoes> getSpedContribuicoes() {
+    public Set<SpedContribuicoes> getSpedContribuicoes() {
         return spedsContribuicoes;
     }
 
-    public void setSpedContribuicoes(List<SpedContribuicoes> spedContribuicoesList) {
+    public void setSpedContribuicoes(Set<SpedContribuicoes> spedContribuicoesList) {
         this.spedsContribuicoes = spedContribuicoesList;
     }
 
@@ -454,20 +462,20 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public List<SpedSocial> getSpedsSociais() {
+    public Set<SpedSocial> getSpedsSociais() {
         return spedsSociais;
     }
 
-    public void setSpedsSociais(List<SpedSocial> spedSocialList) {
+    public void setSpedsSociais(Set<SpedSocial> spedSocialList) {
         this.spedsSociais = spedSocialList;
     }
 
     @XmlTransient
-    public List<SpedFiscal> getSpedsFiscais() {
+    public Set<SpedFiscal> getSpedsFiscais() {
         return spedsFiscais;
     }
 
-    public void setSpedsFiscais(List<SpedFiscal> spedFiscalList) {
+    public void setSpedsFiscais(Set<SpedFiscal> spedFiscalList) {
         this.spedsFiscais = spedFiscalList;
     }
 
@@ -480,11 +488,11 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public List<NFe> getNFes() {
+    public Set<NFe> getNFes() {
         return nFes;
     }
 
-    public void setNFes(List<NFe> nFeList) {
+    public void setNFes(Set<NFe> nFeList) {
         this.nFes = nFeList;
     }
 
@@ -515,11 +523,11 @@ public class Assinante implements Serializable {
     }
 
     @XmlTransient
-    public List<CTe> getCTes() {
+    public Set<CTe> getCTes() {
         return cTes;
     }
 
-    public void setCTes(List<CTe> cTeList) {
+    public void setCTes(Set<CTe> cTeList) {
         this.cTes = cTeList;
     }
 
@@ -589,7 +597,7 @@ public class Assinante implements Serializable {
 	}
 
 	public Integer getTotalDoctosArmazenados() {
-		return totalDoctosArmazenados;
+		return (nFes==null && cTes==null && spedsContribuicoes==null && spedsFiscais == null && spedsSociais==null)?totalDoctosArmazenados:getTotalCte()+getTotalNfe()+getTotalSpedContribuicoes()+getTotalSpedFiscal()+getTotalSpedSocial();
 	}
 
 	public void setTotalDoctosArmazenados(Integer totalDoctosArmazenados) {
@@ -597,12 +605,31 @@ public class Assinante implements Serializable {
 	}
 
 	public double getComissaoMensalDouble() {
-		// TODO Auto-generated method stub
+		if(TipoInclusao.MODULO_ADMINISTRATIVO.equals(this.tipoInclusao))			
+			return 0;
+		if(TipoInclusao.MODULO_CONTABILIDADE.equals(this.tipoInclusao)){
+			return getReceita().doubleValue()*getContabilidade().getComissaoDouble();
+		}
 		return 0;
 	}
    
+	public BigDecimal getComissaoMensalBigDecimal(){
+		return new BigDecimal(getComissaoMensalDouble());
+	}
+	
+	public BigDecimal getAdicionalMonetario(){		
+		return getTotalDoctosArmazenados()>getPlano().getFaixaFinal()?(new BigDecimal(getTotalDoctosArmazenados()).subtract(new BigDecimal(getPlano().getFaixaFinal()))).multiply(getPlano().getValorDoctoAdicional()):BigDecimal.ZERO;
+	}
+	
+	public BigDecimal getReceita(){
+		return getPlano().getValorMensal().add(getAdicionalMonetario());
+	}
+	public BigDecimal getFaturamento(){
+		return getReceita().subtract(getComissaoMensalBigDecimal());
+	}
+	
 	public void setCepFormat(String cep){
-		this.cep = Integer.valueOf(Util.removeMask(cep));
+		this.cep = (cep==null||"".equals(cep))?null:Integer.valueOf(Util.removeMask(cep));
 	}
 	
 	public String getCepFormat(){
@@ -612,4 +639,111 @@ public class Assinante implements Serializable {
 	public Date getDataInclusaoTela(){
 		return this.dataInclusao;
 	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	public double getComissaoMensal() {
+		return getContabilidade().getComissaoDouble() * getPlano().getValorMensalDouble();
+	}
+	public String getComissaoMensalFormatada() {
+		return Util.formatCurrency(getComissaoMensal());
+	}
+
+	public Calendar getDataInclusaoCalendar(){
+		Calendar c = Calendar.getInstance();
+		c.setTime(dataInclusao);
+		return c;
+	}
+	
+	public BigDecimal getFaturamento(Date d){		
+		if(dataInclusao.after(d) || !ativo)
+			return BigDecimal.ZERO;
+		return getFaturamento();
+	}
+
+	public Integer getTotalDoctosAte(Date d,int calendarField){
+		int r = getTotalDoctosAte(d,nFes,calendarField);
+		r+=getTotalDoctosAte(d,cTes,calendarField);
+		r+=getTotalDoctosAte(d,spedsFiscais,calendarField);
+		r+=getTotalDoctosAte(d,spedsSociais,calendarField);
+		r+=getTotalDoctosAte(d,spedsContribuicoes,calendarField);
+		System.out.println("Total de Doctos do Assinante " + this + " = " + r);
+		return r;
+	}
+	
+	private <T> Integer getTotalDoctosAte(Date d,Set<T> doctos,int calendarField){
+		Integer tot = 0;
+		for(T docto:doctos){
+			Docto doc = (Docto) docto;
+			System.out.println("d = " + d);
+			if(Util.comparaMesAno(doc.getDataInclusao(),d)>=0){
+				tot++;
+			}			
+		}
+		return tot;
+	}
+
+	private <T> Integer getTotalDoctosAte(Date d,Set<T> doctos){
+		Integer tot = 0;
+		for(T docto:doctos){
+			Docto doc = (Docto) docto;
+			System.out.println("d = " + d);
+			if(Util.comparaDiaMesAno(doc.getDataInclusao(),d)>=0){
+				tot++;
+			}			
+		}
+		return tot;
+	}
+
+	public Date getDataExclusao() {
+		return dataExclusao;
+	}
+
+	public void setDataExclusao(Date dataExclusao) {
+		this.dataExclusao = dataExclusao;
+	}
+
+	public Calendar getDataExclusaoCalendar() {
+		if(dataExclusao!=null){
+		Calendar c = Calendar.getInstance();
+		c.setTime(dataExclusao);
+		return c;
+		}
+		return null;
+	}
+	
+	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(int calendarField,int dias) {
+        Map<Object,Number> data = new LinkedHashMap<Object, Number>();
+        Calendar inicio = Calendar.getInstance();
+        inicio.add(calendarField,-dias+1);
+        
+        for(int dia=0;dia<dias;dia++){
+        	System.out.println("Assinante ()" + this + " data.get(Util.getMMYYYY(" + inicio.getTime() + ")) " + data.get(Util.getMMYYYY(inicio)));
+        	if(data.get(Util.getMMYYYY(inicio))==null)
+        		data.put(Util.getMMYYYY(inicio), new Integer(0));
+        	data.put(Util.getMMYYYY(inicio), (data.get(Util.getMMYYYY(inicio)).intValue() + getTotalDoctosAte(inicio.getTime(),calendarField)) );
+        	inicio.add(calendarField,1);
+        }
+        
+		return data;
+	}
+
+	public int getTotalDoctosAte(int i) {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, -i);
+		int r = getTotalDoctosAte(c.getTime(),nFes);
+		r+=getTotalDoctosAte(c.getTime(),cTes);
+		r+=getTotalDoctosAte(c.getTime(),spedsFiscais);
+		r+=getTotalDoctosAte(c.getTime(),spedsSociais);
+		r+=getTotalDoctosAte(c.getTime(),spedsContribuicoes);
+		System.out.println("Total de Doctos do Assinante " + this + " = " + r);
+		return r;
+	}
+	
 }

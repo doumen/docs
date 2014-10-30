@@ -1,9 +1,10 @@
 package component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
-import model.Util;
+import model.AssinanteReport;
+import model.Modulo;
 import dao.AssinanteDao;
 import entity.Assinante;
 import entity.CertificadoA1;
@@ -30,38 +32,24 @@ public class AssinanteComponent {
 	
 	@EJB
 	private CertificadoA1Component certificadoA1Component;
-	
-	@EJB
-	private NFeComponent nfeComponent;
-	
-	@EJB
-	private NFeConfiguracoesComponent nFeConfiguracoesComponent; 
-	
-	@EJB
-	private CTeComponent cTeComponent;
-	
-	@EJB
-	private CTeConfiguracoesComponent cTeConfiguracoesComponent;
-		
-	
-	@EJB
-	private SpedFiscalComponent spedFiscalComponent; 
 
-	@EJB
-	private SpedFiscalConfiguracoesComponent spedFiscalConfiguracoesComponent;
-
-	@EJB
-	private SpedContribuicoesComponent spedContribuicoesComponent; 
-
-	@EJB
-	private SpedContribuicoesConfiguracoesComponent spedContribuicoesConfiguracoesComponent;
-
-	@EJB
-	private SpedSocialComponent spedSocialComponent;
+	/*
 	
 	@EJB
-	private SpedSocialConfiguracoesComponent spedSocialConfiguracoesComponent;
-		
+	private GenericDao<NFe> daoNFe;
+	
+	@EJB
+	private GenericDao<CTe> daoCte;
+	
+	@EJB
+	private GenericDao<SpedFiscal> daoSpedFiscal;
+	
+	@EJB
+	private GenericDao<SpedContribuicoes> daoSpedContribuicoes;
+	
+	@EJB
+	private GenericDao<SpedSocial> daoSpedSocial;
+	*/
 	public List<Assinante> getAssinantes() {
 		/*
 		ArrayList<Assinante> assinantes = new ArrayList<>();
@@ -178,7 +166,7 @@ public class AssinanteComponent {
 		return p;
 	}
 
-	public List<Assinante> getAssinantes(entity.Usuario usuario) {
+	public List<Assinante> getAssinantes(Usuario usuario) {
 		/*
 		ArrayList<Assinante> assinantes = new ArrayList<>();
 		if ("contador".equals(usuario.getLogin())) {
@@ -204,17 +192,8 @@ public class AssinanteComponent {
 	}
 
 	public List<Assinante> getRelatorioContratacaoConsumo() {
-		List<Assinante> as = getAssinantes();
+		List<Assinante> as = getAssinantesComTodosOsDoctos();
 		return as;
-	}
-
-	public Map<Object, Number> getHistoricoConsumoTotalDoAssinante(
-			Assinante a, Calendar inicio, Calendar fim) {
-        Map<Object,Number> data = new LinkedHashMap<Object, Number>();
-        for(int i=0;i<12;i++){        	
-        	data.put(Util.getMMYYYY(Util.getCalendar(i)), i);
-        }
-		return data;
 	}
 	
 	public void incluir(Assinante a){
@@ -222,15 +201,15 @@ public class AssinanteComponent {
 	}
 
 	public List<Assinante> getAssinantes(Contabilidade contabilidade) {
-		return getAssinantes();
+		return assinanteDao.getAssinantesComTodosOsDoctos(contabilidade);
 	}
 	
 	public List<Assinante> getRelatorioAssinantesPlanos(
 			Contabilidade contabilidade) {
-		return getAssinantes();
+		return getAssinantes(contabilidade);
 	}
 
-	public void incluirNovoAssinante(Assinante selected, CertificadoA1 certificadoA1) {
+	public boolean incluirNovoAssinante(Assinante selected, CertificadoA1 certificadoA1) {
 		try {
 			 List<Usuario> usuarios = selected.getUsuarios();
 			 for(Usuario u:usuarios){
@@ -242,13 +221,17 @@ public class AssinanteComponent {
 				 u.setPermissaoAreaContador(false);
 				 u.setPermissaoAreaUsuario(true);
 			 }
+			 
 			 selected.setUsuariosList(usuarios);
+			 selected.setAtivo(true);
 			assinanteDao.persist(selected);
 			certificadoA1.setAssinanteId(selected.getId());
 			certificadoA1.setDataInclusao(new Date());
 			certificadoA1Component.salvar(certificadoA1);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 	}
@@ -277,11 +260,122 @@ public class AssinanteComponent {
 
 	public void remove(Assinante t) {
 		try {
-			certificadoA1Component.remove(t);
-			
+			t.setAtivo(false);
+			assinanteDao.merge(t);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Assinante getAssinanteByCnpj(Assinante selected) {
+		return assinanteDao.findByCnpj(selected);
+	}
+
+	public List<Assinante> getAssinantesDoUsuario(Usuario usuario,
+			Modulo valueOf) {
+		return assinanteDao.getAssinantesDoUsuario(usuario,valueOf);
+	}
+	
+	public BigDecimal getFaturamento(Date c){
+		List<Assinante> assinantesComTodosOsDoctos = assinanteDao.getAssinantesComTodosOsDoctos(c);
+		BigDecimal total = BigDecimal.ZERO;
+		for(Assinante a:assinantesComTodosOsDoctos){
+			total = total.add(a.getFaturamento());
+			
+		}
+		return total;
+	}
+
+	public BigDecimal getFaturamentoAssinantesComNotas(Date d){
+		return getFaturamentoAssinantesComNotas(d, new String[]{"nFes"});						
+	}
+	
+	private BigDecimal getFaturamentoAssinantesComNotas(Date d,String[] fields){
+		BigDecimal tot = BigDecimal.ZERO;
+		List<List<AssinanteReport>> listasDeAssinantesReports = new ArrayList<>();
+		for(String s:fields){
+			listasDeAssinantesReports.add(assinanteDao.getAssinanteReportAteAData(d, s));			
+		}		
+		Map<Assinante,Long> totalNotasAssinante = getTotalNotasAssinante(listasDeAssinantesReports);
+		
+		for (Map.Entry<Assinante,Long> entry : totalNotasAssinante.entrySet()) {
+			Assinante a = entry.getKey();
+			a.setTotalDoctosArmazenados(entry.getValue().intValue());
+			tot = tot.add(a.getFaturamento());
+		}
+		return tot;								
+	}
+	
+	public BigDecimal getFaturamentoAssinantesSemNotas(Date d){
+		List<AssinanteReport> assinantesSemNota = assinanteDao.getAssinantesSemNota(d);
+		for(AssinanteReport a : assinantesSemNota){
+		System.out.println("Assinante: " +a.getAssinante()+" total doctos = " + a.getTotalDoctos());
+		}
+		return BigDecimal.ZERO;
+	}
+	
+	private Map<Assinante,Long> getTotalNotasAssinante(List<List<AssinanteReport>> listasDeAssinantesReports){
+		Map<Assinante,Long> totalNotasAssinante = new HashMap<>();
+		for(List<AssinanteReport> assinantesReport : listasDeAssinantesReports){
+			for(AssinanteReport a :assinantesReport){
+				totalNotasAssinante.put(a.getAssinante(), totalNotasAssinante.get(a.getAssinante())==null?1l:totalNotasAssinante.get(a.getAssinante())+a.getTotalDoctos());
+			}			
+		}
+		return totalNotasAssinante;
+	}
+	
+	public Map<Integer,BigDecimal> getFaturamentoDosUltimosDias(int dias){
+		Map<Integer,BigDecimal> r = new HashMap<>();
+		Calendar c = Calendar.getInstance();
+		for(int i=0;i<30;i++){
+			c.add(Calendar.DATE, -i);
+			r.put(i, getFaturamento(c.getTime()));
+		}
+		return r;
+	}
+	
+	public List<Assinante> getAssinantesComTodosOsDoctos() {
+		return assinanteDao.getAssinantesAtivosComTodosOsDoctos();
+	}
+	
+	public static Map<Integer,BigDecimal> getFaturamentos(List<Assinante> assinantes){
+		Map<Integer,BigDecimal> f = new HashMap<>();
+		Calendar c = Calendar.getInstance();
+		for(int i=0;i<30;i++){
+			f.put(i, f.get(i)==null?AssinanteComponent.getFaturamento(assinantes,i):f.get(i).add(AssinanteComponent.getFaturamento(assinantes,i)));
+			c.add(Calendar.DATE, -i);
+		}
+		return f;
+	}
+	
+	public static BigDecimal getFaturamento(List<Assinante> assinantes,int diasAnteriores){
+		Calendar c = Calendar.getInstance();
+		BigDecimal tot = BigDecimal.ZERO;
+		for(Assinante a:assinantes){
+			Calendar dataInclusaoCalendar = a.getDataInclusaoCalendar();
+			if(dataInclusaoCalendar.before(c)){
+				tot = tot.add(a.getFaturamento());
+			}
+		}
+		return tot;			
+	}
+	
+	public static Integer getAssinanturasUltimos(List<Assinante> assinantes,int dias){
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, -dias);
+		Integer tot = 0;
+		for(Assinante a:assinantes){
+			if(a.getDataInclusaoCalendar().before(c)){
+				tot++;
+			}
+		}
+		return tot;
+	}
+
+	public List<Assinante> getRelatorioConsumoAssinantes(
+			Contabilidade contabilidade) {
+		
+		return assinanteDao.getAssinantesComTodosOsDoctos(contabilidade);
 	}
 	
 }

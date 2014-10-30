@@ -7,77 +7,84 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <composite:interface>
-	<composite:attribute name="bean" />
 </composite:interface>
 
 <composite:implementation>
+	<script type="text/javascript">  
+	function percent(id){
+		jQuery(id).mask("999,99%");
+	};
+	</script>
 	<p:panel id="pnlContabilidade" styleClass="pnlContabilidade">
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
 			columnClasses="pnlgInformacao_c1, pnlgInformacao_c2, pnlgInformacao_c3, pnlgInformacao_c4, pnlgInformacao_c5, pnlgInformacao_c6">
 			<p:outputLabel value="Cód. Contabilidade" for="intCodContabilidade" />
 			<p:inputText id="intCodContabilidade" styleClass="iptCodAss"
-				value="#{cc.attrs.bean.selected.id}" disabled="true" />
+				value="#{bean.selected.id}" disabled="true" />
 			<p:outputLabel value="Data Inclusão" for="intDtInclusao"
 				styleClass="oplDtInclusao" />
 			<p:calendar id="intDtInclusao" styleClass="iptDtInclusao"
-				value="#{cc.attrs.bean.selected.dataInclusaoTela}" disabled="true"
+				value="#{bean.selected.dataInclusao}" disabled="true"
 				pattern="dd/MM/yyyy" />
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
 				styleClass="oplTpInclusao" />
 			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
-				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="true" />
+				value="#{bean.selected.tipoInclusao}" disabled="true" />
 		</h:panelGrid>
 		<p:fieldset id="fdsDadosContabilidade" styleClass="dados"
 			legend="Dados Contabilidade">
 			<h:panelGrid columns="2"
 				columnClasses="pnlDadosCont_c1,pnlDadosCont_c2">
+				<p:outputLabel value="Nome Fantasia" for="intNomeFantasia" />
+				<p:inputText id="intNomeFantasia" styleClass="iptDadosContabilidade"
+					value="#{bean.selected.nomeFantasia}" />
 				<p:outputLabel value="Razão Social" for="intRazaoSocial" />
 				<p:inputText id="intRazaoSocial" styleClass="iptDadosContabilidade"
-					value="#{cc.attrs.bean.selected.razaoSocial}" />
+					value="#{bean.selected.razaoSocial}" />
 				<p:outputLabel value="Endereço" for="intEndereco" />
 				<h:panelGrid columns="3" styleClass="pnlgContEndereco"
 					columnClasses="pnlgContEndereco_c1,pnlgContEndereco_c2,pnlgContEndereco_c3">
 					<p:inputText id="intEndereco"
-						value="#{cc.attrs.bean.selected.endereco}"
+						value="#{bean.selected.endereco}"
 						styleClass="iptContEndereco" />
 					<p:outputLabel value="Nº " for="intNumero"
 						styleClass="oplContNumero" />
 					<p:inputMask id="intNumero"
-						value="#{cc.attrs.bean.selected.enderecoNumero}"
+						value="#{bean.selected.enderecoNumero}"
 						styleClass="iptContNumero" mask="9?9999" />
 				</h:panelGrid>
 				<p:outputLabel value="Complemento" for="intComplemento" />
 				<p:inputText id="intComplemento" styleClass="iptDadosContabilidade"
-					value="#{cc.attrs.bean.selected.enderecoComplemento}" />
+					value="#{bean.selected.enderecoComplemento}" />
 				<p:outputLabel value="Bairro" for="intBairro" />
 				<h:panelGrid columns="3">
 					<p:inputText id="intBairro" styleClass="iptContBairro"
-						value="#{cc.attrs.bean.selected.bairro}" />
+						value="#{bean.selected.bairro}" />
 					<p:outputLabel value="CEP" for="intCep" />
-					<p:inputMask id="intCep" value="#{cc.attrs.bean.selected.cep}"
+					<p:inputMask id="intCep" value="#{bean.selected.cepFormat}"
 						mask="99999-999" styleClass="iptContCep" />
 				</h:panelGrid>
 				<p:outputLabel value="Município" for="intMunicipio" />
 				<h:panelGrid columns="3">
 					<p:inputText id="intMunicipio"
-						value="#{cc.attrs.bean.selected.municipio}" />
+						value="#{bean.selected.municipio}" />
 					<p:outputLabel value="UF" for="somUf" />
-					<p:selectOneMenu id="somUf" value="#{cc.attrs.bean.selected.uf}"
+					<p:selectOneMenu id="somUf" value="#{bean.selected.uf}"
 						styleClass="selectUf">
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" />
-						<f:selectItems value="#{cc.attrs.bean.selected.estados}" />
+						<f:selectItems value="#{bean.selected.estados}" />
 						<p:ajax event="change" listener="#{bean.mascaraInscrEstadual}"
 							update="intInscEst" />
 					</p:selectOneMenu>
 				</h:panelGrid>
 				<p:outputLabel value="CNPJ" for="intCnpj" />
 				<h:panelGrid columns="3">
-					<p:inputMask id="intCnpj" value="#{cc.attrs.bean.selected.cnpj}"
+					<p:inputMask id="intCnpj" value="#{bean.selected.cnpj}"
 						mask="99.999.999/9999-99" styleClass="cnpjAss" />
 					<p:outputLabel value="Inscr.Estadual" for="intInscEst" />
 					<p:inputMask id="intInscEst"
-						value="#{cc.attrs.bean.selected.inscricaoEstadual}"
+						value="#{bean.selected.inscricaoEstadual}"
 						mask="#{bean.mascara}" />
 				</h:panelGrid>
 			</h:panelGrid>
@@ -117,19 +124,19 @@
 					<p:commandButton id="cbIncluir" value=""
 						style="background-image: url('resources/images/incluir.gif') !important;">
 						<p:ajax event="click" listener="#{bean.adicionaUsuario}"
-							process="@this" update="dtbUsuarios,msgs" />
+							process="@this" update="dtbUsuarios,sbcPermAreaContabilidade,sbcPermAreaAssinante,intUsuario,pwdUsuario,msgs" />
 					</p:commandButton>
 					<p:commandButton id="cmbExcluir" value=""
 						style="background-image: url('resources/images/minus.png') !important;">
 						<p:ajax event="click" listener="#{bean.removeUsuario}"
-							process="@this" update="dtbUsuarios" />
+							process="@this" update="dtbUsuarios,sbcPermAreaContabilidade,sbcPermAreaAssinante,intUsuario,pwdUsuario" />
 					</p:commandButton>
 
 					<p:tooltip for="cbIncluir" value="Incluir" />
 					<p:tooltip for="cmbExcluir" value="Excluir" />
 				</h:panelGrid>
 				<p:dataTable id="dtbUsuarios" scrollable="true" scrollHeight="100"
-					value="#{cc.attrs.bean.selected.usuarios}" var="usuario"
+					value="#{bean.selected.usuarios}" var="usuario"
 					styleClass="dataTableUsuarios"
 					emptyMessage="Nenhum registro encontrado.">
 					<p:column headerText="ID">
@@ -139,7 +146,7 @@
 						<h:outputText value="#{usuario.login}" />
 					</p:column>
 					<p:column headerText="Permissão Área Usuário?">
-						<p:selectBooleanCheckbox value="#{usuario.permissaoAreaAssinante}"
+						<p:selectBooleanCheckbox value="#{usuario.permissaoAreaUsuario}"
 							disabled="true" />
 					</p:column>
 					<p:column headerText="Permissão Área Contador?">
@@ -152,15 +159,16 @@
 		<h:panelGrid columns="3" styleClass="gridBotao"
 			columnClasses="gridBotao_c1,grid_Botao_c2,grid_Botao_c3">
 			<p:outputLabel value="Comissão" for="intComissao" />
+			
 			<p:inputText id="intComissao"
-				value="#{cc.attrs.bean.selected.comissao}">
-				<f:convertNumber type="percent" />
+				value="#{bean.selected.comissaoString}" onfocus="percent(this)" disabled="#{!loginBean.moduloAdministrativo}">
+				
 			</p:inputText>
 			<h:panelGrid columns="2">
 				<p:commandButton id="cdbIncluir" rendered="#{bean.botaoIncluir}"
 					style="background-image: url('resources/images/check.png') !important;"
 					value=" Incluir" >
-					<p:ajax event="click" listener="#{bean.incluir()}" process="@this" update="@form" />
+					<p:ajax event="click" listener="#{bean.incluir()}" update="@form" />
 				</p:commandButton>
 				<p:commandButton id="cdbAlterar" rendered="#{bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"

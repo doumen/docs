@@ -11,7 +11,7 @@ public class PlanoDaoImpl extends GenericDAOImpl<Plano> implements PlanoDao{
 
 	@Override
 	public List<Plano> getPlanos() throws Exception {
-		return super.list();
+		return em.createQuery("from Plano p where p.ativo = true",Plano.class).getResultList();
 	}
 
 	@Override

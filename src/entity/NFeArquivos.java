@@ -8,18 +8,16 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "NFeArquivos.findAll", query = "SELECT n FROM NFeArquivos n"),
     @NamedQuery(name = "NFeArquivos.findById", query = "SELECT n FROM NFeArquivos n WHERE n.id = :id"),
     @NamedQuery(name = "NFeArquivos.findByDataInclusao", query = "SELECT n FROM NFeArquivos n WHERE n.dataInclusao = :dataInclusao")})
-public class NFeArquivos implements Serializable {
+public class NFeArquivos implements Serializable,Arquivo {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,8 +53,11 @@ public class NFeArquivos implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    /*
     @JoinColumn(name = "tbNFe_Id", referencedColumnName = "Id")
     @OneToOne(optional = false, fetch = FetchType.LAZY)
+    */
+    @Column(name = "tbNFe_Id")
     private NFe tbNFeId;
 
     public NFeArquivos() {
@@ -137,5 +138,25 @@ public class NFeArquivos implements Serializable {
     public String toString() {
         return "javaapplication2.NFeArquivos[ id=" + id + " ]";
     }
+
+	@Override
+	public byte[] getArquivoXML() {
+		return getArquivoNFeXML();
+	}
+
+	@Override
+	public void setArquivoXML(byte[] arquivoXML) {
+		setArquivoNFeXML(arquivoXML);
+	}
+
+	@Override
+	public void setDocto(Docto d) {
+		setTbNFeId(new NFe(d.getId()));		
+	}
+
+	@Override
+	public Docto getDocto() {
+		return getTbNFeId();
+	}
     
 }

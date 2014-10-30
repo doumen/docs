@@ -46,6 +46,15 @@ public class PlanoComponent {
 	public Plano getPlanoByDescricao(String descricao){
 		return planoDao.getPlanoByDescricao(descricao);
 	}
+
+	public void inserirPlano(Plano selected) throws Exception {
+		selected.setAtivo(true);
+		planoDao.persist(selected);
+	}
+
+	public void alterar(Plano selected) throws Exception {
+		planoDao.merge(selected);
+	}
 	
 	
 }

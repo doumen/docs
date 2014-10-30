@@ -66,10 +66,10 @@ public class Plano implements Serializable {
     private String descricao;
     @Basic(optional = false)
     @Column(name = "FaixaInicial")
-    private int faixaInicial;
+    private Integer faixaInicial;
     @Basic(optional = false)
     @Column(name = "FaixaFinal")
-    private int faixaFinal;
+    private Integer faixaFinal;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "ValorMensal")
@@ -89,6 +89,9 @@ public class Plano implements Serializable {
     private Date dataInclusao;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "plano", fetch = FetchType.LAZY)
     private List<Assinante> assinantesList;
+
+    @Column(name = "Ativo")
+    private boolean ativo;
 
     public Plano() {
     }
@@ -124,19 +127,19 @@ public class Plano implements Serializable {
         this.descricao = descricao;
     }
 
-    public int getFaixaInicial() {
+    public Integer getFaixaInicial() {
         return faixaInicial;
     }
 
-    public void setFaixaInicial(int faixaInicial) {
+    public void setFaixaInicial(Integer faixaInicial) {
         this.faixaInicial = faixaInicial;
     }
 
-    public int getFaixaFinal() {
+    public Integer getFaixaFinal() {
         return faixaFinal;
     }
 
-    public void setFaixaFinal(int faixaFinal) {
+    public void setFaixaFinal(Integer faixaFinal) {
         this.faixaFinal = faixaFinal;
     }
 
@@ -222,7 +225,7 @@ public class Plano implements Serializable {
 	}
 
 	public double getValorMensalDouble() {
-		return 0;
+		return valorMensal.doubleValue();
 	}
 	
 	public String getValorMensalFormatado(){
@@ -230,6 +233,18 @@ public class Plano implements Serializable {
 	}
 	public String getCodigo() {
 		return id == null ? null : id.toString();
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public String getValorNfeAdicionalFormatado(){
+		return Util.formatCurrency(getValorDoctoAdicional());
 	}
 
 }
