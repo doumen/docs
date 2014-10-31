@@ -87,10 +87,9 @@ public class GenericDAOImpl<T> implements GenericDao<T> {
 	 * @throws IllegalArgumentException
 	 * @throws TransactionRequiredException
 	 */
-	public boolean remove(T t) throws Exception {
+	public boolean remove(T entity) throws Exception {
 		try {
-			T m = em.merge(t);
-			em.remove(m);
+			em.remove(em.contains(entity) ? entity : em.merge(entity));
 			em.flush();
 			return true;
 		} catch (Exception e) {

@@ -28,6 +28,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -36,6 +37,7 @@ import model.TipoInclusao;
 import model.Util;
 import converter.ConvertByField;
 import dao.RemoveMask;
+import dao.RemoveMaskPercent;
 
 /**
  *
@@ -119,6 +121,7 @@ public class Contabilidade implements Serializable {
 	// consider using these annotations to enforce field validation
 	@Basic(optional = false)
 	@Column(name = "Comissao")
+	@RemoveMaskPercent
 	private String comissao;
 
 	@Basic(optional = false)
@@ -404,5 +407,15 @@ public class Contabilidade implements Serializable {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	@Transient
+	private List<Usuario> usuariosParaRemover = new ArrayList<Usuario>();
+	
+	public List<Usuario> getUsuariosParaRemover(){
+		return usuariosParaRemover;
+	}
+	
+	public void addUsuarioParaRemover(Usuario u){
+		getUsuariosParaRemover().add(u);
 	}
 }

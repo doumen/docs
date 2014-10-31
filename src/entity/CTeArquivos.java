@@ -8,6 +8,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CTeArquivos.findAll", query = "SELECT c FROM CTeArquivos c"),
     @NamedQuery(name = "CTeArquivos.findById", query = "SELECT c FROM CTeArquivos c WHERE c.id = :id"),
     @NamedQuery(name = "CTeArquivos.findByDataInclusao", query = "SELECT c FROM CTeArquivos c WHERE c.dataInclusao = :dataInclusao")})
-public class CTeArquivos implements Serializable {
+public class CTeArquivos implements Serializable,Arquivo {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,7 @@ public class CTeArquivos implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    
     @JoinColumn(name = "tbCTe_Id", referencedColumnName = "Id")
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private CTe tbCTeId;
@@ -137,5 +139,25 @@ public class CTeArquivos implements Serializable {
     public String toString() {
         return "javaapplication2.CTeArquivos[ id=" + id + " ]";
     }
+
+	@Override
+	public byte[] getArquivoXML() {
+		return getArquivoCTeXML();
+	}
+
+	@Override
+	public void setArquivoXML(byte[] arquivoXML) {
+		setArquivoCTeXML(arquivoXML);		
+	}
+
+	@Override
+	public void setDocto(Docto d) {
+		setTbCTeId((CTe) d);
+	}
+
+	@Override
+	public Docto getDocto() {
+		return (Docto) getTbCTeId();
+	}
     
 }

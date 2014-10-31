@@ -1,45 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/templates/_configuracoes.xhtml">
-	<ui:param name="tituloPainel" value="XML CT-e - Configurações" />
-
-	<ui:define name="download">
-		<ui:param name="checkXml" value="true" />
-		<ui:param name="textXml" value="true" />
-
-		<ui:param name="checkPdf" value="true" />
-		<ui:param name="textPdf" value="true" />
-
-		<ui:param name="checkTxt" value="false" />
-		<ui:param name="textTxt" value="false" />
-		<ui:include src="/configuracoes/_panelDownload.xhtml" />
-	</ui:define>
-
-	<ui:define name="receberPorEmail">
-		<ui:param name="tituloPanelReceberPorEmail"
-			value="Receber CT-e XML - Por E-mail" />
-		<ui:include src="/configuracoes/_panelReceberPorEmail.xhtml" />
-	</ui:define>
-	<ui:define name="enviarPorEmail">
-		<ui:param name="checkEnviarXml" value="true" />
-		<ui:param name="textEnviarXml" value="true" />
-
-		<ui:param name="checkEnviarPdf" value="true" />
-		<ui:param name="textEnviarPdf" value="true" />
-
-		<ui:param name="checkEnviarTxt" value="false" />
-		<ui:param name="textEnviarTxt" value="false" />
-
-		<ui:include src="/configuracoes/_panelEnviarPorEmail.xhtml" />
-	</ui:define>
-	<ui:define name="aplicativos">
-		<ui:param name="tituloPanelAplicativos"
-			value="Aplicativo para Upload CT-e XML" />
-		<ui:include src="/configuracoes/_panelAplicativos.xhtml" />
+<ui:composition template="/templates/_panel-titulo.xhtml">
+	<ui:param name="tituloPainel" value="UpLoad SPED's" />
+	<ui:param name="help" value="UpLoad SPED's" />
+	<ui:param name="modulo" value="contabilidade" />
+	
+	<ui:define name="conteudoPainel">
+		<p:tabView>
+			<p:tab title="SPED Fiscal">			
+				<golive:upload bean="#{uploadSpedFiscalConMB}"></golive:upload>		
+			</p:tab>
+			<p:tab title="SPED Contribuições">			
+				<golive:upload bean="#{uploadSpedContribuicoesConMB}"></golive:upload>		
+			</p:tab>
+			<p:tab title="SPED Social">			
+				<golive:upload bean="#{uploadSpedSocialConMB}"></golive:upload>		
+			</p:tab>
+			
+		</p:tabView>
 	</ui:define>
 </ui:composition>
 </html>

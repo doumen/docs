@@ -9,8 +9,8 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,6 +26,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -54,7 +55,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SpedFiscal.findBySistemaUploadLocalDestino", query = "SELECT s FROM SpedFiscal s WHERE s.sistemaUploadLocalDestino = :sistemaUploadLocalDestino"),
     @NamedQuery(name = "SpedFiscal.findBySistemaValidacao", query = "SELECT s FROM SpedFiscal s WHERE s.sistemaValidacao = :sistemaValidacao"),
     @NamedQuery(name = "SpedFiscal.findByDataInclusao", query = "SELECT s FROM SpedFiscal s WHERE s.dataInclusao = :dataInclusao")})
-public class SpedFiscal implements Serializable {
+public class SpedFiscal implements Serializable,Docto {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,11 +117,14 @@ public class SpedFiscal implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbSpedFiscalId", fetch = FetchType.LAZY)
-    private List<SpedFiscalArquivos> spedFiscalArquivosList;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbSpedFiscalId", fetch = FetchType.LAZY)
+    @Transient
+    private SpedFiscalArquivos spedFiscalArquivos;
+    
     @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Assinante tbAssinantesId;
+    
     @OneToMany(mappedBy = "tbSpedFiscalId", fetch = FetchType.LAZY)
     private List<NFe> nFeList;
 
@@ -294,19 +298,19 @@ public class SpedFiscal implements Serializable {
     }
 
     @XmlTransient
-    public List<SpedFiscalArquivos> getSpedFiscalArquivosList() {
-        return spedFiscalArquivosList;
+    public SpedFiscalArquivos getSpedFiscalArquivos() {
+        return spedFiscalArquivos;
     }
 
-    public void setSpedFiscalArquivosList(List<SpedFiscalArquivos> spedFiscalArquivosList) {
-        this.spedFiscalArquivosList = spedFiscalArquivosList;
+    public void setSpedFiscalArquivos(SpedFiscalArquivos spedFiscalArquivosList) {
+        this.spedFiscalArquivos = spedFiscalArquivosList;
     }
 
-    public Assinante getTbAssinantesId() {
+    public Assinante getAssinante() {
         return tbAssinantesId;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
+    public void setAssinante(Assinante tbAssinantesId) {
         this.tbAssinantesId = tbAssinantesId;
     }
 
@@ -343,5 +347,16 @@ public class SpedFiscal implements Serializable {
     public String toString() {
         return "javaapplication2.SpedFiscal[ id=" + id + " ]";
     }
+
+	@Override
+	public void setArquivoXml(Arquivo a) {
+		setSpedFiscalArquivos((SpedFiscalArquivos) spedFiscalArquivos);
+		
+	}
+
+	@Override
+	public Arquivo getArquivoXml() {		
+		return getSpedFiscalArquivos();
+	}
     
 }

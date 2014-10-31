@@ -9,8 +9,8 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,6 +26,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -54,7 +55,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SpedContribuicoes.findBySistemaUploadLocalDestino", query = "SELECT s FROM SpedContribuicoes s WHERE s.sistemaUploadLocalDestino = :sistemaUploadLocalDestino"),
     @NamedQuery(name = "SpedContribuicoes.findBySistemaValidacao", query = "SELECT s FROM SpedContribuicoes s WHERE s.sistemaValidacao = :sistemaValidacao"),
     @NamedQuery(name = "SpedContribuicoes.findByDataInclusao", query = "SELECT s FROM SpedContribuicoes s WHERE s.dataInclusao = :dataInclusao")})
-public class SpedContribuicoes implements Serializable {
+public class SpedContribuicoes implements Serializable,Docto {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,8 +117,10 @@ public class SpedContribuicoes implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbSpedContribuicoesId", fetch = FetchType.LAZY)
-    private List<SpedContribuicoesArquivos> spedContribuicoesArquivosList;
+
+    @Transient
+    private SpedContribuicoesArquivos spedContribuicoesArquivos;
+    
     @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Assinante tbAssinantesId;
@@ -294,19 +297,19 @@ public class SpedContribuicoes implements Serializable {
     }
 
     @XmlTransient
-    public List<SpedContribuicoesArquivos> getSpedContribuicoesArquivosList() {
-        return spedContribuicoesArquivosList;
+    public SpedContribuicoesArquivos getSpedContribuicoesArquivos() {
+        return spedContribuicoesArquivos;
     }
 
-    public void setSpedContribuicoesArquivosList(List<SpedContribuicoesArquivos> spedContribuicoesArquivosList) {
-        this.spedContribuicoesArquivosList = spedContribuicoesArquivosList;
+    public void setSpedContribuicoesArquivos(SpedContribuicoesArquivos spedContribuicoesArquivosList) {
+        this.spedContribuicoesArquivos = spedContribuicoesArquivosList;
     }
 
-    public Assinante getTbAssinantesId() {
+    public Assinante getAssinante() {
         return tbAssinantesId;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
+    public void setAssinante(Assinante tbAssinantesId) {
         this.tbAssinantesId = tbAssinantesId;
     }
 
@@ -343,5 +346,16 @@ public class SpedContribuicoes implements Serializable {
     public String toString() {
         return "javaapplication2.SpedContribuicoes[ id=" + id + " ]";
     }
+
+	@Override
+	public void setArquivoXml(Arquivo a) {
+		setSpedContribuicoesArquivos((SpedContribuicoesArquivos) a);
+		
+	}
+
+	@Override
+	public Arquivo getArquivoXml() {
+		return (Arquivo) getSpedContribuicoesArquivos();
+	}
     
 }

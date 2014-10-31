@@ -900,3 +900,30 @@ width: 16px;height: 16px;
 .pnlgInformacao_c6 {
 	width: 27%;
 }
+.upload_chave_col_mensagem{
+	
+}
+.upload_chave_col_progresso{
+	width: 10%;	
+}
+.upload_chave_col_chave{
+}
+.upload_chave_col_status{
+	width: 10%;	
+}
+
+.upload_chave_h1{
+	width: 90%;
+	padding-left: 0px;
+	margin: 20px;
+}
+
+.upload_chave_h2{
+	width: 10%;
+	text-align: end;
+	padding-right: 0px;
+}
+
+.chv{
+	width: 50%;
+}

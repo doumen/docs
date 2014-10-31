@@ -16,6 +16,7 @@ import model.Util;
 import org.primefaces.context.RequestContext;
 
 import component.ContabilidadeComponent;
+import component.UsuarioComponent;
 import entity.Contabilidade;
 import entity.Usuario;
 
@@ -28,6 +29,9 @@ public class ConsultaContabilidadeAdmMB extends
 	private boolean permissaoAreaContador;
 	private boolean permissaoAreaAssinante;
 	private String mascara;
+	
+	@Inject
+	private UsuarioComponent usuarioComponent;
 	
 	public ConsultaContabilidadeAdmMB(){
 		super(Contabilidade.class);
@@ -80,9 +84,13 @@ public class ConsultaContabilidadeAdmMB extends
 	}
 	
 	public void removeUsuario() {
-		if(selected.removeUltimoUsuario()){
-			clean();	
-		}
+			if(selected.getUsuarios().size()>1)
+				try {
+					usuarioComponent.remove(selected.getUsuarios().get(selected.getUsuarios().size()-1));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			clean();			
 	}
 
 	public String getLogin() {

@@ -31,6 +31,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import dao.RemoveMask;
+import dao.RemoveMaskPercent;
 
 public class Util {
 	
@@ -201,6 +202,18 @@ public class Util {
 						Expression expr = new Expression(t, "get" + WordUtils.capitalize(f.getName()), new Object[0]);
 					    expr.execute();
 						Statement statement = new Statement(t, "set"+WordUtils.capitalize(f.getName()), new Object[]{Util.removeMask((String) expr.getValue())});
+						statement.execute();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}					
+				}
+			}
+			else if(f.isAnnotationPresent(RemoveMaskPercent.class)){								
+				if(f.getType().getSimpleName().equals("String")){					
+					try {
+						Expression expr = new Expression(t, "get" + WordUtils.capitalize(f.getName()), new Object[0]);
+					    expr.execute();
+						Statement statement = new Statement(t, "set"+WordUtils.capitalize(f.getName()), new Object[]{Util.removeMaskPercent((String) expr.getValue())});
 						statement.execute();
 					} catch (Exception e) {
 						e.printStackTrace();

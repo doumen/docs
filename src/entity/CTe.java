@@ -75,7 +75,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CTe.findBySistemaUploadLocalDestinoXml", query = "SELECT c FROM CTe c WHERE c.sistemaUploadLocalDestinoXml = :sistemaUploadLocalDestinoXml"),
     @NamedQuery(name = "CTe.findBySistemaUploadObservacaoXml", query = "SELECT c FROM CTe c WHERE c.sistemaUploadObservacaoXml = :sistemaUploadObservacaoXml"),
     @NamedQuery(name = "CTe.findByDataInclusao", query = "SELECT c FROM CTe c WHERE c.dataInclusao = :dataInclusao")})
-public class CTe implements Serializable {
+public class CTe implements Serializable,Docto {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -547,11 +547,11 @@ public class CTe implements Serializable {
         this.nFeList = nFeList;
     }
 
-    public Assinante getTbAssinantesId() {
+    public Assinante getAssinante() {
         return tbAssinantesId;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
+    public void setAssinante(Assinante tbAssinantesId) {
         this.tbAssinantesId = tbAssinantesId;
     }
 
@@ -579,5 +579,15 @@ public class CTe implements Serializable {
     public String toString() {
         return "javaapplication2.CTe[ id=" + id + " ]";
     }
+
+	@Override
+	public void setArquivoXml(Arquivo a) {
+		setCTeArquivos((CTeArquivos) a);		
+	}
+
+	@Override
+	public Arquivo getArquivoXml() {
+		return (Arquivo) getCTeArquivos();
+	}
     
 }

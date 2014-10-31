@@ -59,8 +59,15 @@ public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements Assin
 			return ass;
 		}
 		else if(Modulo.ASSINANTE.equals(m)){
-			s.append(" and u.permissaoAreaAdministrador = true");
-			return em.createQuery(s.toString(),Assinante.class).setParameter("login", u.getLogin()).getResultList();			
+			Usuario user = em.createQuery("from Usuario u join fetch u.tbContabilidadeId c where u.permissaoAreaUsuario = true and u.login=:login and c.ativo=true",Usuario.class)
+					.setParameter("login", u.getLogin()).getSingleResult();
+			List<Assinante> ass = new ArrayList<>();
+			if(user != null && user.getContabilidade() != null){
+				ass = em.createQuery("from Assinante a join fetch a.contabilidade c where c = :cont",Assinante.class).setParameter("cont", user.getContabilidade()).getResultList();
+			}
+			if(user!=null && ass.isEmpty())
+				ass.add(new Assinante());				
+			return ass;			
 		}
 		else if(Modulo.CONTABILIDADE.equals(m)){
 			Usuario user = em.createQuery("from Usuario u join fetch u.tbContabilidadeId c where u.permissaoAreaContador = true and u.login=:login and c.ativo=true",Usuario.class)

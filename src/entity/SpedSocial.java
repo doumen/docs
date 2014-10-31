@@ -8,9 +8,8 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,10 +21,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -54,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SpedSocial.findBySistemaUploadLocalDestino", query = "SELECT s FROM SpedSocial s WHERE s.sistemaUploadLocalDestino = :sistemaUploadLocalDestino"),
     @NamedQuery(name = "SpedSocial.findBySistemaValidacao", query = "SELECT s FROM SpedSocial s WHERE s.sistemaValidacao = :sistemaValidacao"),
     @NamedQuery(name = "SpedSocial.findByDataInclusao", query = "SELECT s FROM SpedSocial s WHERE s.dataInclusao = :dataInclusao")})
-public class SpedSocial implements Serializable {
+public class SpedSocial implements Serializable,Docto {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -116,8 +115,11 @@ public class SpedSocial implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbSpedSocialId", fetch = FetchType.LAZY)
-    private List<SpedSocialArquivos> spedSocialArquivosList;
+    
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbSpedSocialId", fetch = FetchType.LAZY)
+    @Transient
+    private SpedSocialArquivos spedSocialArquivos;
+    
     @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Assinante tbAssinantesId;
@@ -292,19 +294,19 @@ public class SpedSocial implements Serializable {
     }
 
     @XmlTransient
-    public List<SpedSocialArquivos> getSpedSocialArquivosList() {
-        return spedSocialArquivosList;
+    public SpedSocialArquivos getSpedSocialArquivos() {
+        return spedSocialArquivos;
     }
 
-    public void setSpedSocialArquivosList(List<SpedSocialArquivos> spedSocialArquivosList) {
-        this.spedSocialArquivosList = spedSocialArquivosList;
+    public void setSpedSocialArquivos(SpedSocialArquivos spedSocialArquivosList) {
+        this.spedSocialArquivos = spedSocialArquivosList;
     }
 
-    public Assinante getTbAssinantesId() {
+    public Assinante getAssinante() {
         return tbAssinantesId;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
+    public void setAssinante(Assinante tbAssinantesId) {
         this.tbAssinantesId = tbAssinantesId;
     }
 
@@ -332,5 +334,15 @@ public class SpedSocial implements Serializable {
     public String toString() {
         return "javaapplication2.SpedSocial[ id=" + id + " ]";
     }
+
+	@Override
+	public void setArquivoXml(Arquivo a) {
+		setSpedSocialArquivos((SpedSocialArquivos) a);		
+	}
+
+	@Override
+	public Arquivo getArquivoXml() {
+		return (Arquivo) getSpedSocialArquivos();
+	}
     
 }

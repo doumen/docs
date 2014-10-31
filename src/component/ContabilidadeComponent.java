@@ -1,6 +1,5 @@
 package component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -82,7 +81,8 @@ public class ContabilidadeComponent {
 	}
 */
 	public void alterar(Contabilidade selected) throws Exception {
-			 contabilidadeDao.merge(selected);
+			usuarioComponent.remove(selected.getUsuarios());
+			contabilidadeDao.merge(selected);
 	}
 
 	public Contabilidade getContabilidadeById(String descricao) {

@@ -8,21 +8,20 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SpedFiscalArquivos.findAll", query = "SELECT s FROM SpedFiscalArquivos s"),
     @NamedQuery(name = "SpedFiscalArquivos.findById", query = "SELECT s FROM SpedFiscalArquivos s WHERE s.id = :id"),
     @NamedQuery(name = "SpedFiscalArquivos.findByDataInclusao", query = "SELECT s FROM SpedFiscalArquivos s WHERE s.dataInclusao = :dataInclusao")})
-public class SpedFiscalArquivos implements Serializable {
+public class SpedFiscalArquivos implements Serializable,Arquivo {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +53,11 @@ public class SpedFiscalArquivos implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    /*
     @JoinColumn(name = "tbSpedFiscal_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    */
+    @Transient
     private SpedFiscal tbSpedFiscalId;
 
     public SpedFiscalArquivos() {
@@ -135,5 +137,25 @@ public class SpedFiscalArquivos implements Serializable {
     public String toString() {
         return "javaapplication2.SpedFiscalArquivos[ id=" + id + " ]";
     }
+
+	@Override
+	public byte[] getArquivoXML() {
+		return getArquivoSpedFiscalTXT();
+	}
+
+	@Override
+	public void setArquivoXML(byte[] arquivoXML) {
+		setArquivoSpedFiscalTXT(arquivoXML);
+	}
+
+	@Override
+	public void setDocto(Docto d) {
+		setTbSpedFiscalId((SpedFiscal) d);
+	}
+
+	@Override
+	public Docto getDocto() {
+		return (Docto) getTbSpedFiscalId();
+	}
     
 }

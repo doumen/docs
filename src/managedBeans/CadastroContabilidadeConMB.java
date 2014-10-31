@@ -105,7 +105,8 @@ public class CadastroContabilidadeConMB {
 			int u = selected.getUsuarios().size(); 
 			if(u>0){
 				usuariosRemovidos.add(selected.getUsuarios().get(u-1));
-				selected.getUsuarios().remove(u-1);				
+				selected.addUsuarioParaRemover(selected.getUsuarios().get(u-1));
+				selected.getUsuarios().remove(u-1);
 			}
 		}
 	}

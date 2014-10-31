@@ -17,7 +17,7 @@ import org.primefaces.model.chart.PieChartModel;
 import dao.AssinanteDao;
 
 @ManagedBean
-public class PainelAdministrativo implements Serializable {
+public class PainelAdministrativoMB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -48,7 +48,7 @@ public class PainelAdministrativo implements Serializable {
 		return lineCancelamento;
 	}
 
-	public PainelAdministrativo() {
+	public PainelAdministrativoMB() {
 		System.out.println("Instanciou o PainelAdministrativo!");
 	}
 	

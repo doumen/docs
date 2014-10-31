@@ -25,10 +25,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -151,11 +151,10 @@ public class NFe implements Serializable,Docto {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    /*
+    
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "tbNFeId", fetch = FetchType.LAZY)
-    */
-    @Transient
     private NFeArquivos nFeArquivos;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbNFeId", fetch = FetchType.LAZY)
     private List<Fatura> faturasList;
     @JoinColumn(name = "tbAssinantes_Id", referencedColumnName = "Id")

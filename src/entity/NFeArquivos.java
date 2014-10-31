@@ -12,12 +12,15 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,11 +56,9 @@ public class NFeArquivos implements Serializable,Arquivo {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
-    /*
+    
     @JoinColumn(name = "tbNFe_Id", referencedColumnName = "Id")
     @OneToOne(optional = false, fetch = FetchType.LAZY)
-    */
-    @Column(name = "tbNFe_Id")
     private NFe tbNFeId;
 
     public NFeArquivos() {

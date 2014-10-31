@@ -8,21 +8,20 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SpedSocialArquivos.findAll", query = "SELECT s FROM SpedSocialArquivos s"),
     @NamedQuery(name = "SpedSocialArquivos.findById", query = "SELECT s FROM SpedSocialArquivos s WHERE s.id = :id"),
     @NamedQuery(name = "SpedSocialArquivos.findByDataInclusao", query = "SELECT s FROM SpedSocialArquivos s WHERE s.dataInclusao = :dataInclusao")})
-public class SpedSocialArquivos implements Serializable {
+public class SpedSocialArquivos implements Serializable,Arquivo {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +53,11 @@ public class SpedSocialArquivos implements Serializable {
     @Column(name = "DataInclusao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
+    /*
     @JoinColumn(name = "tbSpedSocial_Id", referencedColumnName = "Id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    */
+    @Transient
     private SpedSocial tbSpedSocialId;
 
     public SpedSocialArquivos() {
@@ -135,5 +137,25 @@ public class SpedSocialArquivos implements Serializable {
     public String toString() {
         return "javaapplication2.SpedSocialArquivos[ id=" + id + " ]";
     }
+
+	@Override
+	public byte[] getArquivoXML() {		
+		return getArquivoSpedFiscalTXT();
+	}
+
+	@Override
+	public void setArquivoXML(byte[] arquivoXML) {
+		setArquivoSpedFiscalTXT(arquivoXML);
+	}
+
+	@Override
+	public void setDocto(Docto d){
+		setTbSpedSocialId((SpedSocial) d);
+	}
+
+	@Override
+	public Docto getDocto() {
+		return (Docto) getTbSpedSocialId();
+	}
     
 }
