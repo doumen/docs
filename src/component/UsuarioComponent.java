@@ -78,4 +78,11 @@ public class UsuarioComponent {
 			remove(u);
 		}		
 	}
+
+	public List<Usuario> merge(List<Usuario> usuarios) throws Exception {
+		for(Usuario u:usuarios){
+			u = usuarioDao.find(u.getId());
+		}
+		return usuarios;
+	}
 }

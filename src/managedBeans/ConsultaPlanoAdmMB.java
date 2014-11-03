@@ -30,6 +30,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	public void init() {
 		listTable = planoComponent.getPlanos();
+		System.out.println("Instanciou o ConsultaPlanoAdmMB");
 	}
 
 	@Inject
@@ -79,6 +80,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	@Override
 	public void incluir() {
+		System.out.println("Chamou o incluir do ConsultaPlanoAdmMB");
 		FacesMessage message;		
 		try {
 			planoComponent.inserirPlano(selected);

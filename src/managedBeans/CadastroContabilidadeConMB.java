@@ -39,13 +39,12 @@ public class CadastroContabilidadeConMB {
 	private boolean botaoIncluir;
 	private boolean showUploadNome;
 	private boolean showUpload;
-	private List<Usuario> usuariosRemovidos;
 	
 	public void alterar(){
 		try {
 //			usuarioComponent.remove(usuariosRemovidos);
 //			selected.getUsuarios().removeAll(usuariosRemovidos);
-			contabilidadeComponent.alterar(selected);
+			contabilidadeComponent.alterar(selected,usuarios);
 			clean();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -66,6 +65,8 @@ public class CadastroContabilidadeConMB {
 		this.loginBean = loginBean;
 	}
 
+	private List<Usuario> usuarios;
+	
 	@PostConstruct
 	public void init(){
 		setSelected(contabilidadeComponent.getContabilidadeById(loginBean.getUsuario().getContabilidade()));
@@ -76,9 +77,10 @@ public class CadastroContabilidadeConMB {
 		setBotaoAlterar(true);
 		setShowUpload(false);
 		setShowUploadNome(true);
-		usuariosRemovidos = new ArrayList<>();
+		setUsuarios(selected.getUsuarios());
 		clean();
 	}
+	
 	public void adicionaUsuario() {
 		if (validateUsuario()) {
 			Usuario u = new Usuario();
@@ -88,7 +90,9 @@ public class CadastroContabilidadeConMB {
 			u.setSenha(senha.trim());
 			u.setPermissaoAreaContador(permissaoAreaContador);
 			u.setPermissaoAreaUsuario(permissaoAreaAssinante);
-			selected.addUsuario(u);
+			if(usuarios==null)
+				usuarios = new ArrayList<>();
+			usuarios.add(u);
 			clean();
 		}
 	}
@@ -101,12 +105,10 @@ public class CadastroContabilidadeConMB {
 	}
 	
 	public void removeUsuario() {
-		if(selected.getUsuarios()!=null){
-			int u = selected.getUsuarios().size(); 
+		if(getUsuarios()!=null){
+			int u = getUsuarios().size(); 
 			if(u>0){
-				usuariosRemovidos.add(selected.getUsuarios().get(u-1));
-				selected.addUsuarioParaRemover(selected.getUsuarios().get(u-1));
-				selected.getUsuarios().remove(u-1);
+				getUsuarios().remove(u-1);
 			}
 		}
 	}
@@ -257,6 +259,12 @@ public class CadastroContabilidadeConMB {
 
 	public void setShowUpload(boolean showUpload) {
 		this.showUpload = showUpload;
+	}
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

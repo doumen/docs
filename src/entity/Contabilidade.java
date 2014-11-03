@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -129,11 +130,12 @@ public class Contabilidade implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInclusao;
 
-	@OneToMany(mappedBy = "tbContabilidadeId", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "tbContabilidadeId", fetch = FetchType.EAGER,orphanRemoval=true)	
+//	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.DELETE})
 	private List<Usuario> usuariosList;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "contabilidade", fetch = FetchType.LAZY)
-	private List<Assinante> assinantesList;
+	private Set<Assinante> assinantesList;
 
 	@Column(name = "TipoInclusao")
 	@Enumerated(EnumType.STRING)
@@ -313,11 +315,11 @@ public class Contabilidade implements Serializable {
 	}
 
 	@XmlTransient
-	public List<Assinante> getAssinantesList() {
+	public Set<Assinante> getAssinantesList() {
 		return assinantesList;
 	}
 
-	public void setAssinantesList(List<Assinante> assinantesList) {
+	public void setAssinantesList(Set<Assinante> assinantesList) {
 		this.assinantesList = assinantesList;
 	}
 

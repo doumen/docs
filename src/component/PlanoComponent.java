@@ -48,6 +48,7 @@ public class PlanoComponent {
 	}
 
 	public void inserirPlano(Plano selected) throws Exception {
+		System.out.println("Chamou o inserirPlano do PlanoComponent \n o Plano a ser inserido é " + selected);
 		selected.setAtivo(true);
 		planoDao.persist(selected);
 	}

@@ -80,11 +80,41 @@ public class ContabilidadeComponent {
 		return c;
 	}
 */
-	public void alterar(Contabilidade selected) throws Exception {
-			usuarioComponent.remove(selected.getUsuarios());
+	public void alterar(Contabilidade selected,List<Usuario> usuarios) throws Exception {
+		/*
+			Contabilidade c = contabilidadeDao.find(selected.getId());
+			List<Usuario> usuariosParaRemover = new ArrayList<>();
+			List<Usuario> usuariosParaAdicionar = new ArrayList<>();
+			if(c.getUsuarios().size()>usuarios.size()){
+				usuariosParaRemover.addAll(c.getUsuarios());
+				usuariosParaRemover.removeAll(usuarios);				
+			}else{
+				usuariosParaAdicionar.addAll(usuarios);
+				usuariosParaAdicionar.removeAll(c.getUsuarios());
+			}				
+			contabilidadeDao.merge(c,usuariosParaRemover,usuariosParaAdicionar);
+		 */
+			selected.setUsuarios(usuarios);
 			contabilidadeDao.merge(selected);
 	}
 
+	public void alterar(Contabilidade selected) throws Exception{
+		try {
+			 List<Usuario> usuarios = selected.getUsuarios();
+			 for(Usuario u:usuarios){
+				 if(u.getDataInclusao()==null)
+					 u.setDataInclusao(selected.getDataInclusao());
+				 if(u.getContabilidade()==null)
+					 u.setContabilidade(selected);
+				 u.setPermissaoAreaAdministrador(false);
+			 }
+			 selected.setUsuarios(usuarios);
+			contabilidadeDao.merge(selected);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+	
 	public Contabilidade getContabilidadeById(String descricao) {
 		for(Contabilidade c :getContabilidades(false)){
 			if(c.getRazaoSocial().equals(descricao)){
