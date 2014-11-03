@@ -25,12 +25,12 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	public ConsultaPlanoAdmMB() throws InstantiationException,
 			IllegalAccessException {
 		super(Plano.class);
-		System.out.println("Instanciou o ConsultaPlanoAdmMB!!");
+		System.out.println("Instanciou o public ConsultaPlanoAdmMB() throws InstantiationException, IllegalAccessException");
 	}
 
 	public void init() {
+		System.out.println("Instanciou o public void init()");
 		listTable = planoComponent.getPlanos();
-		System.out.println("Instanciou o ConsultaPlanoAdmMB");
 	}
 
 	@Inject
@@ -38,32 +38,38 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	@Override
 	public String getAvisoExcluir() {
+		System.out.println("Chamou o public String getAvisoExcluir()");
 		return "os itens serão excluídos tem certeza disso?";
 	}
 
 	@Override
 	public String getAvisoPreExcluir() {
+		System.out.println("Chamou o public String getAvisoPreExcluir()");
 		return "Os itens serão excluídos";
 	}
 
 	@Override
 	public String getPdfReportName() {
+		System.out.println("Chamou o public String getPdfReportName()");
 		return "planos";
 	}
 
 	public void carregarPopUpAlterar() {
+		System.out.println("Chamou o public void carregarPopUpAlterar()");
 		if ((selectedList != null) && (!selectedList.isEmpty())) {
 			selected = selectedList.get(0);
 		}
 	}
 
 	public void carregarPopUpIncluir() {
+		System.out.println("Chamou o public void carregarPopUpIncluir()");
 		selected.setTipoInclusao(TipoInclusao.MODULO_ADMINISTRATIVO);
 		selected.setDataInclusao(new Date());
 	}
 
 	@Override
 	public void setSelected(Plano selected) {
+		System.out.println("Chamou o public void setSelected(Plano selected)");
 		if (selected != null)
 			this.selected = selected;
 		else if (selectedList != null && !selectedList.isEmpty())
@@ -71,10 +77,12 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	}
 
 	public List<Plano> getFilteredList() {
+		System.out.println("Chamou o public List<Plano> getFilteredList()");
 		return filteredList;
 	}
 
 	public void setFilteredList(List<Plano> filteredList) {
+		System.out.println("Chamou o public void setFilteredList(List<Plano> filteredList)");
 		this.filteredList = filteredList;
 	}
 
@@ -97,6 +105,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	@Override
 	public void alterar() {
+		System.out.println("Chamou o public void alterar()");
 		FacesMessage message;
 		try {
 			planoComponent.alterar(selected);;
@@ -113,11 +122,13 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 
 	@Override
 	public String getPdfTemplateName() {
+		System.out.println("Chamou o public String getPdfTemplateName()");
 		return "template_portrait";
 	}
 
 	@Override
 	public void removeSelectedList() {
+		System.out.println("Chamou o public void removeSelectedList()");
 		FacesMessage message;
 		ArrayList<Plano> r = new ArrayList<>();
 		for(Plano p : selectedList){
