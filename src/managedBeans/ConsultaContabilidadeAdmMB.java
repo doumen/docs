@@ -16,7 +16,7 @@ import model.Util;
 import org.primefaces.context.RequestContext;
 
 import component.ContabilidadeComponent;
-import component.UsuarioComponent;
+
 import entity.Contabilidade;
 import entity.Usuario;
 
@@ -29,10 +29,8 @@ public class ConsultaContabilidadeAdmMB extends
 	private boolean permissaoAreaContador;
 	private boolean permissaoAreaAssinante;
 	private String mascara;
-	
-	@Inject
-	private UsuarioComponent usuarioComponent;
-	
+	private List<Usuario> usuarios;
+		
 	public ConsultaContabilidadeAdmMB(){
 		super(Contabilidade.class);
 		System.out.println("Instanciou o ConsultaContabiliadeAdmMB!!");
@@ -71,7 +69,9 @@ public class ConsultaContabilidadeAdmMB extends
 			u.setSenha(senha.trim());
 			u.setPermissaoAreaContador(permissaoAreaContador);
 			u.setPermissaoAreaUsuario(permissaoAreaAssinante);
-			selected.addUsuario(u);
+			if(usuarios==null)
+				usuarios = new ArrayList<>();
+			usuarios.add(u);
 			clean();
 		}
 	}
@@ -84,9 +84,9 @@ public class ConsultaContabilidadeAdmMB extends
 	}
 	
 	public void removeUsuario() {
-			if(selected.getUsuarios().size()>1)
+			if(getUsuarios().size()>1)
 				try {
-					usuarioComponent.remove(selected.getUsuarios().get(selected.getUsuarios().size()-1));
+					usuarios.remove(getUsuarios().get(getUsuarios().size()-1));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -186,6 +186,7 @@ public class ConsultaContabilidadeAdmMB extends
 	public void incluir() {
 		System.out.println("Incluiu Contabilidade!");
 		FacesMessage message; 
+		selected.setUsuarios(usuarios);
 		if(contabilidadeComponent.inserirContabilidade(this.selected)){
 			selected = contabilidadeComponent.getContabilidadeByCnpj(selected);
 			listTable.add(this.selected);
@@ -201,7 +202,8 @@ public class ConsultaContabilidadeAdmMB extends
 	public void alterar() {
 		FacesMessage message;
 		try {
-			contabilidadeComponent.alterar(selected);;
+			selected.setUsuarios(usuarios);
+			contabilidadeComponent.alterar(selected);
 			 message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
 					"Contabilidade alterada com sucesso.");
 		} catch (Exception e) {
@@ -237,6 +239,14 @@ public class ConsultaContabilidadeAdmMB extends
 		}
 		selectedList.removeAll(r);
 		RequestContext.getCurrentInstance().update("formPainel:dataTable");
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

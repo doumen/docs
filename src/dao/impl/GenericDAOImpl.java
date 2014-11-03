@@ -144,12 +144,16 @@ public class GenericDAOImpl<T> implements GenericDao<T> {
 	public T findByToAnnotadedField(String toString) {
 		for (Field f : this.persistentClass.getDeclaredFields()) {
 			if (f.isAnnotationPresent(ConvertByField.class)) {
+				try{
 				return (T) em
 						.createQuery(
 								"from " + this.persistentClass.getSimpleName()
 										+ " where " + f.getName()
 										+ "=:toString")
 						.setParameter("toString", toString).getSingleResult();
+				}catch(Exception e){
+					
+				}
 			}
 		}
 		return null;

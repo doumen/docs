@@ -1,112 +1,92 @@
 package managedBeans;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 
-import model.GraficosPainel;
-
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.CartesianChartModel;
+import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
-import org.primefaces.model.chart.LineChartSeries;
 import org.primefaces.model.chart.PieChartModel;
 
 import dao.AssinanteDao;
+import entity.Assinante;
 
 @ManagedBean
 public class PainelAssinanteMB implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
+	private Assinante a;
+	private Map<Object,Number> historico;	
 	@Inject
-	private AssinanteDao assinanteDao;
-	
-	private PieChartModel pieCliente;
-	private LineChartModel lineFaturamento;
-	private LineChartModel lineAssinaturas;
-	private LineChartModel lineCancelamento;
-	private GraficosPainel graficosPainel;
-
-	
-	public PieChartModel getPieCliente() {
-		System.out.println("Chamou o getPieCliente()");
-		return pieCliente;
-	}
-
-	public LineChartModel getLineFaturamento() {
-		return lineFaturamento;
-	}
-	
-	public LineChartModel getLineAssinaturas() {
-		return lineAssinaturas;
-	}
-	
-	public LineChartModel getLineCancelamento() {
-		return lineCancelamento;
-	}
-
-	public PainelAssinanteMB() {
-		System.out.println("Instanciou o PainelAssinanteMB!");
-	}
-	
+	private AssinanteDao dao;
 	
 	@PostConstruct
-	public void init() {
-		graficosPainel = new GraficosPainel(assinanteDao.getAssinantesComTodosOsDoctos());		
-		createPieModel();
-		createLineModels();		
-	}
-
-	private void createPieModel() {
-		
-		pieCliente = new PieChartModel();
-		
-		pieCliente.set("Contabilidade", graficosPainel.getTotalContratacaoContabilidade());
-		pieCliente.set("Direta", graficosPainel.getTotalContratacaoDireta());
-		pieCliente.setTitle("Clientes de Contabilidade X Clientes Contratação Direta");
-	}
-
-	private void createLineModels() {
-		LineChartSeries fat = new LineChartSeries();
-		LineChartSeries ass = new LineChartSeries();
-		LineChartSeries canc = new LineChartSeries();
-
-		for(int i=0;i<30;i++){
-			fat.set(-i, graficosPainel.getFaturamentos().get(i));
-			ass.set(-i, graficosPainel.getAssinaturas().get(i));
-			canc.set(-i, graficosPainel.getCancelamentos().get(i));
+	public void init(){
+		try {
+			a = dao.getAssinanteComTodosDoctos(getLoginBean().getAssinante());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		lineFaturamento = initLinearModel(fat);
-		lineFaturamento.setTitle("Faturamento Últimos 30 Dias");
-		Axis yAxis = lineFaturamento.getAxis(AxisType.X);
-		yAxis.setMin(-30);
-		yAxis.setMax(1);
-		
-		lineAssinaturas = initLinearModel(ass);
-		lineAssinaturas.setTitle("Assinaturas Últimos 30 Dias");
-		yAxis = lineAssinaturas.getAxis(AxisType.X);
-		yAxis.setMin(-30);
-		yAxis.setMax(1);
-		
-		lineCancelamento = initLinearModel(canc);
-		lineCancelamento.setTitle("Cancelamento Últimos 30 Dias");
-		yAxis = lineCancelamento.getAxis(AxisType.X);
-		yAxis.setMin(-30);
-		yAxis.setMax(1);
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH,0);
+		setHistorico(a.getHistoricoConsumoTotalDoAssinante(Calendar.MONTH,12));
 	}
+	
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean loginBean;
+	
+	public void setLoginBean(LoginBean loginBean){
+		this.loginBean = loginBean;
+	}
+	
+	public LoginBean getLoginBean(){
+		return this.loginBean;
+	}
+	
+	public PieChartModel getPieChartModel(){
+		PieChartModel pieChartModel = new PieChartModel();
+		pieChartModel = new PieChartModel();
 
-	private LineChartModel initLinearModel(LineChartSeries series1) {
-		LineChartModel model = new LineChartModel();
-		model.addSeries(series1);
+		pieChartModel.set("NF-e", a.getTotalNfe());
+		pieChartModel.set("CT-e", a.getTotalCte());
+		pieChartModel.set("SPED Fiscal", a.getTotalSpedFiscal());
+		pieChartModel.set("SPED Contribuições", a.getTotalSpedContribuicoes());
+		pieChartModel.set("SPED Social", a.getTotalSpedSocial());
+
+		pieChartModel.setTitle("Consumo de Recurso Contratado");
+		pieChartModel.setLegendPosition("e");
+		pieChartModel.setShowDataLabels(true);
+		return pieChartModel;
+	}
+	
+	public CartesianChartModel getLineChartModel() {
+		CartesianChartModel model =new CartesianChartModel();
+        ChartSeries cs = new ChartSeries();
+        cs.setLabel("Consumo");
+        
+        for(Object o:getHistorico().keySet()){
+        	cs.set(o,getHistorico().get(o));
+        }
+		model.addSeries(cs);
 		return model;
 	}
 
-	public String getAnalise(){
-		return graficosPainel.getAnalise();
+	public Map<Object,Number> getHistorico() {
+		return historico;
 	}
 
+	public void setHistorico(Map<Object,Number> historico) {
+		this.historico = historico;
+	}
+	
+	public LineChartModel getHistoricoUtilizacao(){
+		LineChartModel model =new LineChartModel();
+		return model;
+	}
 }

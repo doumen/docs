@@ -27,7 +27,7 @@ public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements Assin
 	
 	private String assinantesAtivosComTodosOsDoctos = "select distinct a from Assinante a "
 			+ "join fetch a.plano Plano "
-//			+ "join fetch a.contabilidade Contabilidade "
+			+ "join fetch a.contabilidade Contabilidade "
 			+ "left join fetch a.spedsContribuicoes sc "
 			+ "left join fetch a.spedsSociais ss "
 			+ "left join fetch a.spedsFiscais sf "
@@ -59,12 +59,25 @@ public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements Assin
 			return ass;
 		}
 		else if(Modulo.ASSINANTE.equals(m)){
-			Usuario user = em.createQuery("from Usuario u join fetch u.tbContabilidadeId c where u.permissaoAreaUsuario = true and u.login=:login and c.ativo=true",Usuario.class)
+			Usuario user;
+			try{
+				user = em.createQuery("from Usuario u join fetch u.tbContabilidadeId c where u.permissaoAreaUsuario = true and u.login=:login and c.ativo=true",Usuario.class)
 					.setParameter("login", u.getLogin()).getSingleResult();
+			}catch (Exception e) {
+				try{
+				user = em.createQuery("from Usuario u join fetch u.assinantesList a where u.permissaoAreaUsuario = true and u.login=:login and a.ativo=true",Usuario.class)
+						.setParameter("login", u.getLogin()).getSingleResult();
+				}catch(Exception ex){
+					user = null;
+				}
+			}
 			List<Assinante> ass = new ArrayList<>();
 			if(user != null && user.getContabilidade() != null){
 				ass = em.createQuery("from Assinante a join fetch a.contabilidade c where c = :cont",Assinante.class).setParameter("cont", user.getContabilidade()).getResultList();
 			}
+			if(user != null && !user.getAssinantesList().isEmpty()){
+				return user.getAssinantesList();
+			}				
 			if(user!=null && ass.isEmpty())
 				ass.add(new Assinante());				
 			return ass;			
@@ -125,5 +138,10 @@ public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements Assin
 	public List<Assinante> getAssinantesComTodosOsDoctos(
 			Contabilidade contabilidade) {
 		return em.createQuery(assinantesAtivosComTodosOsDoctos + " and a.contabilidade = :cont",Assinante.class).setParameter("cont", contabilidade).getResultList();
+	}
+
+	@Override
+	public Assinante getAssinanteComTodosDoctos(Assinante assinanteId) {
+		return em.createQuery(assinantesAtivosComTodosOsDoctos + " and a.id = :id",Assinante.class).setParameter("id", assinanteId.getId()).getSingleResult();
 	}
 }

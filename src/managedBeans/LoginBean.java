@@ -30,6 +30,8 @@ public class LoginBean {
 	
 	private boolean logado=false;
 	
+	private Assinante assinante;
+	
 	@Inject
 	private UsuarioComponent usuarioComponent;
 
@@ -144,6 +146,10 @@ public class LoginBean {
 	}
 	
 	public Assinante getAssinante(){
-		return usuario==null?null:usuario.getAssinante();
+		return assinante;
+	}
+	
+	public void setAssinante(Assinante a){
+		this.assinante = a;
 	}
 }

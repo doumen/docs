@@ -29,7 +29,7 @@
 
 						<p:outputLabel id="lbAssinante" value="Assinante"
 							for="smAssinante" rendered="#{loginBean.assinantesRendered}" />
-						<p:selectOneMenu id="smAssinante" value="#{loginBean.usuario.assinante}"
+						<p:selectOneMenu id="smAssinante" value="#{loginBean.assinante}"
 							converter="assinanteConverter"
 							rendered="#{loginBean.assinantesRendered}">
 							<f:selectItem itemLabel="Escolha o Assinante" itemValue="" />
