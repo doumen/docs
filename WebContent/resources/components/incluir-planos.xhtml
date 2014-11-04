@@ -21,6 +21,11 @@
 			v = v.replace(/(\d{1})(\d{1,2})$/,"$1,$2")        //coloca virgula antes dos últimos 2 digitos
 			z.value = 'R$ ' + v;
 		}
+		function number(z){
+			if(!jQuery.isNumeric(z.value)){
+				z.value="";	
+			}				
+		}
 	</script>
 	<p:panel id="pnlPlanos" styleClass="pnlAssinantes">
 		<h:panelGrid columns="6" styleClass="pnlgInformacao"
@@ -48,14 +53,14 @@
 			<p:outputLabel value="Faixa Inicial" for="intFaixaInicial" />
 			<h:inputText id="intFaixaInicial"
 				value="#{cc.attrs.bean.selected.faixaInicial}"
-				styleClass="planosValores" />
+				styleClass="planosValores" onkeypress="number(this)"/>
 			<p:outputLabel value="Faixa Final" for="intFaixaFinal" />
 			<h:inputText id="intFaixaFinal"
 				value="#{cc.attrs.bean.selected.faixaFinal}"
-				styleClass="planosValores" />
+				styleClass="planosValores" onkeypress="number(this)"/>
 			<p:outputLabel value="Valor Mensal" for="intValorMensal" />
 			<h:inputText id="intValorMensal" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
-				value="#{cc.attrs.bean.selected.valorMensal}"
+				value="#{cc.attrs.bean.selected.valorMensalFormatado}"
 				styleClass="planosValores">
 				
 			</h:inputText>
@@ -63,7 +68,7 @@
 		<h:panelGrid columns="3">
 			<p:outputLabel value="Valor Docto Adicional" for="intValorDoctoAdicional" />
 			<h:inputText id="intValorDoctoAdicional" onkeypress="moeda(this);" maxlength="14" mask="R$ 9?999,99"
-				value="#{cc.attrs.bean.selected.valorDoctoAdicional}"
+				value="#{cc.attrs.bean.selected.valorDoctoAdicionalFormatado}"
 				styleClass="iptValorNfe">
 				
 			</h:inputText>

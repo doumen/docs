@@ -187,6 +187,12 @@ public class Util {
 	public static String formatCurrency(BigDecimal valorMensal) {
 		return valorMensal==null?"":"R$ " + String.format("%.2f", valorMensal);
 	}
+	
+	public static BigDecimal removeFormatCurrency(String valor){
+		String v = valor.replaceAll("\\,", ".");
+		return new BigDecimal(v.replaceAll("R\\$", "").trim());
+	}
+	
 	public static String removeMask(String m){		 		
 		return m==null?null:m.replaceAll("\\.|\\?|\\/|\\-", "");
 	}
@@ -226,10 +232,14 @@ public class Util {
 	public static void main(String[] args) {
 //		JFrame f = new JFrame();
 //		f.setVisible(true);
-		Calendar c = Calendar.getInstance();
-		System.out.println(c.getTime());
-		c.set(Calendar.DAY_OF_MONTH, 20);
-		System.out.println(Util.daysBetween(c,Calendar.getInstance()));
+//		Calendar c = Calendar.getInstance();
+//		System.out.println(c.getTime());
+//		c.set(Calendar.DAY_OF_MONTH, 20);
+//		System.out.println(Util.daysBetween(c,Calendar.getInstance()));
+		String v =  "R$ 300,000000";
+		BigDecimal b = new BigDecimal(300.00);
+		System.out.println(b);
+		System.out.println(Util.formatCurrency(b));
 	}
 	
 	public static void refresh(){

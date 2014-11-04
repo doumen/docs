@@ -210,18 +210,15 @@ public class Plano implements Serializable {
     }
 
 	public void setValorMensal(double d) {
-		// TODO Auto-generated method stub
-		
+		setValorMensal(new BigDecimal(d));		
 	}
 
 	public void setValorNfeAdicional(double d) {
-		// TODO Auto-generated method stub
-		
+		setValorDoctoAdicional(new BigDecimal(d));
 	}
 
 	public void setDataInclusao(Calendar instance) {
-		// TODO Auto-generated method stub
-		
+		setDataInclusao(instance.getTime());
 	}
 
 	public double getValorMensalDouble() {
@@ -247,4 +244,15 @@ public class Plano implements Serializable {
 		return Util.formatCurrency(getValorDoctoAdicional());
 	}
 
+	public void setValorMensalFormatado(String valor){
+		setValorMensal(Util.removeFormatCurrency(valor));
+	}
+	
+	public void setValorDoctoAdicionalFormatado(String valor){
+		setValorDoctoAdicional(Util.removeFormatCurrency(valor));
+	}
+	
+	public String getValorDoctoAdicionalFormatado(){
+		return Util.formatCurrency(valorDoctoAdicional);
+	}
 }
