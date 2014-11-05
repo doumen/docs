@@ -94,7 +94,7 @@
 					actionListener="#{bean.removeSelectedList}" update=":formPainel:dataTable" id="jkuytv"/>
 			</p:confirmDialog>
 			</h:form>			
-			<h:form id="formIncluir" enctype="multipart/form-data">
+			<h:form id="formIncluir" enctype="#{bean.enctype}">
 			<p:dialog header="#{tituloPainel} | #{bean.headerInclude}"
 				styleClass="#{tituloPainel}" widgetVar="dlgIncluir" id="dlgIncluir"
 				modal="true">

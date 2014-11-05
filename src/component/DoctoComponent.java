@@ -15,13 +15,16 @@ public abstract class  DoctoComponent<D,A> {
 	public boolean saveDocto(Docto d,Arquivo a){
 		try{
 			D doc = (D) d;
-			A arq = (A) a;			
 			getDaoDocto().persist(doc);
-			getDaoArq().persist(arq);
+			a.setDocto((Docto) doc);
+			A arq = (A) a;									
+			getDaoArq().persist(arq);			
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
 		}
 	}
+	
+	public abstract Docto coletaDadosDoXml(Arquivo a);
 }

@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import dao.GenericDao;
 import dao.SpedFiscalArquivosDao;
 import dao.SpedFiscalDao;
+import entity.Arquivo;
+import entity.Docto;
 import entity.SpedFiscal;
 import entity.SpedFiscalArquivos;
 
@@ -26,6 +28,11 @@ public class SpedFiscalComponent extends DoctoComponent<SpedFiscal,SpedFiscalArq
 	@Override
 	public GenericDao<SpedFiscalArquivos> getDaoArq() {
 		return (GenericDao<SpedFiscalArquivos>) spedFiscalArquivo;
+	}
+
+	@Override
+	public Docto coletaDadosDoXml(Arquivo a) {
+		return new SpedFiscal();
 	}
 
 }

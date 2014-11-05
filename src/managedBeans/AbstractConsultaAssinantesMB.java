@@ -63,6 +63,7 @@ public abstract class AbstractConsultaAssinantesMB extends
 
 	public AbstractConsultaAssinantesMB() {
 		super(Assinante.class);
+		setEnctype("multipart/form-data");
 	}
 
 	@Override

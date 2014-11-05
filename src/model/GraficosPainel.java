@@ -54,11 +54,11 @@ public class GraficosPainel {
 				
 				if(Util.comparaDiaMesAno(a.getDataInclusaoCalendar(), c)>=0){
 					if(a.isAtivo()){
-						getFaturamentos().put(i,getFaturamentos().get(i)==null?BigDecimal.ZERO:getFaturamentos().get(i).add(a.getFaturamento()));
+						getFaturamentos().put(i,getFaturamentos().get(i)==null?BigDecimal.ZERO.add(a.getFaturamento()):getFaturamentos().get(i).add(a.getFaturamento()));
 						getAssinaturas().put(i, getAssinaturas().get(i)==null?1:getAssinaturas().get(i)+1);
 						ultimosTotaisArmazenados.put(i,ultimosTotaisArmazenados.get(i)==null?a.getTotalDoctosAte(i):ultimosTotaisArmazenados.get(i)+1);						
 					}
-					if(a.getDataExclusao()!=null && Util.comparaDiaMesAno(a.getDataExclusaoCalendar(), c)==0)
+					if(a.getDataExclusao()!=null && Util.comparaDiaMesAno(a.getDataExclusaoCalendar(), c)==0 && !a.isAtivo() && i==0)
 						getCancelamentos().put(i, getCancelamentos().get(i)==null?1:getCancelamentos().get(i)+1);
 				}
 			}

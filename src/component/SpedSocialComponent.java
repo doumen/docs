@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import dao.GenericDao;
 import dao.SpedSocialArquivosDao;
 import dao.SpedSocialDao;
+import entity.Arquivo;
+import entity.Docto;
 import entity.SpedSocial;
 import entity.SpedSocialArquivos;
 
@@ -26,6 +28,11 @@ public class SpedSocialComponent extends DoctoComponent<SpedSocial,SpedSocialArq
 	@Override
 	public GenericDao<SpedSocialArquivos> getDaoArq() {
 		return spedContribuicoesArquivosDao;
+	}
+
+	@Override
+	public Docto coletaDadosDoXml(Arquivo a) {
+		return new SpedSocial();
 	}
 
 }

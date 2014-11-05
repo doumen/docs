@@ -1,5 +1,6 @@
 package managedBeans;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -12,11 +13,11 @@ import model.AjaxStatus;
 import model.ChaveDocto;
 import model.Util;
 
+import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 import component.DoctoComponent;
-
 import entity.Arquivo;
 import entity.Docto;
 
@@ -44,9 +45,11 @@ public abstract class AbstractUploadMB<D,A> {
 		return this.loginBean;
 	}
 
-    public void handleFileUpload(FileUploadEvent event) {
+    public void handleFileUpload(FileUploadEvent event) throws IOException {
         UploadedFile file = event.getFile();
-        boolean salvou = saveFile(file.getContents());
+        byte[] bytes = IOUtils.toByteArray(file.getInputstream());
+//        Map<byte[],String> arquivos = new HashMap<>();
+        boolean salvou = saveFile(bytes);
         String m;
         if(salvou)
         	m = "Arquivo " + file.getFileName() + " inserido com sucesso ";
@@ -59,10 +62,10 @@ public abstract class AbstractUploadMB<D,A> {
 	public boolean saveFile(byte[] file){
 		arq.setArquivoXML(file);
 		arq.setDataInclusao(Calendar.getInstance().getTime());
-		arq.setDocto(docto);
-		docto.setArquivoXml(arq);
-		docto.setDataInclusao(arq.getDataInclusao());
-		docto.setAssinante(getLoginBean().getAssinante());
+		Docto docto = getDoctoComponent().coletaDadosDoXml(arq);
+			docto.setDataInclusao(arq.getDataInclusao());
+			docto.setAssinante(getLoginBean().getAssinante());
+			docto.setUsuario(getLoginBean().getUsuario());
 		return getDoctoComponent().saveDocto(docto, arq);
 	}
 	

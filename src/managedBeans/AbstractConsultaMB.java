@@ -27,7 +27,7 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 	private boolean botaoIncluir;
 	private boolean showUploadNome;
 	private boolean showUpload;
-
+	private String enctype;
 	
 	List<T> filteredList; //= new ArrayList<>();
 
@@ -198,6 +198,14 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 		}
 
 		return true;
+	}
+
+	public String getEnctype() {
+		return enctype;
+	}
+
+	public void setEnctype(String enctype) {
+		this.enctype = enctype;
 	}
 
 }

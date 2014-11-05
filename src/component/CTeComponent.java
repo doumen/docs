@@ -6,8 +6,10 @@ import javax.ejb.Stateless;
 import dao.CTeArquivosDao;
 import dao.CTeDao;
 import dao.GenericDao;
+import entity.Arquivo;
 import entity.CTe;
 import entity.CTeArquivos;
+import entity.Docto;
 
 @Stateless
 public class CTeComponent extends DoctoComponent<CTe,CTeArquivos>{
@@ -26,6 +28,12 @@ public class CTeComponent extends DoctoComponent<CTe,CTeArquivos>{
 	@Override
 	public GenericDao<CTeArquivos> getDaoArq() {
 		return cTeArquivosDao;
+	}
+
+	@Override
+	public Docto coletaDadosDoXml(Arquivo a) {
+		Docto cTe = new CTe();
+		return cTe;
 	}
 
 }

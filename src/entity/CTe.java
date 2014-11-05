@@ -198,7 +198,19 @@ public class CTe implements Serializable,Docto {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Assinante tbAssinantesId;
 
-    public CTe() {
+    @JoinColumn(name = "tbUsuarios_Id", referencedColumnName = "Id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Usuario usuario;
+    
+    public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public CTe() {
     }
 
     public CTe(Integer id) {

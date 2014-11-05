@@ -40,6 +40,11 @@ public class Util {
 	    return monthNames[c.get(Calendar.MONTH)] + "/" + c.get(Calendar.YEAR);
 //	    return (c.get(Calendar.MONTH)+1) + "" ;//+ "/" + c.get(Calendar.YEAR);
 	}
+	public static String getMMYYYY(Date d){
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		return getMMYYYY(c);
+	}
 	
 	public static Calendar getCalendar(int i){
 		Calendar c = Calendar.getInstance();
@@ -236,7 +241,7 @@ public class Util {
 //		System.out.println(c.getTime());
 //		c.set(Calendar.DAY_OF_MONTH, 20);
 //		System.out.println(Util.daysBetween(c,Calendar.getInstance()));
-		String v =  "R$ 300,000000";
+//		String v =  "R$ 300,000000";
 		BigDecimal b = new BigDecimal(300.00);
 		System.out.println(b);
 		System.out.println(Util.formatCurrency(b));
@@ -316,13 +321,13 @@ public class Util {
 	    return TimeUnit.MILLISECONDS.toDays(Math.abs(end - start));
 	}
 	
-	private void testMascara(){
-		entity.Assinante a = new entity.Assinante();
-		a.setCnpj("302.421.548-40");
-		System.out.println("antes: " + a.getCnpj());
-		long  inicio = Calendar.getInstance().getTimeInMillis();
-		Util.removeMask(a);
-		long tempo = Calendar.getInstance().getTimeInMillis() - inicio;
-		System.out.println("Tempo total: " + tempo);
-	}
+//	private void testMascara(){
+//		entity.Assinante a = new entity.Assinante();
+//		a.setCnpj("302.421.548-40");
+//		System.out.println("antes: " + a.getCnpj());
+//		long  inicio = Calendar.getInstance().getTimeInMillis();
+//		Util.removeMask(a);
+//		long tempo = Calendar.getInstance().getTimeInMillis() - inicio;
+//		System.out.println("Tempo total: " + tempo);
+//	}
 }

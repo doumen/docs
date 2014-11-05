@@ -351,8 +351,7 @@ public class Contabilidade implements Serializable {
 	}
 
 	public void setComissao(double d) {
-		// TODO Auto-generated method stub
-
+		comissao = String.valueOf(d);
 	}
 
 	public void addUsuario(Usuario u) {

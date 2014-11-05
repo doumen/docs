@@ -4,26 +4,26 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
-import component.CTeComponent;
 import component.DoctoComponent;
+import component.NFeComponent;
 
-import entity.CTe;
-import entity.CTeArquivos;
+import entity.NFe;
+import entity.NFeArquivos;
 
 @ViewScoped
 @ManagedBean
-public class UploadNFeConMB extends AbstractUploadMB<CTe,CTeArquivos> {
+public class UploadNFeConMB extends AbstractUploadMB<NFe,NFeArquivos> {
 
 	public UploadNFeConMB() throws InstantiationException, IllegalAccessException {
-		super(CTe.class, CTeArquivos.class);
+		super(NFe.class, NFeArquivos.class);
 	}
 
 	@Inject
-	private CTeComponent cTeComponent;
+	private NFeComponent nFeComponent;
 
 	@Override
-	public DoctoComponent<CTe, CTeArquivos> getDoctoComponent() {		 
-		return (DoctoComponent<CTe, CTeArquivos>) cTeComponent;
+	public DoctoComponent<NFe, NFeArquivos> getDoctoComponent() {		 
+		return (DoctoComponent<NFe, NFeArquivos>) nFeComponent;
 	}
 	
 	

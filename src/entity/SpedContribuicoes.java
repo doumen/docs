@@ -127,6 +127,18 @@ public class SpedContribuicoes implements Serializable,Docto {
     @OneToMany(mappedBy = "tbSpedContribuicoesId", fetch = FetchType.LAZY)
     private List<NFe> nFeList;
 
+    @JoinColumn(name = "tbUsuarios_Id", referencedColumnName = "Id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Usuario usuario;
+    
+    public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
     public SpedContribuicoes() {
     }
 

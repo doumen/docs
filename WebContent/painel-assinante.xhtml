@@ -2,25 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
-<ui:composition template="/templates/_painel.xhtml">
-
+<ui:composition template="/templates/_headerFooter.xhtml">
 	<ui:param name="tituloPainel" value="Painel Assinante" />
 	<ui:param name="modulo" value="assinante" />
-	
-	<ui:define name="menu">
-		<ui:include src="/painel-assinante/_menu.xhtml" />
-	</ui:define>
-
-		<ui:define name="grafico1">
-			<ui:include	src="/painel-assinante/_charCliContVsCliContDireta.xhtml" />
-		</ui:define>
-		<ui:define name="grafico2">
-		<ui:include src="/painel-assinante/_chartFatUlt30Dias.xhtml" />
-	</ui:define>
-		<ui:define name="grafico3">
-		<ui:include src="/painel-assinante/_chartAssUlt30Dias.xhtml" />
+	<ui:define name="corpo">
+		<h:form id="formPainel">
+			<p:panel id="painelMaster" header="#{tituloPainel}"
+				styleClass="panelTitulo">
+				<f:facet name="actions">
+					<h:commandLink id="commandLinkHelp"
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+						<h:outputText styleClass="ui-icon ui-icon-help"
+							id="outputtextHelp" />
+					</h:commandLink>
+				</f:facet>
+				<div id="panelgridPainelMenu">
+					<div id="panelgridMenu">
+						<ui:include src="/painel-assinante/_menu.xhtml" />
+					</div>
+					<div id="panelgridGraficos">
+					<h:panelGrid columns="2" styleClass="grafico"
+						columnClasses="g_c1,g_c2" id="pngGraficos">
+						<ui:include	src="/painel-assinante/_charCliContVsCliContDireta.xhtml" />
+						<ui:include src="/painel-assinante/_chartFatUlt30Dias.xhtml" />					
+					</h:panelGrid>
+					<ui:include src="/painel-assinante/_chartAssUlt30Dias.xhtml" />
+					</div>
+				</div>
+			</p:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

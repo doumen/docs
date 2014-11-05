@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -744,6 +745,33 @@ public class Assinante implements Serializable {
 		r+=getTotalDoctosAte(c.getTime(),spedsContribuicoes);
 		System.out.println("Total de Doctos do Assinante " + this + " = " + r);
 		return r;
+	}	
+	
+	public Map<Usuario,Map<Object,Number>> getHistoricoUtilizacaoPorUsuario(){
+		Map<Usuario,Map<Object,Number>> h = new HashMap<Usuario, Map<Object,Number>>();		
+		acumula(h,getNFes());
+		acumula(h,getCTes());
+		acumula(h,getSpedContribuicoes());
+		acumula(h,getSpedsFiscais());
+		acumula(h,getSpedsSociais());
+		return h;
+	}
+	
+	
+	private <T> void acumula(Map<Usuario,Map<Object,Number>> h,Set<T> doctos){
+		List<Integer> ids = new ArrayList<>();
+		for(T t: doctos){
+			Docto docto = (Docto) t;
+			if(!ids.contains(docto.getId())){
+				ids.add(docto.getId());
+				Usuario u = docto.getUsuario();
+				if(h.get(u)==null){
+					h.put(u, new HashMap<Object,Number>());
+				}
+				Number tot = h.get(u).get(Util.getMMYYYY(docto.getDataInclusao()))==null?0:h.get(u).get(Util.getMMYYYY(docto.getDataInclusao()));
+				h.get(u).put(Util.getMMYYYY(docto.getDataInclusao()), tot.intValue() + 1);								
+			}
+		}
 	}
 	
 }

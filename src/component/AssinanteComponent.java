@@ -261,6 +261,7 @@ public class AssinanteComponent {
 	public void remove(Assinante t) {
 		try {
 			t.setAtivo(false);
+			t.setDataExclusao(Calendar.getInstance().getTime());
 			assinanteDao.merge(t);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -378,4 +379,5 @@ public class AssinanteComponent {
 		return assinanteDao.getAssinantesComTodosOsDoctos(contabilidade);
 	}
 	
+
 }

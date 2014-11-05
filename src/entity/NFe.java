@@ -172,6 +172,18 @@ public class NFe implements Serializable,Docto {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tbNFeId", fetch = FetchType.LAZY)
     private List<NFeItens> nFeItensList;
 
+    @JoinColumn(name = "tbUsuarios_Id", referencedColumnName = "Id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Usuario usuario;
+    
+    public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
     public NFe() {
     }
 

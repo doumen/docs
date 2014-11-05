@@ -10,4 +10,6 @@ public interface Docto {
 	public Arquivo getArquivoXml();
 	public void setAssinante(Assinante a);
 	public Assinante getAssinante();
+	public Usuario getUsuario();
+	public void setUsuario(Usuario u);
 }

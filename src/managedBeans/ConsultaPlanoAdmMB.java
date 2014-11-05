@@ -25,6 +25,7 @@ public class ConsultaPlanoAdmMB extends AbstractConsultaMB<Plano> {
 	public ConsultaPlanoAdmMB() throws InstantiationException,
 			IllegalAccessException {
 		super(Plano.class);
+		setEnctype("application/x-www-form-urlencoded");
 		System.out.println("Instanciou o public ConsultaPlanoAdmMB() throws InstantiationException, IllegalAccessException");
 	}
 

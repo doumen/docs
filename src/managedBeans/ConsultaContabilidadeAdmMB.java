@@ -33,6 +33,7 @@ public class ConsultaContabilidadeAdmMB extends
 		
 	public ConsultaContabilidadeAdmMB(){
 		super(Contabilidade.class);
+		setEnctype("application/x-www-form-urlencoded");
 		System.out.println("Instanciou o ConsultaContabiliadeAdmMB!!");
 	}
 	
@@ -84,7 +85,7 @@ public class ConsultaContabilidadeAdmMB extends
 	}
 	
 	public void removeUsuario() {
-			if(getUsuarios().size()>1)
+			if(getUsuarios().size()>0)
 				try {
 					usuarios.remove(getUsuarios().get(getUsuarios().size()-1));
 				} catch (Exception e) {
@@ -156,6 +157,7 @@ public class ConsultaContabilidadeAdmMB extends
 	public void carregarPopUpAlterar() {
 		if ((selectedList != null) && (!selectedList.isEmpty())) {
 			selected = selectedList.get(0);
+			usuarios = selected.getUsuarios();
 			mascara = Util.getMascaraCnpj(selected.getUf());
 			carrega();
 		}
@@ -163,6 +165,7 @@ public class ConsultaContabilidadeAdmMB extends
 
 	public void carregarPopUpIncluir() {
 		this.selected = new Contabilidade(TipoInclusao.MODULO_ADMINISTRATIVO,new Date());
+		usuarios = new ArrayList<>();
 		carrega();
 	}
 

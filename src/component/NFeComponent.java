@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import dao.GenericDao;
 import dao.NFeArquivosDao;
 import dao.NFeDao;
+import entity.Arquivo;
+import entity.Docto;
 import entity.NFe;
 import entity.NFeArquivos;
 
@@ -26,6 +28,12 @@ public class NFeComponent extends DoctoComponent<NFe,NFeArquivos>{
 	@Override
 	public GenericDao<NFeArquivos> getDaoArq() {
 		return (GenericDao<NFeArquivos>) nfeArquivo;
+	}
+
+	@Override
+	public Docto coletaDadosDoXml(Arquivo a) {
+		Docto nFe = new NFe();
+		return nFe;
 	}
 
 }
