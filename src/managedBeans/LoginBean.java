@@ -138,7 +138,7 @@ public class LoginBean {
 	}
 	
 	public boolean isModuloAdministrativo(){
-		return Modulo.ADMINISTRATIVO.equals(valueOf(modulo));
+		return Modulo.ADMINISTRATIVO.equals(valueOf(modulo)) || Modulo.ASSINANTE.equals(valueOf(modulo));
 	}
 	
 	public Modulo getMod(){

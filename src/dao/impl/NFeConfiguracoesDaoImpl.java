@@ -1,9 +1,11 @@
 package dao.impl;
 
+import javax.ejb.Stateless;
+
 import dao.NFeConfiguracoesDao;
 import entity.NFeConfiguracoes;
-
-public class NFeConfiguracoesDaoImpl extends GenericDAOImpl<NFeConfiguracoes>
+@Stateless
+public class NFeConfiguracoesDaoImpl extends GenericConfiguracoesDAOImpl<NFeConfiguracoes>
 		implements NFeConfiguracoesDao {
 
 }

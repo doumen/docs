@@ -185,3 +185,26 @@
 	background: no-repeat 2%;
 	padding-left: 20px !important;
 }
+#botaoIncluirAlterarAss { /* Div Botão Incluir/Alterar */
+	text-align: right;
+	background-color: #FFFFFF;
+}
+
+#botaoIncluirAlterarAss .ui-button {
+	/* Botão Incluir/Alterar */
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+}
+.botao_incluirAss{
+	background-color: #008B45;
+	color: #FFFFFF;
+	width: 100px;
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 35px;
+	font-weight: bold;
+}

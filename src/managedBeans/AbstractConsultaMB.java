@@ -58,6 +58,9 @@ public abstract class AbstractConsultaMB<T> extends AbstractListMB<T> {
 		else if(m.equals(Modulo.CONTABILIDADE)){
 			return TipoInclusao.MODULO_CONTABILIDADE;
 		}
+		else if(m.equals(Modulo.ASSINANTE)){
+			return TipoInclusao.MODULO_ASSINANTE;
+		}
 		return null;
 	}
 	

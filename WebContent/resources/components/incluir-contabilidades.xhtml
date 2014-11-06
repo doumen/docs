@@ -108,7 +108,7 @@
 							value="#{bean.permissaoAreaContador}"
 							styleClass="usuarioCheckBox">
 							<p:ajax event="change" update="sbcPermAreaContabilidade"
-								process="@this" />
+								 />
 						</p:selectBooleanCheckbox>
 						<p:outputLabel for="sbcPermAreaContabilidade"
 							value="Perm. Área Contabilidade?" styleClass="usuarioLabel" />
@@ -116,20 +116,20 @@
 							value="#{bean.permissaoAreaAssinante}"
 							styleClass="usuarioCheckBox">
 							<p:ajax event="change" update="sbcPermAreaContabilidade"
-								process="@this" />
+								 />
 						</p:selectBooleanCheckbox>
 						<p:outputLabel for="sbcPermAreaAssinante"
 							value="Perm. Área Assinante?" styleClass="usuarioLabel" />
 					</h:panelGrid>
 					<p:commandButton id="cbIncluir" value=""
-						style="background-image: url('resources/images/incluir.gif') !important;">
-						<p:ajax event="click" listener="#{bean.adicionaUsuario}"
-							process="@this" update="dtbUsuarios,sbcPermAreaContabilidade,sbcPermAreaAssinante,intUsuario,pwdUsuario,msgs" />
+						style="background-image: url('resources/images/incluir.gif') !important;"
+						actionListener="#{bean.adicionaUsuario}"
+							 update="dtbUsuarios,sbcPermAreaContabilidade,sbcPermAreaAssinante,intUsuario,pwdUsuario,msgs">
 					</p:commandButton>
 					<p:commandButton id="cmbExcluir" value=""
-						style="background-image: url('resources/images/minus.png') !important;">
-						<p:ajax event="click" listener="#{bean.removeUsuario}"
-							process="@this" update="dtbUsuarios,sbcPermAreaContabilidade,sbcPermAreaAssinante,intUsuario,pwdUsuario" />
+						style="background-image: url('resources/images/minus.png') !important;"
+								 update="dtbUsuarios,sbcPermAreaContabilidade,sbcPermAreaAssinante,intUsuario,pwdUsuario" 
+								 actionListener="#{bean.removeUsuario}">
 					</p:commandButton>
 
 					<p:tooltip for="cbIncluir" value="Incluir" />

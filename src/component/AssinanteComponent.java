@@ -378,6 +378,12 @@ public class AssinanteComponent {
 		
 		return assinanteDao.getAssinantesComTodosOsDoctos(contabilidade);
 	}
+
+	public Assinante getAssinanteComUsuariosCertificado(Assinante assinante) {
+		Assinante a =  assinanteDao.getAssinanteComUsuarios(assinante);
+		a.setCertificadoA1(certificadoA1Component.getCertificadoA1(a));
+		return a;
+	}
 	
 
 }

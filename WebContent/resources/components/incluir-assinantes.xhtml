@@ -45,12 +45,12 @@
 			<p:outputLabel value="Tipo Inclusão" for="intTipoInclusao"
 				styleClass="oplTpInclusao" id="o3"/>
 			<p:inputText id="intTipoInclusao" styleClass="iptTpInclusao"
-				value="#{cc.attrs.bean.tipoInclusao}" disabled="true" />
+				value="#{cc.attrs.bean.selected.tipoInclusao}" disabled="true" />
 		</h:panelGrid>
 		<p:tabView styleClass="tabDados" id="t1">
 			<p:tab title="Dados Assinantes" id="tv1">			
 				<p:fieldset id="fdsDadosAssinantes" styleClass="dadosAssinantes">
-						<h:panelGroup id="scriptMask"><h:outputScript id="s1">#{bean.script}</h:outputScript></h:panelGroup>												
+						<h:panelGroup id="scriptMask"><h:outputScript id="s1">#{cc.attrs.bean.script}</h:outputScript></h:panelGroup>												
 					<h:panelGrid columns="2" id="pp1">
 						<p:outputLabel value="Nome Fantasia" for="intNomeFantasia" id="o4"/>
 						<h:inputText id="intNomeFantasia" styleClass="iptDadosAssinantes"
@@ -101,7 +101,7 @@
 								 onfocus="mascaraCnpj(this)"/>
 							<p:outputLabel value="Inscr.Estadual" for="intInscEst" id="o15"/>
 							<h:inputText id="intInscEst" onfocus="mascara(this)"
-								value="#{bean.selected.inscricaoEstadual}">							
+								value="#{cc.attrs.bean.selected.inscricaoEstadual}">							
 								 </h:inputText>
 						</h:panelGrid>
 					</h:panelGrid>
@@ -113,21 +113,21 @@
 						<h:panelGrid columns="6" styleClass="gridUsuarioAss"
 							columnClasses="gUA_c1,gUA_c2,gUA_c3,gUA_c4,gUA_c5,gUA_c6" id="p8">
 							<p:outputLabel value="Usuário" for="intUsuario" id="o19"/>
-							<p:inputText id="intUsuario" value="#{bean.login}" >
+							<p:inputText id="intUsuario" value="#{cc.attrs.bean.login}" >
 								<p:ajax event="blur" update="intUsuario" />
 							</p:inputText>
 							<p:outputLabel value="Senha" for="pwdUsuario" id="o20"/>
-							<p:password id="pwdUsuario" value="#{bean.senha}" >
+							<p:password id="pwdUsuario" value="#{cc.attrs.bean.senha}" >
 								<p:ajax event="blur"/>
 							</p:password>
 							<h:commandButton id="cbIncluir" value=""
 								style="background-image: url('resources/images/incluir.gif') !important;">
-								<f:ajax event="click" listener="#{bean.adicionaUsuario}"
+								<f:ajax event="click" listener="#{cc.attrs.bean.adicionaUsuario}"
 									  render="dtbUsuarios msgs scriptMask" />
 							</h:commandButton>
 							<h:commandButton id="cmbExcluir" value=""
 								style="background-image: url('resources/images/minus.png') !important;">
-								<f:ajax event="click" listener="#{bean.removeUsuario}"
+								<f:ajax event="click" listener="#{cc.attrs.bean.removeUsuario}"
 									 render="dtbUsuarios" />
 							</h:commandButton>
 							<p:tooltip for="cmbExcluir" value="Excluir" id="t1"/>
@@ -147,11 +147,11 @@
 			<p:tab title="Plano Contratação" id="tt1">
 				<h:panelGrid columns="2" id="p12">
 					<p:outputLabel value="Cód.Plano" for="somCodPlano" id="o21"/>
-					<h:selectOneMenu id="somCodPlano" value="#{bean.selected.plano}"
+					<h:selectOneMenu id="somCodPlano" value="#{cc.attrs.bean.selected.plano}"
 						styleClass="codPlanoAss" converter="planoConverter">
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" id="s2"/>
-						<f:selectItems value="#{bean.planos}" id="ss1"/>
+						<f:selectItems value="#{cc.attrs.bean.planos}" id="ss1"/>
 						<f:ajax event="change" render="intDescrPlano intValorMensal"/>
 					</h:selectOneMenu>
 					<p:outputLabel value="Descr.Plano" for="intDescrPlano" id="o24"/>
@@ -169,11 +169,11 @@
 				<h:panelGrid columns="2" id="p11">
 					<p:outputLabel value="Cód.Cont." for="somCodCont" id="oo1"/>
 					<h:selectOneMenu id="somCodCont"
-						value="#{bean.selected.contabilidade}" styleClass="codContAss"
+						value="#{cc.attrs.bean.selected.contabilidade}" styleClass="codContAss"
 						converter="contabilidadeConverter" disabled="#{!loginBean.moduloAdministrativo}">
 						<f:selectItem itemLabel="" itemValue="#{null}"
 							noSelectionOption="true" id="ss11"/>
-						<f:selectItems value="#{bean.contabilidades}" id="a1"/>
+						<f:selectItems value="#{cc.attrs.bean.contabilidades}" id="a1"/>
 						<f:ajax event="change" render="intContCnpj intContRazaoSocial" />
 					</h:selectOneMenu>
 					<p:outputLabel value="CNPJ" for="intContCnpj" id="ooo1"/>
@@ -194,20 +194,20 @@
 					</h:column>
 					<h:column id="cc12">
 						<p:outputLabel value="#{cc.attrs.bean.certificadoA1.nome}"
-							rendered="#{bean.showUploadNome}" styleClass="uploadNome" id="oo12" />
+							rendered="#{cc.attrs.bean.showUploadNome}" styleClass="uploadNome" id="oo12" />
 
 						<h:commandButton value="Trocar Certificado" id="cdbTrocar"
-							rendered="#{bean.showUploadNome}">
+							rendered="#{cc.attrs.bean.showUploadNome}">
 							<f:ajax event="click"
-								listener="#{bean.trocarCertificado()}"
+								listener="#{cc.attrs.bean.trocarCertificado()}"
 								process="@this" render="pngParametros" />
 						</h:commandButton>
-  						<h:panelGrid rendered="#{bean.showUpload}"><h:inputFile id="file" value="#{bean.file}" ></h:inputFile></h:panelGrid>
+  						<h:panelGrid rendered="#{cc.attrs.bean.showUpload}"><h:inputFile id="file" value="#{cc.attrs.bean.file}" ></h:inputFile></h:panelGrid>
   					</h:column>
 					<p:spacer id="sp1"/>
 					<h:outputLabel value="Senha" id="ooo12"/>
 					<p:inputText styleClass="iptEmailMaster"
-						value="#{bean.certificadoA1.senha}" />
+						value="#{cc.attrs.bean.certificadoA1.senha}" />
 					<p:spacer id="sp2"/>
 					<p:spacer id="sp3"/>
 					<h:panelGrid columns="2" styleClass="pngParametrosNotificar"
@@ -246,12 +246,12 @@
 		</p:tabView>
 		<br />
 		<div id="botaoIncluirAlterarAss">
-			<h:commandButton value=" Incluir" action="#{bean.incluir}"
-				id="cdbIncluir" rendered="#{bean.botaoIncluir}"
+			<h:commandButton value=" Incluir" action="#{cc.attrs.bean.incluir}"
+				id="cdbIncluir" rendered="#{cc.attrs.bean.botaoIncluir}"
 				style="background-image: url('resources/images/check.png') !important;"
 				styleClass="botao_incluirAss"/>
-			<h:commandButton value=" Alterar" action="#{bean.alterar}"
-				id="cdbAlterar" rendered="#{bean.botaoAlterar}"
+			<h:commandButton value=" Alterar" action="#{cc.attrs.bean.alterar}"
+				id="cdbAlterar" rendered="#{cc.attrs.bean.botaoAlterar}"
 				style="background-image: url('resources/images/check.png') !important;"
 				styleClass="botao_incluirAss" />
 		</div>

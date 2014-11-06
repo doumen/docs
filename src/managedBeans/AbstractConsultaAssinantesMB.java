@@ -216,7 +216,6 @@ public abstract class AbstractConsultaAssinantesMB extends
 			file = null;
 			carregaPlanosContabilidades();
 			selected = selectedList.get(0);
-			selected.setTipoInclusao(getTipoInclusao());			
 			selected.setUsuariosList(usuarioComponent.getUsuarios(selected));
 			certificadoA1 = certificadoA1Component.getCertificadoA1(selected);
 			setShowUpload(certificadoA1 == null);
@@ -247,6 +246,7 @@ public abstract class AbstractConsultaAssinantesMB extends
 
 	@Override
 	public void incluir() {		
+		selected.setTipoInclusao(getTipoInclusao());
 		FacesMessage message;
 		if(Modulo.CONTABILIDADE.equals(getLoginBean().valueOf(getLoginBean().getModulo()))){
 			selected.setContabilidade(getLoginBean().getUsuario().getContabilidade());
@@ -266,6 +266,7 @@ public abstract class AbstractConsultaAssinantesMB extends
 	@Override
 	public void alterar() {
 		upload();
+		selected.setTipoInclusao(getTipoInclusao());			
 		assinanteComponent.alterarAssinante(selected, certificadoA1);
 		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "",
 				"Assinante alterado com sucesso.");

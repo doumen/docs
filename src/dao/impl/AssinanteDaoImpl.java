@@ -50,6 +50,11 @@ public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements Assin
 			+ "left join fetch ct.usuario "
 			+ "where a.ativo=true";
 	
+	private String assinanteComUsuarioseCertificado = "select distinct a from Assinante a "
+			+ "join fetch a.plano Plano "
+			+ "join fetch a.contabilidade Contabilidade "
+			+ "join fetch a.usuarios u where a.ativo = true";
+	
 	public List<Assinante> getAssinantes(){
 		 return em.createQuery("from Assinante a join fetch a.plano Plano join fetch a.contabilidade Contabilidade where a.ativo=true",Assinante.class).getResultList();		 
 	}
@@ -158,5 +163,10 @@ public class AssinanteDaoImpl extends GenericDAOImpl<Assinante> implements Assin
 	@Override
 	public Assinante getAssinanteComTodosDoctos(Assinante assinanteId) {
 		return em.createQuery(assinantesAtivosComTodosOsDoctosEUsuarios + " and a.id = :id",Assinante.class).setParameter("id", assinanteId.getId()).getSingleResult();
+	}
+
+	@Override
+	public Assinante getAssinanteComUsuarios(Assinante assinante) {		
+		return em.createQuery(assinanteComUsuarioseCertificado + " and a.id = :id",Assinante.class).setParameter("id", assinante.getId()).getSingleResult();
 	}
 }

@@ -27,4 +27,6 @@ public interface AssinanteDao extends GenericDao<Assinante>{
 	public List<Assinante> getAssinantesComTodosOsDoctos(
 			Contabilidade contabilidade);
 	public Assinante getAssinanteComTodosDoctos(Assinante assinanteId);
+
+	public Assinante getAssinanteComUsuarios(Assinante assinante);
 }

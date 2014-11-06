@@ -1,137 +1,76 @@
 package managedBeans;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ManagedProperty;
 
-import org.primefaces.event.TabChangeEvent;
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
+import dao.GenericConfiguracoesDao;
+import dao.GenericDoctosDao;
 
 
-public abstract class AbstractProcessosMB<T> extends AbstractListMB<T>{
-	private StreamedContent file;
-	private boolean download;
-	private boolean flagShow;
-	private String processo;
+
+public abstract class AbstractProcessosMB<C,D>{
 	
-	public AbstractProcessosMB(Class<T> clazz) throws FileNotFoundException {
-		super(clazz);
-		try {
-			InputStream stream = new FileInputStream(
-					"/home/desenv/Downloads/teste.txt");
-			file = new DefaultStreamedContent(stream, "application/txt",
-					"teste.txt");
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+	private C config; 
+	private List<D> doctos;
+	
+	public abstract GenericConfiguracoesDao<C> getDaoConfig();
+	public abstract GenericDoctosDao<D> getDaoDoctos();
+	
+	public void salvarConfiguracoes() throws Exception{
+		setCamposDoConfiguracoesManagedBeansParaOConfig(configuracoesManagedBeans, config);
+		getDaoConfig().merge(getConfig());
 	}
 	
-	public abstract void loadDataTables();
+	@ManagedProperty(value="#{loginBean}")
+	private LoginBean loginBean;
 	
-	public StreamedContent getFile() {
-		return file;
+	public void setLoginBean(LoginBean loginBean){
+		this.loginBean = loginBean;
 	}
-
-	public void setFile(StreamedContent file) {
-		this.file = file;
+	
+	@ManagedProperty(value="#{configuracoesManagedBeans}")
+	private ConfiguracoesManagedBeans configuracoesManagedBeans;
+	
+	public void setConfiguracoesManagedBeans(ConfiguracoesManagedBeans loginBean){
+		this.configuracoesManagedBeans = loginBean;
 	}
-
-	public void onChange(TabChangeEvent event) {
-		int tab;
-
-		tab = getIndexFromCurrentTab();
-
-		if (tab != 0)
-			setFlagShow(true);
-		else
-			setFlagShow(false);
+	
+	public LoginBean getLoginBean(){
+		return this.loginBean;
 	}
-
-	public boolean isDownload() {
-		return download;
+	
+//	public ConfiguracoesManagedBeans getConfiguracoesManagedBeans(){
+//		return this.configuracoesManagedBeans;
+//	}
+	
+	public void loadConfig(){
+		setCamposDoConfigParaOConfiguracoesManagedBeans(config,configuracoesManagedBeans);		
 	}
-
-	public void setDownload(boolean download) {
-		this.download = download;
-	}
-
+	
+	public abstract void setCamposDoConfiguracoesManagedBeansParaOConfig(ConfiguracoesManagedBeans configuracoesManagedBeans,C config);
+	public abstract void setCamposDoConfigParaOConfiguracoesManagedBeans(C config,ConfiguracoesManagedBeans configuracoesManagedBeans);
+	
 	@PostConstruct
-	public void init() {		
-		setFlagShow(false);
-		loadDataTables();
+	public void init(){
+		setConfig(getDaoConfig().findConfiguracoesDoAssinante(getLoginBean().getAssinante()));
+		setDoctos(getDaoDoctos().findDoctosDoAssinante(getLoginBean().getAssinante()));
 	}
 
-	public boolean isFlagShow() {
-		return flagShow;
+	public C getConfig() {
+		return config;
 	}
 
-	public void setFlagShow(boolean flagShow) {
-		this.flagShow = flagShow;
+	public void setConfig(C config) {
+		this.config = config;
 	}
 
-	public int getIndexFromCurrentTab() {
-		ExternalContext external = FacesContext.getCurrentInstance()
-				.getExternalContext();
-		Map<String, String> requestMap = external.getRequestParameterMap();
-
-		// procura entre todos os parâmetros o tabIndex da tab corrente
-		for (String code : requestMap.keySet()) {
-			if (code.contains("tabindex"))
-				return Integer.parseInt(requestMap.get(code));
-		}
-
-		return -1;
+	public List<D> getDoctos() {
+		return doctos;
 	}
 
-	public String getTituloPrimeiraAba() {
-		return processo + " - Todas (" + listTable.size() + ")";
+	public void setDoctos(List<D> doctos) {
+		this.doctos = doctos;
 	}
-
-
-	public String getTituloSegundaAba() {
-		return "Recebidos e Processados (" + listTable.size() + ")";
-	}
-
-	public String getTituloTerceiraAba() {
-		return "Rejeitadas (";
-	}
-
-	public String getSubTitulo(){
-		return "Consulta de " + processo;
-	}
-	
-	public String getAvisoExcluir() {
-		return avisoExcluir;
-	}
-
-	public void setAvisoExcluir(String avisoExcluir) {
-		this.avisoExcluir = avisoExcluir;
-	}
-
-	public String getPdfFileName() {
-		return pdfFileName;
-	}
-
-	public void setPdfFileName(String pdfFileName) {
-		this.pdfFileName = pdfFileName;
-	}
-
-	public String getAvisoPreExcluir() {
-		return avisoPreExcluir;
-	}
-
-	public void setAvisoPreExcluir(String avisoPreExcluir) {
-		this.avisoPreExcluir = avisoPreExcluir;
-	}
-
-	private String avisoExcluir;
-	private String avisoPreExcluir;
-	private String pdfFileName;
-
 }

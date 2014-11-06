@@ -21,7 +21,7 @@ public class GenericDAOImpl<T> implements GenericDao<T> {
 	@PersistenceContext
 	protected EntityManager em;
 
-	private final Class<T> persistentClass;
+	protected final Class<T> persistentClass;
 
 	/**
 	 * Método responsável pela instanciação e extração da classe persistente.

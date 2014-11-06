@@ -7,5 +7,5 @@ import dao.NFeDao;
 import entity.NFe;
 
 @Stateless
-public class NFeDaoImpl extends GenericDAOImpl<NFe> implements NFeDao {
+public class NFeDaoImpl extends GenericDoctosDaoImpl<NFe> implements NFeDao {
 }

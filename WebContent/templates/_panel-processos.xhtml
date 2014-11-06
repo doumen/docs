@@ -20,7 +20,7 @@
 				</f:facet>
 			   <ui:insert name="conteudoPainel"/>
 			</p:panel>
-			<p:dialog widgetVar="dlgConfig">
+			<p:dialog widgetVar="dlgConfig" onHide="#{bean.salvarConfiguracoes}" onShow="#{bean.loadConfig}">
 				<ui:insert name="dialogConfig"></ui:insert>
 			</p:dialog>
 		</h:form>

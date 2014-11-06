@@ -1,8 +1,10 @@
 package managedBeans;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 @ManagedBean
+@ViewScoped
 public class ConfiguracoesManagedBeans {
 	private boolean downBaixarArqXml;
 	private boolean downBaixarArqPdf;

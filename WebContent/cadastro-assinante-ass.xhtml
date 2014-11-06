@@ -1,11 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:golive="http://java.sun.com/jsf/composite/components"
+	template="/templates/_panel-titulo.xhtml">
 
-<h:head></h:head> 
-<body> 
-
-</body> 
-</html>
+	<ui:param name="modulo" value="assinante" />
+	<ui:param name="help" value="Cadastro de Assinante" />
+	<ui:param name="tituloPainel" value="Relatório - Assinantes X Planos" />
+	<ui:param name="name" value="#{cadastroAssinanteAssMB}" />
+	<ui:define name="conteudoPainel">
+			<golive:incluir-assinantes bean="#{cadastroAssinanteAssMB}" />	
+	</ui:define>
+</ui:composition>
