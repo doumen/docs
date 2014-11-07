@@ -57,7 +57,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "NFeConfiguracoes.findByReceberEmailRemetenteEmail", query = "SELECT n FROM NFeConfiguracoes n WHERE n.receberEmailRemetenteEmail = :receberEmailRemetenteEmail"),
     @NamedQuery(name = "NFeConfiguracoes.findByReceberEmailRemetenteSenha", query = "SELECT n FROM NFeConfiguracoes n WHERE n.receberEmailRemetenteSenha = :receberEmailRemetenteSenha"),
     @NamedQuery(name = "NFeConfiguracoes.findByDataInclusao", query = "SELECT n FROM NFeConfiguracoes n WHERE n.dataInclusao = :dataInclusao")})
-public class NFeConfiguracoes implements Serializable {
+public class NFeConfiguracoes implements Serializable,Config {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -350,11 +350,11 @@ public class NFeConfiguracoes implements Serializable {
         this.dataInclusao = dataInclusao;
     }
 
-    public Assinante getTbAssinantesId() {
+    public Assinante getAssinante() {
         return tbAssinantesId;
     }
 
-    public void setTbAssinantesId(Assinante tbAssinantesId) {
+    public void setAssinante(Assinante tbAssinantesId) {
         this.tbAssinantesId = tbAssinantesId;
     }
 

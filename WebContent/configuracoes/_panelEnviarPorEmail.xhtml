@@ -18,36 +18,35 @@
 				<h:panelGrid>
 					<p:inplace label="Digite aqui o endereço de seu provedor de e-mail">
 						<p:inputText id="intEnviarProvedor"
-							value="#{configuracoesManagedBeans.enviarProvedor}" />
+							value="#{bean.enviarProvedor}" />
 					</p:inplace>
 					<p:outputLabel value="Exemplo: pop.provedor.com.br"
 						for="intEnviarProvedor" />
 
 					<p:selectOneRadio id="srdEnviarEncriptacao"
-						value="#{configuracoesManagedBeans.enviarEncriptacao}"
+						value="#{bean.enviarEncriptacao}"
 						layout="grid" columns="1">
-						<f:selectItem itemLabel="Sem Encriptação" id="rdiEnviarSEncrip" />
-						<f:selectItem itemLabel="Com Encriptação SSL"
-							id="rdiEnviarEncripSSL" />
+						<f:selectItem itemLabel="Sem Encriptação" itemValue="semEncriptacao" id="rdiEnviarSEncrip" />
+						<f:selectItem itemLabel="Com Encriptação SSL" itemValue="comEncriptacaoSSL" id="rdiEnviarEncripSSL"/>
 					</p:selectOneRadio>
 					<p:inplace label="Digite aqui a porta">
-						<p:inputText id="intEnviarPorta" value="#{configuracoesManagedBeans.enviarPorta}" />
+						<p:inputText id="intEnviarPorta" value="#{bean.enviarPorta}" />
 					</p:inplace>
 					<p:outputLabel value="Exemplo: 995" />
 					<h:panelGrid columns="2">
 						<p:selectBooleanCheckbox id="chbEnviarAutenticacao"
-							value="#{configuracoesManagedBeans.enviarAutenticacao}" />
+							value="#{bean.enviarAutenticacao}" />
 						<p:outputLabel value="Requer Autenticação?"
 							for="chbEnviarAutenticacao" />
 					</h:panelGrid>
 					<p:inplace label="Digite aqui o seu endereço de e-mail">
 						<p:inputText id="intEnviarEmail"
-							value="#{configuracoesManagedBeans.enviarEmailOrigem}" />
+							value="#{bean.enviarEmailOrigem}" />
 					</p:inplace>
 					<p:outputLabel value="Exemplo: seunome@seudominio.com.br"
 						for="intEnviarEmail" />
 					<p:inplace label="Digite aqui a sua senha">
-						<p:inputText id="intEnviarSenha" value="#{configuracoesManagedBeans.enviarSenha}" />
+						<p:inputText id="intEnviarSenha" value="#{bean.enviarSenha}" />
 					</p:inplace>
 				</h:panelGrid>
 			</p:fieldset>
@@ -55,24 +54,24 @@
 				legend="Endereço de E-mail (Destino)">
 				<p:inplace label="Digite aqui o endereço de E-mail Destino">
 					<p:inputText id="intEnviarEmailDestino"
-						value="#{configuracoesManagedBeans.enviarEmailDestino}" />
+						value="#{bean.enviarEmailDestino}" />
 				</p:inplace>
 			</p:fieldset>
 			<h:panelGrid columns="2">
 				<p:selectBooleanCheckbox id="chbEnviarXml"
-					value="#{configuracoesManagedBeans.enviarArqXml}" rendered="#{checkEnviarXml}" />
+					value="#{bean.enviarArqXml}" rendered="#{checkEnviarXml}" />
 				<h:outputText value="Enviar Arquivo XML?" rendered="#{textEnviarXml}" />
 				<p:selectBooleanCheckbox id="chbEnviarXls"
-					value="#{configuracoesManagedBeans.enviarArqXls}" rendered="#{checkEnviarXls}" />
+					value="#{bean.enviarArqXls}" rendered="#{checkEnviarXls}" />
 				<h:outputText value="Enviar Arquivo XLS?" rendered="#{textEnviarXls}" />
 				<p:selectBooleanCheckbox id="chbEnviarPdf"
-					value="#{configuracoesManagedBeans.enviarArqPdf}" rendered="#{checkEnviarPdf}" />
+					value="#{bean.enviarArqPdf}" rendered="#{checkEnviarPdf}" />
 				<h:outputText value="Enviar Arquivo PDF?" rendered="#{textEnviarPdf}" />
 				<p:selectBooleanCheckbox id="chbEnviarTxt"
-					value="#{configuracoesManagedBeans.enviarArqTxt}" rendered="#{checkEnviarTxt}" />
+					value="#{bean.enviarArqTxt}" rendered="#{checkEnviarTxt}" />
 				<h:outputText value="Enviar Arquivo TXT?" rendered="#{textEnviarTxt}" />
 				<p:selectBooleanCheckbox id="chbEnviarZip"
-					value="#{configuracoesManagedBeans.enviarArqCompactado}" />
+					value="#{bean.enviarArqCompactado}" />
 				<h:outputText
 					value="Compactar Conteúdo em Arquivo para o Formato .zip?" />
 			</h:panelGrid>

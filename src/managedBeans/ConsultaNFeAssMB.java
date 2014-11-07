@@ -14,6 +14,10 @@ import entity.NFeConfiguracoes;
 @ViewScoped
 public class ConsultaNFeAssMB extends AbstractProcessosMB<NFeConfiguracoes, NFe>{
 
+	public ConsultaNFeAssMB() {
+		super(NFeConfiguracoes.class, NFe.class);
+	}
+
 	@Inject 
 	private NFeDao nfeDao;
 	
@@ -31,24 +35,62 @@ public class ConsultaNFeAssMB extends AbstractProcessosMB<NFeConfiguracoes, NFe>
 	}
 
 	@Override
-	public void setCamposDoConfiguracoesManagedBeansParaOConfig(
-			ConfiguracoesManagedBeans configuracoesManagedBeans,
-			NFeConfiguracoes config) {
-		// TODO Auto-generated method stub
-		config.setDownloadBaixarArquivoPDF(configuracoesManagedBeans.isDownExportArqPdf());
-		config.setDownloadBaixarArquivoXML(configuracoesManagedBeans.isDownBaixarArqXml());
-		config.setDownloadCompactarArquivoFormatoZIP(configuracoesManagedBeans.isDownCompactarArqZip());
-		config.setEnviarEmailComEncriptacaoSSL(configuracoesManagedBeans.isEnviarAutenticacao());
-		config.setEnviarEmailCompactarArquivoFormatoZIP(configuracoesManagedBeans.isEnviarArqCompactado());
-		config.setEnviarEmailDestino(configuracoesManagedBeans.getEnviarEmailDestino());
+	public void setCamposDoConfiguracoesManagedBeansParaOConfig(NFeConfiguracoes config) {
+		
+		config.setDownloadBaixarArquivoPDF(isDownExportArqPdf());
+		config.setDownloadBaixarArquivoXML(isDownBaixarArqXml());
+		config.setDownloadCompactarArquivoFormatoZIP(isDownCompactarArqZip());
+
+		config.setEnviarEmailEnderecoServidorPop(getEnviarProvedor());
+		config.setEnviarEmailComEncriptacaoSSL(isEnviarEmailComEncriptacaoSSL());
+		config.setEnviarEmailSemEncriptacao(isEnviarEmailSemEncriptacao());
+		config.setEnviarEmailPorta(getEnviarPorta());
+		config.setEnviarEmailRequerAutenticacao(isEnviarAutenticacao());
+		config.setEnviarEmailRemetenteEmail(getEnviarEmailOrigem());
+		config.setEnviarEmailRemetenteSenha(getEnviarSenha());
+		config.setEnviarEmailDestino(getEnviarEmailDestino());
+		config.setEnviarEmailEnviarArquivoXML(isEnviarArqXml());
+		config.setEnviarEmailEnviarArquivoPDF(isEnviarArqPdf());
+		config.setEnviarEmailCompactarArquivoFormatoZIP(isEnviarArqCompactado());
+		
+		config.setReceberEmailEnderecoServidorSMTP(getReceberProvedor());
+		config.setReceberEmailPorta(getReceberPorta());
+		config.setReceberEmailSemEncriptacao(isReceberEmailSemEncriptacao());
+		config.setReceberEmailComEncriptacaoSSL(isReceberEmailComEncriptacaoSSL());
+		config.setReceberEmailComEncriptacaoTLS(isReceberEmailComEncriptacaoTSL());
+		config.setReceberEmailRequerAutenticacao(isReceberAutenticacao());
+		config.setReceberEmailRemetenteEmail(getReceberEmail());
+		config.setReceberEmailRemetenteSenha(getReceberSenha());
 	}
 
 	@Override
 	public void setCamposDoConfigParaOConfiguracoesManagedBeans(
-			NFeConfiguracoes config,
-			ConfiguracoesManagedBeans configuracoesManagedBeans) {
-		// TODO Auto-generated method stub
+			NFeConfiguracoes config) {
 		
+		setDownExportArqPdf(config.getDownloadBaixarArquivoPDF());
+		setDownBaixarArqXml(config.getDownloadBaixarArquivoXML()) ;
+		setDownCompactarArqZip(config.getDownloadCompactarArquivoFormatoZIP()) ;
+
+		setEnviarProvedor(config.getEnviarEmailEnderecoServidorPop()) ;
+		setEnviarEmailComEncriptacaoSSL(config.getEnviarEmailComEncriptacaoSSL()) ;
+		setEnviarEmailSemEncriptacao(config.getEnviarEmailSemEncriptacao()) ;
+		setEnviarPorta(config.getEnviarEmailPorta()) ;
+		setEnviarAutenticacao(config.getEnviarEmailRequerAutenticacao()) ;
+		setEnviarEmailOrigem(config.getEnviarEmailRemetenteEmail()) ;
+		setEnviarSenha(config.getEnviarEmailRemetenteSenha());
+		setEnviarEmailDestino(config.getEnviarEmailDestino());
+		setEnviarArqXml(config.getEnviarEmailEnviarArquivoXML());
+		setEnviarArqPdf(config.getEnviarEmailEnviarArquivoPDF());
+		setEnviarArqCompactado(config.getEnviarEmailCompactarArquivoFormatoZIP());
+		
+		setReceberProvedor(config.getReceberEmailEnderecoServidorSMTP());
+		setReceberPorta(config.getReceberEmailPorta());
+		setReceberEmailSemEncriptacao(config.getReceberEmailSemEncriptacao());
+		setReceberEmailComEncriptacaoSSL(config.getReceberEmailComEncriptacaoSSL());
+		setReceberEmailComEncriptacaoTSL(config.getReceberEmailComEncriptacaoTLS());
+		setReceberAutenticacao(config.getReceberEmailRequerAutenticacao());
+		setReceberEmail(config.getReceberEmailRemetenteEmail());
+		setReceberSenha(config.getReceberEmailRemetenteSenha());
 	}
 
 	

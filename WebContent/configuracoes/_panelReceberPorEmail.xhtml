@@ -14,32 +14,32 @@
 		<h:panelGrid columns="1">
 			<p:inplace label="Digite aqui o endereço de seu provedor de e-mail">
 				<p:inputText id="intProvedorEmail"
-					value="#{configuracoesManagedBeans.receberProvedor}" />
+					value="#{bean.receberProvedor}" />
 			</p:inplace>
 			<p:outputLabel value="Exemplo: smtp.provedor.com.br"
 				for="intProvedorEmail" />
 			<p:selectOneRadio id="srdEncriptacao"
-				value="#{configuracoesManagedBeans.receberEncriptacao}"
+				value="#{bean.receberEncriptacao}"
 				layout="grid" columns="1">
-				<f:selectItem itemLabel="Sem Encriptação" id="rdiSEncrip" />
-				<f:selectItem itemLabel="Com Encriptação SSL" id="rdiEncripSSL" />
-				<f:selectItem itemLabel="Com Encriptação TLS" id="rdiEncripTLS" />
+				<f:selectItem itemLabel="Sem Encriptação" itemValue="receberEmailSemEncriptacao"  id ="rdiSEncrip" />
+				<f:selectItem itemLabel="Com Encriptação SSL" itemValue="receberEmailComEncriptacaoSSL" id="rdiEncripSSL" />
+				<f:selectItem itemLabel="Com Encriptação TLS" itemValue="receberEmailComEncriptacaoTSL" id="rdiEncripTLS" />
 			</p:selectOneRadio>
 			<p:inplace label="Digite aqui a porta">
-				<p:inputText id="intPorta" value="#{configuracoesManagedBeans.receberPorta}" />
+				<p:inputText id="intPorta" value="#{bean.receberPorta}" />
 			</p:inplace>
 			<p:outputLabel value="Exemplo: 587" for="intPorta" />
 			<h:panelGrid columns="2">
 				<p:selectBooleanCheckbox id="chbAutenticacao"
-					value="#{configuracoesManagedBeans.receberAutenticacao}" />
+					value="#{bean.receberAutenticacao}" />
 				<p:outputLabel value="Requer Autenticação?" for="chbAutenticacao" />
 			</h:panelGrid>
 			<p:inplace label="Digite aqui o seu endereço de e-mail">
 				<p:inputText id="intEmail"
-					value="#{configuracoesManagedBeans.receberEmail}" />
+					value="#{bean.receberEmail}" />
 			</p:inplace>
 			<p:inplace label="Digite aqui a sua senha">
-				<p:inputText id="intSenha" value="#{configuracoesManagedBeans.receberSenha}" />
+				<p:inputText id="intSenha" value="#{bean.receberSenha}" />
 			</p:inplace>
 		</h:panelGrid>
 	</p:panel>

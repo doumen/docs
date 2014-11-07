@@ -14,7 +14,7 @@ public class GenericConfiguracoesDAOImpl<T> extends GenericDAOImpl<T> implements
 								+ " where tbAssinantesId = :assinante",persistentClass)
 				.setParameter("assinante", a).getSingleResult();
 		}catch(Exception e){
-			return null;
+				return null;
 		}
 	}
 }

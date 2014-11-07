@@ -1,5 +1,6 @@
 package managedBeans;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -7,20 +8,33 @@ import javax.faces.bean.ManagedProperty;
 
 import dao.GenericConfiguracoesDao;
 import dao.GenericDoctosDao;
+import entity.Config;
 
 
 
-public abstract class AbstractProcessosMB<C,D>{
+public abstract class AbstractProcessosMB<C,D> extends ConfiguracoesManagedBeans{
 	
 	private C config; 
 	private List<D> doctos;
+	private Class<C> classeConfig;
+//	private Class<D> classeDocto;
 	
 	public abstract GenericConfiguracoesDao<C> getDaoConfig();
 	public abstract GenericDoctosDao<D> getDaoDoctos();
 	
+	public AbstractProcessosMB(Class<C> classeConfig,Class<D> classeDocto){
+		this.classeConfig=classeConfig;
+//		this.classeDocto = classeDocto;
+	}
+	
 	public void salvarConfiguracoes() throws Exception{
-		setCamposDoConfiguracoesManagedBeansParaOConfig(configuracoesManagedBeans, config);
-		getDaoConfig().merge(getConfig());
+		if(config==null)
+			config = classeConfig.newInstance();
+		setCamposDoConfiguracoesManagedBeansParaOConfig(config);
+		Config c = (Config) config;
+		c.setDataInclusao(Calendar.getInstance().getTime());
+		c.setAssinante(getLoginBean().getAssinante());
+		getDaoConfig().merge((C) c);
 	}
 	
 	@ManagedProperty(value="#{loginBean}")
@@ -29,14 +43,7 @@ public abstract class AbstractProcessosMB<C,D>{
 	public void setLoginBean(LoginBean loginBean){
 		this.loginBean = loginBean;
 	}
-	
-	@ManagedProperty(value="#{configuracoesManagedBeans}")
-	private ConfiguracoesManagedBeans configuracoesManagedBeans;
-	
-	public void setConfiguracoesManagedBeans(ConfiguracoesManagedBeans loginBean){
-		this.configuracoesManagedBeans = loginBean;
-	}
-	
+		
 	public LoginBean getLoginBean(){
 		return this.loginBean;
 	}
@@ -46,11 +53,12 @@ public abstract class AbstractProcessosMB<C,D>{
 //	}
 	
 	public void loadConfig(){
-		setCamposDoConfigParaOConfiguracoesManagedBeans(config,configuracoesManagedBeans);		
+		if(config!=null)
+			setCamposDoConfigParaOConfiguracoesManagedBeans(config);		
 	}
 	
-	public abstract void setCamposDoConfiguracoesManagedBeansParaOConfig(ConfiguracoesManagedBeans configuracoesManagedBeans,C config);
-	public abstract void setCamposDoConfigParaOConfiguracoesManagedBeans(C config,ConfiguracoesManagedBeans configuracoesManagedBeans);
+	public abstract void setCamposDoConfiguracoesManagedBeansParaOConfig(C config);
+	public abstract void setCamposDoConfigParaOConfiguracoesManagedBeans(C config);
 	
 	@PostConstruct
 	public void init(){
