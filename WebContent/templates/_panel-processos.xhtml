@@ -15,23 +15,16 @@
 						<h:outputText styleClass="ui-icon ui-icon-help" />
 					</h:commandLink>
 					<p:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" 
-					actionListener="#{bean.loadConfig}" oncomplete="PF('dlgConfig').show()">
+					actionListener="#{bean.loadConfig}" oncomplete="PF('dlgConfig').show()" update="config">
 						<h:outputText styleClass="ui-icon ui-icon-gear"/>
 					</p:commandLink>
 				</f:facet>
 			   <ui:insert name="conteudoPainel"/>
 			</p:panel>
-			<p:dialog widgetVar="dlgConfig" onHide="doSomething()">
+			<p:dialog widgetVar="dlgConfig" id="config">
 				<ui:insert name="dialogConfig"></ui:insert>
 			</p:dialog>
 		</h:form>
-						<script type="text/javascript">
-				function doSomething() {
-					alert(document.getElementById('formPainel'));
-					var form = document.getElementById('formPainel');
-					form.submit();
-				}
-				</script>	
 		
 	</ui:define>
 </ui:composition>
