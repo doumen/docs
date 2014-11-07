@@ -12,12 +12,14 @@
 			</h:commandLink>
 		</f:facet>
 		<h:panelGrid columns="1">
-			<p:inplace label="Digite aqui o endereço de seu provedor de e-mail">
-				<p:inputText id="intProvedorEmail"
+			<p:inplace label="Digite aqui o endereço de seu provedor de e-mail" rendered="#{bean.receberProvedor==null || bean.receberProvedor eq ''}">
+				<p:inputText id="intProvedorEmail1"
 					value="#{bean.receberProvedor}" />
 			</p:inplace>
-			<p:outputLabel value="Exemplo: smtp.provedor.com.br"
-				for="intProvedorEmail" />
+							<p:inputText id="intProvedorEmail2"
+					value="#{bean.receberProvedor}" rendered="#{bean.receberProvedor!=null and bean.receberProvedor ne ''}"/>			
+			<p:outputLabel value="Exemplo: smtp.provedor.com.br"/>
+			
 			<p:selectOneRadio id="srdEncriptacao"
 				value="#{bean.receberEncriptacao}"
 				layout="grid" columns="1">
@@ -25,7 +27,7 @@
 				<f:selectItem itemLabel="Com Encriptação SSL" itemValue="receberEmailComEncriptacaoSSL" id="rdiEncripSSL" />
 				<f:selectItem itemLabel="Com Encriptação TLS" itemValue="receberEmailComEncriptacaoTSL" id="rdiEncripTLS" />
 			</p:selectOneRadio>
-			<p:inplace label="Digite aqui a porta">
+			<p:inplace label="Digite aqui a porta" rendered="#{bean.receberPorta==null || bean.receberPorta eq ''}">
 				<p:inputText id="intPorta" value="#{bean.receberPorta}" />
 			</p:inplace>
 			<p:outputLabel value="Exemplo: 587" for="intPorta" />

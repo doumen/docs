@@ -33,9 +33,9 @@
 						<f:selectItem itemLabel="Com Encriptação SSL" itemValue="comEncriptacaoSSL" id="rdiEnviarEncripSSL"/>
 					</p:selectOneRadio>
 					<p:inplace label="Digite aqui a porta" rendered="#{bean.enviarPorta==null || bean.enviarPorta eq ''}">
-						<p:inputText id="intEnviarPorta1" value="#{bean.enviarPorta}" />
+						<p:inputText id="intEnviarPorta1" value="#{bean.enviarPorta}" maxlength="5"/>
 					</p:inplace>
-											<p:inputText id="intEnviarPorta12" value="#{bean.enviarPorta}" rendered="#{bean.enviarPorta!=null and bean.enviarPorta ne ''}"/>
+						<p:inputText id="intEnviarPorta12" value="#{bean.enviarPorta}" rendered="#{bean.enviarPorta!=null and bean.enviarPorta ne ''}" maxlength="5"/>
 					
 					<p:outputLabel value="Exemplo: 995" />
 					<h:panelGrid columns="2">

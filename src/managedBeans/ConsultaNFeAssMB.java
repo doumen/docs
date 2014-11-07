@@ -37,7 +37,7 @@ public class ConsultaNFeAssMB extends AbstractProcessosMB<NFeConfiguracoes, NFe>
 	@Override
 	public void setCamposDoConfiguracoesManagedBeansParaOConfig(NFeConfiguracoes config) {
 		
-		config.setDownloadBaixarArquivoPDF(isDownExportArqPdf());
+		config.setDownloadBaixarArquivoPDF(isDownBaixarArqPdf());
 		config.setDownloadBaixarArquivoXML(isDownBaixarArqXml());
 		config.setDownloadCompactarArquivoFormatoZIP(isDownCompactarArqZip());
 
@@ -67,7 +67,7 @@ public class ConsultaNFeAssMB extends AbstractProcessosMB<NFeConfiguracoes, NFe>
 	public void setCamposDoConfigParaOConfiguracoesManagedBeans(
 			NFeConfiguracoes config) {
 		
-		setDownExportArqPdf(config.getDownloadBaixarArquivoPDF());
+		setDownBaixarArqPdf(config.getDownloadBaixarArquivoPDF());
 		setDownBaixarArqXml(config.getDownloadBaixarArquivoXML()) ;
 		setDownCompactarArqZip(config.getDownloadCompactarArquivoFormatoZIP()) ;
 

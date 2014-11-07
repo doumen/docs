@@ -7,30 +7,33 @@
 
 <ui:composition template="/templates/_headerFooter.xhtml">
 	<ui:define name="corpo">
-		<h:form id="formPainel">
-			<h:outputStylesheet value="panelTitulo"/>			
-			<p:panel header="#{tituloPainel}" styleClass = "panelTitulo">
+		<h:form id="formCconfig">
+			<h:outputStylesheet value="panelTitulo" />
+			<p:panel header="#{tituloPainel}" styleClass="panelTitulo">
 				<f:facet name="actions">
-					<h:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+					<h:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
 						<h:outputText styleClass="ui-icon ui-icon-help" />
 					</h:commandLink>
-					<p:commandLink styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" 
-					actionListener="#{bean.loadConfig}" oncomplete="PF('dlgConfig').show()" update="config">
-						<h:outputText styleClass="ui-icon ui-icon-gear"/>
+					<p:commandLink
+						styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default"
+						actionListener="#{bean.loadConfig}"
+						oncomplete="PF('dlgConfig').show()" update="config">
+						<h:outputText styleClass="ui-icon ui-icon-gear" />
 					</p:commandLink>
 				</f:facet>
-			   <ui:insert name="conteudoPainel"/>
 			</p:panel>
-			<p:dialog widgetVar="dlgConfig" id="config">
-				<ui:insert name="dialogConfig"></ui:insert>
-				<div id="botaoIncluirAlterarAss">
-				<p:commandButton action="#{bean.salvarConfiguracoes}" oncomplete="PF('dlgConfig').hide();" 				
-				style="background-image: url('resources/images/check.png') !important;"
-				styleClass="botao_incluirAss" value="salvar" update="config"></p:commandButton>
-				</div>
-			</p:dialog>
-		</h:form>
-		
+		<ui:insert name="conteudoPainel" />
+		<p:dialog widgetVar="dlgConfig" id="config">
+			<ui:insert name="dialogConfig"></ui:insert>
+			<div id="botaoIncluirAlterarAss">
+				<p:commandButton action="#{bean.salvarConfiguracoes}"
+					oncomplete="PF('dlgConfig').hide();"
+					style="background-image: url('resources/images/check.png') !important;"
+					styleClass="botao_incluirAss" value="salvar" update="config"></p:commandButton>
+			</div>
+		</p:dialog>
+		</h:form>		
 	</ui:define>
 </ui:composition>
 </html>
