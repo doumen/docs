@@ -16,12 +16,15 @@
 				legend="Configuração de Conta de E-mail (Origem)"
 				styleClass="myFieldset">
 				<h:panelGrid>
-					<p:inplace label="Digite aqui o endereço de seu provedor de e-mail">
-						<p:inputText id="intEnviarProvedor"
+					<p:inplace label="Digite aqui o endereço de seu provedor de e-mail" rendered="#{bean.enviarProvedor==null || bean.enviarProvedor eq ''}">
+						<p:inputText id="intEnviarProvedor1"
 							value="#{bean.enviarProvedor}" />
 					</p:inplace>
+											<p:inputText id="intEnviarProvedor2"
+							value="#{bean.enviarProvedor}" rendered="#{bean.enviarProvedor!=null and bean.enviarProvedor ne ''}"/>
+					
 					<p:outputLabel value="Exemplo: pop.provedor.com.br"
-						for="intEnviarProvedor" />
+						/>
 
 					<p:selectOneRadio id="srdEnviarEncriptacao"
 						value="#{bean.enviarEncriptacao}"
@@ -29,9 +32,11 @@
 						<f:selectItem itemLabel="Sem Encriptação" itemValue="semEncriptacao" id="rdiEnviarSEncrip" />
 						<f:selectItem itemLabel="Com Encriptação SSL" itemValue="comEncriptacaoSSL" id="rdiEnviarEncripSSL"/>
 					</p:selectOneRadio>
-					<p:inplace label="Digite aqui a porta">
-						<p:inputText id="intEnviarPorta" value="#{bean.enviarPorta}" />
+					<p:inplace label="Digite aqui a porta" rendered="#{bean.enviarPorta==null || bean.enviarPorta eq ''}">
+						<p:inputText id="intEnviarPorta1" value="#{bean.enviarPorta}" />
 					</p:inplace>
+											<p:inputText id="intEnviarPorta12" value="#{bean.enviarPorta}" rendered="#{bean.enviarPorta!=null and bean.enviarPorta ne ''}"/>
+					
 					<p:outputLabel value="Exemplo: 995" />
 					<h:panelGrid columns="2">
 						<p:selectBooleanCheckbox id="chbEnviarAutenticacao"
@@ -39,23 +44,29 @@
 						<p:outputLabel value="Requer Autenticação?"
 							for="chbEnviarAutenticacao" />
 					</h:panelGrid>
-					<p:inplace label="Digite aqui o seu endereço de e-mail">
-						<p:inputText id="intEnviarEmail"
+					<p:inplace label="Digite aqui o seu endereço de e-mail" rendered="#{bean.enviarEmailOrigem==null || bean.enviarEmailOrigem eq ''}">
+						<p:inputText id="intEnviarEmail1"
 							value="#{bean.enviarEmailOrigem}" />
 					</p:inplace>
+											<p:inputText id="intEnviarEmail2"
+							value="#{bean.enviarEmailOrigem}" rendered="#{bean.enviarEmailOrigem!=null and bean.enviarEmailOrigem ne ''}"/>
+					
 					<p:outputLabel value="Exemplo: seunome@seudominio.com.br"
-						for="intEnviarEmail" />
-					<p:inplace label="Digite aqui a sua senha">
-						<p:inputText id="intEnviarSenha" value="#{bean.enviarSenha}" />
+						 />
+					<p:inplace label="Digite aqui a sua senha" rendered="#{bean.enviarSenha==null || bean.enviarSenha eq ''}">
+						<p:inputText id="intEnviarSenha1" value="#{bean.enviarSenha}" />
 					</p:inplace>
+						<p:inputText id="intEnviarSenha2" value="#{bean.enviarSenha}" rendered="#{bean.enviarSenha!=null and bean.enviarSenha ne ''}"/>
 				</h:panelGrid>
 			</p:fieldset>
 			<p:fieldset id="fdsEmailDestino"
 				legend="Endereço de E-mail (Destino)">
-				<p:inplace label="Digite aqui o endereço de E-mail Destino">
-					<p:inputText id="intEnviarEmailDestino"
+				<p:inplace label="Digite aqui o endereço de E-mail Destino" rendered="#{bean.enviarEmailDestino==null || bean.enviarEmailDestino eq ''}">
+					<p:inputText id="intEnviarEmailDestino1"
 						value="#{bean.enviarEmailDestino}" />
 				</p:inplace>
+					<p:inputText id="intEnviarEmailDestino2"
+						value="#{bean.enviarEmailDestino}" rendered="#{bean.enviarEmailDestino!=null and bean.enviarEmailDestino ne ''}"/>				
 			</p:fieldset>
 			<h:panelGrid columns="2">
 				<p:selectBooleanCheckbox id="chbEnviarXml"

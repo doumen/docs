@@ -27,6 +27,7 @@ public abstract class AbstractProcessosMB<C,D> extends ConfiguracoesManagedBeans
 //		this.classeDocto = classeDocto;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void salvarConfiguracoes() throws Exception{
 		if(config==null)
 			config = classeConfig.newInstance();
